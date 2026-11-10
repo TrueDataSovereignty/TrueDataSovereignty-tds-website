@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Through the layer: how to show the layer (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("{{FONT}}") format("truetype");font-weight:400 700;font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:#ECE9E1;color:#101A3D;font:400 16px/1.55 "Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:1080px;margin:0 auto;padding:36px 18px 80px}
+h1{font:600 30px/1.15 "Lora",Georgia,serif;margin:0 0 8px}
+.page>p{margin:0 0 34px;max-width:42rem;color:#4D5672}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 28px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+h2{font:600 20px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
+.why{margin:0 0 12px;color:#4D5672;font-size:15px;min-height:4.6em}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{aspect-ratio:1;border-radius:3px;position:relative;overflow:hidden}
+.tile canvas{position:absolute;inset:8%;width:84%;height:84%}
+.l{background:#FAFAF8}.d{background:#101A3D}
+.small{display:flex;align-items:center;gap:10px;margin:8px 0 0;font-size:12px;color:#4D5672;flex-wrap:wrap}
+.chip{border-radius:3px;padding:6px;display:block;line-height:0}
+.chip canvas{display:block}
+.mast{margin:54px 0 0;padding:30px 22px 26px;border-radius:3px;text-align:center}
+.mast canvas{width:120px;height:120px;display:block;margin:0 auto 12px}
+.mast .rule{border-top:3px double currentColor;border-bottom:1px solid currentColor;height:7px;max-width:560px;margin:0 auto 14px;opacity:.8}
+.mast b{font:600 clamp(22px,3.6vw,38px)/1.1 "Lora",Georgia,serif;letter-spacing:.16em;text-transform:uppercase;display:block}
+.mast span{font:italic 400 16px/1.4 "Lora",Georgia,serif;display:block;margin-top:10px;opacity:.85}
+.mast .rule.b{margin:14px auto 0;transform:scaleY(-1)}
+.d.mast{color:#F7F3EA;margin-top:10px}
+.foot{border-top:1px solid #D2CBB9;padding-top:18px;margin-top:44px;font-size:14px;color:#4D5672;max-width:44rem}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Through the layer: five ways to show the layer</h1>
+  <p>Draft, not published. The same tree in each: threads gather from above, pass one gold point, and spread again below. Only the gold point changes. The question is which one says "layer" without a caption.</p>
+
+  <div class="grid">
+    <section>
+      <h2>A · The ring</h2>
+      <p class="why">What you saw. Clean and simple, and true to a mushroom's ring. On its own it can read as a halo or a belt more than a layer.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="ring"></canvas></div><div class="tile d"><canvas data-r="ring" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="ring" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="ring" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="ring" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="ring" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
+    <section>
+      <h2>B · The stacked layers</h2>
+      <p class="why">Three thin rings, one above the other. It carries the stacked layers of today's mark into the new one, and "layers" is what the eye counts.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="stack"></canvas></div><div class="tile d"><canvas data-r="stack" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="stack" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="stack" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="stack" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="stack" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
+    <section>
+      <h2>C · The plate</h2>
+      <p class="why">A solid gold disc that the trunk passes through, like a floor between two storeys. The most literal "layer": a surface, not a loop.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="disc"></canvas></div><div class="tile d"><canvas data-r="disc" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="disc" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="disc" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="disc" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="disc" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
+    <section>
+      <h2>D · The diamond</h2>
+      <p class="why">One flat diamond plate, the exact shape of a layer in today's mark, pierced by the trunk. The strongest link between the old logo and the new.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="diamond"></canvas></div><div class="tile d"><canvas data-r="diamond" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="diamond" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="diamond" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="diamond" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="diamond" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
+    <section>
+      <h2>E · The ground line</h2>
+      <p class="why">One straight gold line across the whole mark. Above it, what you see; below it, the network. The layer becomes the ground itself, which is also how the website is cut.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="line"></canvas></div><div class="tile d"><canvas data-r="line" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="line" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="line" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="line" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="line" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
+  </div>
+
+  <div class="mast l"><canvas data-r="diamond"></canvas><div class="rule"></div><b>The Layer</b><span>Data Sovereignty, beyond paper contracts.</span><div class="rule b"></div></div>
+  <div class="mast d"><canvas data-r="line" data-dark="1"></canvas><div class="rule"></div><b>True Data Sovereignty</b><span>Sovereign Data Control</span><div class="rule b"></div></div>
+
+  <p class="foot">How to read this: under each pair are small sizes, then the mark in one ink on white and on marine, the "white and black" look. The branches are still grown by a program and will be fixed in the final drawing. The current logo files are untouched.</p>
+</div>
+<script>
+{{MYCEL}}
+(function () {
+  var all = [].slice.call(document.querySelectorAll('canvas[data-r]'));
+{{FANJS}}
+  function draw(cv) {
+    var rs = cv.dataset.r, dark = !!cv.dataset.dark, mono = !!cv.dataset.mono;
+    var S = Mycel.fit(cv, 3), w = S.w, ctx = S.ctx, u = w / 100, base = dark ? IVORY : MARINE, baseCss = mix(base, base, 0), bg = dark ? '#101A3D' : '#FAFAF8';
+    var gold = mono ? baseCss : mix(GOLD, GOLD, 0), goldDeep = mono ? baseCss : mix(dark ? GOLD : DEEP, GOLD, 0), under = mono ? bg : mix(DEEP, DEEP, 0);
+    function grad(e) { if (mono) return baseCss; var t = (e - 0.3) / 0.7; return t < 0.6 ? mix(base, dark ? GOLD : DEEP, t / 0.6) : mix(dark ? GOLD : DEEP, dark ? LIGHT : GOLD, (t - 0.6) / 0.4); }
+    ctx.clearRect(0, 0, w, w);
+    var x = 50 * u, top = 39 * u, ringY = 49.5 * u, org = 60 * u, R = 45 * u, RY = 37 * u, sw = 3.4 * u;
+    strokeNet(ctx, fan(u, { x: x, y: org }, R, RY, 1, 70, 34, false), u, { x: x, y: org }, R, RY, grad, false);
+    strokeNet(ctx, fan(u, { x: x, y: top }, R * 0.86, 34 * u, -1, 44, 52, false), u, { x: x, y: top }, R, 34 * u, function () { return baseCss; }, false);
+    function arc(y, rx, ry, lw, front, col) { ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, front ? 0 : Math.PI, front ? Math.PI : 2 * Math.PI); ctx.stroke(); }
+    function stem() {
+      ctx.fillStyle = baseCss; ctx.beginPath();
+      ctx.moveTo(x - sw * 1.45, top - 1.5 * u); ctx.quadraticCurveTo(x - sw * 0.9, top + 4 * u, x - sw, ringY); ctx.quadraticCurveTo(x - sw * 0.9, org - 4 * u, x - sw * 1.45, org + 1.5 * u);
+      ctx.lineTo(x + sw * 1.45, org + 1.5 * u); ctx.quadraticCurveTo(x + sw * 0.9, org - 4 * u, x + sw, ringY); ctx.quadraticCurveTo(x + sw * 0.9, top + 4 * u, x + sw * 1.45, top - 1.5 * u); ctx.fill();
+    }
+    function upperStem() { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, w, ringY); ctx.clip(); stem(); ctx.restore(); }
+    if (rs === 'ring') { arc(ringY, 12.5 * u, 4.4 * u, 2.7 * u, false, goldDeep); stem(); arc(ringY, 12.5 * u, 4.4 * u, 2.7 * u, true, gold); }
+    else if (rs === 'stack') { [-4.6, 0, 4.6].forEach(function (dy, i) { arc(ringY + dy * u, (10.5 + i * 2.2) * u, (3.2 + i * 0.5) * u, 1.7 * u, false, goldDeep); }); stem(); [-4.6, 0, 4.6].forEach(function (dy, i) { arc(ringY + dy * u, (10.5 + i * 2.2) * u, (3.2 + i * 0.5) * u, 1.7 * u, true, gold); }); }
+    else if (rs === 'disc') {
+      stem();
+      ctx.fillStyle = under; ctx.beginPath(); ctx.ellipse(x, ringY + 1.5 * u, 17 * u, 5.2 * u, 0, 0, 6.3); ctx.fill();
+      ctx.fillStyle = gold; ctx.beginPath(); ctx.ellipse(x, ringY, 17 * u, 5.2 * u, 0, 0, 6.3); ctx.fill(); upperStem();
+    } else if (rs === 'diamond') {
+      stem(); var hw = 19 * u, hh = hw * 0.36, th = 1.9 * u;
+      ctx.fillStyle = under; ctx.beginPath(); ctx.moveTo(x - hw, ringY); ctx.lineTo(x, ringY + hh); ctx.lineTo(x + hw, ringY); ctx.lineTo(x + hw, ringY + th); ctx.lineTo(x, ringY + hh + th); ctx.lineTo(x - hw, ringY + th); ctx.fill();
+      ctx.fillStyle = gold; ctx.beginPath(); ctx.moveTo(x, ringY - hh); ctx.lineTo(x + hw, ringY); ctx.lineTo(x, ringY + hh); ctx.lineTo(x - hw, ringY); ctx.fill(); upperStem();
+    } else {
+      stem(); ctx.strokeStyle = gold; ctx.lineWidth = 2.4 * u; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x - 46 * u, ringY); ctx.lineTo(x + 46 * u, ringY); ctx.stroke();
+      if (mono) { ctx.strokeStyle = bg; ctx.lineWidth = 0.9 * u; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.moveTo(x - sw * 1.3, ringY - 1.65 * u); ctx.lineTo(x + sw * 1.3, ringY - 1.65 * u); ctx.moveTo(x - sw * 1.3, ringY + 1.65 * u); ctx.lineTo(x + sw * 1.3, ringY + 1.65 * u); ctx.stroke(); }
+    }
+  }
+  function drawAll() { all.forEach(draw); }
+  drawAll();
+  var rt, lw = innerWidth; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(innerWidth - lw) > 2) { lw = innerWidth; drawAll(); } }, 200); });
+})();
+</script>
+</body>
+</html>

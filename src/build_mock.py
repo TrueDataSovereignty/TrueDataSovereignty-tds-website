@@ -17,3 +17,9 @@ print("logo-mycelium.html", len(lg.encode()), "bytes")
 l3 = (root / "src" / "logo3.src.html").read_text(encoding="utf-8").replace("{{FONT}}", font).replace("{{MYCEL}}", mycel)
 (root / "logo-fan.html").write_text(l3, encoding="utf-8", newline=chr(10))
 print("logo-fan.html", len(l3.encode()), "bytes")
+
+src3 = (root / "src" / "logo3.src.html").read_text(encoding="utf-8")
+fanjs = src3[src3.index("  function mix(a, b, t)"):src3.index("  function draw(cv) {")]   # the shared fan-growing code
+l4 = (root / "src" / "logo4.src.html").read_text(encoding="utf-8").replace("{{FONT}}", font).replace("{{MYCEL}}", mycel).replace("{{FANJS}}", fanjs)
+(root / "logo-through.html").write_text(l4, encoding="utf-8", newline=chr(10))
+print("logo-through.html", len(l4.encode()), "bytes")

@@ -168,36 +168,127 @@ def svg(body, title, bg=None):
             '<title>%s</title>%s%s</svg>\n') % (title, title, rect, body)
 
 
-FILES = [
+GOLD_HEX = "#DDB04A"
+
+
+def hand(base, mono=False, tiny=False):
+    """The small-size cuts, drawn by hand on a 100 grid. Not grown: every stroke is placed so it survives at 16 to 48 px.
+    tiny: three branch ends and three root ends, for 16 to 24 px. Otherwise five and five, for 32 to 48 px."""
+    ink = mix(base, base, 0)
+    if tiny:
+        sw, lw, top, bot = 9.5, 9.5, 34, 66
+        up = ["M50 %d C48 24 37 22 27 11" % top, "M50 %d V8" % top, "M50 %d C52 24 63 22 73 11" % top]
+        down = ["M50 %d C48 76 37 78 25 89" % bot, "M50 %d V92" % bot, "M50 %d C52 76 63 78 75 89" % bot]
+    else:
+        sw, lw, top, bot = 6.6, 6.6, 36, 64
+        up = ["M50 %d C48 26 36 26 26 13" % top, "M37 24 C30 24 24 27 17 24", "M50 %d C51 26 49 18 52 7" % top,
+              "M50 %d C52 28 64 28 74 15" % top, "M63 26 C70 24 78 27 85 22"]
+        down = ["M50 %d C48 74 34 72 22 83" % bot, "M36 73 C30 80 28 85 30 92", "M50 %d C49 74 52 83 49 93" % bot,
+                "M50 %d C52 74 66 72 78 81" % bot, "M64 73 C72 79 80 77 89 81"]
+    gap = lw / 2 + (3.2 if tiny else 2.4)
+    trunk = ("M50 %s V%sM50 %s V%s" % (f(top + 2), f(50 - gap), f(50 + gap), f(bot - 2))) if mono else ("M50 %d V%d" % (top + 2, bot - 2))
+    g = '<g fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round" stroke-linejoin="round"><path d="%s"/></g>' % (ink, f(sw), "".join(up + down) + trunk)
+    g += '<path d="M5 50 H95" fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round"/>' % (ink if mono else GOLD_HEX, f(lw))
+    return g
+
+
+def lockup(font, base, mono=False, stacked=False, bg=None):
+    """The mark beside (or above) the name, with the letters as outlines read from the Lora font file."""
+    ink = mix(base, base, 0)
+    body, _, _ = logo(base=base, mono=mono, dark=base == IVORY)
+    name = "TRUE DATA SOVEREIGNTY"
+    if stacked:
+        size, track = 15.0, 0.2
+        d, wd = font.text(name, 0, 0, size, track)
+        W = max(wd + 16, 110); H = 100 + 12 + size * 0.72 + 12
+        mark = '<g transform="translate(%s 4) scale(0.92)">%s</g>' % (f((W - 92) / 2), body)
+        word = '<path transform="translate(%s %s)" d="%s" fill="%s"/>' % (f((W - wd) / 2), f(100 + 8 + size * 0.72), d, ink)
+    else:
+        size, track = 26.0, 0.16
+        d, wd = font.text(name, 0, 0, size, track)
+        W = 100 + 14 + wd + 12; H = 100
+        mark = body
+        word = '<path transform="translate(114 %s)" d="%s" fill="%s"/>' % (f(50 + size * 0.35), d, ink)
+    rect = '<rect width="%s" height="%s" fill="%s"/>' % (f(W), f(H), bg) if bg else ""
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s" width="%d" height="%d" role="img" aria-label="True Data Sovereignty">'
+            '<title>True Data Sovereignty</title>%s%s%s</svg>\n') % (f(W), f(H), round(W * 6), round(H * 6), rect, mark, word)
+
+
+GROWN = [
     ("tds-tree-colour.svg", dict(base=MARINE), None, "The logo on white or light paper. The tree in marine ink, the line in gold."),
     ("tds-tree-colour-on-marine.svg", dict(base=IVORY, dark=True), "#101A3D", "The logo on marine blue. The tree in ivory, the line in gold."),
     ("tds-tree-one-ink.svg", dict(base=MARINE, mono=True), None, "Full black: one ink, line included. For stamps, engraving and one-colour print."),
     ("tds-tree-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "Full white: one ink on marine, line included."),
-    ("tds-tree-small.svg", dict(base=MARINE, small=True), None, "Small-size cut, first try: fewer, thicker threads. Not good enough yet; it needs redrawing by hand."),
     ("tds-tree-gradient.svg", dict(base=MARINE, gradient=True), None, "Earlier look, kept for reference: roots fading to gold."),
+]
+HAND = [
+    ("tds-tree-small.svg", dict(base=MARINE), None, "Small cut, drawn by hand: five branch ends, five root ends. For 32 to 48 px."),
+    ("tds-tree-small-on-marine.svg", dict(base=IVORY), "#101A3D", "Small cut on marine."),
+    ("tds-tree-small-one-ink.svg", dict(base=MARINE, mono=True), None, "Small cut in one ink."),
+    ("tds-tree-tiny.svg", dict(base=MARINE, tiny=True), None, "Tiny cut, drawn by hand: three and three. For 16 to 24 px, the browser tab."),
+    ("tds-tree-tiny-on-marine.svg", dict(base=IVORY, tiny=True), "#101A3D", "Tiny cut on marine."),
+]
+LOCKUPS = [
+    ("tds-lockup-horizontal.svg", dict(base=MARINE), None, "Mark and name side by side."),
+    ("tds-lockup-horizontal-on-marine.svg", dict(base=IVORY), "#101A3D", "Side by side, on marine."),
+    ("tds-lockup-horizontal-one-ink.svg", dict(base=MARINE, mono=True), None, "Side by side, one ink."),
+    ("tds-lockup-stacked.svg", dict(base=MARINE, stacked=True), None, "Mark above the name."),
+    ("tds-lockup-stacked-on-marine.svg", dict(base=IVORY, stacked=True), "#101A3D", "Stacked, on marine."),
+    ("tds-lockup-stacked-one-ink.svg", dict(base=MARINE, mono=True, stacked=True), None, "Stacked, one ink."),
 ]
 
 if __name__ == "__main__":
+    import re, sys
+    sys.path.insert(0, str(HERE))
+    from outline import Font
+    font = Font(HERE.parents[1] / "fonts" / "Lora-wght.ttf")
     title = "True Data Sovereignty: threads gather above, pass one ground line, and spread below"
+    for old in HERE.glob("*.svg"):
+        old.unlink()
+    groups = []
+
+    def card(name, text, bg, note, sizes, wide=False):
+        tile_bg = bg or "#FAFAF8"
+        small = "".join('<span style="background:%s;padding:6px;border-radius:3px;line-height:0;display:inline-block">%s</span>' % (
+            tile_bg, re.sub(r'width="\d+" height="\d+"', 'height="%d"' % px, text, count=1)) for px in sizes)
+        return '<section%s><div class="tile%s" style="background:%s">%s</div><h2>%s</h2><p>%s</p><div class="sizes">%s</div></section>' % (
+            ' class="wide"' if wide else "", " w" if wide else "", tile_bg, text, name, note, small)
+
     cards = []
-    for name, opts, bg, note in FILES:
-        body, tips_below, tips_above = logo(**opts)
+    for name, opts, bg, note in GROWN:
+        body, below, above = logo(**opts)
         text = svg(body, title, bg)
         (HERE / name).write_text(text, encoding="utf-8", newline="\n")
-        print("%-34s %6d bytes  %d thread ends below, %d above" % (name, len(text.encode()), tips_below, tips_above))
-        tile_bg = bg or "#FAFAF8"
-        sizes = "".join('<span style="background:%s;padding:6px;border-radius:3px;line-height:0;display:inline-block"><span style="display:block;width:%dpx;height:%dpx">%s</span></span>' % (tile_bg, s, s, text.replace('width="1000" height="1000"', 'width="%d" height="%d"' % (s, s))) for s in ((48, 32, 16) if "small" in name else (96, 48)))
-        cards.append('<section><div class="tile" style="background:%s">%s</div><h2>%s</h2><p>%s</p><div class="sizes">%s</div></section>' % (tile_bg, text, name, note, sizes))
+        print("%-40s %6d bytes  %d ends below, %d above" % (name, len(text.encode()), below, above))
+        cards.append(card(name, text, bg, note, (96, 48)))
+    groups.append(("The logo", "Grown once by a seeded program, then fixed.", cards))
+    cards = []
+    for name, opts, bg, note in HAND:
+        text = svg(hand(**opts), title, bg)
+        (HERE / name).write_text(text, encoding="utf-8", newline="\n")
+        print("%-40s %6d bytes  hand-drawn" % (name, len(text.encode())))
+        cards.append(card(name, text, bg, note, (16, 24) if "tiny" in name else (48, 32, 24)))
+    groups.append(("Small sizes", "Drawn by hand, stroke by stroke, so the line and the tree still read at favicon size.", cards))
+    cards = []
+    for name, opts, bg, note in LOCKUPS:
+        text = lockup(font, bg=bg, **opts)
+        (HERE / name).write_text(text, encoding="utf-8", newline="\n")
+        print("%-40s %6d bytes  letters as outlines" % (name, len(text.encode())))
+        cards.append(card(name, text, bg, note, (40,), wide="horizontal" in name))
+    groups.append(("Lockups", "The mark with the name. The letters are outlines taken from the Lora font file (Lora Regular), so no font is needed to show them.", cards))
+
     sheet = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>The ground-line logo: vector files (draft)</title>
 <style>body{margin:0;background:#ECE9E1;color:#101A3D;font:400 16px/1.55 "Segoe UI",system-ui,sans-serif}.page{max-width:1080px;margin:0 auto;padding:36px 18px 80px}
 h1{font:600 30px/1.15 Georgia,serif;margin:0 0 8px}.page>p{margin:0 0 30px;max-width:44rem;color:#4D5672}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 18px}@media (max-width:760px){.grid{grid-template-columns:1fr}}
-.tile{aspect-ratio:1;border-radius:3px;padding:8%%}.tile svg{width:100%%;height:100%%;display:block}
-h2{font:400 13px/1.3 Consolas,monospace;margin:12px 0 4px}section p{margin:0 0 10px;font-size:14px;color:#4D5672}.sizes{display:flex;gap:8px;align-items:center}.sizes svg{display:block}</style></head>
+h3{font:600 22px/1.2 Georgia,serif;margin:46px 0 4px}h3+p{margin:0 0 18px;color:#4D5672;max-width:44rem}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 18px}@media (max-width:760px){.grid{grid-template-columns:1fr}}
+section.wide{grid-column:1/-1}
+.tile{aspect-ratio:1;border-radius:3px;padding:8%%;display:grid;place-items:center}.tile.w{aspect-ratio:auto;padding:26px 5%%}.tile svg{width:100%%;height:auto;max-height:100%%;display:block}
+h2{font:400 13px/1.3 Consolas,monospace;margin:12px 0 4px}section p{margin:0 0 10px;font-size:14px;color:#4D5672}.sizes{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sizes svg{display:block;width:auto}</style></head>
 <body><div class="page"><h1>The ground-line logo: vector files</h1>
-<p>Draft, not published. Six fixed SVG files, written by <code>make_logo.py</code>. The drawing is the same every time the script runs. Nothing in web/brand/final is replaced.</p>
-<div class="grid">%s</div></div></body></html>
-""" % "".join(cards)
+<p>Draft, not published. All files are written by <code>make_logo.py</code>, and the drawing is the same every time it runs. Nothing in web/brand/final is replaced.</p>
+%s</div></body></html>
+""" % "".join('<h3>%s</h3><p>%s</p><div class="grid">%s</div>' % (t, n, "".join(c)) for t, n, c in groups)
     (HERE / "sheet.html").write_text(sheet, encoding="utf-8", newline="\n")
     print("sheet.html", len(sheet.encode()), "bytes")

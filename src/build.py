@@ -23,7 +23,7 @@ font = "data:font/ttf;base64," + base64.b64encode((root.parent / "fonts" / "Lora
 def uri(name):
     return "data:image/svg+xml;charset=utf-8," + urllib.parse.quote((root / "logo" / name).read_text(encoding="utf-8"))
 pv = html.replace('url("../fonts/Lora-wght.ttf")', 'url("' + font + '")')
-for name in ("tds-tree-colour.svg", "tds-tree-colour-on-marine.svg", "tds-tree-small.svg"):
+for name in ("tds-tree-small-on-marine.svg", "tds-tree-small.svg", "tds-tree-tiny.svg", "tds-tree-colour-on-marine.svg", "tds-tree-colour.svg"):
     pv = pv.replace("logo/" + name, uri(name))
 (root / "preview.html").write_text(pv, encoding="utf-8", newline=chr(10))
 print("preview.html", len(pv.encode("utf-8")), "bytes (for sending; not the page to publish)")

@@ -125,14 +125,15 @@ def strokes(net, c, R, RY, colour, wmin, wmax, wbase, wk):
     return "".join('<path d="%s" stroke="%s" stroke-width="%s"/>' % ("".join(ds), col, f(wd)) for (col, wd), ds in groups.items())
 
 
-def logo(base, mono=False, dark=False, small=False):
-    """base: the ink of the trunk. mono: one ink only. small: fewer, thicker threads for small sizes."""
+def logo(base, mono=False, dark=False, small=False, gradient=False):
+    """base: the ink of the tree. mono: one ink only, line included. small: fewer, thicker threads.
+    gradient: the earlier look, with roots fading to gold. The default keeps gold for the line alone."""
     x, top, line_y, org, R, RY, sw = 50.0, 39.0, 49.5, 60.0, 45.0, 37.0, (4.2 if small else 3.4)
     ink = mix(base, base, 0)
     mid = GOLD if dark else DEEP
     end = LIGHT if dark else GOLD
     def grad(e):
-        if mono:
+        if mono or not gradient:
             return ink
         t = (e - 0.3) / 0.7
         return mix(base, mid, t / 0.6) if t < 0.6 else mix(mid, end, (t - 0.6) / 0.4)
@@ -168,12 +169,12 @@ def svg(body, title, bg=None):
 
 
 FILES = [
-    ("tds-tree-colour.svg", dict(base=MARINE), None, "On white or light paper. Marine trunk, gold ends, gold ground line."),
-    ("tds-tree-colour-on-marine.svg", dict(base=IVORY, dark=True), "#101A3D", "On marine blue. Ivory trunk, gold ends, gold ground line."),
-    ("tds-tree-one-ink.svg", dict(base=MARINE, mono=True), None, "One ink, marine on white. For stamps, engraving and one-colour print."),
-    ("tds-tree-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "One ink, ivory on marine."),
+    ("tds-tree-colour.svg", dict(base=MARINE), None, "The logo on white or light paper. The tree in marine ink, the line in gold."),
+    ("tds-tree-colour-on-marine.svg", dict(base=IVORY, dark=True), "#101A3D", "The logo on marine blue. The tree in ivory, the line in gold."),
+    ("tds-tree-one-ink.svg", dict(base=MARINE, mono=True), None, "Full black: one ink, line included. For stamps, engraving and one-colour print."),
+    ("tds-tree-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "Full white: one ink on marine, line included."),
     ("tds-tree-small.svg", dict(base=MARINE, small=True), None, "Small-size cut, first try: fewer, thicker threads. Not good enough yet; it needs redrawing by hand."),
-    ("tds-tree-small-one-ink.svg", dict(base=MARINE, small=True, mono=True), None, "Small-size cut in one ink. Same caveat."),
+    ("tds-tree-gradient.svg", dict(base=MARINE, gradient=True), None, "Earlier look, kept for reference: roots fading to gold."),
 ]
 
 if __name__ == "__main__":

@@ -34,9 +34,9 @@ function MycelTree(cv, opts) {
     var up = fan(topO, R * 0.86, RYt, -1, 44, 52), down = fan(botO, R, RYb, 1, 70, 34);
     nets = [
       { n: up, c: topO, Ry: RYt, bold: true, col: function () { return NAVY; }, delay: 0.2, dur: 2.6 },
-      { n: down, c: botO, Ry: RYb, bold: true, col: grad, delay: 0.5, dur: 2.9 },
+      { n: down, c: botO, Ry: RYb, bold: true, col: function () { return NAVY; }, delay: 0.5, dur: 2.9 },
       { n: hair(up, topO, R * 0.86, RYt, -1, portrait ? 220 : 520, 913), c: topO, Ry: RYt, bold: false, col: function () { return NAVY; }, delay: 2.4, dur: 3.4 },
-      { n: hair(down, botO, R, RYb, 1, portrait ? 320 : 820, 477), c: botO, Ry: RYb, bold: false, col: grad, delay: 2.8, dur: 3.8 }
+      { n: hair(down, botO, R, RYb, 1, portrait ? 320 : 820, 477), c: botO, Ry: RYb, bold: false, col: function () { return NAVY; }, delay: 2.8, dur: 3.8 }
     ];
     nets.forEach(function (N) { N.done = 0; });
     function P(nodes, min, rev) { return Mycel.leaves(nodes).map(function (n) { var p = Mycel.pathToRoot(nodes, n); if (rev) p.reverse(); return Mycel.measure(p); }).filter(function (p) { return p.len > min; }); }

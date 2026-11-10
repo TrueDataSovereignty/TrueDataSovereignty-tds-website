@@ -35,7 +35,7 @@ h2{font:600 20px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
 </head>
 <body>
 <div class="page">
-  <h1>Through the layer: five ways to show the layer</h1>
+  <h1>Through the layer: six ways to show the layer</h1>
   <p>Draft, not published. The same tree in each: threads gather from above, pass one gold point, and spread again below. Only the gold point changes. The question is which one says "layer" without a caption.</p>
 
   <div class="grid">
@@ -69,9 +69,15 @@ h2{font:600 20px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
       <div class="tiles"><div class="tile l"><canvas data-r="line"></canvas></div><div class="tile d"><canvas data-r="line" data-dark="1"></canvas></div></div>
       <div class="small"><span class="chip l"><canvas data-r="line" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="line" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="line" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="line" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
     </section>
+    <section>
+      <h2>F · The diamond on the ground line</h2>
+      <p class="why">Both at once. The diamond is the gate, and the gold line runs out from its two corners as the ground. One mark holds the old logo, the layer and the horizon.</p>
+      <div class="tiles"><div class="tile l"><canvas data-r="both"></canvas></div><div class="tile d"><canvas data-r="both" data-dark="1"></canvas></div></div>
+      <div class="small"><span class="chip l"><canvas data-r="both" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="both" data-dark="1" style="width:40px;height:40px"></canvas></span><span class="chip l"><canvas data-r="both" data-mono="1" style="width:72px;height:72px"></canvas></span><span class="chip d"><canvas data-r="both" data-mono="1" data-dark="1" style="width:72px;height:72px"></canvas></span></div>
+    </section>
   </div>
 
-  <div class="mast l"><canvas data-r="diamond"></canvas><div class="rule"></div><b>The Layer</b><span>Data Sovereignty, beyond paper contracts.</span><div class="rule b"></div></div>
+  <div class="mast l"><canvas data-r="both"></canvas><div class="rule"></div><b>The Layer</b><span>Data Sovereignty, beyond paper contracts.</span><div class="rule b"></div></div>
   <div class="mast d"><canvas data-r="line" data-dark="1"></canvas><div class="rule"></div><b>True Data Sovereignty</b><span>Sovereign Data Control</span><div class="rule b"></div></div>
 
   <p class="foot">How to read this: under each pair are small sizes, then the mark in one ink on white and on marine, the "white and black" look. The branches are still grown by a program and will be fixed in the final drawing. The current logo files are untouched.</p>
@@ -103,10 +109,13 @@ h2{font:600 20px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
       stem();
       ctx.fillStyle = under; ctx.beginPath(); ctx.ellipse(x, ringY + 1.5 * u, 17 * u, 5.2 * u, 0, 0, 6.3); ctx.fill();
       ctx.fillStyle = gold; ctx.beginPath(); ctx.ellipse(x, ringY, 17 * u, 5.2 * u, 0, 0, 6.3); ctx.fill(); upperStem();
-    } else if (rs === 'diamond') {
-      stem(); var hw = 19 * u, hh = hw * 0.36, th = 1.9 * u;
+    } else if (rs === 'diamond' || rs === 'both') {
+      stem(); var hw = (rs === 'both' ? 15 : 19) * u, hh = hw * 0.36, th = 1.9 * u;
+      if (rs === 'both') { ctx.strokeStyle = gold; ctx.lineWidth = 1.9 * u; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x - 46 * u, ringY); ctx.lineTo(x - hw - 2.4 * u, ringY); ctx.moveTo(x + hw + 2.4 * u, ringY); ctx.lineTo(x + 46 * u, ringY); ctx.stroke(); }
+      if (mono) { ctx.strokeStyle = bg; ctx.lineWidth = 1.6 * u; ctx.lineJoin = 'miter'; ctx.beginPath(); ctx.moveTo(x, ringY - hh); ctx.lineTo(x + hw, ringY); ctx.lineTo(x + hw, ringY + th); ctx.lineTo(x, ringY + hh + th); ctx.lineTo(x - hw, ringY + th); ctx.lineTo(x - hw, ringY); ctx.closePath(); ctx.stroke(); }
       ctx.fillStyle = under; ctx.beginPath(); ctx.moveTo(x - hw, ringY); ctx.lineTo(x, ringY + hh); ctx.lineTo(x + hw, ringY); ctx.lineTo(x + hw, ringY + th); ctx.lineTo(x, ringY + hh + th); ctx.lineTo(x - hw, ringY + th); ctx.fill();
       ctx.fillStyle = gold; ctx.beginPath(); ctx.moveTo(x, ringY - hh); ctx.lineTo(x + hw, ringY); ctx.lineTo(x, ringY + hh); ctx.lineTo(x - hw, ringY); ctx.fill(); upperStem();
+      if (mono) { ctx.strokeStyle = bg; ctx.lineWidth = 0.8 * u; ctx.beginPath(); ctx.moveTo(x - hw * 0.5, ringY - hh * 0.5); ctx.lineTo(x - sw * 1.02, ringY - 0.1 * u); ctx.moveTo(x + hw * 0.5, ringY - hh * 0.5); ctx.lineTo(x + sw * 1.02, ringY - 0.1 * u); ctx.stroke(); }
     } else {
       stem(); ctx.strokeStyle = gold; ctx.lineWidth = 2.4 * u; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x - 46 * u, ringY); ctx.lineTo(x + 46 * u, ringY); ctx.stroke();
       if (mono) { ctx.strokeStyle = bg; ctx.lineWidth = 0.9 * u; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.moveTo(x - sw * 1.3, ringY - 1.65 * u); ctx.lineTo(x + sw * 1.3, ringY - 1.65 * u); ctx.moveTo(x - sw * 1.3, ringY + 1.65 * u); ctx.lineTo(x + sw * 1.3, ringY + 1.65 * u); ctx.stroke(); }

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>How The Layer decides · True Data Sovereignty (draft, not published)</title>
+<meta name="description" content="How The Layer routes each AI request: mask, generalise, or keep local. With real examples and the limits.">
+<link rel="icon" href="logo/tds-tree-tiny.svg">
+<style>
+{{base.css}}
+:root{--paper:#FAFAF8;--navytext:#101A3D;--soft:#4D5672;--rule:#D9DDDC;--marine:#101A3D}
+html{background:var(--paper);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--navytext);font-size:18px;line-height:1.6}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:var(--ink);padding:10px 14px;z-index:50}.skip:focus{left:8px}
+.wrap{padding:0 clamp(22px,9vw,150px)}
+.top{position:relative;color:var(--navytext);padding:22px clamp(22px,9vw,150px);border-bottom:1px solid var(--rule)}
+.top:after{content:"";position:absolute;left:0;right:0;bottom:-4px;border-bottom:1px solid var(--rule)}
+.top img{width:34px;height:34px}
+.top .home{display:flex;align-items:center;gap:12px;text-decoration:none}
+.top nav{margin-left:auto;display:flex;gap:30px;font:400 14px/1 var(--sans);letter-spacing:.02em;text-transform:none}
+.top nav a{text-decoration:none;color:var(--navytext);opacity:.85;padding:6px 0}.top nav a:hover{opacity:1}
+.top nav a[aria-current]{opacity:1;box-shadow:0 2px 0 var(--gold)}
+@media (max-width:759px){.top nav a:not(.keep){display:none}}
+h1,h2{font-family:"Lora",Georgia,serif;font-weight:500;letter-spacing:-.018em;text-wrap:balance}
+h1{font-size:clamp(38px,5.2vw,76px);line-height:1.05;margin:0 0 28px;max-width:11em}
+h2{font-size:clamp(28px,3.4vw,46px);line-height:1.1;margin:0 0 22px;max-width:16em}
+h3{font:600 20px/1.25 "Lora",Georgia,serif;margin:0 0 8px}
+.lab{font:400 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 26px}
+.intro{padding:clamp(70px,13vh,150px) 0 clamp(50px,9vh,100px);max-width:46rem}
+.big{font-size:clamp(19px,1.7vw,23px);line-height:1.5;margin:0 0 18px;max-width:38rem}
+p{margin:0 0 18px;max-width:38rem}
+.note{display:block;font:400 13px/1.6 var(--sans);color:var(--soft);letter-spacing:0;max-width:40rem}
+.m{font:400 .88em var(--mono)}
+/* the three routes: a figure and its text, with the gold line running through all three figures */
+.route{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,6vw,96px);align-items:center;padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--rule)}
+.route canvas{display:block;width:100%;height:300px}
+.fig{font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft);margin:8px 0 0}
+.fig b{font:600 11px/1 var(--sans);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--navytext)}
+.pairs{margin:22px 0 18px;border-top:1px solid var(--rule);max-width:34rem}
+.pairs div{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:8px;align-items:baseline;border-bottom:1px solid var(--rule);padding:9px 0;font:400 13.5px/1.5 var(--mono);overflow-wrap:anywhere}
+.pairs i{font-style:normal;color:#8A6212;text-align:center}
+.pairs span:last-child{color:#8A6212}
+@media (max-width:859px){.route{grid-template-columns:1fr}.route canvas{height:230px}}
+.marine{background:var(--marine);color:var(--ivory);--soft:#AEB6CE;--rule:#2A3B78;--navytext:#F7F3EA}
+.sec{padding:clamp(80px,15vh,170px) 0;max-width:48rem}
+.goldline{display:block;width:72px;height:2px;background:var(--gold);margin:0 0 40px}
+ol.steps{list-style:none;counter-reset:s;margin:34px 0 0;padding:0;max-width:40rem}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:3rem minmax(0,1fr);border-top:1px solid var(--rule);padding:18px 0}
+ol.steps li:before{content:counter(s);font:500 26px/1 "Lora",Georgia,serif;color:var(--gold)}
+ul.limits{list-style:none;margin:30px 0 0;padding:0;max-width:42rem}
+ul.limits li{border-top:1px solid var(--rule);padding:16px 0}
+.cta.dark{background:var(--gold);color:var(--ink)}
+footer{padding:44px clamp(22px,9vw,150px) 90px;border-top:1px solid #2A3B78;display:grid;gap:8px;font-size:13px;color:#AEB6CE}
+footer .l{display:flex;align-items:center;gap:12px;color:var(--ivory);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+footer img{width:34px;height:34px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="home" href="index.html"><img src="logo/tds-tree-small.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
+  <nav aria-label="Site"><a href="index.html">Home</a><a href="how-it-works.html" aria-current="page">How it works</a><a href="index.html#proof">Proof</a><a href="index.html#pilot">Pilot</a><a class="keep" href="index.html#contact">Contact</a></nav>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <section class="intro">
+    <p class="lab">How it works</p>
+    <h1>One decision for every request.</h1>
+    <p class="big">The Layer sits on your own machine, between your staff and the AI they use. It reads each request before any model does. Then it sends the request one of three ways.</p>
+    <p class="big">Which way depends on what is in the request, and on the rules you set.</p>
+  </section>
+
+  <section class="route" id="mask" aria-labelledby="h-mask">
+    <div><canvas data-tier="1" role="img" aria-label="A thread reaches the gold line. A ball passes through it and continues below in gold."></canvas><p class="fig"><b>Fig. 1</b> &nbsp;The request passes the line. Its names do not.</p></div>
+    <div>
+      <p class="lab">Route one · Mask</p>
+      <h2 id="h-mask">Names leave as placeholders.</h2>
+      <p>The names and numbers it finds are replaced before the request goes to a frontier model. When the answer comes back, the real details are put back, on your side.</p>
+      <div class="pairs" aria-label="What was replaced in our example">
+        <div><span>Emma Whitfield</span><i>→</i><span>⟦PERSON_1⟧</span></div>
+        <div><span>GB33 BUKB 2020 1555 5555 55</span><i>→</i><span>⟦IBAN_1⟧</span></div>
+        <div><span>emma.whitfield@example.com</span><i>→</i><span>⟦EMAIL_1⟧</span></div>
+        <div><span>+44 7700 900123</span><i>→</i><span>⟦PHONE_1⟧</span></div>
+      </div>
+      <p class="note">Synthetic example: real router output on made-up text (router a822605). Masking protects who is in the text, not what it says: on this route the model provider still reads the content.</p>
+    </div>
+  </section>
+
+  <section class="route" id="generalise" aria-labelledby="h-gen">
+    <div><canvas data-tier="2" role="img" aria-label="A thread reaches the gold line. Below the line it passes through fog, and the ball turns soft and blurred."></canvas><p class="fig"><b>Fig. 2</b> &nbsp;Below the line, the detail softens, like light through fog.</p></div>
+    <div>
+      <p class="lab">Route two · Generalise</p>
+      <h2 id="h-gen">Telling details leave blurred.</h2>
+      <p>Some details point to one person or one company even without a name: a small town, an exact date, a head count. These are widened before the request leaves, and names are masked as on route one.</p>
+      <div class="pairs" aria-label="What was widened in our example">
+        <div><span>Sorsele</span><i>→</i><span>northern Sweden</span></div>
+        <div><span>13 June 2027</span><i>→</i><span>June 2027</span></div>
+        <div><span>35,897 employees</span><i>→</i><span>10,000–50,000 employees</span></div>
+      </div>
+      <p class="note">Synthetic example: real router output on made-up text (router a822605). Widened details stay widened in the answer. The model provider still reads the content.</p>
+    </div>
+  </section>
+
+  <section class="route" id="local" aria-labelledby="h-local">
+    <div><canvas data-tier="3" role="img" aria-label="A thread reaches the gold line, curls back on itself and seals in a small ring. Nothing continues below the line."></canvas><p class="fig"><b>Fig. 3</b> &nbsp;The thread curls back and seals. Nothing crosses.</p></div>
+    <div>
+      <p class="lab">Route three · Keep local</p>
+      <h2 id="h-local">Some work goes no further.</h2>
+      <p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p>
+      <p>In our example, a note about a confidential deal was too close to the company's confidential list. The Layer kept it.</p>
+      <p class="note">Synthetic example: a real router decision on made-up text (router a822605). The local model is selected, not yet installed; this route has not run live yet.</p>
+    </div>
+  </section>
+</div>
+
+<div class="marine"><div class="wrap">
+  <section class="sec" aria-labelledby="h-order">
+    <span class="goldline"></span>
+    <h2 id="h-order">You set the rules. The Layer applies them.</h2>
+    <p class="big">For each request, in this order:</p>
+    <ol class="steps">
+      <li>It reads the request and finds the names, numbers and telling details in it.</li>
+      <li>It compares the request with your confidential list.</li>
+      <li>It picks the route from what it found and from your rules. A missing or unknown setting makes it stricter, never looser.</li>
+      <li>On any error or timeout, it takes the local route.</li>
+      <li>It writes a record of the decision, with no text in it. Each record carries the fingerprint of the one before.</li>
+    </ol>
+  </section>
+</div></div>
+
+<div class="wrap">
+  <section class="sec" aria-labelledby="h-limits">
+    <p class="lab">What it does not do yet</p>
+    <h2 id="h-limits">The limits, stated plainly.</h2>
+    <ul class="limits">
+      <li>Masking protects who is in the text, not what it says.</li>
+      <li>It detects Swedish IDs with checksums today. Finnish, Danish and Norwegian IDs are on the roadmap.</li>
+      <li>On fresh wording, the confidential check caught 93 of 200 reworded secrets: 46.5%, 95% range 39.4–53.7%, n = 200, measured on synthetic data, round one (ledger N13). This is our main gap.</li>
+      <li>Joining the turns of one chat can re-identify a person even when each turn passes alone. A fix is built and tested; it is off by default and on for pilots, and its figures are being re-checked.</li>
+      <li>The local model is selected, not yet installed.</li>
+      <li>No ISO 27001 or SOC 2 certification. ISO 27001 is planned.</li>
+    </ul>
+    <p style="margin-top:44px"><a class="cta dark" href="index.html#contact">Become a design partner</a></p>
+  </section>
+</div>
+</main>
+
+<footer class="marine">
+  <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
+  <span>Data Sovereignty, beyond paper contracts.</span>
+  <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
+  <span>Draft for review. Not published. No trackers, no cookies.</span>
+</footer>
+<script>
+{{mycel.js}}
+(function () {
+  var NAVY = '#101A3D', GOLD = '#DDB04A', PAPER = '#FAFAF8';
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  function curve(a, b, c, d, n) { var out = []; for (var i = 0; i <= n; i++) { var t = i / n, u = 1 - t; out.push({ x: u * u * u * a[0] + 3 * u * u * t * b[0] + 3 * u * t * t * c[0] + t * t * t * d[0], y: u * u * u * a[1] + 3 * u * u * t * b[1] + 3 * u * t * t * c[1] + t * t * t * d[1] }); } return Mycel.measure(out); }
+  function stroke(ctx, p, col, wd, a, dash) { ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = wd; ctx.globalAlpha = a; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; if (dash) ctx.setLineDash(dash); ctx.beginPath(); p.forEach(function (q, i) { if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); }); ctx.stroke(); ctx.restore(); }
+  function Tier(cv) {
+    var tier = +cv.dataset.tier, S, w, h, x, ly, up, down, twigs, curl, t = Math.random() * 2, seal = 0;
+    function build() {
+      S = Mycel.fit(cv, 2); w = S.w; h = S.h; x = w * 0.5; ly = Math.round(h * 0.5);
+      up = curve([x - w * 0.16, 6], [x - w * 0.02, h * 0.16], [x - w * 0.1, h * 0.34], [x, ly], 40);
+      down = curve([x, ly], [x + w * 0.1, h * 0.66], [x + w * 0.02, h * 0.84], [x + w * 0.15, h - 6], 40);
+      twigs = [curve([x - w * 0.07, h * 0.2], [x - w * 0.16, h * 0.2], [x - w * 0.2, h * 0.28], [x - w * 0.27, h * 0.26], 16), curve([x - w * 0.05, h * 0.34], [x + w * 0.04, h * 0.3], [x + w * 0.08, h * 0.2], [x + w * 0.16, h * 0.2], 16)];
+      if (tier !== 3) twigs.push(curve([x + w * 0.055, h * 0.7], [x + w * 0.14, h * 0.7], [x + w * 0.18, h * 0.78], [x + w * 0.26, h * 0.76], 16), curve([x + w * 0.05, h * 0.82], [x - w * 0.03, h * 0.86], [x - w * 0.06, h * 0.92], [x - w * 0.13, h * 0.94], 16));
+      curl = [{ x: x, y: ly - 3 }]; var c = { x: x + 46, y: ly - 44 }, a0 = Math.atan2(ly - 3 - c.y, x - c.x), r0 = Math.hypot(x - c.x, ly - 3 - c.y);
+      for (var i = 1; i <= 70; i++) { var f = i / 70, r = r0 * (1 - f) + 7 * f; curl.push({ x: c.x + Math.cos(a0 - f * 8.4) * r, y: Math.min(ly - 5, c.y + Math.sin(a0 - f * 8.4) * r * 0.86) }); }   // it may run along the line, never under it
+      Mycel.measure(curl); curl.c = c;
+    }
+    function frame(dt) {
+      var ctx = S.ctx, i; t += dt; ctx.clearRect(0, 0, w, h);
+      if (tier === 2) for (i = 0; i < 5; i++) { ctx.save(); if ('filter' in ctx) ctx.filter = 'blur(9px)'; ctx.fillStyle = NAVY; ctx.globalAlpha = 0.07; var fy = ly + 26 + i * (h * 0.5 - 40) / 5, off = Math.sin(t * 0.25 + i * 1.7) * 26; ctx.fillRect(w * 0.12 + off, fy, w * 0.76, 13); ctx.restore(); }
+      twigs.forEach(function (p) { stroke(ctx, p, NAVY, 1, p[0].y > ly && tier === 2 ? 0.25 : 0.55); });
+      stroke(ctx, up, NAVY, 2.6, 1);
+      if (tier === 1) stroke(ctx, down, NAVY, 2.6, 1);
+      if (tier === 2) stroke(ctx, down, NAVY, 2.6, 0.4, [1, 7]);
+      if (tier === 3) { stroke(ctx, curl, NAVY, 2, 1); ctx.strokeStyle = GOLD; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.55 + 0.45 * seal; ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, 9 + seal * 3, 0, 6.3); ctx.stroke(); ctx.globalAlpha = 1; }
+      ctx.strokeStyle = GOLD; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(w, ly); ctx.stroke();
+      // one ball, again and again: in along the thread, to the line, and then what this route does with it
+      var cyc = reduced ? 0.62 : (t % 4.6) / 4.6, pos;
+      function dot(p, r, col, a) { ctx.globalAlpha = a; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 6.3); ctx.fill(); ctx.globalAlpha = 1; }
+      if (cyc < 0.42) { var f = cyc / 0.42; f = f * f * (3 - 2 * f); dot(Mycel.at(up, up.len * f), 5, NAVY, Math.min(1, f * 6)); }
+      else if (cyc < 0.5) { dot({ x: x, y: ly }, 5 + 2 * Math.sin((cyc - 0.42) / 0.08 * Math.PI), tier === 3 ? NAVY : GOLD, 1); }
+      else { var g = (cyc - 0.5) / 0.5; g = 1 - (1 - g) * (1 - g);
+        if (tier === 3) { pos = Mycel.at(curl, curl.len * Math.min(1, g * 1.25)); dot(pos, 5 * (1 - 0.35 * Math.min(1, g * 1.25)), NAVY, 1); seal = g > 0.8 ? (1 - g) / 0.2 : 0; }
+        else if (tier === 2) { pos = Mycel.at(down, down.len * g); ctx.save(); if ('filter' in ctx) ctx.filter = 'blur(' + (1 + g * 5).toFixed(1) + 'px)'; dot(pos, 6 + g * 7, GOLD, (1 - g * 0.55) * Math.min(1, (1 - g) * 5)); ctx.restore(); }
+        else { pos = Mycel.at(down, down.len * g); dot(pos, 5, GOLD, Math.min(1, (1 - g) * 5)); } }
+    }
+    build(); if (reduced) frame(0); else Mycel.loop(cv, frame);
+    var lw = innerWidth, rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(innerWidth - lw) > 2) { lw = innerWidth; build(); if (reduced) frame(0); } }, 200); });
+  }
+  [].forEach.call(document.querySelectorAll('canvas[data-tier]'), Tier);
+})();
+</script>
+</body>
+</html>

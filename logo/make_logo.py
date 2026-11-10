@@ -217,8 +217,9 @@ def lockup(font, base, mono=False, stacked=False, bg=None):
 GROWN = [
     ("tds-tree-colour.svg", dict(base=MARINE), None, "The logo on white or light paper. The tree in marine ink, the line in gold."),
     ("tds-tree-colour-on-marine.svg", dict(base=IVORY, dark=True), "#101A3D", "The logo on marine blue. The tree in ivory, the line in gold."),
-    ("tds-tree-one-ink.svg", dict(base=MARINE, mono=True), None, "Full black: one ink, line included. For stamps, engraving and one-colour print."),
-    ("tds-tree-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "Full white: one ink on marine, line included."),
+    ("tds-tree-one-ink.svg", dict(base=MARINE, mono=True), None, "One ink, midnight marine (#101A3D), line included. The standard dark version."),
+    ("tds-tree-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "One ink, ivory on midnight marine, line included."),
+    ("tds-tree-production-true-black.svg", dict(base=(0, 0, 0), mono=True), None, "Production fallback only: true black (#000000), one ink. For engraving, stamps and single-colour print where marine cannot be matched. Not for screens."),
     ("tds-tree-gradient.svg", dict(base=MARINE, gradient=True), None, "Earlier look, kept for reference: roots fading to gold."),
 ]
 HAND = [

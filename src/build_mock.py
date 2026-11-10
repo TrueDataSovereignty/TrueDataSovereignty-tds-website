@@ -13,3 +13,7 @@ print("mock.html", len(out.encode()), "bytes")
 lg = (root / "src" / "logo2.src.html").read_text(encoding="utf-8").replace("{{FONT}}", font).replace("{{MARKJS}}", markjs).replace("{{MYCEL}}", mycel)
 (root / "logo-mycelium.html").write_text(lg, encoding="utf-8", newline=chr(10))
 print("logo-mycelium.html", len(lg.encode()), "bytes")
+
+l3 = (root / "src" / "logo3.src.html").read_text(encoding="utf-8").replace("{{FONT}}", font).replace("{{MYCEL}}", mycel)
+(root / "logo-fan.html").write_text(l3, encoding="utf-8", newline=chr(10))
+print("logo-fan.html", len(l3.encode()), "bytes")

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>The root fan, simplified, with the layer ring (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("{{FONT}}") format("truetype");font-weight:400 700;font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:#ECE9E1;color:#101A3D;font:400 16px/1.55 "Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:980px;margin:0 auto;padding:36px 18px 80px}
+h1{font:600 30px/1.15 "Lora",Georgia,serif;margin:0 0 8px}
+.page>p{margin:0 0 34px;max-width:42rem;color:#4D5672}
+section{margin:0 0 56px}
+h2{font:600 21px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
+.why{margin:0 0 14px;color:#4D5672;max-width:44rem}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{aspect-ratio:1;border-radius:3px;position:relative;overflow:hidden}
+.tile canvas{position:absolute;inset:9%;width:82%;height:82%}
+.l{background:#FAFAF8}.d{background:#101A3D}
+.small{display:flex;align-items:center;gap:14px;margin:10px 0 0;font-size:12px;color:#4D5672;flex-wrap:wrap}
+.chip{border-radius:3px;padding:8px;display:block;line-height:0}
+.chip canvas{display:block}
+.mast{margin:14px 0 0;padding:26px 22px 22px;border-radius:3px;text-align:center}
+.mast canvas{width:92px;height:92px;display:block;margin:0 auto 12px}
+.mast .rule{border-top:3px double currentColor;border-bottom:1px solid currentColor;height:7px;max-width:520px;margin:0 auto 14px;opacity:.8}
+.mast b{font:600 clamp(20px,3.4vw,34px)/1.1 "Lora",Georgia,serif;letter-spacing:.16em;text-transform:uppercase;display:block}
+.mast span{font:italic 400 15px/1.4 "Lora",Georgia,serif;display:block;margin-top:10px;opacity:.85}
+.mast .rule.b{margin:14px auto 0;transform:scaleY(-1)}
+.d.mast{color:#F7F3EA}
+.foot{border-top:1px solid #D2CBB9;padding-top:18px;font-size:14px;color:#4D5672;max-width:44rem}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>The root fan, simplified, with the layer ring</h1>
+  <p>Draft, not published. Number 2 from the last sheet, forged down: about 30 thread ends instead of several hundred, and no line thinner than a pen stroke, so it can be printed, stamped, embroidered or cut. A gold ring now sits on the stem. Mushrooms really have one there; it is called the ring. Ours is The Layer.</p>
+
+  <section>
+    <h2>1 · The ring on the stem</h2>
+    <p class="why">One stem, one gold ring, one fan of roots. Everything below is joined to everything above through that ring. Marine trunks, gold ends.</p>
+    <div class="tiles"><div class="tile l"><canvas data-k="ring"></canvas></div><div class="tile d"><canvas data-k="ring" data-dark="1"></canvas></div></div>
+    <div class="small"><span class="chip l"><canvas data-k="ring" style="width:96px;height:96px"></canvas></span><span class="chip d"><canvas data-k="ring" data-dark="1" style="width:48px;height:48px"></canvas></span><span class="chip l"><canvas data-k="ring" style="width:24px;height:24px"></canvas></span><span class="chip l"><canvas data-k="ring" data-mono="1" style="width:96px;height:96px"></canvas></span><span>96, 48 and 24 px, then one ink only</span></div>
+  </section>
+
+  <section>
+    <h2>2 · Through the layer</h2>
+    <p class="why">Your idea taken all the way. Threads gather from above, pass through the one gold ring, and spread again below. Marine goes in, gold comes out. Nothing gets from one side to the other without passing the ring.</p>
+    <div class="tiles"><div class="tile l"><canvas data-k="through"></canvas></div><div class="tile d"><canvas data-k="through" data-dark="1"></canvas></div></div>
+    <div class="small"><span class="chip l"><canvas data-k="through" style="width:96px;height:96px"></canvas></span><span class="chip d"><canvas data-k="through" data-dark="1" style="width:48px;height:48px"></canvas></span><span class="chip l"><canvas data-k="through" style="width:24px;height:24px"></canvas></span><span class="chip l"><canvas data-k="through" data-mono="1" style="width:96px;height:96px"></canvas></span><span>96, 48 and 24 px, then one ink only</span></div>
+  </section>
+
+  <section>
+    <h2>3 · The emblem</h2>
+    <p class="why">Number 1 made exactly symmetrical, left and right mirrored. Less like a specimen, more like a crest or a printer's mark from an old title page. The easiest of the four to redraw by hand.</p>
+    <div class="tiles"><div class="tile l"><canvas data-k="ring" data-sym="1"></canvas></div><div class="tile d"><canvas data-k="ring" data-sym="1" data-dark="1"></canvas></div></div>
+    <div class="small"><span class="chip l"><canvas data-k="ring" data-sym="1" style="width:96px;height:96px"></canvas></span><span class="chip d"><canvas data-k="ring" data-sym="1" data-dark="1" style="width:48px;height:48px"></canvas></span><span class="chip l"><canvas data-k="ring" data-sym="1" style="width:24px;height:24px"></canvas></span><span class="chip l"><canvas data-k="ring" data-sym="1" data-mono="1" style="width:96px;height:96px"></canvas></span><span>96, 48 and 24 px, then one ink only</span></div>
+  </section>
+
+  <section>
+    <h2>4 · With the cap</h2>
+    <p class="why">Number 1 with a plain cap on top, so it reads as a whole mushroom, as in your engraving. Shown so you can judge it. My caution: a mushroom logo can read as food or as something recreational.</p>
+    <div class="tiles"><div class="tile l"><canvas data-k="cap"></canvas></div><div class="tile d"><canvas data-k="cap" data-dark="1"></canvas></div></div>
+    <div class="small"><span class="chip l"><canvas data-k="cap" style="width:96px;height:96px"></canvas></span><span class="chip d"><canvas data-k="cap" data-dark="1" style="width:48px;height:48px"></canvas></span><span class="chip l"><canvas data-k="cap" style="width:24px;height:24px"></canvas></span><span>96, 48 and 24 px</span></div>
+  </section>
+
+  <section>
+    <h2>As a masthead</h2>
+    <p class="why">The old-newspaper, learned-society feeling you named: the emblem above the name, between ruled lines, with the tagline in italic.</p>
+    <div class="mast l"><canvas data-k="ring" data-sym="1"></canvas><div class="rule"></div><b>True Data Sovereignty</b><span>Data Sovereignty, beyond paper contracts.</span><div class="rule b"></div></div>
+    <div class="mast d"><canvas data-k="through" data-dark="1"></canvas><div class="rule"></div><b>The Layer</b><span>True Data Sovereignty</span><div class="rule b"></div></div>
+  </section>
+
+  <p class="foot">How to read this: these are still grown by a small program, so the exact branches will change when I fix the final drawing. Once you pick one, I choose the best growth, tidy it by hand and save it as a fixed vector file in colour, in one ink, and in a small-size version. The current logo files are untouched.</p>
+</div>
+<script>
+{{MYCEL}}
+(function () {
+  var all = [].slice.call(document.querySelectorAll('canvas[data-k]'));
+  function mix(a, b, t) { t = Math.max(0, Math.min(1, t)); return 'rgb(' + [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); }).join(',') + ')'; }
+  var MARINE = [16, 26, 61], IVORY = [247, 243, 234], GOLD = [221, 176, 74], LIGHT = [248, 223, 156], DEEP = [184, 134, 43];
+  /* A fan of a few bold threads from one point. dir = +1 grows down, -1 grows up. */
+  function fan(u, c, R, RY, dir, n, seed, sym) {
+    var rand = Mycel.rng(seed), A = [], i;
+    for (i = 0; i < n; i++) { var a = Math.PI * (sym ? 0.5 * rand() * 0.96 + 0.02 : 0.04 + 0.92 * rand()), r = 0.3 + 0.7 * Math.pow(rand(), 0.55); A.push({ x: c.x + Math.cos(a) * r * R, y: c.y + dir * (1.5 * u + Math.sin(a) * r * RY) }); }
+    var roots = sym ? [{ x: c.x + 0.2 * u, y: c.y }, { x: c.x + 2.6 * u, y: c.y }] : [{ x: c.x - 2.4 * u, y: c.y }, { x: c.x, y: c.y }, { x: c.x + 2.4 * u, y: c.y }];
+    return Mycel.grow({ roots: roots, attractors: A, step: 1.5 * u, reach: 22 * u, kill: 2.9 * u, rand: rand, iters: 600, jitter: 0.5 });
+  }
+  function strokeNet(ctx, net, u, c, R, RY, colour, sym) {
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (var m = 0; m < (sym ? 2 : 1); m++) {
+      ctx.save(); if (m) { ctx.translate(2 * c.x, 0); ctx.scale(-1, 1); }
+      for (var i = 0; i < net.length; i++) {
+        var n = net[i]; if (n.p < 0) continue; var P = net[n.p];
+        ctx.strokeStyle = colour(Math.min(1, Math.hypot((n.x - c.x) / R, (n.y - c.y) / RY)));
+        ctx.lineWidth = Math.max(0.9, Math.min(4.4 * u, 1.15 * u + Math.pow(n.w, 0.5) * 0.24 * u));
+        var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2; ctx.beginPath();
+        if (P.p >= 0) { var G = net[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); } else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+        if (n.kids === 0) ctx.lineTo(n.x, n.y); ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+  function draw(cv) {
+    var kind = cv.dataset.k, dark = !!cv.dataset.dark, sym = !!cv.dataset.sym, mono = !!cv.dataset.mono;
+    var S = Mycel.fit(cv, 3), w = S.w, ctx = S.ctx, u = w / 100, base = dark ? IVORY : MARINE, baseCss = mix(base, base, 0);
+    var gold = mono ? baseCss : mix(GOLD, GOLD, 0), goldDeep = mono ? baseCss : mix(dark ? GOLD : DEEP, GOLD, 0);
+    function grad(e) { if (mono) return baseCss; var t = (e - 0.3) / 0.7; return t < 0.6 ? mix(base, dark ? GOLD : DEEP, t / 0.6) : mix(dark ? GOLD : DEEP, dark ? LIGHT : GOLD, (t - 0.6) / 0.4); }
+    ctx.clearRect(0, 0, w, w);
+    var x = 50 * u, top, ringY, org, R = 45 * u, RY;
+    if (kind === 'through') { top = 40 * u; ringY = 49 * u; org = 58 * u; RY = 38 * u; }
+    else if (kind === 'cap') { top = 22 * u; ringY = 38 * u; org = 52 * u; RY = 44 * u; }
+    else { top = 12 * u; ringY = 30 * u; org = 48 * u; RY = 48 * u; }
+    var rx = 12.5 * u, ry = 4.4 * u, sw = 3.4 * u;
+    function ring(front) { ctx.strokeStyle = front ? gold : goldDeep; ctx.lineWidth = 2.7 * u; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.ellipse(x, ringY, rx, ry, 0, front ? 0 : Math.PI, front ? Math.PI : 2 * Math.PI); ctx.stroke(); }
+    // roots below, in the gradient
+    var below = fan(u, { x: x, y: org }, R, RY, 1, sym ? 40 : 70, sym ? 71 : 34, sym);
+    (window.__tips = window.__tips || []).push([kind, sym, Mycel.leaves(below).length * (sym ? 2 : 1)]);
+    strokeNet(ctx, below, u, { x: x, y: org }, R, RY, grad, sym);
+    if (sym) {   // the mirror leaves the middle empty: one straight tap root fills it
+      ctx.lineCap = 'round';
+      for (var k = 0; k < 14; k++) { var f0 = k / 14, f1 = (k + 1) / 14; ctx.strokeStyle = grad(f1 * 0.86); ctx.lineWidth = (3.8 - 2.5 * f1) * u; ctx.beginPath(); ctx.moveTo(x, org + f0 * RY * 0.86); ctx.lineTo(x, org + f1 * RY * 0.86); ctx.stroke(); }
+    }
+    if (kind === 'through') strokeNet(ctx, fan(u, { x: x, y: top }, R * 0.86, 34 * u, -1, sym ? 24 : 44, 52, sym), u, { x: x, y: top }, R, 34 * u, function () { return baseCss; }, sym);
+    ring(false);
+    // the stem: a plain column, a little wider at the foot
+    ctx.fillStyle = baseCss; ctx.beginPath();
+    ctx.moveTo(x - sw, top); ctx.lineTo(x + sw, top); ctx.quadraticCurveTo(x + sw * 0.92, (top + org) / 2, x + sw * 1.45, org + 1.5 * u); ctx.lineTo(x - sw * 1.45, org + 1.5 * u); ctx.quadraticCurveTo(x - sw * 0.92, (top + org) / 2, x - sw, top); ctx.fill();
+    if (kind === 'through') { ctx.beginPath(); ctx.moveTo(x - sw * 1.45, top - 1.5 * u); ctx.quadraticCurveTo(x - sw * 0.9, top + 3 * u, x - sw, top + 6 * u); ctx.lineTo(x + sw, top + 6 * u); ctx.quadraticCurveTo(x + sw * 0.9, top + 3 * u, x + sw * 1.45, top - 1.5 * u); ctx.fill(); }
+    if (kind === 'cap') { ctx.beginPath(); ctx.moveTo(x - 30 * u, top + 2 * u); ctx.bezierCurveTo(x - 30 * u, top - 22 * u, x + 30 * u, top - 22 * u, x + 30 * u, top + 2 * u); ctx.quadraticCurveTo(x, top + 6.5 * u, x - 30 * u, top + 2 * u); ctx.fill(); }
+    else if (kind === 'ring') { ctx.beginPath(); ctx.ellipse(x, top, sw * 1.25, 1.5 * u, 0, 0, 6.3); ctx.fill(); }
+    ring(true);
+  }
+  function drawAll() { all.forEach(draw); }
+  drawAll();
+  var rt, lw = innerWidth; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(innerWidth - lw) > 2) { lw = innerWidth; drawAll(); } }, 200); });
+})();
+</script>
+</body>
+</html>

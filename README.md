@@ -22,6 +22,13 @@ python -I shots/shoot.py index.html home   # screenshots; needs: python -m http.
 - The first dark version is commit ce702a1.
 - `shots/shoot.py` can leave headless Edge processes behind when a capture fails. Check Task Manager after using it.
 
+## Version 3 (light, marine and gold)
+- Henrik, 12 Nov: "I like the light one, but we want some dark marine blue and gold in there. And make the minimalistic look, but with a minimal mycelium style. You can change font if you feel fit too."
+- Light page; marine blue bands for the vision, the live scene, the record and the close; gold lines and button.
+- The mycelium is a fine ink drawing (`src/ink.js`) with the real mark as the gate.
+- Headlines are Lora at medium weight (500), from the same font file. Version 2 is commit 57d03e2.
+- `preview.html` is the same page with the font embedded, for sending.
+
 ## Rules it follows
 - Every masking example is real router output on synthetic text. `make_data.py` only slices the router's own strings, and checks that the slices rebuild them.
 - The answers in the live scene were written by us (no model was called). The page says so.

@@ -1,5 +1,5 @@
 /* Quiet scenes for the home page. Each one needs Mycel and draws only while on screen. */
-var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', BLUE = '#5A72C4', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA', INK = '#060A1A';
+var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', BLUE = '#5A72C4', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA', INK = '#101A3D';
 var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
 
 /* Build a scene only when it is about to scroll into view. */

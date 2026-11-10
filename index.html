@@ -135,17 +135,43 @@ code,.m{font:400 .9em var(--mono)}
 @media (max-width:759px){.give{grid-template-columns:1fr;gap:28px}}
 .close h2{font-size:clamp(40px,6vw,88px);max-width:none}
 .contact{margin:34px 0 0;font-size:19px}
-.contact .ph{font:400 13px/1.6 var(--sans);color:#8A6212;display:block;margin-top:8px}
+.contact .ph{font:400 13px/1.6 var(--sans);color:var(--light);display:block;margin-top:8px}
 footer{padding:44px clamp(22px,9vw,150px) 110px;border-top:1px solid var(--rule);display:grid;gap:8px;font-size:13px;color:var(--soft)}
 footer .l{display:flex;align-items:center;gap:12px;color:var(--navytext);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
 footer img{width:26px;height:26px}
+
+/* Version 3: light, with dark marine blue and gold, and the mycelium as a fine ink drawing. */
+:root{--paper:#FAFAF8;--rule:#D9DDDC;--marine:#101A3D}
+html,body{background:var(--paper)}
+.hero{color:var(--navytext);background:linear-gradient(180deg,#FAFAF8 0%,#EDF0EF 100%);justify-content:center}
+.hero:after{display:none}
+.top,.top nav a{color:var(--navytext)}
+.hero .copy{padding-top:110px;padding-bottom:80px;max-width:min(48rem,56vw)}
+.hero .kicker{color:#8A6212}
+.hero .sub{color:var(--soft)}
+.hero h1{max-width:9.6em}
+.hero h1,h2,.close h2{font-weight:500;letter-spacing:-.018em}
+h3{font-weight:600}
+.cap{position:absolute;left:clamp(22px,9vw,150px);bottom:22px;margin:0;font:400 12px/1.5 var(--sans);color:var(--soft)}
+.marine{background:var(--marine);color:var(--ivory);--soft:#AEB6CE;--rule:#2A3B78;--navytext:#F7F3EA}
+.goldline{display:block;width:72px;height:2px;background:var(--gold);margin:0 0 40px}
+.marine h2{max-width:14em}
+.soil{background:var(--marine);--rule:#2A3B78}
+.route{border-top:2px solid var(--gold);padding-top:20px}
+.route .k{color:var(--navytext)}
+footer.marine{border-top:1px solid #2A3B78;color:#AEB6CE}
+footer.marine .l{color:var(--ivory)}
+@media (max-width:759px){
+  .hero{justify-content:flex-start}
+  .hero .copy{max-width:none;margin-top:300px;padding-top:0;padding-bottom:170px}
+  .cap{position:static;padding:0 22px 150px;margin-top:-140px}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hero" id="top">
-  <canvas id="forest" aria-hidden="true"></canvas>
-  <div class="photo" id="photo" role="img" aria-label="A Nordic forest at dusk."></div>
+  <canvas id="ink" aria-hidden="true"></canvas>
   <div class="top">
     <a class="home" href="#top"><img src="../brand/final/tds-mark-small.svg" alt="" width="30" height="30"><span>True Data Sovereignty</span></a>
     <nav aria-label="On this page"><a href="#gate">The Layer</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
@@ -158,18 +184,21 @@ footer img{width:26px;height:26px}
 <a class="cta" href="#contact">Become a design partner</a>
 
   </div>
+  <p class="cap">Synthetic example. The word changes in the drawing are real router output on made-up text (router a822605).</p>
 </header>
 
 <main id="main">
 
-<div class="wrap">
+<div class="marine"><div class="wrap">
 <section class="sec" id="vision" aria-labelledby="h-vision">
+  <span class="goldline"></span>
   <h2 id="h-vision">What you write should stay yours to decide.</h2>
   <p class="big">Every day, people hand their words to AI services they do not run. Names, cases, plans. A contract says the data is safe. A contract does not decide what happens to it.</p>
   <p class="big">We think that decision belongs to you. To a company first, because that is where we start. In time, to anyone: a person, a town, a country.</p>
   <p class="big">That is what sovereignty means to us. It is a kind of freedom.</p>
 </section>
-<hr>
+</div></div>
+<div class="wrap">
 <section class="sec" id="problem" aria-labelledby="h-problem">
   <p class="lab">The problem</p>
   <h2 id="h-problem">Your contract does not override it.</h2>
@@ -178,27 +207,24 @@ footer img{width:26px;height:26px}
 </section>
 </div>
 
-<div class="soil">
-  <div class="wrap">
+<div class="wrap">
   <section class="sec" id="gate" aria-labelledby="h-gate" style="padding-bottom:0">
     <p class="lab">The Layer</p>
     <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
     <p class="big">It reads each request before any model does. Then it decides what may leave.</p>
   </section>
-  </div>
-  <div class="gateband">
-    <canvas id="gatecv" role="img" aria-label="Gold threads carry requests to The Layer. Some leave with names replaced by placeholders, some leave with details blurred, and some curl back and stay."></canvas>
-  </div>
-  <div class="wrap">
-  <section class="sec wide" style="padding-top:clamp(30px,5vh,60px)" aria-label="Three routes">
+  <section class="sec wide" style="padding-top:0" aria-label="Three routes">
     <div class="routes">
-      <div class="route"><p class="k"><i style="background:var(--teal)"></i>Mask</p><p>The names and numbers it finds leave as placeholders. They are put back in the answer, on your side.</p></div>
-      <div class="route"><p class="k"><i style="background:var(--moss)"></i>Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
-      <div class="route"><p class="k"><i style="background:var(--light)"></i>Keep local</p><p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p></div>
+      <div class="route"><p class="k">Mask</p><p>The names and numbers it finds leave as placeholders. They are put back in the answer, on your side.</p></div>
+      <div class="route"><p class="k">Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
+      <div class="route"><p class="k">Keep local</p><p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p></div>
     </div>
-    <p class="note">Synthetic example: every word change in the picture is real router output on made-up text (router a822605). Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
+    <p class="note">Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
   </section>
+</div>
 
+<div class="soil">
+  <div class="wrap">
   <section class="sec wide" id="live" aria-labelledby="h-live">
     <p class="lab">Watch one request</p>
     <h2 id="h-live">See it pass the gate.</h2>
@@ -263,16 +289,18 @@ footer img{width:26px;height:26px}
   </div>
   <p class="note">The Layer is a prototype. Many tools mask; The Layer first decides whether a request may leave at all. The other two routes open only by a written change, after a legal opinion. The local model is selected, not yet installed. Nothing is signed before our company is registered.</p>
 </section>
-<hr>
+</div>
+<div class="marine"><div class="wrap">
 <section class="sec close" id="contact" aria-labelledby="h-close">
+  <span class="goldline"></span>
   <h2 id="h-close">One 30-minute call.</h2>
   <p class="big">Pick one workflow. We do the rest.</p>
   <p class="contact">Henrik Thulin, True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
 </section>
-</div>
+</div></div>
 
 </main>
-<footer>
+<footer class="marine">
   <div class="l"><img src="../brand/final/tds-mark-small.svg" alt="" width="26" height="26"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
@@ -396,9 +424,9 @@ var Mycel = (function () {
   function drawSegments(ctx, nodes, from, to, style) {
     var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = style.ink ? 'source-over' : 'lighter';
     ctx.lineCap = 'butt';
-    for (var pass = 0; pass < 2; pass++) {
+    for (var pass = style.ink ? 1 : 0; pass < 2; pass++) {
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
         var P = nodes[n.p];
@@ -458,370 +486,154 @@ var Mycel = (function () {
 
 var TDS_MARK_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"512\" height=\"512\" viewBox=\"0 4 100 100\" aria-hidden=\"true\"><defs><radialGradient id=\"r83_0\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"66\" r=\"34.0\" gradientTransform=\"translate(0 66) scale(1 0.576) translate(0 -66)\"><stop offset=\"0\" stop-color=\"#1C2C66\"/><stop offset=\"0.45\" stop-color=\"#1C2C66\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#DDB04A\"/></radialGradient><radialGradient id=\"r83_1\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"50\" r=\"34.0\" gradientTransform=\"translate(0 50) scale(1 0.576) translate(0 -50)\"><stop offset=\"0\" stop-color=\"#F8DF9C\"/><stop offset=\"0.35\" stop-color=\"#F8DF9C\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#1C2C66\"/></radialGradient><radialGradient id=\"r83_2\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"34\" r=\"34.0\" gradientTransform=\"translate(0 34) scale(1 0.576) translate(0 -34)\"><stop offset=\"0\" stop-color=\"#1C2C66\"/><stop offset=\"0.45\" stop-color=\"#1C2C66\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#DDB04A\"/></radialGradient></defs><g opacity=\"1\"><polygon points=\"16.0,66.0 50,85.6 50,89.8 16.0,70.2\" fill=\"#B8862B\"/><polygon points=\"50,85.6 84.0,66.0 84.0,70.2 50,89.8\" fill=\"#6E500E\"/><polygon points=\"50,46.4 84.0,66.0 50,85.6 16.0,66.0\" fill=\"url(#r83_0)\"/><polygon points=\"50,46.4 84.0,66.0 50,85.6 16.0,66.0\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\".7\" stroke-opacity=\".8\"/></g><g opacity=\"0.96\"><polygon points=\"16.0,50.0 50,69.6 50,73.8 16.0,54.2\" fill=\"#101A3D\"/><polygon points=\"50,69.6 84.0,50.0 84.0,54.2 50,73.8\" fill=\"#060A1A\"/><polygon points=\"50,30.4 84.0,50.0 50,69.6 16.0,50.0\" fill=\"url(#r83_1)\"/><polygon points=\"50,30.4 84.0,50.0 50,69.6 16.0,50.0\" fill=\"none\" stroke=\"#33488F\" stroke-width=\".7\" stroke-opacity=\".8\"/><ellipse cx=\"50\" cy=\"50\" rx=\"17.7\" ry=\"10.2\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\"2.4\"/></g><g opacity=\"0.96\"><polygon points=\"16.0,34.0 50,53.6 50,57.8 16.0,38.2\" fill=\"#B8862B\"/><polygon points=\"50,53.6 84.0,34.0 84.0,38.2 50,57.8\" fill=\"#6E500E\"/><polygon points=\"50,14.4 84.0,34.0 50,53.6 16.0,34.0\" fill=\"url(#r83_2)\"/><polygon points=\"50,14.4 84.0,34.0 50,53.6 16.0,34.0\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\".7\" stroke-opacity=\".8\"/></g></svg>";
 
-/* The Mycelial Gate: the network, the ring node, and real router tokens passing through it.
-   Used by concept A and by the home page hero. Needs Mycel. */
-function MycelGate(cv, opts) {
+/* The mycelium as an ink drawing on paper: hairlines in marine blue, a little gold, the real mark as the gate.
+   Minimal on purpose. Needs Mycel and TDS_MARK_SVG. */
+function MycelInk(cv, opts) {
   'use strict';
   opts = opts || {};
-  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', IVORY = '#F7F3EA', MUT = '#AEB6CE';
+  var NAVY = '#101A3D', BLUE = '#33488F', GOLDD = '#B8862B', GOLD = '#DDB04A', BROWN = '#8A6212', PAPER = '#FAFAF8', SOFT = '#4D5672';
   var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
-  /* Every pair below is real router output on synthetic text (router a822605, web/how-it-works-data/cases-out.json). */
+  /* Every pair is real router output on synthetic text (router a822605, web/how-it-works-data/cases-out.json). */
   var SCRIPT = [
     { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' },
     { t: 2, a: 'Sorsele', b: 'northern Sweden' },
-    { t: 1, a: 'GB33 BUKB 2020 1555 5555 55', b: '⟦IBAN_1⟧' },
-    { t: 3, a: 'acquire a Finnish logistics company', b: null },
+    { t: 3, a: 'acquire a Finnish logistics company', b: 'stays here' },
     { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
     { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' },
-    { t: 1, a: '+44 7700 900123', b: '⟦PHONE_1⟧' },
-    { t: 2, a: '13 June 2027', b: 'June 2027' }
+    { t: 1, a: 'GB33 BUKB 2020 1555 5555 55', b: '⟦IBAN_1⟧' }
   ];
   var reduced = Mycel.reducedMotion();
-  var S, w, h, portrait, node, R, stat, sctx, inb, out, inPaths, featPaths, outPaths, curl;
-  var G, M, mark = null, revealIn, revealOut, pulses, feat, featIdx, featTimer, rings, sealFlash, lastW = 0;
+  var S, w, h, portrait, node, R, M, inb, out, inP, featP, outP, curl, stat, sctx, revIn, revOut, pulses, feat, fi, ft, rings, seal, mark = null, lastW = 0;
+  function mk(mx, my) { return { x: node.x + (mx - 50) * M, y: node.y + (my - 52) * M }; }
 
   function build() {
-    S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w;
-    portrait = w < 760;
-    var rand = Mycel.rng(20261111);
-    G = opts.forestOnly ? Math.round(h * 0.9) : opts.noForest ? 0 : Math.round(portrait ? Math.max(120, h * 0.19) : h * 0.36);   // the ground line: forest above, network below
-    R = portrait ? Math.min(w * 0.15, 60) : Math.max(58, Math.min(h * 0.105, 96));
-    node = portrait ? { x: w * 0.5, y: G + R * 1.75 + 30 } : { x: w * (opts.center ? 0.58 : 0.7), y: G + (h - G) * (opts.noForest ? 0.5 : 0.46) };
-    M = R * 2.8 / 100;   // the mark is drawn 100 units wide; threads plug into its real corners
-    function mk(mx, my) { return { x: node.x + (mx - 50) * M, y: node.y + (my - 52) * M }; }
-    if (opts.forestOnly) {   // only the forest: one still picture, no network
-      stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
-      sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
-      drawForest(sctx); S.ctx.clearRect(0, 0, w, h); S.ctx.drawImage(stat, 0, 0, w, h); return;
-    }
-    var i, a, A = [], roots = [];
-    // inbound side: your environment
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w; portrait = w < 760;
+    var rand = Mycel.rng(20261112), A = [], roots, i;
+    R = portrait ? Math.min(w * 0.13, 50) : Math.max(52, Math.min(h * 0.09, 80));
+    node = portrait ? { x: w * 0.5, y: 96 + R * 1.6 } : { x: w * 0.73, y: h * 0.5 };
+    M = R * 2.8 / 100;
     if (portrait) {
-      for (i = 0; i < 380; i++) A.push({ x: rand() * w, y: node.y + R * 0.9 + Math.pow(rand(), 0.8) * (h - node.y) });
+      for (i = 0; i < 170; i++) A.push({ x: rand() * w, y: node.y + R + Math.pow(rand(), 0.8) * (h - node.y) });
       roots = [mk(16, 70), mk(33, 80), mk(50, 89.8), mk(67, 80), mk(84, 70)];
     } else {
-      for (i = 0; i < 620; i++) {
-        var x = -20 + rand() * (node.x - R * 1.25 + 20), y = G + 10 + rand() * (h - G - 10);
-        if (rand() > 0.3 + 0.7 * (x / node.x)) continue;
-        A.push({ x: x, y: y });
-      }
+      for (i = 0; i < 300; i++) { var x = -20 + rand() * (node.x - R * 1.3 + 20), y = rand() * h; if (rand() > 0.25 + 0.75 * (x / node.x)) continue; A.push({ x: x, y: y }); }
       roots = [mk(33, 24), mk(16, 34), mk(16, 50), mk(16, 68), mk(33, 80)];
     }
-    inb = Mycel.grow({ roots: roots, attractors: A, step: portrait ? 6 : 7, reach: portrait ? 80 : 100, kill: 15, rand: rand, iters: 600, jitter: 0.5 });
-    // outbound side: outside, toward the frontier model
-    A = []; roots = [];
-    if (portrait) {
-      for (i = 0; i < 26; i++) A.push({ x: -20 + rand() * (node.x - R * 1.5 + 20), y: G + 14 + rand() * (node.y - G) });
-      roots = [mk(16, 34), mk(16, 50)];
-    } else {
-      for (i = 0; i < 64; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: G + 16 + rand() * (h - G) * 0.8 });
-      roots = [mk(84, 34), mk(84, 50), mk(84, 68)];
-    }
-    out = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 130, kill: 18, rand: rand, iters: 400, jitter: 0.3 });
-
-    function paths(nodes, minLen) {
-      return Mycel.leaves(nodes).map(function (n) { return Mycel.measure(Mycel.pathToRoot(nodes, n)); }).filter(function (p) { return p.len > minLen; });
-    }
-    inPaths = paths(inb, R * 1.2);
-    featPaths = inPaths.filter(function (p) {
-      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * (opts.center ? 0.1 : 0.5) && p[0].y > G + 24 && p[0].y < h * 0.9));
-    });
-    if (!featPaths.length) featPaths = inPaths;
-    outPaths = paths(out, R).map(function (p) { p.reverse(); return Mycel.measure(p); });
-    // the curl: a thread that turns back on itself and seals (keep local)
+    inb = Mycel.grow({ roots: roots, attractors: A, step: portrait ? 6 : 7, reach: portrait ? 110 : 140, kill: 16, rand: rand, iters: 600, jitter: 0.5 });
+    A = [];
+    if (portrait) { for (i = 0; i < 16; i++) A.push({ x: -20 + rand() * (node.x - R * 1.5 + 20), y: 70 + rand() * (node.y - 40) }); roots = [mk(16, 34), mk(16, 50)]; }
+    else { for (i = 0; i < 34; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: h * 0.12 + rand() * h * 0.76 }); roots = [mk(84, 34), mk(84, 50), mk(84, 68)]; }
+    out = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 170, kill: 18, rand: rand, iters: 400, jitter: 0.3 });
+    function P(nodes, min, rev) { return Mycel.leaves(nodes).map(function (n) { var p = Mycel.pathToRoot(nodes, n); if (rev) p.reverse(); return Mycel.measure(p); }).filter(function (p) { return p.len > min; }); }
+    inP = P(inb, R * 1.2);
+    featP = inP.filter(function (p) { return p.len > R * 2.6 && (portrait || (p[0].x > w * 0.5 && p[0].y > h * 0.12 && p[0].y < h * 0.88)); });
+    if (!featP.length) featP = inP;
+    outP = P(out, R, true);
     var c = portrait ? { x: node.x + R * 2.0, y: node.y + R * 0.45 } : { x: node.x + R * 0.55, y: node.y + R * 2.15 };
-    var start = portrait ? mk(84, 50) : mk(50, 89.8);
-    curl = [start];
-    var a0 = Math.atan2(start.y - c.y, start.x - c.x), r0 = Math.hypot(start.x - c.x, start.y - c.y);
-    for (i = 1; i <= 90; i++) {
-      var f = i / 90, rr = r0 * (1 - f) + R * 0.2 * f, an = a0 + f * Math.PI * 3.2;
-      rr = Math.min(rr, R * 0.85 * (1 - f) + R * 0.2);
-      curl.push({ x: c.x + Math.cos(an) * rr, y: c.y + Math.sin(an) * rr * 0.8 });
-    }
-    Mycel.measure(curl); curl.c = c;
-
+    var st = portrait ? mk(84, 50) : mk(50, 89.8); curl = [st];
+    var a0 = Math.atan2(st.y - c.y, st.x - c.x), r0 = Math.hypot(st.x - c.x, st.y - c.y);
+    for (i = 1; i <= 90; i++) { var f = i / 90, rr = Math.min(r0 * (1 - f) + R * 0.2 * f, R * 0.85 * (1 - f) + R * 0.2); curl.push({ x: c.x + Math.cos(a0 + f * Math.PI * 3.2) * rr, y: c.y + Math.sin(a0 + f * Math.PI * 3.2) * rr * 0.8 }); }
+    Mycel.measure(curl); curl.c = c; curl.done = false;
     stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
     sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
-    if (!opts.noForest) drawForest(sctx);
-    revealIn = 0; revealOut = 0; pulses = []; feat = null; featIdx = 0; featTimer = 1.2; rings = 3; sealFlash = 0;
-    if (reduced || opts.still) { reveal(1e9); }
+    revIn = 0; revOut = 0; pulses = []; feat = null; fi = 0; ft = 1.2; rings = 2; seal = 0;
+    if (reduced || opts.still) reveal(1e9);
   }
-
-  var styleIn = { color: GOLD, glow: DEEP, maxW: 3.6, alpha: function (n, wd) {
-    var a = 0.2 + 0.5 * Math.min(1, wd / 2.6);
-    if (portrait) { if (n.y > h * 0.4) a *= 0.34; } else if (!opts.center && n.x < w * 0.47) a *= 0.3 + 0.5 * Math.max(0, (n.x - w * 0.3) / (w * 0.17));
-    return a;
-  } };
-  var styleOut = { color: '#5A72C4', glow: LINE, maxW: 2.2, alpha: function (n, wd) { return 0.3 + 0.35 * Math.min(1, wd / 2); } };
-
+  var styleIn = { ink: true, color: NAVY, maxW: 2.2, base: 0.35, alpha: function (n, wd) {
+    var a = 0.5 + 0.45 * Math.min(1, wd / 2);
+    if (portrait) { if (n.y > h * 0.4) a *= 0.26; } else if (n.x < w * 0.52) a *= 0.2 + 0.6 * Math.max(0, (n.x - w * 0.32) / (w * 0.2));
+    return a; } };
+  var styleOut = { ink: true, color: GOLDD, maxW: 1.8, base: 0.4, alpha: function () { return 0.95; } };
   function reveal(n) {
-    var ti = inb.length, to = out.length;
-    var a = Math.min(ti, revealIn + n), b = Math.min(to, revealOut + n * to / ti);
-    if (a > revealIn) Mycel.drawSegments(sctx, inb, revealIn, a, styleIn);
-    if (b > revealOut) Mycel.drawSegments(sctx, out, revealOut, b, styleOut);
-    revealIn = a; revealOut = b;
-    if (revealIn >= ti && !curl.done) {
-      curl.done = true;
-      sctx.save(); sctx.globalCompositeOperation = 'lighter'; sctx.lineCap = 'round';
-      sctx.strokeStyle = GOLD; sctx.globalAlpha = 0.6; sctx.lineWidth = 1.5;
-      sctx.beginPath(); curl.forEach(function (p, i) { i ? sctx.lineTo(p.x, p.y) : sctx.moveTo(p.x, p.y); }); sctx.stroke();
-      sctx.restore();
-    }
+    var a = Math.min(inb.length, revIn + n), b = Math.min(out.length, revOut + n * out.length / inb.length);
+    if (a > revIn) Mycel.drawSegments(sctx, inb, revIn, a, styleIn);
+    if (b > revOut) Mycel.drawSegments(sctx, out, revOut, b, styleOut);
+    revIn = a; revOut = b;
+    if (revIn >= inb.length && !curl.done) { curl.done = true; sctx.save(); sctx.strokeStyle = NAVY; sctx.globalAlpha = 0.7; sctx.lineWidth = 1; sctx.beginPath(); curl.forEach(function (p, i) { if (i) sctx.lineTo(p.x, p.y); else sctx.moveTo(p.x, p.y); }); sctx.stroke(); sctx.restore(); }
   }
-
-  /* A Nordic forest edge at blue hour, drawn in code: spruce in layers of mist, a few birches, moss. No photo. */
-  function drawForest(c) {
-    var rnd = Mycel.rng(9041), i, L, k, canBlur = 'filter' in c;
-    var x0 = portrait ? -40 : w * 0.44;
-    function fade(x) { return portrait || opts.forestOnly ? 1 : Math.max(0, Math.min(1, (x - x0) / (w * 0.2))); }
-    function gy(x) { return G + Math.sin(x * 0.006 + 1) * 3 + Math.sin(x * 0.021) * 1.5; }
-    var sky = c.createLinearGradient(0, 0, 0, G);
-    sky.addColorStop(0, '#060A1A'); sky.addColorStop(0.45, '#0A1230'); sky.addColorStop(0.85, '#1B2B59'); sky.addColorStop(1, '#2A3C6E');
-    c.fillStyle = sky; c.fillRect(0, 0, w, G + 4);
-    // a far ridge, low and soft
-    if (canBlur) c.filter = 'blur(3px)';
-    c.fillStyle = '#1D2D5C'; c.beginPath(); c.moveTo(0, G + 4);
-    for (i = 0; i <= w + 8; i += 8) c.lineTo(i, G - G * (0.12 + 0.06 * Math.sin(i * 0.004 + 2) + 0.02 * Math.sin(i * 0.013)));
-    c.lineTo(w, G + 4); c.fill();
-    function spruce(x, by, H, col) {
-      var tiers = Math.max(7, Math.round(H / 8)), hw0 = H * (0.14 + rnd() * 0.05), st = H * 0.92 / tiers;
-      c.fillStyle = col; c.fillRect(x - 1, by - H * 0.25, 2, H * 0.25 + 2);
-      for (k = 0; k < tiers; k++) {
-        var f = (k + 1) / tiers, y = by - H + f * H * 0.9, hw = hw0 * Math.pow(f, 0.8) * (0.78 + rnd() * 0.44);
-        c.beginPath(); c.moveTo(x, y - st * 1.4);
-        c.quadraticCurveTo(x - hw * 0.3, y - st * 0.1, x - hw * (0.85 + rnd() * 0.3), y + st * (0.45 + rnd() * 0.6));
-        c.quadraticCurveTo(x - hw * 0.4, y + st * 0.15, x, y + st * 0.4);
-        c.quadraticCurveTo(x + hw * 0.4, y + st * 0.15, x + hw * (0.85 + rnd() * 0.3), y + st * (0.45 + rnd() * 0.6));
-        c.quadraticCurveTo(x + hw * 0.3, y - st * 0.1, x, y - st * 1.4); c.fill();
-      }
-      c.beginPath(); c.moveTo(x, by - H * 1.05); c.lineTo(x - 1.6, by - H * 0.88); c.lineTo(x + 1.6, by - H * 0.88); c.fill();
-    }
-    function birch(x, by, H) {
-      var lean = (rnd() - 0.5) * H * 0.22, wd = 1.8 + H * 0.009;
-      c.lineCap = 'round'; c.strokeStyle = 'rgba(206,212,224,0.4)'; c.lineWidth = 0.7;
-      for (k = 0; k < 22; k++) {
-        var f = 0.35 + rnd() * 0.65, yy = by - f * H, xx = x + lean * f * f, dir = rnd() < 0.5 ? -1 : 1, len = H * (0.12 + rnd() * 0.22) * (1.3 - f);
-        c.beginPath(); c.moveTo(xx, yy); c.quadraticCurveTo(xx + dir * len * 0.45, yy - len * 0.75, xx + dir * len, yy - len * 0.35); c.stroke();
-      }
-      c.strokeStyle = 'rgba(214,216,216,0.82)'; c.lineWidth = wd;
-      c.beginPath(); c.moveTo(x, by + 2); c.quadraticCurveTo(x + lean * 0.3, by - H * 0.5, x + lean, by - H); c.stroke();
-      c.strokeStyle = '#0A1128'; c.lineWidth = 1; c.lineCap = 'butt';
-      for (k = 0; k < H / 8; k++) {
-        var f2 = rnd() * 0.9, y2 = by - f2 * H, x2 = x + lean * (0.6 * f2 * (1 - f2) + f2 * f2), l = wd * (0.3 + rnd() * 0.55), sd = rnd() < 0.5 ? -1 : 1;
-        c.beginPath(); c.moveTo(x2 + sd * wd / 2, y2); c.lineTo(x2 + sd * (wd / 2 - l), y2 + rnd() - 0.5); c.stroke();
-      }
-    }
-    // far trees are soft and pale, near trees sharp and dark: the way cold air really looks
-    var cols = ['#22346A', '#17244F', '#0E1736', '#080E24'], soft = [2.4, 1.3, 0.5, 0];
-    for (L = 0; L < 4; L++) {
-      if (canBlur) c.filter = soft[L] ? 'blur(' + soft[L] + 'px)' : 'none';
-      for (var x = x0 + rnd() * 30; x < w + 30; x += (portrait ? 15 : 22) * (1 + L * 0.55) * (0.5 + rnd())) {
-        var fd = fade(x); if (rnd() > fd + 0.1 || (L > 1 && fd < 0.45)) continue;
-        var H = Math.min(G * 0.9, G * (0.3 + L * 0.16) * (0.72 + rnd() * 0.5)) * (0.5 + 0.5 * fd);
-        spruce(x, gy(x) + 2, H, cols[L]);
-      }
-      if (canBlur) c.filter = 'none';
-      var mist = c.createLinearGradient(0, G * 0.3, 0, G);
-      mist.addColorStop(0, 'rgba(140,165,215,0)'); mist.addColorStop(1, 'rgba(140,165,215,' + (0.16 - L * 0.03) + ')');
-      c.fillStyle = mist; c.fillRect(0, G * 0.3, w, G * 0.7 + 4);
-      if (L === 2) { var nb = portrait ? 2 : 4; for (i = 0; i < nb; i++) { var bx = portrait ? w * (0.12 + 0.7 * rnd()) : w * (0.52 + 0.44 * (i + rnd() * 0.6) / nb); if (Math.abs(bx - node.x) < R * 0.5) bx += R; birch(bx, gy(bx), G * (0.5 + rnd() * 0.2)); } }
-    }
-    // fine grain over the air, like film: it takes the digital edge off
-    for (i = 0; i < w * G / 26; i++) { c.fillStyle = rnd() < 0.5 ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.10)'; c.fillRect(rnd() * w, rnd() * G, 1, 1); }
-    // the soil begins: ink, with a little depth just under the moss
-    c.fillStyle = '#060A1A'; c.beginPath(); c.moveTo(0, gy(0));
-    for (i = 0; i <= w + 6; i += 6) c.lineTo(i, gy(i));
-    c.lineTo(w, h); c.lineTo(0, h); c.fill();
-    var soil = c.createLinearGradient(0, G, 0, G + 80); soil.addColorStop(0, 'rgba(26,40,82,0.6)'); soil.addColorStop(1, 'rgba(26,40,82,0)');
-    c.fillStyle = soil; c.fillRect(0, G - 2, w, 84);
-    c.strokeStyle = '#8FAE6B'; c.lineWidth = 1.2; c.globalAlpha = 0.6; c.beginPath();
-    for (i = 0; i <= w + 6; i += 6) { if (i) c.lineTo(i, gy(i)); else c.moveTo(i, gy(i)); }
-    c.stroke(); c.lineWidth = 0.8;
-    for (i = 0; i < (portrait ? 40 : 110); i++) { var tx = x0 + rnd() * (w - x0), th = 3 + rnd() * 8; c.globalAlpha = (0.25 + rnd() * 0.4) * fade(tx); c.beginPath(); c.moveTo(tx, gy(tx)); c.quadraticCurveTo(tx + (rnd() - 0.5) * 3, gy(tx) - th * 0.6, tx + (rnd() - 0.5) * 6, gy(tx) - th); c.stroke(); }
-    c.globalAlpha = 1;
-  }
-
-  function hex(ctx, f) {   // the outline of the mark, grown outward: rings that follow the logo
-    var P = [[50, 14.4], [84, 34], [84, 70.2], [50, 89.8], [16, 70.2], [16, 34]];
-    ctx.beginPath();
+  function hex(ctx, f) {
+    var P = [[50, 14.4], [84, 34], [84, 70.2], [50, 89.8], [16, 70.2], [16, 34]]; ctx.beginPath();
     P.forEach(function (q, i) { var x = node.x + (q[0] - 50) * M * f, y = node.y + (q[1] - 52) * M * f; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
     ctx.closePath();
   }
-
-  function ellipse(ctx, x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); }
-  function diamond(ctx, x, y, hw, hh) { ctx.beginPath(); ctx.moveTo(x, y - hh); ctx.lineTo(x + hw, y); ctx.lineTo(x, y + hh); ctx.lineTo(x - hw, y); ctx.closePath(); }
-
-  function drawNode(ctx, t) {
-    var k = 0.6, br = 1 + Math.sin(t * 0.9) * 0.018, i;
-    ctx.save();
-    // growth rings: one per request, following the outline of the mark
-    ctx.lineWidth = 0.8; ctx.strokeStyle = GOLD; ctx.lineJoin = 'round';
-    for (i = 0; i < Math.min(rings, 8); i++) { ctx.globalAlpha = 0.3 * (1 - i / 9); hex(ctx, (1.2 + i * 0.075) * br); ctx.stroke(); }
-    // clean soil right under the mark, then the real mark itself
-    ctx.globalAlpha = 1; ctx.fillStyle = '#060A1A'; hex(ctx, 1.1); ctx.fill();
-    if (mark) ctx.drawImage(mark, node.x - 50 * M, node.y - 48 * M, 100 * M, 100 * M);
-    // its gold ring breathes
-    ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = LIGHT; ctx.lineWidth = 3.2; ctx.globalAlpha = 0.18 + 0.16 * Math.sin(t * 0.9);
-    ellipse(ctx, node.x, node.y - 2 * M, 17.7 * M, 10.2 * M); ctx.stroke(); ctx.globalAlpha = 1;
-    // the seal at the end of the curl
-    var e = curl[curl.length - 1];
-    ctx.strokeStyle = LIGHT; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.6 + 0.4 * sealFlash;
-    ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, R * 0.2 + sealFlash * 3, 0, Math.PI * 2); ctx.stroke();
-    if (sealFlash > 0) Mycel.glowDot(ctx, e.x, e.y, 22, GOLD, sealFlash * 0.5);
-    ctx.restore();
-    if (opts.quiet) return;
-    // labels (the same words exist as text in the page)
-    ctx.save();
-    ctx.font = '11px ' + MONO; ctx.fillStyle = MUT; ctx.textBaseline = 'middle';
-    try { ctx.letterSpacing = '1.5px'; } catch (er) {}
-    if (portrait) {
-      ctx.textAlign = 'left'; ctx.fillText('OUTSIDE', 16, G + 22);
-      ctx.fillStyle = LIGHT; ctx.textAlign = 'center'; ctx.fillText('THE LAYER', node.x, node.y - 50 * M - 12);
-      ctx.fillStyle = GOLD; ctx.textAlign = 'center'; ctx.fillText('KEPT LOCAL', curl.c.x, curl.c.y + R * 0.95);
-    } else {
-      ctx.textAlign = 'center';
-      ctx.fillStyle = LIGHT; ctx.fillText('THE LAYER  ·  DECIDES WHAT PASSES', node.x, node.y - 66 * M - 10);
-      ctx.fillStyle = MUT;
-      ctx.textAlign = 'right'; ctx.fillText('OUTSIDE  ·  FRONTIER AI', w - 28, G + 26);
-      ctx.textAlign = 'left'; ctx.fillText('YOUR ENVIRONMENT', w * 0.49, h * 0.92);
-      ctx.fillStyle = GOLD; ctx.textAlign = 'left'; ctx.fillText('KEPT LOCAL', curl.c.x + R * 1.0, curl.c.y);
-    }
-    ctx.restore();
-  }
-
-  function drawPulse(ctx, p) {
-    var pos = Mycel.at(p.path, p.d), i;
-    for (i = 4; i >= 1; i--) { var q = Mycel.at(p.path, p.d - i * 7); Mycel.glowDot(ctx, q.x, q.y, p.r * 0.7, p.col, 0.12 * (5 - i) * p.a); }
-    Mycel.glowDot(ctx, pos.x, pos.y, p.r * (p.soft ? 2.6 : 1.5), p.col, (p.soft ? 0.45 : 0.9) * p.a);
-    if (!p.soft) Mycel.glowDot(ctx, pos.x, pos.y, p.r * 0.45, '#FFFFFF', 0.9 * p.a);
-    return pos;
-  }
-
+  function dot(ctx, pos, r, col, a) { ctx.globalAlpha = a; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(pos.x, pos.y, r, 0, 6.3); ctx.fill(); ctx.globalAlpha = 1; }
   function label(ctx, txt, x, y, col, a, blur) {
-    if (a <= 0.01) return;
-    ctx.save();
-    ctx.globalCompositeOperation = 'source-over';
+    if (a <= 0.01) return; ctx.save();
     ctx.font = (portrait ? '11px ' : '12.5px ') + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
-    var tw = ctx.measureText(txt).width + 16;
-    x = Math.max(tw / 2 + 8, Math.min(w - tw / 2 - 8, x));
+    var tw = ctx.measureText(txt).width + 16; x = Math.max(tw / 2 + 8, Math.min(w - tw / 2 - 8, x));
     if (blur && 'filter' in ctx) ctx.filter = 'blur(' + blur.toFixed(1) + 'px)';
-    ctx.globalAlpha = a * 0.86; ctx.fillStyle = '#060A1A'; ctx.fillRect(x - tw / 2, y - 11, tw, 22);
-    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillText(txt, x, y + 0.5);
-    ctx.restore();
+    ctx.globalAlpha = a * 0.94; ctx.fillStyle = PAPER; ctx.fillRect(x - tw / 2, y - 11, tw, 22);
+    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillText(txt, x, y + 0.5); ctx.restore();
   }
-
-  function spawnAmbient() {
-    var p = inPaths[(Math.random() * inPaths.length) | 0];
-    pulses.push({ path: p, d: 0, v: 55 + Math.random() * 60, col: GOLD, r: 5, a: 0.75, phase: 'in' });
-  }
+  function caps(ctx, txt, x, y, align) { ctx.save(); ctx.font = '10.5px ' + MONO; ctx.fillStyle = SOFT; ctx.textAlign = align; ctx.textBaseline = 'middle'; try { ctx.letterSpacing = '1.6px'; } catch (e) {} ctx.fillText(txt, x, y); ctx.restore(); }
   function leave(tier) {
-    if (tier === 3) return { path: curl, d: 0, v: 70, col: LIGHT, r: 5.5, a: 1, phase: 'curl' };
-    var p = outPaths[(Math.random() * outPaths.length) | 0];
-    return { path: p, d: 0, v: 85, col: tier === 2 ? MOSS : TEAL, r: tier === 2 ? 6 : 5, a: 0.9, soft: tier === 2, phase: 'out' };
+    if (tier === 3) return { path: curl, d: 0, v: 70, col: NAVY, ph: 'curl' };
+    return { path: outP[(Math.random() * outP.length) | 0], d: 0, v: 85, col: tier === 2 ? BLUE : GOLDD, ph: 'out' };
   }
-
-  function frame(dt, t) {
-    var ctx = S.ctx, i;
-    reveal(reduced ? 1e9 : Math.max(2, inb.length * dt / 7.5));
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(stat, 0, 0, w, h);
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    var grown = revealIn / inb.length;
-    if (!reduced && !opts.still && grown > 0.45 && pulses.length < (portrait ? 9 : 16) && Math.random() < dt * 2.4) spawnAmbient();
+  function drawNode(ctx) {
+    var i; ctx.save(); ctx.lineJoin = 'round'; ctx.strokeStyle = NAVY; ctx.lineWidth = 0.7;
+    for (i = 0; i < Math.min(rings, 6); i++) { ctx.globalAlpha = 0.16 * (1 - i / 7); hex(ctx, 1.22 + i * 0.085); ctx.stroke(); }
+    ctx.globalAlpha = 1; ctx.fillStyle = PAPER; hex(ctx, 1.1); ctx.fill();
+    if (mark) ctx.drawImage(mark, node.x - 50 * M, node.y - 48 * M, 100 * M, 100 * M);
+    ctx.strokeStyle = NAVY; ctx.lineWidth = 1; ctx.globalAlpha = 0.75; ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, R * 0.2, 0, 6.3); ctx.stroke();
+    if (seal > 0) dot(ctx, curl.c, R * 0.2 * seal, GOLD, seal);
+    ctx.restore();
+    caps(ctx, 'THE LAYER', node.x, node.y - 50 * M - 14, 'center');
+    if (!portrait) { caps(ctx, 'OUTSIDE', w - 26, node.y - R * 2.6, 'right'); caps(ctx, 'KEPT LOCAL', curl.c.x + R * 0.95, curl.c.y, 'left'); }
+  }
+  function frame(dt) {
+    var ctx = S.ctx, i, pos;
+    reveal(reduced ? 1e9 : Math.max(2, inb.length * dt / 9));
+    ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h);
+    var grown = revIn / inb.length;
+    if (!reduced && !opts.still && grown > 0.5 && pulses.length < (portrait ? 5 : 8) && Math.random() < dt * 1.4) pulses.push({ path: inP[(Math.random() * inP.length) | 0], d: 0, v: 50 + Math.random() * 45, col: NAVY, ph: 'in' });
     for (i = pulses.length - 1; i >= 0; i--) {
       var p = pulses[i]; p.d += p.v * dt;
-      if (p.d >= p.path.len) {
-        pulses.splice(i, 1);
-        if (p.phase === 'in') { rings++; var r = Math.random(); pulses.push(leave(r < 0.6 ? 1 : r < 0.8 ? 2 : 3)); }
-        else if (p.phase === 'curl') sealFlash = 1;
-        continue;
-      }
-      if (p.phase === 'out') p.a = Math.min(0.9, (p.path.len - p.d) / 80);
-      drawPulse(ctx, p);
+      if (p.d >= p.path.len) { pulses.splice(i, 1); if (p.ph === 'in') { rings++; var r = Math.random(); pulses.push(leave(r < 0.6 ? 1 : r < 0.8 ? 2 : 3)); } else if (p.ph === 'curl') seal = 1; continue; }
+      dot(ctx, Mycel.at(p.path, p.d), 2.3, p.col, p.ph === 'out' ? Math.min(1, (p.path.len - p.d) / 60) : 0.9);
     }
-    ctx.restore();
-    sealFlash = Math.max(0, sealFlash - dt * 0.9);
-    drawNode(ctx, t);
-    // the featured request: a real token, readable, changing at the gate
-    if (!feat && grown > 0.7) {
-      featTimer -= dt;
-      if (featTimer <= 0) {
-        var s = SCRIPT[featIdx++ % SCRIPT.length];
-        feat = { s: s, path: featPaths[(Math.random() * featPaths.length) | 0], d: 0, phase: 'in', hold: 0, a: 1 };
-        feat.d = Math.max(0, feat.path.len - (portrait ? R * 3.2 : R * 5.2));
-      }
-    }
+    seal = Math.max(0, seal - dt * 0.8);
+    drawNode(ctx);
+    if (!feat && grown > 0.7) { ft -= dt; if (ft <= 0) { var s = SCRIPT[fi++ % SCRIPT.length]; feat = { s: s, path: featP[(Math.random() * featP.length) | 0], ph: 'in', hold: 0 }; feat.d = Math.max(0, feat.path.len - (portrait ? R * 3.4 : R * 5.5)); } }
     if (feat) {
-      var s2 = feat.s, pos, lx, ly;
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      if (feat.phase === 'in') {
-        feat.d += 62 * dt;
-        pos = drawPulse(ctx, { path: feat.path, d: feat.d, col: LIGHT, r: 7, a: 1 });
-        ctx.restore();
-        label(ctx, s2.a, pos.x, pos.y - 24, LIGHT, Math.min(1, (feat.d - (feat.path.len - R * 5.2)) / 40 + 1));
-        if (feat.d >= feat.path.len) { feat.phase = 'hold'; feat.hold = 0; rings++; feat.pos = pos; }
-      } else if (feat.phase === 'hold') {
-        feat.hold += dt / 1.5;
-        var f = Math.min(1, feat.hold), col = s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT;
-        Mycel.glowDot(ctx, node.x, node.y, R * (0.5 + f * 0.5), s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : MOSS, 0.35 * Math.sin(f * Math.PI));
-        ctx.restore();
-        lx = node.x; ly = portrait ? node.y + 46 * M + 16 : node.y - 46 * M - 14;
-        label(ctx, s2.a, lx, ly, LIGHT, 1 - f, f * 5);
-        label(ctx, s2.b || 'stays here', lx, ly, col, f, s2.t === 2 ? (1 - f) * 3 : 0);
-        if (feat.hold >= 1.5) { feat.phase = 'out'; feat.o = leave(s2.t); feat.o.r = 7; feat.o.a = 1; }
+      var s2 = feat.s, after = s2.t === 1 ? BROWN : s2.t === 2 ? BLUE : NAVY, lx = node.x, ly = portrait ? node.y + 46 * M + 16 : node.y - 46 * M - 34;
+      if (feat.ph === 'in') {
+        feat.d += 58 * dt; pos = Mycel.at(feat.path, feat.d); dot(ctx, pos, 3.4, NAVY, 1); label(ctx, s2.a, pos.x, pos.y - 22, NAVY, 1);
+        if (feat.d >= feat.path.len) { feat.ph = 'hold'; rings++; }
+      } else if (feat.ph === 'hold') {
+        feat.hold += dt / 1.5; var f = Math.min(1, feat.hold);
+        label(ctx, s2.a, lx, ly, NAVY, 1 - f, f * 5); label(ctx, s2.b, lx, ly, after, f, s2.t === 2 ? (1 - f) * 3 : 0);
+        if (feat.hold >= 1.5) { feat.ph = 'out'; feat.o = leave(s2.t); }
       } else {
         var o = feat.o; o.d += o.v * dt;
-        if (o.d >= o.path.len) { ctx.restore(); if (o.phase === 'curl') sealFlash = 1; feat = null; featTimer = 1.6; }
-        else {
-          var fade = Math.min(1, (o.path.len - o.d) / 70);
-          o.a = fade; pos = drawPulse(ctx, o); ctx.restore();
-          if (o.phase === 'curl') label(ctx, 'stays here', pos.x, pos.y + 26, LIGHT, fade);
-          else label(ctx, s2.b, pos.x, pos.y - 24, s2.t === 1 ? TEAL : MOSS, fade);
-        }
+        if (o.d >= o.path.len) { if (o.ph === 'curl') seal = 1; feat = null; ft = 2.2; }
+        else { var fade = Math.min(1, (o.path.len - o.d) / 70); pos = Mycel.at(o.path, o.d); dot(ctx, pos, 3.4, o.col, fade); label(ctx, s2.b, pos.x, pos.y + (o.ph === 'curl' ? 24 : -22), after, fade); }
       }
     }
   }
-
   function still() {
-    // one composed frame: grown network, one token arriving, one masked token leaving
-    var ctx = S.ctx; frame(0, 0);
-    var p = featPaths[0], d = p.len * 0.72, pos;
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    pos = drawPulse(ctx, { path: p, d: d, col: LIGHT, r: 7, a: 1 }); ctx.restore();
-    label(ctx, SCRIPT[0].a, pos.x, pos.y - 24, LIGHT, 1);
-    var o = outPaths[0];
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    pos = drawPulse(ctx, { path: o, d: o.len * 0.5, col: TEAL, r: 7, a: 1 }); ctx.restore();
-    label(ctx, SCRIPT[0].b, pos.x, pos.y - 24, TEAL, 1);
+    frame(0); var ctx = S.ctx, p = featP[0], pos = Mycel.at(p, p.len * 0.7);
+    dot(ctx, pos, 3.4, NAVY, 1); label(ctx, SCRIPT[0].a, pos.x, pos.y - 22, NAVY, 1);
+    var o = outP[0]; pos = Mycel.at(o, o.len * 0.5); dot(ctx, pos, 3.4, GOLDD, 1); label(ctx, SCRIPT[0].b, pos.x, pos.y - 22, BROWN, 1);
   }
-
   if (typeof TDS_MARK_SVG !== 'undefined') {
     var im = new Image();
-    im.onload = function () { mark = im; if (!opts.forestOnly && (reduced || opts.still) && S) still(); };
+    im.onload = function () { mark = im; if ((reduced || opts.still) && S) still(); };
     im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TDS_MARK_SVG);
   }
   (function start() {
     var r = cv.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) { requestAnimationFrame(start); return; }
-    build();
-    if (opts.forestOnly) return;
-    if (reduced || opts.still) still(); else Mycel.loop(cv, frame);
+    build(); if (reduced || opts.still) still(); else Mycel.loop(cv, frame);
   })();
-  var rt;
-  window.addEventListener('resize', function () {
-    clearTimeout(rt);
-    rt = setTimeout(function () {
-      if (Math.abs(cv.getBoundingClientRect().width - lastW) < 2) return;
-      build(); if (!opts.forestOnly && (reduced || opts.still)) still();
-    }, 180);
-  });
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(cv.getBoundingClientRect().width - lastW) < 2) return; build(); if (reduced || opts.still) still(); }, 180); });
 }
 
 /* Generated by make_data.py from web/how-it-works-data/cases-out.json. Real router output on synthetic text. Do not edit by hand. */
 var TDS_DATA = {"commit":"a822605","outbound_attempts":0,"cases":[{"parts":[{"lit":"Make this e-mail shorter and friendlier:\n\nHello,\n\nI am writing again about the refund for my cancelled order. Please pay it to my account "},{"a":"GB33 BUKB 2020 1555 5555 55","b":"⟦IBAN_1⟧","type":"iban","kind":"masked"},{"lit":" as soon as you can. Call me if anything is unclear.\n\nBest regards\n"},{"a":"Emma Whitfield","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"emma.whitfield@example.com","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"+44 7700 900123","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi there,\n\nJust following up on the refund for my cancelled order. Could you pay it to "},{"a":"⟦IBAN_1⟧","b":"GB33 BUKB 2020 1555 5555 55"},{"lit":" when you get a chance? Feel free to call if anything is unclear. Thanks so much!\n\nBest wishes\n"},{"a":"⟦PERSON_1⟧","b":"Emma Whitfield"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"emma.whitfield@example.com"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"+44 7700 900123"},{"lit":""}],"key":"email","title":"A customer's e-mail with bank details","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-001","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{"email":1,"iban":1,"person":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"iban":{"masked":1},"person":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"0000000000000000000000000000000000000000000000000000000000000000"}},{"parts":[{"lit":"Summarise the e-mail below in three points:\n\nHi "},{"a":"Helen Lindqvist","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":",\n\nThank you for the quote for "},{"a":"headsets","b":"⟦PRODUCT_1⟧","type":"product","kind":"masked"},{"lit":" for our support team. We at "},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":" would like to go ahead, but three things need sorting out first.\n\nFirst, we need the delivery at our office in "},{"a":"Sorsele","b":"northern Sweden","type":"location","kind":"widened"},{"lit":" by "},{"a":"13 June 2027","b":"June 2027","type":"date","kind":"widened"},{"lit":", because the roll-out to staff starts then.\n\nSecond, the contract must allow orders in several rounds. We have "},{"a":"35,897 employees","b":"10,000–50,000 employees","type":"count","kind":"widened"},{"lit":" in total today, and more departments will want to order once they see how it works.\n\nThird, please send order confirmations and delivery notes to "},{"a":"orders@northgate-freight.example","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":", so they reach the right place from the start.\n\nCall me on "},{"a":"+44 7700 900456","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":" if anything is unclear.\n\nBest regards\n"},{"a":"Philip Ashford","b":"⟦PERSON_2⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"• "},{"a":"⟦ORG_1⟧","b":"Northgate Freight Ltd"},{"lit":" wants to go ahead with the quote for "},{"a":"⟦PRODUCT_1⟧","b":"headsets"},{"lit":", but needs delivery to its office in northern Sweden by June 2027.\n• The contract must allow orders in several rounds: the company has 10,000–50,000 employees, and more departments are expected to order.\n• Order confirmations and delivery notes should go to "},{"a":"⟦EMAIL_1⟧","b":"orders@northgate-freight.example"},{"lit":". "},{"a":"⟦PERSON_2⟧","b":"Philip Ashford"},{"lit":" answers questions on "},{"a":"⟦PHONE_1⟧","b":"+44 7700 900456"},{"lit":"."}],"key":"generalise","title":"A supplier e-mail with telling details","tier":2,"rule":9,"reason":"Other task: k_est and U_sem are high enough after generalisation","sent":true,"audit":{"request_id":"demo-002","policy_version":"v1.1-provisional","task":"other","tier":2,"rule":9,"entity_counts":{"count":1,"date":1,"email":1,"location":1,"org":2,"person":2,"phone":1,"product":1},"generalised_counts":{"count_band":1,"date_month":1,"place_region":1},"handling":{"count":{"widened":1},"date":{"widened":1},"email":{"masked":1},"location":{"widened":1},"org":{"masked":2},"person":{"masked":2},"phone":{"masked":1},"product":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"984649b2469752f5292a2dbd57f2a796e6562f05c7ba74dfb998c1c315af53d9"}},{"parts":[{"lit":"Translate into Swedish before the meeting: We are preparing to acquire a "},{"a":"Finnish logistics company","b":null,"type":"org","kind":"kept"},{"lit":" with around "},{"a":"340 employees","b":null,"type":"count","kind":"kept"},{"lit":", for about 900 million kronor. Completion is planned for the second quarter, and nothing may become known before the board meeting."}],"ans_parts":null,"key":"vault","title":"A confidential deal, never named","tier":3,"rule":5,"reason":"C_vault above the threshold: close to vault material","sent":false,"audit":{"request_id":"demo-003","policy_version":"v1.1-provisional","task":"translate","tier":3,"rule":5,"entity_counts":{"count":1,"org":1},"generalised_counts":{},"handling":{"count":{"kept_local":1},"org":{"kept_local":1}},"destination":"ollama","model":"ministral-3:3b","provider":"ollama-local","prev_hash":"a74f614acf5b4d45bd49eb2a7892d429d8a0f317ee732e47f1a5519e34b3e03a"}},{"parts":[{"lit":"Make this reply warmer: Thank you for your message. We have received your question and will reply within two working days. In the summer it may take a little longer."}],"ans_parts":[{"lit":"Thank you so much for getting in touch! We have received your question and will get back to you within two working days. In the summer it may take a little longer, and we appreciate your patience."}],"key":"harmless","title":"A harmless reply","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-004","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{},"generalised_counts":{},"handling":{},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"a86c0900c6fb83cf641b45969e249e127d85e8ac9f1b0a5ec6b3e319828aff14"}},{"parts":[{"lit":"Översätt mejlet till engelska:\n\nHej!\n\nJag skickar mitt CV inför intervjun på torsdag. Mitt personnummer är "},{"a":"590505-2881","b":"⟦PERSONNUMMER_1⟧","type":"personnummer","kind":"masked"},{"lit":", om ni behöver det för bakgrundskontrollen. Ring gärna om något är oklart.\n\nMed vänliga hälsningar\n"},{"a":"Tove Sandberg","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"tove.sandberg@exempel.se","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"070-123 45 67","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi!\n\nI am sending my CV ahead of the interview on Thursday. My personal identity number is "},{"a":"⟦PERSONNUMMER_1⟧","b":"590505-2881"},{"lit":", in case you need it for the background check. Feel free to call if anything is unclear.\n\nKind regards\n"},{"a":"⟦PERSON_1⟧","b":"Tove Sandberg"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"tove.sandberg@exempel.se"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"070-123 45 67"},{"lit":""}],"key":"sv-email","title":"A Swedish client e-mail with a personnummer and a signature","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-005","policy_version":"v1.1-provisional","task":"translate","tier":1,"rule":6,"entity_counts":{"email":1,"person":1,"personnummer":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"person":{"masked":1},"personnummer":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"8fe8fbe792fb170c452384365509b86ba3664b920812500c04217ac8f042d457"}}]};
 
 /* Quiet scenes for the home page. Each one needs Mycel and draws only while on screen. */
-var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', BLUE = '#5A72C4', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA', INK = '#060A1A';
+var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', BLUE = '#5A72C4', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA', INK = '#101A3D';
 var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
 
 /* Build a scene only when it is about to scroll into view. */
@@ -1048,13 +860,8 @@ function SceneLive(root, data) {
 (function () {
   var still = /[?&]still/.test(location.search);
   if (still) document.documentElement.style.scrollBehavior = 'auto';
-  // The hero shows photos/hero.jpg when that file exists (Henrik's own photograph). Until then: the drawn forest.
-  var hero = document.getElementById('top'), ph = new Image();
-  ph.onload = function () { document.getElementById('photo').style.backgroundImage = 'url(photos/hero.jpg)'; hero.classList.add('has-photo'); };
-  ph.onerror = function () { MycelGate(document.getElementById('forest'), { forestOnly: true }); };
-  ph.src = 'photos/hero.jpg';
+  MycelInk(document.getElementById('ink'), { still: still });
   function boot() {
-    lazy(document.getElementById('gatecv'), function () { MycelGate(document.getElementById('gatecv'), { still: still, noForest: true, center: true, quiet: true }); });
     lazy(document.getElementById('lv'), function () { SceneLive(document.getElementById('lv'), TDS_DATA); });
     lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });
   }

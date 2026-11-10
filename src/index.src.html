@@ -107,17 +107,43 @@ code,.m{font:400 .9em var(--mono)}
 @media (max-width:759px){.give{grid-template-columns:1fr;gap:28px}}
 .close h2{font-size:clamp(40px,6vw,88px);max-width:none}
 .contact{margin:34px 0 0;font-size:19px}
-.contact .ph{font:400 13px/1.6 var(--sans);color:#8A6212;display:block;margin-top:8px}
+.contact .ph{font:400 13px/1.6 var(--sans);color:var(--light);display:block;margin-top:8px}
 footer{padding:44px clamp(22px,9vw,150px) 110px;border-top:1px solid var(--rule);display:grid;gap:8px;font-size:13px;color:var(--soft)}
 footer .l{display:flex;align-items:center;gap:12px;color:var(--navytext);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
 footer img{width:26px;height:26px}
+
+/* Version 3: light, with dark marine blue and gold, and the mycelium as a fine ink drawing. */
+:root{--paper:#FAFAF8;--rule:#D9DDDC;--marine:#101A3D}
+html,body{background:var(--paper)}
+.hero{color:var(--navytext);background:linear-gradient(180deg,#FAFAF8 0%,#EDF0EF 100%);justify-content:center}
+.hero:after{display:none}
+.top,.top nav a{color:var(--navytext)}
+.hero .copy{padding-top:110px;padding-bottom:80px;max-width:min(48rem,56vw)}
+.hero .kicker{color:#8A6212}
+.hero .sub{color:var(--soft)}
+.hero h1{max-width:9.6em}
+.hero h1,h2,.close h2{font-weight:500;letter-spacing:-.018em}
+h3{font-weight:600}
+.cap{position:absolute;left:clamp(22px,9vw,150px);bottom:22px;margin:0;font:400 12px/1.5 var(--sans);color:var(--soft)}
+.marine{background:var(--marine);color:var(--ivory);--soft:#AEB6CE;--rule:#2A3B78;--navytext:#F7F3EA}
+.goldline{display:block;width:72px;height:2px;background:var(--gold);margin:0 0 40px}
+.marine h2{max-width:14em}
+.soil{background:var(--marine);--rule:#2A3B78}
+.route{border-top:2px solid var(--gold);padding-top:20px}
+.route .k{color:var(--navytext)}
+footer.marine{border-top:1px solid #2A3B78;color:#AEB6CE}
+footer.marine .l{color:var(--ivory)}
+@media (max-width:759px){
+  .hero{justify-content:flex-start}
+  .hero .copy{max-width:none;margin-top:300px;padding-top:0;padding-bottom:170px}
+  .cap{position:static;padding:0 22px 150px;margin-top:-140px}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hero" id="top">
-  <canvas id="forest" aria-hidden="true"></canvas>
-  <div class="photo" id="photo" role="img" aria-label="A Nordic forest at dusk."></div>
+  <canvas id="ink" aria-hidden="true"></canvas>
   <div class="top">
     <a class="home" href="#top"><img src="../brand/final/tds-mark-small.svg" alt="" width="30" height="30"><span>True Data Sovereignty</span></a>
     <nav aria-label="On this page"><a href="#gate">The Layer</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
@@ -125,18 +151,21 @@ footer img{width:26px;height:26px}
   <div class="copy">
 {{hero.html}}
   </div>
+  <p class="cap">Synthetic example. The word changes in the drawing are real router output on made-up text (router a822605).</p>
 </header>
 
 <main id="main">
 
-<div class="wrap">
+<div class="marine"><div class="wrap">
 <section class="sec" id="vision" aria-labelledby="h-vision">
+  <span class="goldline"></span>
   <h2 id="h-vision">What you write should stay yours to decide.</h2>
   <p class="big">Every day, people hand their words to AI services they do not run. Names, cases, plans. A contract says the data is safe. A contract does not decide what happens to it.</p>
   <p class="big">We think that decision belongs to you. To a company first, because that is where we start. In time, to anyone: a person, a town, a country.</p>
   <p class="big">That is what sovereignty means to us. It is a kind of freedom.</p>
 </section>
-<hr>
+</div></div>
+<div class="wrap">
 <section class="sec" id="problem" aria-labelledby="h-problem">
   <p class="lab">The problem</p>
   <h2 id="h-problem">Your contract does not override it.</h2>
@@ -145,27 +174,24 @@ footer img{width:26px;height:26px}
 </section>
 </div>
 
-<div class="soil">
-  <div class="wrap">
+<div class="wrap">
   <section class="sec" id="gate" aria-labelledby="h-gate" style="padding-bottom:0">
     <p class="lab">The Layer</p>
     <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
     <p class="big">It reads each request before any model does. Then it decides what may leave.</p>
   </section>
-  </div>
-  <div class="gateband">
-    <canvas id="gatecv" role="img" aria-label="Gold threads carry requests to The Layer. Some leave with names replaced by placeholders, some leave with details blurred, and some curl back and stay."></canvas>
-  </div>
-  <div class="wrap">
-  <section class="sec wide" style="padding-top:clamp(30px,5vh,60px)" aria-label="Three routes">
+  <section class="sec wide" style="padding-top:0" aria-label="Three routes">
     <div class="routes">
-      <div class="route"><p class="k"><i style="background:var(--teal)"></i>Mask</p><p>The names and numbers it finds leave as placeholders. They are put back in the answer, on your side.</p></div>
-      <div class="route"><p class="k"><i style="background:var(--moss)"></i>Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
-      <div class="route"><p class="k"><i style="background:var(--light)"></i>Keep local</p><p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p></div>
+      <div class="route"><p class="k">Mask</p><p>The names and numbers it finds leave as placeholders. They are put back in the answer, on your side.</p></div>
+      <div class="route"><p class="k">Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
+      <div class="route"><p class="k">Keep local</p><p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p></div>
     </div>
-    <p class="note">Synthetic example: every word change in the picture is real router output on made-up text (router a822605). Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
+    <p class="note">Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
   </section>
+</div>
 
+<div class="soil">
+  <div class="wrap">
   <section class="sec wide" id="live" aria-labelledby="h-live">
     <p class="lab">Watch one request</p>
     <h2 id="h-live">See it pass the gate.</h2>
@@ -230,16 +256,18 @@ footer img{width:26px;height:26px}
   </div>
   <p class="note">The Layer is a prototype. Many tools mask; The Layer first decides whether a request may leave at all. The other two routes open only by a written change, after a legal opinion. The local model is selected, not yet installed. Nothing is signed before our company is registered.</p>
 </section>
-<hr>
+</div>
+<div class="marine"><div class="wrap">
 <section class="sec close" id="contact" aria-labelledby="h-close">
+  <span class="goldline"></span>
   <h2 id="h-close">One 30-minute call.</h2>
   <p class="big">Pick one workflow. We do the rest.</p>
   <p class="contact">Henrik Thulin, True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
 </section>
-</div>
+</div></div>
 
 </main>
-<footer>
+<footer class="marine">
   <div class="l"><img src="../brand/final/tds-mark-small.svg" alt="" width="26" height="26"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
@@ -249,19 +277,14 @@ footer img{width:26px;height:26px}
 <script>
 {{mycel.js}}
 {{mark.js}}
-{{gate.js}}
+{{ink.js}}
 {{data.js}}
 {{scenes.js}}
 (function () {
   var still = /[?&]still/.test(location.search);
   if (still) document.documentElement.style.scrollBehavior = 'auto';
-  // The hero shows photos/hero.jpg when that file exists (Henrik's own photograph). Until then: the drawn forest.
-  var hero = document.getElementById('top'), ph = new Image();
-  ph.onload = function () { document.getElementById('photo').style.backgroundImage = 'url(photos/hero.jpg)'; hero.classList.add('has-photo'); };
-  ph.onerror = function () { MycelGate(document.getElementById('forest'), { forestOnly: true }); };
-  ph.src = 'photos/hero.jpg';
+  MycelInk(document.getElementById('ink'), { still: still });
   function boot() {
-    lazy(document.getElementById('gatecv'), function () { MycelGate(document.getElementById('gatecv'), { still: still, noForest: true, center: true, quiet: true }); });
     lazy(document.getElementById('lv'), function () { SceneLive(document.getElementById('lv'), TDS_DATA); });
     lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });
   }

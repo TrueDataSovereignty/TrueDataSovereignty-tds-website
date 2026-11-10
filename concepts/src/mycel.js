@@ -97,9 +97,9 @@ var Mycel = (function () {
   function drawSegments(ctx, nodes, from, to, style) {
     var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = style.ink ? 'source-over' : 'lighter';
     ctx.lineCap = 'butt';
-    for (var pass = 0; pass < 2; pass++) {
+    for (var pass = style.ink ? 1 : 0; pass < 2; pass++) {
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
         var P = nodes[n.p];

@@ -33,7 +33,9 @@ body{background:var(--paper);color:var(--navytext);font-size:18px;line-height:1.
 .hero h1{font-size:clamp(38px,5.4vw,80px);max-width:11em;margin-bottom:26px}
 .hero .lede{max-width:33rem;font-size:clamp(17px,1.4vw,20px)}
 .hero .sub{color:#C9CEDD;margin-bottom:30px}
-@media (max-width:759px){.top nav a:not(.keep){display:none}}
+@media (max-width:759px){.top nav a:not(.keep){display:none}
+  /* the review bar covers the bottom of a phone screen: keep the button above it */
+  .hero .copy{padding-bottom:150px}.hero h1{font-size:36px;margin-bottom:18px}.hero .kicker{margin-bottom:14px}.hero .sub{margin-bottom:22px}}
 /* text sections */
 .sec{padding:clamp(88px,17vh,190px) 0;max-width:46rem}
 .sec.wide{max-width:1120px}
@@ -171,7 +173,7 @@ footer img{width:26px;height:26px}
     <div id="lv">
       <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
       <div class="stage">
-        <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre></article>
+        <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
         <div class="mid"><canvas id="lv-cv" aria-hidden="true"></canvas><p class="verdict" id="lv-verdict" aria-live="polite"></p></div>
         <article class="pane"><h3 id="lv-out-h">What the model sees</h3><pre id="lv-out" aria-live="polite"></pre></article>
       </div>
@@ -232,7 +234,7 @@ footer img{width:26px;height:26px}
 <section class="sec close" id="contact" aria-labelledby="h-close">
   <h2 id="h-close">One 30-minute call.</h2>
   <p class="big">Pick one workflow. We do the rest.</p>
-  <p class="contact">Henrik Thulin · True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
+  <p class="contact">Henrik Thulin, True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
 </section>
 </div>
 

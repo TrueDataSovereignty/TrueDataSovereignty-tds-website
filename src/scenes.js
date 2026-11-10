@@ -184,7 +184,7 @@ function SceneLive(root, data) {
   var $ = function (s) { return root.querySelector(s); };
   var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), verdict = $('#lv-verdict'), steps = root.querySelectorAll('#lv-steps li'), tabs = $('#lv-cases'), outH = $('#lv-out-h'), ansNote = $('#lv-ans-note');
   var mini = SceneMini($('#lv-cv')), timers = [], cur = 0;
-  var order = ['email', 'generalise', 'vault', 'sv-email'], label = { email: 'A customer e-mail with bank details', generalise: 'A supplier e-mail with telling details', vault: 'A confidential deal', 'sv-email': 'A Swedish e-mail with a personnummer' };
+  var order = ['email', 'generalise', 'vault', 'sv-email'], label = { email: 'A customer e-mail with bank details', generalise: 'A supplier e-mail with telling details', vault: 'A confidential deal', 'sv-email': 'Swedish example: an e-mail with a personnummer' };
   var cases = order.map(function (k) { return data.cases.filter(function (c) { return c.key === k; })[0]; });
   var TIER = { 1: ['Mask', 't1'], 2: ['Generalise', 't2'], 3: ['Keep local', 't3'] };
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
@@ -196,6 +196,7 @@ function SceneLive(root, data) {
     var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; });
     tabs.querySelectorAll('button').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
     paneIn.textContent = ''; paneOut.textContent = ''; paneAns.textContent = ''; verdict.textContent = ''; verdict.className = 'verdict'; ansNote.textContent = '';
+    var gloss = $('#lv-gloss'); if (gloss) gloss.textContent = c.key === 'sv-email' ? 'Swedish example. In English, it asks: translate this e-mail into English. The writer sends a CV before an interview and gives a personal identity number (personnummer) for the background check.' : '';
     outH.textContent = c.tier === 3 ? 'What was sent out' : 'What the model sees';
     c.parts.forEach(function (p) { paneIn.appendChild('a' in p ? el('span', 'tok raw', p.a) : document.createTextNode(p.lit)); });
     step(0);

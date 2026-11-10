@@ -192,9 +192,9 @@ footer img{width:26px;height:26px}
   <div class="wrap">
   <section class="sec wide" style="padding-top:clamp(30px,5vh,60px)" aria-label="Three routes">
     <div class="routes">
-      <div class="route"><p class="k"><i style="background:var(--teal)"></i>Mask</p><p>Names and numbers leave as placeholders. They are put back in the answer, on your side.</p></div>
+      <div class="route"><p class="k"><i style="background:var(--teal)"></i>Mask</p><p>The names and numbers it finds leave as placeholders. They are put back in the answer, on your side.</p></div>
       <div class="route"><p class="k"><i style="background:var(--moss)"></i>Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
-      <div class="route"><p class="k"><i style="background:var(--light)"></i>Keep local</p><p>The most sensitive work goes to a local model on your own machine. Nothing is sent out.</p></div>
+      <div class="route"><p class="k"><i style="background:var(--light)"></i>Keep local</p><p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p></div>
     </div>
     <p class="note">Synthetic example: every word change in the picture is real router output on made-up text (router a822605). Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
   </section>
@@ -202,7 +202,7 @@ footer img{width:26px;height:26px}
   <section class="sec wide" id="live" aria-labelledby="h-live">
     <p class="lab">Watch one request</p>
     <h2 id="h-live">See it pass the gate.</h2>
-    <p>Pick a request. What you see is what the router really produced.</p>
+    <p>Pick a request. What you see is what the router really produced. The model's answer is an example we wrote.</p>
     <div id="lv">
       <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
       <div class="stage">
@@ -227,7 +227,7 @@ footer img{width:26px;height:26px}
       <div>
         <p class="lab">The record</p>
         <h2 id="h-rings">Every request leaves a ring.</h2>
-        <p>A tree keeps a ring for every year. The Layer keeps a record for every request, with no text in it. Each record carries the fingerprint of the one before. Take one out, and it shows.</p>
+        <p>A tree keeps a ring for every year. The Layer keeps a record for every request, with no text in it. Each record carries the fingerprint of the one before. Take one out or change it, and the check shows it. To catch the newest records being cut off, keep a copy of the latest fingerprint somewhere else.</p>
         <div class="rec" id="rec" aria-live="polite"></div>
         <div class="ringbtns" id="ringbtns" role="group" aria-label="Look at a ring, or take one out"></div>
       </div>

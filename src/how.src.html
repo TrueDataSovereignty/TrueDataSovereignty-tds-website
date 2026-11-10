@@ -125,7 +125,7 @@ footer img{width:34px;height:34px}
       <li>It reads the request and finds the names, numbers and telling details in it.</li>
       <li>It compares the request with your confidential list.</li>
       <li>It picks the route from what it found and from your rules. A missing or unknown setting makes it stricter, never looser.</li>
-      <li>On any error or timeout, it takes the local route.</li>
+      <li>If The Layer cannot finish its check (any error or timeout), the text stays on your machine. If the AI service itself is down, the request is refused, never sent elsewhere.</li>
       <li>It writes a record of the decision, with no text in it. Each record carries the fingerprint of the one before.</li>
     </ol>
   </section>

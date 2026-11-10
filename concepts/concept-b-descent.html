@@ -64,7 +64,7 @@ code{font:400 .9em var(--mono);color:var(--light)}
     <div class="copy">
 <p class="kicker">The Layer</p>
 <h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
-<p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+<p class="lede" id="w-lede">Use frontier AI with privacy control before any prompt leaves your environment. The Layer routes every prompt by what’s in it.</p>
 <a class="cta" href="#contact">Become a design partner</a>
 
       <p class="note" style="margin-top:30px">Scroll to go down. The deeper a request sinks, the less of it leaves.</p>
@@ -91,8 +91,9 @@ code{font:400 .9em var(--mono);color:var(--light)}
 </main>
 <canvas id="live" aria-hidden="true"></canvas>
 <div class="toggle" role="group" aria-label="Hero wording, for review only">
-<span>Review only, not on the final page. Hero wording:</span>
-<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<span>Review only, not on the final page. Hero wording, other options:</span>
+<button type="button" data-w="h" aria-pressed="true">Chosen</button>
+<button type="button" data-w="a" aria-pressed="false">A · Henrik's words</button>
 <button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
 <button type="button" data-w="c" aria-pressed="false">C · Competition</button>
 <button type="button" data-w="d" aria-pressed="false">D · Henrik's new draft</button>
@@ -102,6 +103,7 @@ code{font:400 .9em var(--mono);color:var(--light)}
 </div>
 <script>
 (function(){var H="Data Sovereignty, beyond paper contracts.",W={
+h:["Use frontier AI with privacy control before any prompt leaves your environment. The Layer routes every prompt by what’s in it.",H],
 a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.",H],
 b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.",H],
 c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",H],
@@ -113,7 +115,7 @@ var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('
 bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
 document.getElementById('w-lede').textContent=w[0];document.getElementById('w-h1').textContent=w[1];
 bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
-var m=/[?&]w=([abcdefg])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+var m=/[?&]w=([abcdefgh])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
 </script>
 
 <script>

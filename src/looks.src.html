@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Four looks · True Data Sovereignty (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("{{FONT}}") format("truetype");font-weight:400 700;font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:#ECE7DB;color:#101A3D;font:400 16px/1.55 "Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:1100px;margin:0 auto;padding:36px 18px 80px}
+.page>h1{font:700 30px/1.15 "Lora",Georgia,serif;margin:0 0 8px}
+.page>p{margin:0 0 34px;max-width:40rem;color:#4D5672}
+.look{margin:0 0 54px}
+.look h2{font:700 22px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
+.look .why{margin:0 0 14px;color:#4D5672;max-width:44rem}
+.chips{display:flex;gap:6px;margin:12px 0 0;align-items:center;font-size:12px;color:#4D5672;flex-wrap:wrap}
+.chips i{width:26px;height:26px;border-radius:50%;border:1px solid rgba(16,26,61,.18)}
+/* the mock hero inside each look */
+.mock{position:relative;overflow:hidden;aspect-ratio:16/10;border-radius:3px;box-shadow:0 1px 0 rgba(16,26,61,.08),0 18px 40px -22px rgba(16,26,61,.45);container-type:inline-size}
+@media (max-width:640px){.mock{aspect-ratio:4/5}}
+.nav{position:absolute;left:5cqw;right:5cqw;top:4cqw;display:flex;align-items:center;gap:1.4cqw;font:700 1.25cqw/1 "Segoe UI",system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.nav img{width:3cqw;height:3cqw}
+.nav span.r{margin-left:auto;font-weight:400;letter-spacing:.02em;text-transform:none;font-size:1.45cqw;display:flex;gap:2.6cqw}
+.txt{position:absolute;left:5cqw;right:5cqw}
+.k{font:700 1.5cqw/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;margin:0 0 1.8cqw}
+.h{font:700 5.6cqw/1.05 "Lora",Georgia,serif;letter-spacing:-.012em;margin:0 0 2.2cqw;max-width:11em}
+.l{font-size:1.75cqw;line-height:1.5;margin:0 0 .8cqw;max-width:34em}
+.s{font:italic 400 1.55cqw/1.5 "Lora",Georgia,serif;margin:0 0 2.4cqw;opacity:.8}
+.b{display:inline-block;padding:1.35cqw 2.3cqw;font:700 1.45cqw/1 "Segoe UI",system-ui,sans-serif;border-radius:2px}
+.ph{position:absolute;font:400 1.15cqw/1.4 Consolas,monospace;letter-spacing:.04em;opacity:.75}
+@media (max-width:640px){
+  .nav{font-size:2.6cqw}.nav img{width:6cqw;height:6cqw}.nav span.r{font-size:3cqw}.nav span.r b{display:none}
+  .k{font-size:3cqw}.h{font-size:9.4cqw}.l{font-size:3.7cqw}.s{font-size:3.3cqw}.b{font-size:3.2cqw;padding:3cqw 4.6cqw}.ph{font-size:2.5cqw}
+}
+/* 1 Paper */
+.paper{background:#F7F3EA;color:#101A3D}
+.paper .txt{top:17cqw;width:48cqw}
+.paper .k{color:#8A6212}
+.paper .b{background:#101A3D;color:#F7F3EA}
+.paper .print{position:absolute;right:5cqw;top:11cqw;width:36cqw;height:44cqw;background:linear-gradient(180deg,#C9D0D2 0%,#AEB9B6 34%,#6F8179 52%,#34463F 70%,#1C2A28 100%);box-shadow:0 0 0 1.1cqw #fff,0 2cqw 4cqw -2cqw rgba(16,26,61,.5)}
+.paper .print:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(20,32,30,.0) 0 2.3cqw,rgba(20,32,30,.55) 2.3cqw 2.7cqw,rgba(20,32,30,0) 2.7cqw 6.1cqw,rgba(20,32,30,.4) 6.1cqw 6.35cqw);-webkit-mask:linear-gradient(180deg,transparent 22%,#000 46%);mask:linear-gradient(180deg,transparent 22%,#000 46%)}
+.paper .ph{right:5cqw;bottom:2.2cqw;color:#4D5672}
+@media (max-width:640px){.paper .txt{top:20cqw;width:auto}.paper .print{top:auto;bottom:9cqw;right:5cqw;left:5cqw;width:auto;height:38cqw}.paper .ph{bottom:3cqw}}
+/* 2 Dusk */
+.dusk{color:#F7F3EA;background:linear-gradient(180deg,#0B1330 0%,#1D2C5A 30%,#56678F 47%,#8E97A8 52%,#232F45 56%,#0C1326 74%,#060A1A 100%)}
+.dusk:before{content:"";position:absolute;left:0;right:0;top:36%;height:20%;background:repeating-linear-gradient(90deg,rgba(6,10,26,.9) 0 .5cqw,rgba(6,10,26,.2) .5cqw 1.1cqw,rgba(6,10,26,.75) 1.1cqw 1.9cqw,rgba(6,10,26,.1) 1.9cqw 2.4cqw);-webkit-mask:linear-gradient(180deg,transparent,#000 70%);mask:linear-gradient(180deg,transparent,#000 70%)}
+.dusk:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,26,.2),rgba(6,10,26,0) 35%,rgba(6,10,26,.75) 100%)}
+.dusk .nav,.dusk .txt,.dusk .ph{z-index:2}
+.dusk .txt{bottom:6cqw}
+.dusk .k{color:#F8DF9C}
+.dusk .b{background:#DDB04A;color:#060A1A}
+.dusk .ph{right:5cqw;top:9cqw;color:#F7F3EA}
+/* 3 Daylight */
+.day{background:linear-gradient(180deg,#F4F5F3 0%,#E6EAEA 46%,#D3DAD9 58%,#EEF0EE 60%,#FAFAF8 100%);color:#101A3D}
+.day:before{content:"";position:absolute;left:44%;right:0;top:0;bottom:38%;background:repeating-linear-gradient(90deg,transparent 0 3.2cqw,rgba(255,255,255,.95) 3.2cqw 3.9cqw,transparent 3.9cqw 8.1cqw,rgba(250,250,248,.9) 8.1cqw 8.6cqw,transparent 8.6cqw 11cqw),linear-gradient(180deg,rgba(120,140,140,.0),rgba(96,116,112,.55))}
+.day .txt{top:15cqw;width:46cqw}
+.day .k{color:#101A3D;opacity:.7}
+.day .h{font-weight:700}
+.day .b{background:#DDB04A;color:#060A1A}
+.day .line{position:absolute;left:5cqw;right:5cqw;bottom:8cqw;height:1px;background:#DDB04A}
+.day .ph{right:5cqw;bottom:3cqw;color:#4D5672}
+@media (max-width:640px){.day .txt{top:22cqw;width:auto}.day:before{left:0;top:58%;bottom:12%}}
+/* 4 Soil */
+.soil{background:#060A1A;color:#F7F3EA}
+.soil svg{position:absolute;inset:0;width:100%;height:100%}
+.soil .txt{top:15cqw;width:46cqw}
+.soil .k{color:#DDB04A}
+.soil .b{background:#DDB04A;color:#060A1A}
+.soil .ph{right:5cqw;bottom:3cqw;color:#AEB6CE}
+@media (max-width:640px){.soil .txt{top:22cqw;width:auto}}
+.foot{border-top:1px solid #D2CBB9;padding-top:18px;font-size:14px;color:#4D5672;max-width:44rem}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Four looks for the site</h1>
+  <p>Draft, not published. Same words in each, your hero copy. The grey-green and blue areas marked "photo" are stand-ins made of plain colour: a real photograph goes there. Pick one look, or mix two.</p>
+
+  <section class="look">
+    <h2>1 · Paper</h2>
+    <p class="why">Ivory paper, navy ink, one photograph shown like a print on a desk. Feels handmade and calm, closest to anthropic.com. The most tangible and the least "tech".</p>
+    <div class="mock paper">
+      <div class="nav"><img src="{{MARK}}" alt=""><span>True Data Sovereignty</span><span class="r"><b>The Layer</b><b>Proof</b><b>Pilot</b><span>Contact</span></span></div>
+      <div class="print"></div>
+      <div class="txt"><p class="k">The Layer</p><p class="h">Data Sovereignty, beyond paper contracts.</p><p class="l">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p><p class="s">An AI moderation layer tailored to your enterprise teams.</p><span class="b">Become a design partner</span></div>
+      <span class="ph">photo stand-in: spruce in fog</span>
+    </div>
+    <div class="chips"><i style="background:#F7F3EA"></i><i style="background:#101A3D"></i><i style="background:#DDB04A"></i><i style="background:#6F8179"></i><span>ivory · navy · gold · the photo's own greens</span></div>
+  </section>
+
+  <section class="look">
+    <h2>2 · Dusk</h2>
+    <p class="why">One real photograph fills the whole first screen, at blue hour. Words sit low and quiet on it. Closest to evroc.com. The strongest first impression, and it depends fully on the photo.</p>
+    <div class="mock dusk">
+      <div class="nav"><img src="{{MARK}}" alt=""><span>True Data Sovereignty</span><span class="r"><b>The Layer</b><b>Proof</b><b>Pilot</b><span>Contact</span></span></div>
+      <div class="txt"><p class="k">The Layer</p><p class="h">Data Sovereignty, beyond paper contracts.</p><p class="l">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p><p class="s">An AI moderation layer tailored to your enterprise teams.</p><span class="b">Become a design partner</span></div>
+      <span class="ph">photo stand-in: lake and treeline at dusk</span>
+    </div>
+    <div class="chips"><i style="background:#0B1330"></i><i style="background:#56678F"></i><i style="background:#F7F3EA"></i><i style="background:#DDB04A"></i><span>midnight navy · dusk blue · ivory · gold</span></div>
+  </section>
+
+  <section class="look">
+    <h2>3 · Daylight</h2>
+    <p class="why">Nordic winter light: white, fog grey, birch. Navy text and a single gold line. The cleanest and most open of the four. It says freedom more than security.</p>
+    <div class="mock day">
+      <div class="nav"><img src="{{MARK}}" alt=""><span>True Data Sovereignty</span><span class="r"><b>The Layer</b><b>Proof</b><b>Pilot</b><span>Contact</span></span></div>
+      <div class="txt"><p class="k">The Layer</p><p class="h">Data Sovereignty, beyond paper contracts.</p><p class="l">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p><p class="s">An AI moderation layer tailored to your enterprise teams.</p><span class="b">Become a design partner</span></div>
+      <div class="line"></div>
+      <span class="ph">photo stand-in: birches in snow and fog</span>
+    </div>
+    <div class="chips"><i style="background:#FAFAF8"></i><i style="background:#D3DAD9"></i><i style="background:#101A3D"></i><i style="background:#DDB04A"></i><span>snow white · fog grey · navy · gold</span></div>
+  </section>
+
+  <section class="look">
+    <h2>4 · Soil (what you have seen so far)</h2>
+    <p class="why">Night soil with gold threads and the logo as the gate. No photograph. The most "digital" of the four, kept here to compare. In looks 1 to 3 this world still appears once, lower on the page, where the product is explained.</p>
+    <div class="mock soil">
+      <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke-linecap="round">
+        <g stroke="#DDB04A" opacity=".8"><path d="M70 2C76 18 88 22 96 34S108 46 113 52" stroke-width=".7"/><path d="M52 96C66 88 74 76 88 72S104 62 112 57" stroke-width=".8"/><path d="M64 50C78 47 90 55 110 54" stroke-width=".9"/><path d="M96 34C100 26 108 24 112 14M88 72C86 82 92 90 90 99M82 51C80 42 72 40 68 30" stroke-width=".4" opacity=".7"/></g>
+        <g stroke="#5A72C4" opacity=".85"><path d="M127 52C138 46 144 50 159 44" stroke-width=".7"/><path d="M127 56C138 62 146 60 159 70" stroke-width=".6"/><path d="M138 47C142 38 150 36 154 28" stroke-width=".35"/></g>
+        <g transform="translate(108 43) scale(.24)"><polygon points="16,66 50,85.6 84,66 50,46.4" fill="#16224F" stroke="#B8862B" stroke-width="2"/><polygon points="16,50 50,69.6 84,50 50,30.4" fill="#101A3D" stroke="#33488F" stroke-width="2"/><ellipse cx="50" cy="50" rx="17.7" ry="10.2" stroke="#F8DF9C" stroke-width="3"/><polygon points="16,34 50,53.6 84,34 50,14.4" fill="#B8862B" fill-opacity=".55" stroke="#F8DF9C" stroke-width="1.5"/></g>
+      </svg>
+      <div class="nav"><img src="{{MARK}}" alt=""><span>True Data Sovereignty</span><span class="r"><b>The Layer</b><b>Proof</b><b>Pilot</b><span>Contact</span></span></div>
+      <div class="txt"><p class="k">The Layer</p><p class="h">Data Sovereignty, beyond paper contracts.</p><p class="l">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p><p class="s">An AI moderation layer tailored to your enterprise teams.</p><span class="b">Become a design partner</span></div>
+      <span class="ph">sketch of the live scene</span>
+    </div>
+    <div class="chips"><i style="background:#060A1A"></i><i style="background:#DDB04A"></i><i style="background:#5A72C4"></i><i style="background:#5FD9C6"></i><span>ink · gold · blue · teal</span></div>
+  </section>
+
+  <p class="foot">How to read this: these are sketches of mood, type and colour, not finished pages. No stock or AI image is used; the photo areas are plain colour. Lora Bold for headlines and navy with gold are fixed in all four.</p>
+</div>
+</body>
+</html>

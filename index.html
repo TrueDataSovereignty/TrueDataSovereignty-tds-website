@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>The Layer · True Data Sovereignty (draft, not published)</title>
+<meta name="description" content="The Layer is a gate on your own machine, between your staff and AI services. For every request it decides what may leave: mask, generalise, or keep local.">
+<link rel="icon" href="../brand/final/tds-mark-small.svg">
+<style>
+@font-face{font-family:"Lora";src:url("../fonts/Lora-wght.ttf") format("truetype");font-weight:400 700;font-display:swap}
+:root{--ink:#060A1A;--navy:#101A3D;--marine:#1C2C66;--line:#33488F;--gold:#DDB04A;--deep:#B8862B;--light:#F8DF9C;--ivory:#F7F3EA;--mut:#AEB6CE;--moss:#8FAE6B;--teal:#5FD9C6;
+--sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:var(--ink);color:var(--ivory);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 17px/1.55 var(--sans);background:var(--ink);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--light);outline-offset:3px}
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:12px;padding:22px clamp(20px,5vw,64px);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.top img{width:30px;height:30px}
+.top .draft{margin-left:auto;font:400 11px/1 var(--mono);letter-spacing:.08em;color:var(--mut);text-transform:none}
+.copy{max-width:46rem}
+.kicker{font:700 clamp(15px,1.5vw,18px)/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;letter-spacing:-.012em;margin:0 0 26px;text-wrap:balance}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.5;margin:0 0 12px;max-width:31rem;color:var(--ivory)}
+.sub{font:italic 400 clamp(15px,1.25vw,17px)/1.5 "Lora",Georgia,serif;color:var(--mut);margin:0 0 34px}
+.cta{display:inline-block;padding:15px 26px;background:var(--gold);color:var(--ink);font:700 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;border-radius:2px}
+.cta:hover{background:var(--light)}
+.key{list-style:none;margin:34px 0 0;padding:0;font:400 13px/1.5 var(--sans);color:var(--mut);display:grid;gap:6px}
+.key b{color:var(--ivory);font-weight:600}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;vertical-align:1px}
+.note{font:400 11px/1.5 var(--mono);color:var(--mut);letter-spacing:.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.toggle{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px clamp(12px,3vw,24px);background:#0B1230;border-top:1px solid var(--marine);font:400 11px/1.3 var(--mono);color:var(--mut)}
+.toggle button{font:inherit;color:var(--ivory);background:none;border:1px solid var(--line);padding:5px 9px;border-radius:2px;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:var(--ink);padding:10px 14px;z-index:50}
+.skip:focus{left:8px}
+.top{z-index:5}
+.top nav{margin-left:auto;display:flex;gap:26px;font:400 13px/1 var(--sans);letter-spacing:.04em;text-transform:none}
+.top nav a{text-decoration:none;color:var(--mut);padding:6px 0}
+.top nav a:hover{color:var(--ivory)}
+.top .home{display:flex;align-items:center;gap:12px;text-decoration:none}
+.hero .copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 90px}
+.cap{position:absolute;right:clamp(20px,5vw,64px);bottom:24px;margin:0;text-align:right}
+@media (max-width:759px){
+  .top nav a:not(.keep){display:none}
+  .hero{display:flex;flex-direction:column;justify-content:flex-end}
+  .hero .copy{padding:0 20px 28px;margin-top:max(330px,46vh)}
+  .cap{position:static;padding:0 20px 28px;text-align:left}
+}
+/* the page below the hero: one thread runs down the left, and each section hangs on it */
+.page{position:relative;padding:0 clamp(20px,5vw,64px)}
+.page:before{content:"";position:absolute;left:clamp(20px,5vw,64px);top:0;bottom:0;width:1px;background:linear-gradient(var(--deep),var(--deep)) no-repeat;opacity:.45}
+.sec{position:relative;padding:clamp(72px,12vh,140px) 0 clamp(72px,12vh,140px) clamp(28px,7vw,120px);max-width:1240px}
+.sec:before{content:"";position:absolute;left:-6px;top:calc(clamp(72px,12vh,140px) + 1px);width:11px;height:11px;border:1.5px solid var(--gold);border-radius:50%;background:var(--ink)}
+.lab{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 26px}
+h2{font:700 clamp(30px,4vw,54px)/1.08 "Lora",Georgia,serif;letter-spacing:-.01em;margin:0 0 24px;max-width:15em;text-wrap:balance}
+h2 em{font-style:normal;color:var(--gold)}
+h3{font:700 22px/1.2 "Lora",Georgia,serif;margin:0 0 10px}
+.sec p{max-width:36rem;margin:0 0 16px}
+.sec .big{font-size:clamp(18px,1.6vw,21px);line-height:1.5}
+.note{display:block;max-width:44rem}
+.sec p.note{max-width:44rem;margin-top:22px}
+code,.m{font:400 .92em var(--mono);color:var(--light)}
+/* problem */
+#shore{display:block;width:100%;height:clamp(200px,30vw,340px);margin:36px 0 30px}
+/* the gate: three threads */
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:44px 0 0;max-width:1060px}
+.route{padding:26px 28px 6px 0;border-top:1px solid var(--marine);position:relative}
+.route + .route{padding-left:28px;border-left:1px solid var(--marine)}
+.route svg{display:block;width:100%;max-width:220px;height:64px;margin:0 0 18px}
+.route .k{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}
+.route p{font-size:16px;margin:0 0 12px}
+.r1 .k{color:var(--teal)}.r2 .k{color:var(--moss)}.r3 .k{color:var(--light)}
+@media (max-width:859px){.routes{grid-template-columns:1fr}.route + .route{padding-left:0;border-left:0}}
+/* live */
+.cases,.ringbtns{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 22px}
+.cases button,.ringbtns button,.replay{font:400 13px/1.2 var(--sans);color:var(--ivory);background:none;border:1px solid var(--line);padding:10px 14px;border-radius:2px;cursor:pointer;text-align:left}
+.cases button:hover,.ringbtns button:hover,.replay:hover{border-color:var(--light)}
+.cases button[aria-pressed=true],.ringbtns button[aria-pressed=true]{border-color:var(--gold);color:var(--light);box-shadow:inset 0 -2px 0 var(--gold)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 230px minmax(0,1fr);align-items:stretch;max-width:1160px}
+.pane{border-top:1px solid var(--marine);padding:16px 0 20px;min-width:0}
+.pane h3{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+.pane pre{margin:0;font:400 13.5px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;color:#D5D9E6;min-height:6em}
+.mid{position:relative;min-height:300px}
+.mid canvas{position:absolute;inset:0;width:100%;height:100%}
+.verdict{position:absolute;left:0;right:0;bottom:4px;margin:0;text-align:center;font:400 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);max-width:none}
+.verdict.t1{color:var(--teal)}.verdict.t2{color:var(--moss)}.verdict.t3{color:var(--light)}
+.ans{max-width:1160px;margin-top:8px}
+.ans pre{min-height:4em}
+.tok{transition:opacity .22s,filter .22s;border-radius:2px;padding:1px 3px;margin:0 -1px}
+.tok.raw{color:var(--light);background:rgba(221,176,74,.14)}
+.tok.ph{color:var(--teal);background:rgba(95,217,198,.12)}
+.tok.wide{color:var(--moss);background:rgba(143,174,107,.16)}
+.tok.go{opacity:0;filter:blur(4px)}
+.none{color:var(--light)}
+#lv-steps{list-style:none;counter-reset:s;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1160px;font-size:14px;color:var(--mut)}
+#lv-steps li{counter-increment:s;border-top:1px solid var(--marine);padding-top:12px;transition:color .3s,border-color .3s}
+#lv-steps li:before{content:counter(s) ". ";font-family:var(--mono)}
+#lv-steps li.on{color:var(--ivory);border-color:var(--gold)}
+#lv-steps li.done{color:var(--ivory)}
+.replay{margin-top:22px}
+@media (max-width:859px){
+  .stage{grid-template-columns:1fr}.mid{min-height:150px}
+  #lv-steps{grid-template-columns:1fr 1fr}
+}
+/* rings */
+.ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center;max-width:1160px}
+#ringcv{display:block;width:100%;aspect-ratio:1;max-width:520px;justify-self:center}
+.rec{margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);font:400 12.5px/1.75 var(--mono);color:var(--mut);min-height:11em;max-width:30rem}
+.rec b{color:var(--light);font-weight:400}.rec .h,.rec .broken{color:var(--ivory)}.rec .h{word-break:break-all}
+.ringbtns{margin:14px 0 0}.ringbtns button{font:400 12px/1 var(--mono);padding:8px 10px}
+.ringbtns .take{border-color:var(--gold);color:var(--light)}
+@media (max-width:859px){.ringwrap{grid-template-columns:1fr}#ringcv{order:-1;max-width:360px;justify-self:start}}
+/* proof */
+.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,5vw,72px);max-width:1060px;margin:40px 0 0}
+.num{border-top:1px solid var(--marine);padding:24px 0 30px}
+.num .v{font:700 clamp(40px,5vw,64px)/1 "Lora",Georgia,serif;letter-spacing:-.01em;color:var(--ivory);margin:0 0 12px}
+.num .v small{font:400 15px/1 var(--mono);color:var(--mut);letter-spacing:.02em;margin-left:8px}
+.num p{font-size:16px;margin:0 0 14px;max-width:26rem}
+.num.gap .v{color:var(--gold)}
+.num.gap p b{color:var(--light)}
+.iv{position:relative;height:18px;margin:0 0 8px;max-width:26rem}
+.iv:before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--line)}
+.iv i{position:absolute;top:6px;height:7px;background:var(--gold);min-width:3px;border-radius:1px}
+.iv:after{content:"0%";position:absolute;left:0;top:14px;font:400 9px/1 var(--mono);color:var(--mut)}
+.iv b{position:absolute;right:0;top:14px;font:400 9px/1 var(--mono);color:var(--mut)}
+.num .src{font:400 11px/1.6 var(--mono);color:var(--mut);margin:14px 0 0}
+@media (max-width:759px){.nums{grid-template-columns:1fr}}
+/* why, pilot, close */
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,4vw,56px);max-width:1060px;margin:36px 0 0}
+.cols>div{border-top:1px solid var(--marine);padding:22px 0 8px}
+.cols p{font-size:16px}
+.give{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,5vw,72px);max-width:820px;margin:34px 0 0}
+.give>div{border-top:1px solid var(--marine);padding:20px 0 6px}
+.give ul{margin:0;padding:0;list-style:none}.give li{padding:5px 0 5px 20px;position:relative;font-size:16px}
+.give li:before{content:"";position:absolute;left:0;top:14px;width:9px;height:1px;background:var(--gold)}
+@media (max-width:759px){.cols,.give{grid-template-columns:1fr}}
+.close h2{font-size:clamp(40px,6.4vw,92px);max-width:none}
+.contact{margin:30px 0 0;padding:20px 0 0;border-top:1px solid var(--marine);max-width:36rem;font-size:18px}
+.contact .ph{font:400 12px/1.6 var(--mono);color:var(--gold);display:block;margin-top:8px}
+footer{padding:44px clamp(20px,5vw,64px) 96px;border-top:1px solid var(--marine);display:grid;gap:10px;font-size:13px;color:var(--mut)}
+footer .l{display:flex;align-items:center;gap:12px;color:var(--ivory);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+footer img{width:26px;height:26px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="top">
+    <a class="home" href="#top"><img src="../brand/final/tds-mark-small.svg" alt="" width="30" height="30"><span>True Data Sovereignty</span></a>
+    <nav aria-label="On this page"><a href="#gate">The gate</a><a href="#live">Watch it</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
+  </div>
+  <div class="copy">
+<p class="kicker">The Layer</p>
+<h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
+<p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+<p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
+<a class="cta" href="#contact">Become a design partner</a>
+
+    <ul class="key" aria-label="What the picture shows">
+      <li><i style="background:var(--light)"></i><b>Gold:</b> your requests, with your data in them. What must stay curls back and seals.</li>
+      <li><i style="background:var(--teal)"></i><b>Mask:</b> names and numbers leave as placeholders.</li>
+      <li><i style="background:var(--moss)"></i><b>Generalise:</b> telling details leave blurred.</li>
+    </ul>
+  </div>
+  <p class="note cap">Synthetic example. Every word change shown is real router output on made-up text (router a822605).</p>
+</header>
+
+<main class="page" id="main">
+
+<section class="sec" id="problem" aria-labelledby="h-problem">
+  <p class="lab">The problem</p>
+  <h2 id="h-problem">Staff paste company data into AI.</h2>
+  <p class="big">Names, ID numbers, case notes: pasted in full into a service you do not run. It reads the text, and it may store it.</p>
+  <canvas id="shore" role="img" aria-label="Gold threads leave your staff for a far shore, a US AI service. A dashed line, a US order, reaches back along one of them."></canvas>
+  <h3>Your contract does not override it.</h3>
+  <p>A US provider can be ordered to hand over data it controls, wherever that data is stored. A contract does not change that law. A data centre in the EU does not change who operates it.</p>
+  <p class="note">18 U.S.C. § 2713 (the US CLOUD Act). EU location alone may not end US legal reach. Our reading, not legal advice.</p>
+</section>
+
+<section class="sec" id="gate" aria-labelledby="h-gate">
+  <p class="lab">The gate</p>
+  <h2 id="h-gate">A gate on your own machine, for <em>every AI request</em>.</h2>
+  <p class="big">The Layer reads each request before any model does. Then it decides what may leave. Three threads lead out of it.</p>
+  <div class="routes">
+    <div class="route r1">
+      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 32 C160 22 180 44 218 30" stroke="#5FD9C6" stroke-width="1.6"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/><rect x="170" y="29" width="14" height="7" fill="#5FD9C6"/></svg>
+      <p class="k">Mask</p>
+      <h3>Names leave as placeholders.</h3>
+      <p>Names and numbers are hidden before the request goes to a frontier model. They are put back in the answer, on your side.</p>
+    </div>
+    <div class="route r2">
+      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 32 C160 22 180 44 218 30" stroke="#8FAE6B" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round"/><path d="M134 26 C162 16 182 38 216 24M134 38 C162 28 182 50 216 36" stroke="#8FAE6B" stroke-width="1" opacity=".45"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/></svg>
+      <p class="k">Generalise</p>
+      <h3>Details soften, like light through fog.</h3>
+      <p>Telling details are blurred. In our example, <span class="m">Sorsele</span> leaves as <span class="m">northern Sweden</span>.</p>
+    </div>
+    <div class="route r3">
+      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 33 C150 30 176 20 184 34 C190 46 172 52 166 42 C162 34 172 30 176 36" stroke="#DDB04A" stroke-width="1.6"/><circle cx="175" cy="38" r="3.4" stroke="#F8DF9C" stroke-width="1.4"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/></svg>
+      <p class="k">Keep local</p>
+      <h3>The thread curls back and seals.</h3>
+      <p>The most sensitive work goes to a local model on your own machine. Nothing is sent out.</p>
+    </div>
+  </div>
+  <p class="note">Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
+</section>
+
+<section class="sec" id="live" aria-labelledby="h-live">
+  <p class="lab">Watch one request</p>
+  <h2 id="h-live">See it pass the gate.</h2>
+  <p class="big">Pick a request. Everything you see below is what the router really produced. Nothing is staged.</p>
+  <div id="lv">
+    <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
+    <div class="stage">
+      <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre></article>
+      <div class="mid"><canvas id="lv-cv" aria-hidden="true"></canvas><p class="verdict" id="lv-verdict" aria-live="polite"></p></div>
+      <article class="pane"><h3 id="lv-out-h">What the model sees</h3><pre id="lv-out" aria-live="polite"></pre></article>
+    </div>
+    <article class="pane ans"><h3>The answer, back on your side</h3><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>
+    <ol id="lv-steps">
+      <li>A request arrives. The Layer finds the names, numbers and telling details in it.</li>
+      <li>It decides the route: mask, generalise, or keep local.</li>
+      <li>The model answers. It only saw what the gate let through.</li>
+      <li>The Layer puts the real details back, on your side.</li>
+    </ol>
+    <button type="button" class="replay" id="lv-replay">Play it again</button>
+  </div>
+  <p class="note">Synthetic example. Every name, number and company is made up. The routing, the placeholders and the restoring are real router output (router a822605), measured on synthetic data, round one. The placeholder map stays on the machine that runs The Layer and is not sent to the model.</p>
+</section>
+
+<section class="sec" id="rings" aria-labelledby="h-rings">
+  <p class="lab">The record</p>
+  <div class="ringwrap">
+    <div>
+      <h2 id="h-rings">Every request leaves a ring.</h2>
+      <p class="big">A tree keeps a ring for every year. The Layer keeps a record for every request: which route, which rule, what kind of data it found, which model. No text is in it.</p>
+      <p>Each record carries the fingerprint of the one before it. Take one out, and it shows.</p>
+      <div class="rec" id="rec" aria-live="polite"></div>
+      <div class="ringbtns" id="ringbtns" role="group" aria-label="Look at a ring, or take one out"></div>
+    </div>
+    <canvas id="ringcv" role="img" aria-label="Five growth rings, one for each request in the example above. The gold outer edge is The Layer."></canvas>
+  </div>
+  <p class="note">Synthetic example. The five rings are the five real records from our demo run (router a822605). The fingerprint is a hash chain. A one-file evidence report, with no text in it, checks that chain for your auditor.</p>
+</section>
+
+<section class="sec" id="proof" aria-labelledby="h-proof">
+  <p class="lab">Proof, with the gaps</p>
+  <h2 id="h-proof">Every number here can be re-run.</h2>
+  <p class="big">Four numbers, each with its sample size and its 95% range. All four are measured on synthetic data, round one. One of them is our main gap, and we show it.</p>
+  <div class="nums">
+    <div class="num">
+      <p class="v">0 / 249</p>
+      <p>Masked or generalised outputs that still leaked an identity, judged one request at a time.</p>
+      <div class="iv" aria-hidden="true"><i style="left:0;width:1.2%"></i><b>100%</b></div>
+      <p class="src">n = 249 outputs · 95% upper bound 1.2% (one-sided) · measured on synthetic data, round one · ledger V11-4</p>
+    </div>
+    <div class="num">
+      <p class="v">0 / 400</p>
+      <p>Harmless near-miss texts wrongly flagged as secret.</p>
+      <div class="iv" aria-hidden="true"><i style="left:0;width:.9%"></i><b>100%</b></div>
+      <p class="src">n = 400 rows · 95% range 0.0–0.9% · measured on synthetic data, round one · ledger N15</p>
+    </div>
+    <div class="num gap">
+      <p class="v">93 / 200 <small>46.5%</small></p>
+      <p><b>Our main gap.</b> Reworded secrets that the gate caught. More than half still got past it.</p>
+      <div class="iv" aria-hidden="true"><i style="left:39.4%;width:14.3%"></i><b>100%</b></div>
+      <p class="src">n = 200 rows · 95% range 39.4–53.7% · measured on synthetic data, round one · ledger N13</p>
+    </div>
+    <div class="num">
+      <p class="v">50 / 287 <small>17.4%</small></p>
+      <p>Texts kept local that could have left. The gate errs on the careful side.</p>
+      <div class="iv" aria-hidden="true"><i style="left:13.2%;width:9.1%"></i><b>100%</b></div>
+      <p class="src">n = 287 rows · 95% range 13.2–22.3% · measured on synthetic data, round one · ledger V11-2</p>
+    </div>
+  </div>
+  <p><strong>Until that gap closes, work on your confidential list stays local.</strong></p>
+  <p class="note">95% bounds are Clopper–Pearson; one-sided for V11-4. Each number is a row in our numbers ledger, with its commit, data hash and re-run command. The same reworded set on other settings: 52 / 200 with the basic check alone (26%, 95% range 20.1–32.7%, N12), and 99 / 200 with a second vault and the fact stage (49.5%, 42.4–56.6%, N14; that vault and the test set have the same authors). Whole chats: joining the turns of one chat can re-identify a person. A fix is built and tested; it is off by default and on for pilots, and its figures are being re-checked.</p>
+</section>
+
+<section class="sec" id="why" aria-labelledby="h-why">
+  <p class="lab">Why us</p>
+  <h2 id="h-why">Many tools mask. The Layer first decides <em>whether a request may leave at all</em>.</h2>
+  <div class="cols">
+    <div><h3>A decision before the mask.</h3><p>Three routes for every request, and one of them is local only. If masking is all you need, free tools do that.</p></div>
+    <div><h3>Swedish IDs, by checksum.</h3><p>Personal identity numbers and organisation numbers are found by their checksums. Other Nordic IDs are on the roadmap, not built.</p></div>
+    <div><h3>A record for every request.</h3><p>Model, provider, route and policy version, in a chain you can check. Decisions and counts, no text.</p></div>
+  </div>
+  <p class="note">A prototype. The Layer does not write your text or the placeholder map to disk: they live in memory and are gone when it stops. (The operating system may page memory to disk.) No ISO 27001 or SOC 2 yet.</p>
+</section>
+
+<section class="sec" id="pilot" aria-labelledby="h-pilot">
+  <p class="lab">The free pilot</p>
+  <h2 id="h-pilot">Start where nothing is sent out.</h2>
+  <p class="big">4 weeks on made-up text first, extendable to 8 weeks. One machine. In a pilot only the local route is open, and The Layer runs offline. No purchase.</p>
+  <div class="give">
+    <div><h3>You give</h3><ul><li>One workflow</li><li>20–50 made-up prompts</li><li>One machine, for a few hours</li></ul></div>
+    <div><h3>You get</h3><ul><li>A measured answer for your workflow</li><li>An evidence report for your auditor</li><li>A delete-everything step, with a receipt</li></ul></div>
+  </div>
+  <p class="note">The other two routes open only by a written change, after a legal opinion. The local model is selected, not yet installed. Nothing is signed before our company is registered.</p>
+</section>
+
+<section class="sec close" id="contact" aria-labelledby="h-close">
+  <p class="lab">Next step</p>
+  <h2 id="h-close">One 30-minute call.</h2>
+  <p class="big">Pick one workflow. We do the rest.</p>
+  <p class="contact">Henrik Thulin · True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
+</section>
+
+</main>
+<footer>
+  <div class="l"><img src="../brand/final/tds-mark-small.svg" alt="" width="26" height="26"><span>True Data Sovereignty</span></div>
+  <span>Data Sovereignty, beyond paper contracts.</span>
+  <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
+  <span>The network on this page is grown in code. It is a metaphor, not a claim about fungi.</span>
+  <span>Draft for review. Not published. No trackers, no cookies.</span>
+</footer>
+<div class="toggle" role="group" aria-label="Hero wording, for review only">
+<span>Review only, not on the final page. Hero wording:</span>
+<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
+<button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+</div>
+<script>
+(function(){var W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
+document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+</script>
+
+<script>
+/* Mycel: a tiny generative engine for the TDS site. Made from scratch.
+   Space-colonisation growth, pipe-model thickness, incremental reveal,
+   pulses that travel along grown paths. Canvas 2D only. */
+var Mycel = (function () {
+  'use strict';
+
+  function rng(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0;
+      return s / 4294967296;
+    };
+  }
+
+  /* Grow a tree from roots toward attractors.
+     o: {roots:[{x,y}], attractors:[{x,y}], step, kill, reach, iters, rand, jitter, maxNodes} */
+  function grow(o) {
+    var step = o.step || 6, kill = o.kill || step * 2, reach = o.reach || 80;
+    var rand = o.rand || Math.random, jitter = o.jitter == null ? 0.35 : o.jitter;
+    var maxNodes = o.maxNodes || 6000;
+    var nodes = [];
+    var cell = reach, grid = new Map();
+    function key(cx, cy) { return cx * 73856093 ^ cy * 19349663; }
+    function add(n) {
+      n.i = nodes.length; n.kids = 0; nodes.push(n);
+      var k = key(Math.floor(n.x / cell), Math.floor(n.y / cell));
+      var b = grid.get(k); if (!b) { b = []; grid.set(k, b); } b.push(n);
+      return n;
+    }
+    o.roots.forEach(function (r) { add({ x: r.x, y: r.y, p: -1, t: 0, d: 0 }); });
+    var att = o.attractors.map(function (a) { return { x: a.x, y: a.y, alive: true }; });
+    var iters = o.iters || 400, order = 1;
+    for (var it = 0; it < iters && nodes.length < maxNodes; it++) {
+      var pull = new Map(), any = false;
+      for (var a = 0; a < att.length; a++) {
+        var A = att[a]; if (!A.alive) continue;
+        var cx = Math.floor(A.x / cell), cy = Math.floor(A.y / cell);
+        var best = null, bd = reach * reach;
+        for (var gx = -1; gx <= 1; gx++) for (var gy = -1; gy <= 1; gy++) {
+          var b = grid.get(key(cx + gx, cy + gy)); if (!b) continue;
+          for (var j = 0; j < b.length; j++) {
+            var n = b[j], dx = A.x - n.x, dy = A.y - n.y, dd = dx * dx + dy * dy;
+            if (dd < bd) { bd = dd; best = n; }
+          }
+        }
+        if (!best) continue;
+        if (bd < kill * kill) { A.alive = false; continue; }
+        var l = Math.sqrt(bd), v = pull.get(best);
+        if (!v) { v = { x: 0, y: 0, c: 0 }; pull.set(best, v); }
+        v.x += (A.x - best.x) / l; v.y += (A.y - best.y) / l; v.c++;
+      }
+      pull.forEach(function (v, n) {
+        var l = Math.hypot(v.x, v.y); if (l < 1e-6) return;
+        var ang = Math.atan2(v.y, v.x) + (rand() - 0.5) * jitter;
+        // a little inertia from the parent direction makes threads look grown, not drawn
+        if (n.p >= 0) {
+          var P = nodes[n.p], pa = Math.atan2(n.y - P.y, n.x - P.x);
+          var diff = Math.atan2(Math.sin(ang - pa), Math.cos(ang - pa));
+          ang = pa + diff * 0.72;
+        }
+        var s = step * (0.85 + rand() * 0.3);
+        add({ x: n.x + Math.cos(ang) * s, y: n.y + Math.sin(ang) * s, p: n.i, t: order++, d: n.d + 1 });
+        any = true;
+      });
+      if (!any) break;
+    }
+    // pipe model: thickness from descendant count
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var N = nodes[i]; N.w = N.w || 1;
+      if (N.p >= 0) { nodes[N.p].w = (nodes[N.p].w || 1) + N.w; nodes[N.p].kids++; }
+    }
+    return nodes;
+  }
+
+  function leaves(nodes) { return nodes.filter(function (n) { return n.kids === 0 && n.p >= 0; }); }
+
+  /* Path from a node back to its root, as [{x,y}] from leaf to root. */
+  function pathToRoot(nodes, n) {
+    var out = [];
+    while (n) { out.push({ x: n.x, y: n.y }); n = n.p >= 0 ? nodes[n.p] : null; }
+    return out;
+  }
+  function measure(path) {
+    var L = [0];
+    for (var i = 1; i < path.length; i++) L.push(L[i - 1] + Math.hypot(path[i].x - path[i - 1].x, path[i].y - path[i - 1].y));
+    path.len = L[L.length - 1]; path.L = L; return path;
+  }
+  function at(path, d) {
+    var L = path.L; if (d <= 0) return path[0]; if (d >= path.len) return path[path.length - 1];
+    var lo = 0, hi = L.length - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (L[m] < d) lo = m; else hi = m; }
+    var f = (d - L[lo]) / (L[hi] - L[lo] || 1);
+    return { x: path[lo].x + (path[hi].x - path[lo].x) * f, y: path[lo].y + (path[hi].y - path[lo].y) * f };
+  }
+
+  /* Draw segments whose order lies in [from, to) onto ctx. Additive glow. */
+  function drawSegments(ctx, nodes, from, to, style) {
+    var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'butt';
+    for (var pass = 0; pass < 2; pass++) {
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
+        var P = nodes[n.p];
+        var w = Math.min(maxW, base + Math.pow(n.w, k) * 0.35);
+        var a = style.alpha(n, w);
+        if (pass === 0) { ctx.strokeStyle = style.glow; ctx.globalAlpha = a * 0.16; ctx.lineWidth = w * 4.5; }
+        else { ctx.strokeStyle = style.color; ctx.globalAlpha = a; ctx.lineWidth = w; }
+        // each piece runs midpoint to midpoint, bent through the joint: no gaps, no beads
+        var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2;
+        ctx.beginPath();
+        if (P.p >= 0) { var G = nodes[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); }
+        else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+        if (n.kids === 0) ctx.lineTo(n.x, n.y);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function glowDot(ctx, x, y, r, color, a) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = a; ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* Run a draw loop only while visible on screen and in a visible tab. */
+  function loop(el, frame) {
+    var onScreen = true, raf = 0, last = 0;
+    function tick(t) {
+      raf = 0;
+      var dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016; last = t;
+      frame(dt, t / 1000);
+      schedule();
+    }
+    function schedule() { if (!raf && onScreen && !document.hidden) raf = requestAnimationFrame(tick); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; if (onScreen) { last = 0; schedule(); } }).observe(el);
+    }
+    document.addEventListener('visibilitychange', function () { last = 0; schedule(); });
+    schedule();
+  }
+
+  function reducedMotion() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function fit(canvas, maxDpr) {
+    var dpr = Math.min(maxDpr || 2, window.devicePixelRatio || 1);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+    var ctx = canvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height, dpr: dpr };
+  }
+
+  return { rng: rng, grow: grow, leaves: leaves, pathToRoot: pathToRoot, measure: measure, at: at,
+    drawSegments: drawSegments, glowDot: glowDot, loop: loop, reducedMotion: reducedMotion, fit: fit };
+})();
+
+/* The Mycelial Gate: the network, the ring node, and real router tokens passing through it.
+   Used by concept A and by the home page hero. Needs Mycel. */
+function MycelGate(cv, opts) {
+  'use strict';
+  opts = opts || {};
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', IVORY = '#F7F3EA', MUT = '#AEB6CE';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  /* Every pair below is real router output on synthetic text (router a822605, web/how-it-works-data/cases-out.json). */
+  var SCRIPT = [
+    { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' },
+    { t: 2, a: 'Sorsele', b: 'northern Sweden' },
+    { t: 1, a: 'GB33 BUKB 2020 1555 5555 55', b: '⟦IBAN_1⟧' },
+    { t: 3, a: 'acquire a Finnish logistics company', b: null },
+    { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
+    { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' },
+    { t: 1, a: '+44 7700 900123', b: '⟦PHONE_1⟧' },
+    { t: 2, a: '13 June 2027', b: 'June 2027' }
+  ];
+  var reduced = Mycel.reducedMotion();
+  var S, w, h, portrait, node, R, stat, sctx, inb, out, inPaths, featPaths, outPaths, curl;
+  var revealIn, revealOut, pulses, feat, featIdx, featTimer, rings, sealFlash, lastW = 0;
+
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w;
+    portrait = w < 760;
+    var rand = Mycel.rng(20261111);
+    node = portrait ? { x: w * 0.5, y: Math.max(150, h * 0.235) } : { x: w * 0.7, y: h * 0.47 };
+    R = portrait ? Math.min(w * 0.15, 60) : Math.max(58, Math.min(h * 0.105, 96));
+    var i, a, A = [], roots = [];
+    // inbound side: your environment
+    if (portrait) {
+      for (i = 0; i < 380; i++) A.push({ x: rand() * w, y: node.y + R * 0.9 + Math.pow(rand(), 0.8) * (h - node.y) });
+      for (i = 0; i < 5; i++) { a = Math.PI * (0.18 + 0.16 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    } else {
+      for (i = 0; i < 620; i++) {
+        var x = -20 + rand() * (node.x - R * 1.25 + 20), y = rand() * h;
+        if (rand() > 0.3 + 0.7 * (x / node.x)) continue;
+        A.push({ x: x, y: y });
+      }
+      for (i = 0; i < 6; i++) { a = Math.PI * (0.56 + 0.176 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    }
+    inb = Mycel.grow({ roots: roots, attractors: A, step: portrait ? 6 : 7, reach: portrait ? 80 : 100, kill: 15, rand: rand, iters: 600, jitter: 0.5 });
+    // outbound side: outside, toward the frontier model
+    A = []; roots = [];
+    if (portrait) {
+      for (i = 0; i < 46; i++) A.push({ x: w * 0.06 + rand() * w * 0.88, y: -20 + rand() * (node.y - R * 0.9 + 20) });
+      for (i = 0; i < 3; i++) { a = -Math.PI * (0.3 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    } else {
+      for (i = 0; i < 64; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: h * 0.1 + rand() * h * 0.72 });
+      for (i = 0; i < 3; i++) { a = Math.PI * (-0.22 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    }
+    out = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 130, kill: 18, rand: rand, iters: 400, jitter: 0.3 });
+
+    function paths(nodes, minLen) {
+      return Mycel.leaves(nodes).map(function (n) { return Mycel.measure(Mycel.pathToRoot(nodes, n)); }).filter(function (p) { return p.len > minLen; });
+    }
+    inPaths = paths(inb, R * 1.2);
+    featPaths = inPaths.filter(function (p) {
+      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * 0.5 && p[0].y > h * 0.14 && p[0].y < h * 0.86));
+    });
+    if (!featPaths.length) featPaths = inPaths;
+    outPaths = paths(out, R).map(function (p) { p.reverse(); return Mycel.measure(p); });
+    // the curl: a thread that turns back on itself and seals (keep local)
+    var c = portrait ? { x: node.x + R * 1.75, y: node.y + R * 0.75 } : { x: node.x + R * 0.55, y: node.y + R * 1.9 };
+    var start = portrait ? { x: node.x + R * 0.8, y: node.y + R * 0.36 } : { x: node.x + R * 0.2, y: node.y + R * 0.6 };
+    curl = [start];
+    var a0 = Math.atan2(start.y - c.y, start.x - c.x), r0 = Math.hypot(start.x - c.x, start.y - c.y);
+    for (i = 1; i <= 90; i++) {
+      var f = i / 90, rr = r0 * (1 - f) + R * 0.2 * f, an = a0 + f * Math.PI * 3.2;
+      rr = Math.min(rr, R * 0.85 * (1 - f) + R * 0.2);
+      curl.push({ x: c.x + Math.cos(an) * rr, y: c.y + Math.sin(an) * rr * 0.8 });
+    }
+    Mycel.measure(curl); curl.c = c;
+
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    revealIn = 0; revealOut = 0; pulses = []; feat = null; featIdx = 0; featTimer = 1.2; rings = 3; sealFlash = 0;
+    if (reduced || opts.still) { reveal(1e9); }
+  }
+
+  var styleIn = { color: GOLD, glow: DEEP, maxW: 3.6, alpha: function (n, wd) {
+    var a = 0.2 + 0.5 * Math.min(1, wd / 2.6);
+    if (portrait) { if (n.y > h * 0.4) a *= 0.34; } else if (n.x < w * 0.47) a *= 0.3 + 0.5 * Math.max(0, (n.x - w * 0.3) / (w * 0.17));
+    return a;
+  } };
+  var styleOut = { color: '#5A72C4', glow: LINE, maxW: 2.2, alpha: function (n, wd) { return 0.3 + 0.35 * Math.min(1, wd / 2); } };
+
+  function reveal(n) {
+    var ti = inb.length, to = out.length;
+    var a = Math.min(ti, revealIn + n), b = Math.min(to, revealOut + n * to / ti);
+    if (a > revealIn) Mycel.drawSegments(sctx, inb, revealIn, a, styleIn);
+    if (b > revealOut) Mycel.drawSegments(sctx, out, revealOut, b, styleOut);
+    revealIn = a; revealOut = b;
+    if (revealIn >= ti && !curl.done) {
+      curl.done = true;
+      sctx.save(); sctx.globalCompositeOperation = 'lighter'; sctx.lineCap = 'round';
+      sctx.strokeStyle = GOLD; sctx.globalAlpha = 0.6; sctx.lineWidth = 1.5;
+      sctx.beginPath(); curl.forEach(function (p, i) { i ? sctx.lineTo(p.x, p.y) : sctx.moveTo(p.x, p.y); }); sctx.stroke();
+      sctx.restore();
+    }
+  }
+
+  function ellipse(ctx, x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); }
+  function diamond(ctx, x, y, hw, hh) { ctx.beginPath(); ctx.moveTo(x, y - hh); ctx.lineTo(x + hw, y); ctx.lineTo(x, y + hh); ctx.lineTo(x - hw, y); ctx.closePath(); }
+
+  function drawNode(ctx, t) {
+    var k = 0.6, br = 1 + Math.sin(t * 0.9) * 0.018, i;
+    ctx.save();
+    // soil cleared under the node so it reads as a gate, not a tangle
+    ctx.fillStyle = '#060A1A'; ellipse(ctx, node.x, node.y, R * 0.98, R * k * 0.98); ctx.fill();
+    // growth rings: one per request
+    ctx.lineWidth = 0.7; ctx.strokeStyle = GOLD;
+    for (i = 0; i < Math.min(rings, 13); i++) {
+      ctx.globalAlpha = 0.34 * (1 - i / 14);
+      ellipse(ctx, node.x, node.y, (R + 7 + i * 5.5) * br, (R + 7 + i * 5.5) * k * br); ctx.stroke();
+    }
+    // three stacked layers, echoing the mark
+    var hw = R * 0.66, hh = hw * 0.576, gap = R * 0.19;
+    for (i = 1; i >= -1; i--) {
+      ctx.globalAlpha = i === 0 ? 0.95 : 0.8;
+      diamond(ctx, node.x, node.y + i * gap, hw, hh);
+      ctx.fillStyle = i === 0 ? '#101A3D' : '#16224F'; ctx.fill();
+      ctx.strokeStyle = i === 0 ? LINE : DEEP; ctx.lineWidth = 0.8; ctx.stroke();
+    }
+    // the gold ring
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = DEEP; ctx.lineWidth = 7; ctx.globalAlpha = 0.22 + 0.08 * Math.sin(t * 0.9);
+    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
+    ctx.globalAlpha = 1; ctx.strokeStyle = LIGHT; ctx.lineWidth = 2.2;
+    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
+    // the seal at the end of the curl
+    var e = curl[curl.length - 1];
+    ctx.strokeStyle = LIGHT; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.6 + 0.4 * sealFlash;
+    ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, R * 0.2 + sealFlash * 3, 0, Math.PI * 2); ctx.stroke();
+    if (sealFlash > 0) Mycel.glowDot(ctx, e.x, e.y, 22, GOLD, sealFlash * 0.5);
+    ctx.restore();
+    // labels (the same words exist as text in the page)
+    ctx.save();
+    ctx.font = '11px ' + MONO; ctx.fillStyle = MUT; ctx.textBaseline = 'middle';
+    try { ctx.letterSpacing = '1.5px'; } catch (er) {}
+    if (portrait) {
+      ctx.textAlign = 'left'; ctx.fillText('OUTSIDE', 20, 74);
+      ctx.fillStyle = LIGHT; ctx.textAlign = 'right'; ctx.fillText('THE LAYER', node.x - R * 1.2, node.y - R * 0.5);
+      ctx.fillStyle = GOLD; ctx.textAlign = 'center'; ctx.fillText('KEPT LOCAL', curl.c.x, curl.c.y + R * 0.95);
+    } else {
+      ctx.textAlign = 'center';
+      ctx.fillStyle = LIGHT; ctx.fillText('THE LAYER  ·  DECIDES WHAT PASSES', node.x, node.y - R * 0.6 - 86);
+      ctx.fillStyle = MUT;
+      ctx.textAlign = 'right'; ctx.fillText('OUTSIDE  ·  FRONTIER AI', w - 28, h * 0.1);
+      ctx.textAlign = 'left'; ctx.fillText('YOUR ENVIRONMENT', w * 0.49, h * 0.92);
+      ctx.fillStyle = GOLD; ctx.textAlign = 'left'; ctx.fillText('KEPT LOCAL', curl.c.x + R * 1.0, curl.c.y);
+    }
+    ctx.restore();
+  }
+
+  function drawPulse(ctx, p) {
+    var pos = Mycel.at(p.path, p.d), i;
+    for (i = 4; i >= 1; i--) { var q = Mycel.at(p.path, p.d - i * 7); Mycel.glowDot(ctx, q.x, q.y, p.r * 0.7, p.col, 0.12 * (5 - i) * p.a); }
+    Mycel.glowDot(ctx, pos.x, pos.y, p.r * (p.soft ? 2.6 : 1.5), p.col, (p.soft ? 0.45 : 0.9) * p.a);
+    if (!p.soft) Mycel.glowDot(ctx, pos.x, pos.y, p.r * 0.45, '#FFFFFF', 0.9 * p.a);
+    return pos;
+  }
+
+  function label(ctx, txt, x, y, col, a, blur) {
+    if (a <= 0.01) return;
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.font = (portrait ? '11px ' : '12.5px ') + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+    var tw = ctx.measureText(txt).width + 16;
+    x = Math.max(tw / 2 + 8, Math.min(w - tw / 2 - 8, x));
+    if (blur && 'filter' in ctx) ctx.filter = 'blur(' + blur.toFixed(1) + 'px)';
+    ctx.globalAlpha = a * 0.86; ctx.fillStyle = '#060A1A'; ctx.fillRect(x - tw / 2, y - 11, tw, 22);
+    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillText(txt, x, y + 0.5);
+    ctx.restore();
+  }
+
+  function spawnAmbient() {
+    var p = inPaths[(Math.random() * inPaths.length) | 0];
+    pulses.push({ path: p, d: 0, v: 55 + Math.random() * 60, col: GOLD, r: 5, a: 0.75, phase: 'in' });
+  }
+  function leave(tier) {
+    if (tier === 3) return { path: curl, d: 0, v: 70, col: LIGHT, r: 5.5, a: 1, phase: 'curl' };
+    var p = outPaths[(Math.random() * outPaths.length) | 0];
+    return { path: p, d: 0, v: 85, col: tier === 2 ? MOSS : TEAL, r: tier === 2 ? 6 : 5, a: 0.9, soft: tier === 2, phase: 'out' };
+  }
+
+  function frame(dt, t) {
+    var ctx = S.ctx, i;
+    reveal(reduced ? 1e9 : Math.max(2, inb.length * dt / 7.5));
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(stat, 0, 0, w, h);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    var grown = revealIn / inb.length;
+    if (!reduced && !opts.still && grown > 0.45 && pulses.length < (portrait ? 9 : 16) && Math.random() < dt * 2.4) spawnAmbient();
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i]; p.d += p.v * dt;
+      if (p.d >= p.path.len) {
+        pulses.splice(i, 1);
+        if (p.phase === 'in') { rings++; var r = Math.random(); pulses.push(leave(r < 0.6 ? 1 : r < 0.8 ? 2 : 3)); }
+        else if (p.phase === 'curl') sealFlash = 1;
+        continue;
+      }
+      if (p.phase === 'out') p.a = Math.min(0.9, (p.path.len - p.d) / 80);
+      drawPulse(ctx, p);
+    }
+    ctx.restore();
+    sealFlash = Math.max(0, sealFlash - dt * 0.9);
+    drawNode(ctx, t);
+    // the featured request: a real token, readable, changing at the gate
+    if (!feat && grown > 0.7) {
+      featTimer -= dt;
+      if (featTimer <= 0) {
+        var s = SCRIPT[featIdx++ % SCRIPT.length];
+        feat = { s: s, path: featPaths[(Math.random() * featPaths.length) | 0], d: 0, phase: 'in', hold: 0, a: 1 };
+        feat.d = Math.max(0, feat.path.len - (portrait ? R * 3.2 : R * 5.2));
+      }
+    }
+    if (feat) {
+      var s2 = feat.s, pos, lx, ly;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      if (feat.phase === 'in') {
+        feat.d += 62 * dt;
+        pos = drawPulse(ctx, { path: feat.path, d: feat.d, col: LIGHT, r: 7, a: 1 });
+        ctx.restore();
+        label(ctx, s2.a, pos.x, pos.y - 24, LIGHT, Math.min(1, (feat.d - (feat.path.len - R * 5.2)) / 40 + 1));
+        if (feat.d >= feat.path.len) { feat.phase = 'hold'; feat.hold = 0; rings++; feat.pos = pos; }
+      } else if (feat.phase === 'hold') {
+        feat.hold += dt / 1.5;
+        var f = Math.min(1, feat.hold), col = s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT;
+        Mycel.glowDot(ctx, node.x, node.y, R * (0.5 + f * 0.5), s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : MOSS, 0.35 * Math.sin(f * Math.PI));
+        ctx.restore();
+        lx = node.x; ly = node.y - R * 0.6 - (portrait ? 34 : 50);
+        label(ctx, s2.a, lx, ly, LIGHT, 1 - f, f * 5);
+        label(ctx, s2.b || 'stays here', lx, ly, col, f, s2.t === 2 ? (1 - f) * 3 : 0);
+        if (feat.hold >= 1.5) { feat.phase = 'out'; feat.o = leave(s2.t); feat.o.r = 7; feat.o.a = 1; }
+      } else {
+        var o = feat.o; o.d += o.v * dt;
+        if (o.d >= o.path.len) { ctx.restore(); if (o.phase === 'curl') sealFlash = 1; feat = null; featTimer = 1.6; }
+        else {
+          var fade = Math.min(1, (o.path.len - o.d) / 70);
+          o.a = fade; pos = drawPulse(ctx, o); ctx.restore();
+          if (o.phase === 'curl') label(ctx, 'stays here', pos.x, pos.y + 26, LIGHT, fade);
+          else label(ctx, s2.b, pos.x, pos.y - 24, s2.t === 1 ? TEAL : MOSS, fade);
+        }
+      }
+    }
+  }
+
+  function still() {
+    // one composed frame: grown network, one token arriving, one masked token leaving
+    var ctx = S.ctx; frame(0, 0);
+    var p = featPaths[0], d = p.len * 0.72, pos;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    pos = drawPulse(ctx, { path: p, d: d, col: LIGHT, r: 7, a: 1 }); ctx.restore();
+    label(ctx, SCRIPT[0].a, pos.x, pos.y - 24, LIGHT, 1);
+    var o = outPaths[0];
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    pos = drawPulse(ctx, { path: o, d: o.len * 0.5, col: TEAL, r: 7, a: 1 }); ctx.restore();
+    label(ctx, SCRIPT[0].b, pos.x, pos.y - 24, TEAL, 1);
+  }
+
+  (function start() {
+    var r = cv.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) { requestAnimationFrame(start); return; }
+    build();
+    if (reduced || opts.still) still(); else Mycel.loop(cv, frame);
+  })();
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      if (Math.abs(cv.getBoundingClientRect().width - lastW) < 2) return;
+      build(); if (reduced || opts.still) still();
+    }, 180);
+  });
+}
+
+/* Generated by make_data.py from web/how-it-works-data/cases-out.json. Real router output on synthetic text. Do not edit by hand. */
+var TDS_DATA = {"commit":"a822605","outbound_attempts":0,"cases":[{"parts":[{"lit":"Make this e-mail shorter and friendlier:\n\nHello,\n\nI am writing again about the refund for my cancelled order. Please pay it to my account "},{"a":"GB33 BUKB 2020 1555 5555 55","b":"⟦IBAN_1⟧","type":"iban","kind":"masked"},{"lit":" as soon as you can. Call me if anything is unclear.\n\nBest regards\n"},{"a":"Emma Whitfield","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"emma.whitfield@example.com","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"+44 7700 900123","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi there,\n\nJust following up on the refund for my cancelled order. Could you pay it to "},{"a":"⟦IBAN_1⟧","b":"GB33 BUKB 2020 1555 5555 55"},{"lit":" when you get a chance? Feel free to call if anything is unclear. Thanks so much!\n\nBest wishes\n"},{"a":"⟦PERSON_1⟧","b":"Emma Whitfield"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"emma.whitfield@example.com"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"+44 7700 900123"},{"lit":""}],"key":"email","title":"A customer's e-mail with bank details","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-001","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{"email":1,"iban":1,"person":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"iban":{"masked":1},"person":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"0000000000000000000000000000000000000000000000000000000000000000"}},{"parts":[{"lit":"Summarise the e-mail below in three points:\n\nHi "},{"a":"Helen Lindqvist","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":",\n\nThank you for the quote for "},{"a":"headsets","b":"⟦PRODUCT_1⟧","type":"product","kind":"masked"},{"lit":" for our support team. We at "},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":" would like to go ahead, but three things need sorting out first.\n\nFirst, we need the delivery at our office in "},{"a":"Sorsele","b":"northern Sweden","type":"location","kind":"widened"},{"lit":" by "},{"a":"13 June 2027","b":"June 2027","type":"date","kind":"widened"},{"lit":", because the roll-out to staff starts then.\n\nSecond, the contract must allow orders in several rounds. We have "},{"a":"35,897 employees","b":"10,000–50,000 employees","type":"count","kind":"widened"},{"lit":" in total today, and more departments will want to order once they see how it works.\n\nThird, please send order confirmations and delivery notes to "},{"a":"orders@northgate-freight.example","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":", so they reach the right place from the start.\n\nCall me on "},{"a":"+44 7700 900456","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":" if anything is unclear.\n\nBest regards\n"},{"a":"Philip Ashford","b":"⟦PERSON_2⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"• "},{"a":"⟦ORG_1⟧","b":"Northgate Freight Ltd"},{"lit":" wants to go ahead with the quote for "},{"a":"⟦PRODUCT_1⟧","b":"headsets"},{"lit":", but needs delivery to its office in northern Sweden by June 2027.\n• The contract must allow orders in several rounds: the company has 10,000–50,000 employees, and more departments are expected to order.\n• Order confirmations and delivery notes should go to "},{"a":"⟦EMAIL_1⟧","b":"orders@northgate-freight.example"},{"lit":". "},{"a":"⟦PERSON_2⟧","b":"Philip Ashford"},{"lit":" answers questions on "},{"a":"⟦PHONE_1⟧","b":"+44 7700 900456"},{"lit":"."}],"key":"generalise","title":"A supplier e-mail with telling details","tier":2,"rule":9,"reason":"Other task: k_est and U_sem are high enough after generalisation","sent":true,"audit":{"request_id":"demo-002","policy_version":"v1.1-provisional","task":"other","tier":2,"rule":9,"entity_counts":{"count":1,"date":1,"email":1,"location":1,"org":2,"person":2,"phone":1,"product":1},"generalised_counts":{"count_band":1,"date_month":1,"place_region":1},"handling":{"count":{"widened":1},"date":{"widened":1},"email":{"masked":1},"location":{"widened":1},"org":{"masked":2},"person":{"masked":2},"phone":{"masked":1},"product":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"984649b2469752f5292a2dbd57f2a796e6562f05c7ba74dfb998c1c315af53d9"}},{"parts":[{"lit":"Translate into Swedish before the meeting: We are preparing to acquire a "},{"a":"Finnish logistics company","b":null,"type":"org","kind":"kept"},{"lit":" with around "},{"a":"340 employees","b":null,"type":"count","kind":"kept"},{"lit":", for about 900 million kronor. Completion is planned for the second quarter, and nothing may become known before the board meeting."}],"ans_parts":null,"key":"vault","title":"A confidential deal, never named","tier":3,"rule":5,"reason":"C_vault above the threshold: close to vault material","sent":false,"audit":{"request_id":"demo-003","policy_version":"v1.1-provisional","task":"translate","tier":3,"rule":5,"entity_counts":{"count":1,"org":1},"generalised_counts":{},"handling":{"count":{"kept_local":1},"org":{"kept_local":1}},"destination":"ollama","model":"ministral-3:3b","provider":"ollama-local","prev_hash":"a74f614acf5b4d45bd49eb2a7892d429d8a0f317ee732e47f1a5519e34b3e03a"}},{"parts":[{"lit":"Make this reply warmer: Thank you for your message. We have received your question and will reply within two working days. In the summer it may take a little longer."}],"ans_parts":[{"lit":"Thank you so much for getting in touch! We have received your question and will get back to you within two working days. In the summer it may take a little longer, and we appreciate your patience."}],"key":"harmless","title":"A harmless reply","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-004","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{},"generalised_counts":{},"handling":{},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"a86c0900c6fb83cf641b45969e249e127d85e8ac9f1b0a5ec6b3e319828aff14"}},{"parts":[{"lit":"Översätt mejlet till engelska:\n\nHej!\n\nJag skickar mitt CV inför intervjun på torsdag. Mitt personnummer är "},{"a":"590505-2881","b":"⟦PERSONNUMMER_1⟧","type":"personnummer","kind":"masked"},{"lit":", om ni behöver det för bakgrundskontrollen. Ring gärna om något är oklart.\n\nMed vänliga hälsningar\n"},{"a":"Tove Sandberg","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"tove.sandberg@exempel.se","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"070-123 45 67","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi!\n\nI am sending my CV ahead of the interview on Thursday. My personal identity number is "},{"a":"⟦PERSONNUMMER_1⟧","b":"590505-2881"},{"lit":", in case you need it for the background check. Feel free to call if anything is unclear.\n\nKind regards\n"},{"a":"⟦PERSON_1⟧","b":"Tove Sandberg"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"tove.sandberg@exempel.se"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"070-123 45 67"},{"lit":""}],"key":"sv-email","title":"A Swedish client e-mail with a personnummer and a signature","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-005","policy_version":"v1.1-provisional","task":"translate","tier":1,"rule":6,"entity_counts":{"email":1,"person":1,"personnummer":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"person":{"masked":1},"personnummer":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"8fe8fbe792fb170c452384365509b86ba3664b920812500c04217ac8f042d457"}}]};
+
+/* Quiet scenes for the home page. Each one needs Mycel and draws only while on screen. */
+var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', BLUE = '#5A72C4', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA', INK = '#060A1A';
+var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+
+/* Build a scene only when it is about to scroll into view. */
+function lazy(el, fn) {
+  if (!('IntersectionObserver' in window)) { fn(); return; }
+  var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); fn(); } }, { rootMargin: '300px' });
+  io.observe(el);
+}
+function onResize(fn) {
+  var t, lw = window.innerWidth;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { if (Math.abs(window.innerWidth - lw) > 2) { lw = window.innerWidth; fn(); } }, 200); });
+}
+function capLabel(ctx, txt, x, y, col, align) {
+  ctx.save(); ctx.font = '11px ' + MONO; ctx.fillStyle = col; ctx.textAlign = align || 'left'; ctx.textBaseline = 'middle';
+  try { ctx.letterSpacing = '1.5px'; } catch (e) {}
+  ctx.fillText(txt, x, y); ctx.restore();
+}
+
+/* The problem: threads leave your side for a far shore. Now and then, an order reaches back along one. */
+function SceneShore(cv) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var S, w, h, tree, paths, stat, pulses, order, orderT;
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h;
+    var rand = Mycel.rng(1789), A = [], i, shoreX = w - (w < 760 ? 26 : 70);
+    for (i = 0; i < (w < 760 ? 150 : 330); i++) { var x = rand() * (shoreX - 30); A.push({ x: x, y: h * 0.5 + (rand() - 0.5) * h * (0.9 - 0.62 * x / shoreX) }); }
+    tree = Mycel.grow({ roots: [{ x: shoreX, y: h * 0.5 }], attractors: A, step: 7, reach: 110, kill: 15, rand: rand, iters: 500, jitter: 0.45 });
+    paths = Mycel.leaves(tree).map(function (n) { return Mycel.measure(Mycel.pathToRoot(tree, n)); }).filter(function (p) { return p.len > w * 0.35; });
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    var c = stat.getContext('2d'); c.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    function mix(n) { return Math.max(0, Math.min(1, (n.x / shoreX - 0.35) / 0.45)); }
+    Mycel.drawSegments(c, tree, 0, 1e9, { color: GOLD, glow: DEEP, maxW: 3, alpha: function (n, wd) { return (0.2 + 0.45 * Math.min(1, wd / 2.4)) * (1 - mix(n)); } });
+    Mycel.drawSegments(c, tree, 0, 1e9, { color: BLUE, glow: LINE, maxW: 3, alpha: function (n, wd) { return (0.3 + 0.5 * Math.min(1, wd / 2.4)) * mix(n); } });
+    // the far shore: a plain line. Somebody else's ground.
+    c.strokeStyle = IVORY; c.globalAlpha = 0.55; c.lineWidth = 1; c.beginPath(); c.moveTo(shoreX, h * 0.08); c.lineTo(shoreX, h * 0.92); c.stroke(); c.globalAlpha = 1;
+    capLabel(c, 'YOUR STAFF', 4, 14, MUT);
+    capLabel(c, w < 760 ? 'A US SERVICE' : 'A US AI SERVICE', shoreX - 10, 14, MUT, 'right');
+    pulses = []; order = null; orderT = 2.5;
+  }
+  function frame(dt) {
+    var c = S.ctx, i; c.clearRect(0, 0, w, h); c.drawImage(stat, 0, 0, w, h);
+    c.save(); c.globalCompositeOperation = 'lighter';
+    if (!reduced && pulses.length < 12 && Math.random() < dt * 2.5) pulses.push({ p: paths[(Math.random() * paths.length) | 0], d: 0, v: 70 + Math.random() * 50 });
+    for (i = pulses.length - 1; i >= 0; i--) { var q = pulses[i]; q.d += q.v * dt; if (q.d >= q.p.len) { pulses.splice(i, 1); continue; } var pos = Mycel.at(q.p, q.d); Mycel.glowDot(c, pos.x, pos.y, 7, LIGHT, 0.8); }
+    c.restore();
+    if (!order) { orderT -= dt; if (orderT <= 0 || reduced) order = { p: paths[(Math.random() * paths.length) | 0], d: 0 }; }
+    if (order) {
+      order.d += 90 * dt; if (reduced) order.d = order.p.len * 0.55;
+      var L = order.p.len, head = L - Math.min(L, order.d), k;
+      c.save(); c.strokeStyle = IVORY; c.lineWidth = 1.6; c.setLineDash([5, 5]); c.globalAlpha = Math.min(1, (L * 1.5 - order.d) / (L * 0.4));
+      c.beginPath(); for (k = L; k >= head; k -= 6) { var a = Mycel.at(order.p, k); k === L ? c.moveTo(a.x, a.y) : c.lineTo(a.x, a.y); } c.stroke(); c.setLineDash([]);
+      var hp = Mycel.at(order.p, head); capLabel(c, 'A US ORDER', Math.max(60, hp.x), hp.y - 16, IVORY, 'center'); c.restore();
+      if (order.d > L * 1.5) { order = null; orderT = 4; }
+    }
+  }
+  build(); if (reduced) frame(0); else Mycel.loop(cv, frame);
+  onResize(function () { build(); if (reduced) frame(0); });
+}
+
+/* A small gate for the live scene. send(tier, n) lets n pulses arrive and leave by that route. */
+function SceneMini(cv) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var S, w, h, vert, node, R, inb, out, inP, outP, curl, stat, pulses = [], queue = [], seal = 0, rings = 0, tierCol = TEAL;
+  function ell(c, rx, ry) { c.beginPath(); c.ellipse(node.x, node.y, rx, ry, 0, 0, 6.3); }
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; vert = w > h * 1.4;  // a wide band means the panes are stacked: flow runs top to bottom
+    var rand = Mycel.rng(311), A = [], roots = [], i, a;
+    node = { x: vert ? w * 0.42 : w * 0.5, y: h * 0.5 }; R = vert ? Math.min(h * 0.28, 40) : Math.min(w * 0.19, 44);
+    if (vert) { for (i = 0; i < 70; i++) A.push({ x: rand() * w, y: rand() * (node.y - R * 0.7) }); for (i = 0; i < 3; i++) { a = -Math.PI * (0.25 + 0.25 * i); roots.push({ x: node.x + Math.cos(a) * R, y: node.y + Math.sin(a) * R * 0.6 }); } }
+    else { for (i = 0; i < 110; i++) A.push({ x: rand() * (node.x - R * 1.15), y: h * 0.04 + rand() * h * 0.92 }); for (i = 0; i < 4; i++) { a = Math.PI * (0.7 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R, y: node.y + Math.sin(a) * R * 0.6 }); } }
+    inb = Mycel.grow({ roots: roots, attractors: A, step: 6, reach: 90, kill: 12, rand: rand, iters: 300, jitter: 0.5 });
+    A = []; roots = [];
+    if (vert) { for (i = 0; i < 14; i++) A.push({ x: w * 0.1 + rand() * w * 0.6, y: node.y + R * 0.7 + rand() * (h - node.y - R * 0.7) }); for (i = 0; i < 2; i++) { a = Math.PI * (0.35 + 0.3 * i); roots.push({ x: node.x + Math.cos(a) * R, y: node.y + Math.sin(a) * R * 0.6 }); } }
+    else { for (i = 0; i < 16; i++) A.push({ x: node.x + R * 1.15 + rand() * (w - node.x - R * 1.15), y: h * 0.2 + rand() * h * 0.5 }); for (i = 0; i < 2; i++) { a = Math.PI * (-0.15 + 0.3 * i); roots.push({ x: node.x + Math.cos(a) * R, y: node.y + Math.sin(a) * R * 0.6 }); } }
+    out = Mycel.grow({ roots: roots, attractors: A, step: 6, reach: 200, kill: 12, rand: rand, iters: 200, jitter: 0.3 });
+    function P(nodes, rev) { return Mycel.leaves(nodes).map(function (n) { var p = Mycel.pathToRoot(nodes, n); if (rev) p.reverse(); return Mycel.measure(p); }).filter(function (p) { return p.len > R * 0.8; }); }
+    inP = P(inb); outP = P(out, true);
+    var c0 = vert ? { x: node.x + R * 2.9, y: node.y + R * 0.15 } : { x: node.x + R * 0.2, y: node.y + R * 2.3 };
+    var st = vert ? { x: node.x + R, y: node.y } : { x: node.x, y: node.y + R * 0.6 }; curl = [st];
+    var a0 = Math.atan2(st.y - c0.y, st.x - c0.x), r0 = Math.hypot(st.x - c0.x, st.y - c0.y);
+    for (i = 1; i <= 70; i++) { var f = i / 70, rr = Math.min(r0 * (1 - f) + R * 0.22 * f, R * 0.95 * (1 - f) + R * 0.22); curl.push({ x: c0.x + Math.cos(a0 + f * 9.6) * rr, y: c0.y + Math.sin(a0 + f * 9.6) * rr * 0.8 }); }
+    Mycel.measure(curl); curl.c = c0;
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    var c = stat.getContext('2d'); c.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    Mycel.drawSegments(c, inb, 0, 1e9, { color: GOLD, glow: DEEP, maxW: 2.6, alpha: function (n, wd) { return 0.3 + 0.5 * Math.min(1, wd / 2.2); } });
+    Mycel.drawSegments(c, out, 0, 1e9, { color: BLUE, glow: LINE, maxW: 2, alpha: function () { return 0.6; } });
+    c.strokeStyle = GOLD; c.globalAlpha = 0.6; c.lineWidth = 1.3; c.beginPath(); curl.forEach(function (p, i) { i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y); }); c.stroke();
+  }
+  function frame(dt, t) {
+    var c = S.ctx, i, hw = R * 0.66, hh = hw * 0.576;
+    c.clearRect(0, 0, w, h); c.drawImage(stat, 0, 0, w, h);
+    c.save(); c.globalCompositeOperation = 'lighter';
+    for (i = queue.length - 1; i >= 0; i--) { queue[i].wait -= dt; if (queue[i].wait <= 0) { pulses.push({ p: inP[(Math.random() * inP.length) | 0], d: 0, v: 90, col: LIGHT, ph: 'in', tier: queue[i].tier }); queue.splice(i, 1); } }
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var q = pulses[i]; q.d += q.v * dt;
+      if (q.d >= q.p.len) { pulses.splice(i, 1);
+        if (q.ph === 'in') { rings++; pulses.push(q.tier === 3 ? { p: curl, d: 0, v: 80, col: LIGHT, ph: 'curl' } : { p: outP[(Math.random() * outP.length) | 0], d: 0, v: 90, col: q.tier === 2 ? MOSS : TEAL, ph: 'out', soft: q.tier === 2 }); }
+        else if (q.ph === 'curl') seal = 1; continue; }
+      var pos = Mycel.at(q.p, q.d); Mycel.glowDot(c, pos.x, pos.y, q.soft ? 16 : 8, q.col, q.soft ? 0.45 : 0.9);
+    }
+    c.restore();
+    seal = Math.max(0, seal - dt * 0.7);
+    c.save(); c.fillStyle = INK; ell(c, R * 0.98, R * 0.59); c.fill();
+    c.strokeStyle = GOLD; c.lineWidth = 0.7; for (i = 0; i < Math.min(rings, 8); i++) { c.globalAlpha = 0.3 * (1 - i / 9); ell(c, R + 5 + i * 4.5, (R + 5 + i * 4.5) * 0.6); c.stroke(); }
+    for (i = 1; i >= -1; i--) { c.globalAlpha = 0.9; c.beginPath(); c.moveTo(node.x, node.y + i * R * 0.19 - hh); c.lineTo(node.x + hw, node.y + i * R * 0.19); c.lineTo(node.x, node.y + i * R * 0.19 + hh); c.lineTo(node.x - hw, node.y + i * R * 0.19); c.closePath(); c.fillStyle = i === 0 ? '#101A3D' : '#16224F'; c.fill(); c.strokeStyle = i === 0 ? LINE : DEEP; c.lineWidth = 0.8; c.stroke(); }
+    c.globalAlpha = 1; c.strokeStyle = LIGHT; c.lineWidth = 2; ell(c, R, R * 0.6); c.stroke();
+    c.strokeStyle = LIGHT; c.lineWidth = 1.3; c.globalAlpha = 0.55 + 0.45 * seal; c.beginPath(); c.arc(curl.c.x, curl.c.y, R * 0.22 + seal * 3, 0, 6.3); c.stroke();
+    c.restore();
+  }
+  build(); if (reduced) frame(0, 0); else Mycel.loop(cv, frame);
+  onResize(function () { build(); pulses = []; if (reduced) frame(0, 0); });
+  return { send: function (tier, n) { if (reduced) return; for (var i = 0; i < n; i++) queue.push({ tier: tier, wait: i * 0.22 }); } };
+}
+
+/* The rings: each real audit record as one growth ring, shaped by its own chain hash. */
+function SceneRings(cv, rec, btns, cases) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var C = cases, S, w, h, c0, R0, active = reduced ? C.length - 1 : 0, removed = -1, timer = 0, born = C.map(function () { return reduced ? 1 : 0; });
+  var TIER = { 1: ['Mask', TEAL], 2: ['Generalise', MOSS], 3: ['Keep local', LIGHT] };
+  function shape(hash) {
+    var b = []; for (var i = 0; i < 24; i += 2) b.push(parseInt(hash.substr(i, 2), 16) / 255);
+    return function (th) { var s = 0; for (var k = 0; k < 5; k++) s += (b[k] - 0.5) * Math.sin(th * (k + 2) + b[k + 5] * 6.283) / (k + 1.5); return s; };
+  }
+  // the first record has no parent (its prev_hash is all zeros), so its shape comes from the next record's hash, which is its own
+  var shapes = C.map(function (c, i) { return shape(i + 1 < C.length ? C[i + 1].audit.prev_hash : c.audit.prev_hash.split('').reverse().join('')); });
+  function build() { S = Mycel.fit(cv, 2); w = S.w; h = S.h; c0 = { x: w * 0.5, y: h * 0.5 }; R0 = Math.min(w, h) * 0.45; }
+  function ringR(i) { return R0 * (0.2 + 0.8 * (i + 1) / (C.length + 0.35)); }
+  function drawRing(ctx, i, grow) {
+    var base = ringR(i), inner = i ? ringR(i - 1) : R0 * 0.07, f = shapes[i], col = TIER[C[i].tier][1];
+    var broken = removed >= 0 && i > removed, gone = i === removed, on = i === active, lines = 9, k, th;
+    for (k = 0; k < lines; k++) {
+      var u = k / (lines - 1), r = inner + (base - inner) * (0.14 + 0.86 * u), end = 6.283 * Math.min(1, grow), edge = k === lines - 1;
+      ctx.beginPath();
+      for (th = 0; th <= end + 0.001; th += 0.035) {
+        var rr = r * (1 + f(th) * 0.075 * (0.5 + u * 0.5)) + Math.sin(th * 23 + k * 1.7 + i) * 0.7;
+        var x = c0.x + Math.cos(th - 1.57) * rr, y = c0.y + Math.sin(th - 1.57) * rr; th ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      if (grow >= 1) ctx.closePath();
+      ctx.strokeStyle = gone ? LINE : broken ? IVORY : edge ? col : (k % 3 === 0 ? DEEP : '#6E500E');
+      ctx.globalAlpha = gone ? 0.4 : broken ? (edge ? 0.5 : 0.14) : edge ? (on ? 1 : 0.8) : (on ? 0.6 : 0.36);
+      ctx.lineWidth = edge ? (on ? 2.4 : 1.4) : 0.8; ctx.setLineDash(gone ? [2, 7] : broken ? [9, 6] : []); ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  function frame(dt, t) {
+    var ctx = S.ctx, i; ctx.clearRect(0, 0, w, h);
+    for (i = 0; i < C.length; i++) { if (!reduced && i <= active && born[i] < 1) born[i] = Math.min(1, born[i] + dt / 1.6); if (born[i] > 0) drawRing(ctx, i, born[i]); }
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; var br = 1.035 + Math.sin(t * 0.9) * 0.006;
+    ctx.strokeStyle = DEEP; ctx.globalAlpha = 0.25; ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    ctx.strokeStyle = LIGHT; ctx.globalAlpha = 1; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    Mycel.glowDot(ctx, c0.x, c0.y, R0 * 0.06, GOLD, 0.9); ctx.restore();
+    if (!reduced && removed < 0) { timer += dt; if (timer > 3.4) { timer = 0; show((active + 1) % C.length); } }
+  }
+  function show(i) {
+    active = i; var a = C[i].audit, n = Object.keys(a.entity_counts).map(function (k) { return k + ' ' + a.entity_counts[k]; }).join(', ') || 'none';
+    var out = a.destination === 'ollama' ? 'a local model, nothing sent out' : 'a frontier model, ' + (C[i].tier === 1 ? 'masked' : 'generalised');
+    rec.innerHTML = removed >= 0 && i > removed
+      ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
+      : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+    btns.querySelectorAll('button[data-i]').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
+  }
+  C.forEach(function (c, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.dataset.i = i; b.textContent = 'ring ' + (i + 1);
+    b.addEventListener('click', function () { timer = -8; born = born.map(function (v, k) { return k <= i ? 1 : v; }); show(i); if (reduced) frame(0, 0); });
+    btns.appendChild(b);
+  });
+  var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'take'; rm.textContent = 'Take ring 2 out';
+  rm.addEventListener('click', function () {
+    removed = removed < 0 ? 1 : -1; rm.textContent = removed < 0 ? 'Take ring 2 out' : 'Put it back';
+    born = born.map(function () { return 1; }); show(removed < 0 ? 1 : 2); timer = 0; if (reduced) frame(0, 0);
+  });
+  btns.appendChild(rm);
+  build(); show(active); if (reduced) frame(0, 0); else Mycel.loop(cv, frame);
+  onResize(function () { build(); if (reduced) frame(0, 0); });
+}
+
+/* The live interception: real router output, one request at a time. */
+function SceneLive(root, data) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var $ = function (s) { return root.querySelector(s); };
+  var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), verdict = $('#lv-verdict'), steps = root.querySelectorAll('#lv-steps li'), tabs = $('#lv-cases'), outH = $('#lv-out-h'), ansNote = $('#lv-ans-note');
+  var mini = SceneMini($('#lv-cv')), timers = [], cur = 0;
+  var order = ['email', 'generalise', 'vault', 'sv-email'], label = { email: 'A customer e-mail with bank details', generalise: 'A supplier e-mail with telling details', vault: 'A confidential deal', 'sv-email': 'A Swedish e-mail with a personnummer' };
+  var cases = order.map(function (k) { return data.cases.filter(function (c) { return c.key === k; })[0]; });
+  var TIER = { 1: ['Mask', 't1'], 2: ['Generalise', 't2'], 3: ['Keep local', 't3'] };
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function later(ms, fn) { timers.push(setTimeout(fn, reduced ? 0 : ms)); }
+  function step(n) { steps.forEach(function (li, i) { li.classList.toggle('on', i === n); li.classList.toggle('done', i < n); }); }
+  function swap(tok, txt, cls, i, gap) { later(i * gap, function () { tok.classList.add('go'); later(230, function () { tok.textContent = txt; tok.className = 'tok ' + cls; }); }); }
+  function play(i) {
+    timers.forEach(clearTimeout); timers = []; cur = i;
+    var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; });
+    tabs.querySelectorAll('button').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
+    paneIn.textContent = ''; paneOut.textContent = ''; paneAns.textContent = ''; verdict.textContent = ''; verdict.className = 'verdict'; ansNote.textContent = '';
+    outH.textContent = c.tier === 3 ? 'What was sent out' : 'What the model sees';
+    c.parts.forEach(function (p) { paneIn.appendChild('a' in p ? el('span', 'tok raw', p.a) : document.createTextNode(p.lit)); });
+    step(0);
+    later(900, function () {
+      step(1); verdict.textContent = TIER[c.tier][0] + ' · tier ' + c.tier + ', rule ' + c.rule; verdict.className = 'verdict ' + TIER[c.tier][1];
+      mini.send(c.tier, Math.max(3, found.length));
+      if (c.tier === 3) { paneOut.appendChild(el('span', 'none', 'Nothing. This request stayed on this side.')); return; }
+      var toks = [];
+      c.parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok raw', p.a); toks.push([t, p]); paneOut.appendChild(t); } else paneOut.appendChild(document.createTextNode(p.lit)); });
+      toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, tp[1].kind === 'masked' ? 'ph' : 'wide', k + 1, 380); });
+    });
+    var t2 = 900 + (c.tier === 3 ? 1800 : (found.length + 2) * 380 + 500);
+    later(t2, function () {
+      step(2);
+      if (c.tier === 3) { paneAns.appendChild(el('span', 'none', 'A local model answers here, on your own machine.')); ansNote.textContent = 'The local model is selected, not yet installed, so this example has no answer to show yet.'; later(1200, function () { step(3); }); return; }
+      var toks = [];
+      c.ans_parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok ph', p.a); toks.push([t, p]); paneAns.appendChild(t); } else paneAns.appendChild(document.createTextNode(p.lit)); });
+      ansNote.textContent = 'Example answer, written by us with the placeholders in it. No model was called. Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
+      later(1500, function () { step(3); toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, 'raw', k, 320); }); });
+    });
+  }
+  cases.forEach(function (c, i) { var b = el('button', '', label[c.key]); b.type = 'button'; b.addEventListener('click', function () { play(i); }); tabs.appendChild(b); });
+  $('#lv-replay').addEventListener('click', function () { play(cur); });
+  play(0);
+}
+
+(function () {
+  var still = /[?&]still/.test(location.search);
+  if (still) document.documentElement.style.scrollBehavior = 'auto';
+  function boot() {
+    MycelGate(document.getElementById('net'), { still: still });
+    lazy(document.getElementById('shore'), function () { SceneShore(document.getElementById('shore')); });
+    lazy(document.getElementById('lv'), function () { SceneLive(document.getElementById('lv'), TDS_DATA); });
+    lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });
+    var m = /#y(\d+)/.exec(location.hash); if (m) setTimeout(function () { window.scrollTo(0, +m[1]); }, 50);
+  }
+  // text first, the living network after
+  if (document.readyState === 'complete') setTimeout(boot, 0); else window.addEventListener('load', function () { setTimeout(boot, 0); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept B · Descent · TDS (draft)</title>
+<style>
+{{base.css}}
+.world{position:relative}
+#soil{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#live{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;display:block}
+.world>section{position:relative;min-height:100vh;padding:0 clamp(20px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.world>section.first{justify-content:flex-start;padding-top:clamp(96px,14vh,140px);min-height:118vh}
+.first h1{font-size:clamp(36px,5vw,68px)}
+.st{max-width:25rem}
+.depth{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 18px;display:flex;align-items:center;gap:12px}
+.depth:before{content:"";width:34px;height:1px;background:var(--gold)}
+h2{font:700 clamp(28px,3.4vw,44px)/1.1 "Lora",Georgia,serif;margin:0 0 16px;text-wrap:balance}
+.st p{margin:0 0 12px;color:var(--ivory)}
+.st .note{display:block;margin-top:14px}
+.t1 .depth{color:var(--teal)}.t1 .depth:before{background:var(--teal)}
+.t2 .depth{color:var(--moss)}.t2 .depth:before{background:var(--moss)}
+code{font:400 .9em var(--mono);color:var(--light)}
+@media (max-width:759px){
+  .world>section.first{padding-top:84px;min-height:118vh}
+  .st{background:rgba(6,10,26,.84);padding:22px 18px;margin:0 -6px;border-left:1px solid var(--marine)}
+}
+</style>
+</head>
+<body>
+<main class="world" id="world">
+  <canvas id="soil" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept B · draft, not published</span></div>
+  <section class="first">
+    <div class="copy">
+{{hero.html}}
+      <p class="note" style="margin-top:30px">Scroll to go down. The deeper a request sinks, the less of it leaves.</p>
+    </div>
+  </section>
+  <section class="t1"><div class="st">
+    <p class="depth">Depth one · Mask</p>
+    <h2>Names dissolve. The request travels on.</h2>
+    <p><code>Emma Whitfield</code> leaves as <code>⟦PERSON_1⟧</code>. The answer comes back with the real name put back, on your side.</p>
+    <span class="note">Synthetic example. Real router output (router a822605).</span>
+  </div></section>
+  <section class="t2"><div class="st">
+    <p class="depth">Depth two · Generalise</p>
+    <h2>Details soften, like light through fog.</h2>
+    <p><code>Sorsele</code> leaves as <code>northern Sweden</code>. <code>35,897 employees</code> leaves as <code>10,000–50,000 employees</code>.</p>
+    <span class="note">Synthetic example. Real router output (router a822605).</span>
+  </div></section>
+  <section class="t3"><div class="st">
+    <p class="depth">Depth three · Keep local</p>
+    <h2>Some work goes no further.</h2>
+    <p>A request about a confidential deal was routed to a local model. Nothing was sent out. The thread seals where it stops.</p>
+    <span class="note">Synthetic example. Real router decision (router a822605). The local model is selected, not yet installed.</span>
+  </div></section>
+</main>
+<canvas id="live" aria-hidden="true"></canvas>
+{{toggle.html}}
+<script>
+{{mycel.js}}
+(function () {
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  var world = document.getElementById('world'), soil = document.getElementById('soil'), live = document.getElementById('live');
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var W, H, vh, sctx, L, tree, exits, paths, surfaceY, maskY, fogY, deepY, node, R, revealed, exRev, pulses, feat, featT, featI, motes, fog, portrait;
+  var SCRIPT = [
+    { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' }, { t: 2, a: 'Sorsele', b: 'northern Sweden' },
+    { t: 3, a: 'acquire a Finnish logistics company', b: 'stays here' }, { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
+    { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' }
+  ];
+  function build() {
+    var r = world.getBoundingClientRect(); W = r.width; H = world.scrollHeight; vh = window.innerHeight; portrait = W < 760;
+    var dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    soil.width = Math.round(W * dpr); soil.height = Math.round(H * dpr);
+    sctx = soil.getContext('2d'); sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    L = Mycel.fit(live, 2);
+    var secs = world.querySelectorAll('section'), tops = [];
+    secs.forEach(function (s) { tops.push(s.offsetTop); });
+    surfaceY = tops[1] - vh * 0.5; maskY = tops[1] + vh * 0.5; fogY = tops[2] + vh * 0.5; deepY = tops[3] + vh * 0.15;
+    var rand = Mycel.rng(77031), x0 = portrait ? 0 : W * 0.4, x1 = W, i;
+    R = portrait ? 40 : 54; node = { x: portrait ? W * 0.5 : W * 0.68, y: surfaceY + R * 1.1 };
+    // background strata: night air, soil, the deep
+    var g = sctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#060A1A'); g.addColorStop(deepY / H, '#060A1A'); g.addColorStop(Math.min(1, (deepY + vh * 0.5) / H), '#061423'); g.addColorStop(1, '#05161F');
+    sctx.fillStyle = g; sctx.fillRect(0, 0, W, H);
+    // the forest floor: a quiet hand-drawn line and a few stems (the people who type)
+    sctx.strokeStyle = MOSS; sctx.globalAlpha = 0.5; sctx.lineWidth = 1; sctx.beginPath();
+    for (i = 0; i <= W; i += 6) { var y = surfaceY + Math.sin(i * 0.011) * 5 + Math.sin(i * 0.047) * 2; i ? sctx.lineTo(i, y) : sctx.moveTo(i, y); }
+    sctx.stroke();
+    for (i = 0; i < (portrait ? 14 : 34); i++) {
+      var sx = x0 + rand() * (x1 - x0), sh = 14 + rand() * 46, lean = (rand() - 0.5) * 16;
+      sctx.globalAlpha = 0.25 + rand() * 0.3; sctx.beginPath(); sctx.moveTo(sx, surfaceY + 2);
+      sctx.quadraticCurveTo(sx + lean * 0.2, surfaceY - sh * 0.6, sx + lean, surfaceY - sh); sctx.stroke();
+    }
+    sctx.globalAlpha = 1;
+    // the network grows down from the gate, thinner with depth
+    var A = [];
+    for (i = 0; i < (portrait ? 700 : 1100); i++) {
+      var yy = node.y + R + Math.pow(rand(), 1.25) * (H - node.y - R - 40);
+      var keep = yy > deepY ? 0.32 : yy > fogY ? 0.6 : 1; if (rand() > keep) continue;
+      A.push({ x: x0 + rand() * (x1 - x0), y: yy });
+    }
+    var roots = []; for (i = 0; i < 5; i++) { var a = Math.PI * (0.14 + 0.18 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    tree = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 120, kill: 18, rand: rand, iters: 900, jitter: 0.55, maxNodes: 9000 });
+    paths = Mycel.leaves(tree).map(function (n) { var p = Mycel.pathToRoot(tree, n); p.reverse(); p.leaf = n; return Mycel.measure(p); }).filter(function (p) { return p.len > 160; });
+    // exits to the outside: only from depth one and depth two
+    exits = [maskY + vh * 0.12, fogY + vh * 0.16].map(function (ey) {
+      var best = null; tree.forEach(function (n) { if (Math.abs(n.y - ey) < 60 && (!best || n.x > best.x)) best = n; });
+      var E = []; for (var k = 0; k < 16; k++) E.push({ x: best.x + rand() * (W + 40 - best.x), y: best.y - 70 + rand() * 140 });
+      var t = Mycel.grow({ roots: [{ x: best.x, y: best.y }], attractors: E, step: 8, reach: 400, kill: 18, rand: rand, iters: 200, jitter: 0.25 });
+      t.paths = Mycel.leaves(t).map(function (n) { var p = Mycel.pathToRoot(t, n); p.reverse(); return Mycel.measure(p); });
+      return t;
+    });
+    // fog for depth two
+    fog = document.createElement('canvas'); fog.width = Math.round(W); fog.height = Math.round(vh * 0.7);
+    var f = fog.getContext('2d'); if ('filter' in f) f.filter = 'blur(14px)';
+    for (i = 0; i < 46; i++) { f.globalAlpha = 0.03 + rand() * 0.05; f.fillStyle = '#C9D6C0'; var fw = W * (0.2 + rand() * 0.5); f.fillRect(rand() * W - fw / 2, fog.height * (0.12 + rand() * 0.76), fw, 5 + rand() * 16); }
+    motes = []; for (i = 0; i < (portrait ? 26 : 60); i++) motes.push({ x: rand() * W, y: deepY + rand() * (H - deepY), p: rand() * 6.28, s: 0.4 + rand() * 1.4 });
+    revealed = 0; exRev = 0; pulses = []; feat = null; featT = 0.5; featI = 0;
+    if (reduced) reveal(1e9);
+  }
+  var style = { color: GOLD, glow: DEEP, maxW: 3.4, alpha: function (n, w) {
+    var a = 0.2 + 0.5 * Math.min(1, w / 2.6);
+    if (n.y > deepY) a *= 0.8; return a; } };
+  function colourAt(y) { return y < maskY ? GOLD : y < fogY ? TEAL : y < deepY ? MOSS : LIGHT; }
+  function reveal(n) {
+    var to = Math.min(tree.length, revealed + n);
+    if (to > revealed) {
+      Mycel.drawSegments(sctx, tree, revealed, to, style);
+      // seals at the tips in the deep
+      sctx.save(); sctx.strokeStyle = TEAL; sctx.lineWidth = 1; sctx.globalAlpha = 0.75;
+      for (var i = 0; i < tree.length; i++) { var m = tree[i]; if (m.t >= revealed && m.t < to && m.kids === 0 && m.y > deepY) { sctx.beginPath(); sctx.arc(m.x, m.y, 4.5, 0, 6.3); sctx.stroke(); } }
+      sctx.restore();
+      revealed = to;
+    }
+    if (revealed >= tree.length && !exRev) { exRev = 1;
+      exits.forEach(function (t) { Mycel.drawSegments(sctx, t, 0, 1e9, { color: '#5A72C4', glow: LINE, maxW: 2, alpha: function () { return 0.6; } }); });
+      drawNode(sctx);
+    }
+  }
+  function drawNode(c) {
+    c.save(); c.fillStyle = '#060A1A'; c.beginPath(); c.ellipse(node.x, node.y, R, R * 0.6, 0, 0, 6.3); c.fill();
+    var hw = R * 0.66, hh = hw * 0.576;
+    for (var i = 1; i >= -1; i--) { c.beginPath(); c.moveTo(node.x, node.y + i * R * 0.19 - hh); c.lineTo(node.x + hw, node.y + i * R * 0.19); c.lineTo(node.x, node.y + i * R * 0.19 + hh); c.lineTo(node.x - hw, node.y + i * R * 0.19); c.closePath();
+      c.fillStyle = i === 0 ? '#101A3D' : '#16224F'; c.fill(); c.strokeStyle = i === 0 ? LINE : DEEP; c.lineWidth = 0.8; c.stroke(); }
+    c.strokeStyle = LIGHT; c.lineWidth = 2.2; c.beginPath(); c.ellipse(node.x, node.y, R, R * 0.6, 0, 0, 6.3); c.stroke();
+    c.font = '11px ' + MONO; c.fillStyle = LIGHT; c.textAlign = 'center'; try { c.letterSpacing = '1.5px'; } catch (e) {}
+    c.fillText('THE LAYER', node.x, node.y - R * 0.6 - 16);
+    c.fillStyle = MUT; c.textAlign = 'right';
+    c.fillText('OUT, MASKED', W - 18, maskY + vh * 0.12 - 84); c.fillText('OUT, BLURRED', W - 18, fogY + vh * 0.16 - 84);
+    c.restore();
+  }
+  function label(c, txt, x, y, col, a, blur) {
+    c.save(); c.font = '12px ' + MONO; c.textAlign = 'center'; c.textBaseline = 'middle';
+    var tw = c.measureText(txt).width + 16; x = Math.max(tw / 2 + 6, Math.min(W - tw / 2 - 6, x));
+    if (blur && 'filter' in c) c.filter = 'blur(' + blur + 'px)';
+    c.globalAlpha = a * 0.86; c.fillStyle = '#060A1A'; c.fillRect(x - tw / 2, y - 11, tw, 22);
+    c.globalAlpha = a; c.fillStyle = col; c.fillText(txt, x, y); c.restore();
+  }
+  function frame(dt, t) {
+    var c = L.ctx, sy = window.scrollY, i;
+    reveal(reduced ? 1e9 : Math.max(3, tree.length * dt / 9));
+    c.clearRect(0, 0, L.w, L.h);
+    // fog drifts across depth two
+    var fy = fogY - vh * 0.35 - sy;
+    if (fy < L.h && fy + fog.height > 0) { var off = (t * 9) % W; c.globalAlpha = 0.9; c.drawImage(fog, off, fy); c.drawImage(fog, off - W, fy); c.globalAlpha = 1; }
+    c.save(); c.globalCompositeOperation = 'lighter';
+    // bioluminescent motes in the deep: they drift, they do not travel
+    motes.forEach(function (m) { var y = m.y - sy + Math.sin(t * 0.3 + m.p) * 9; if (y < -20 || y > L.h + 20) return;
+      Mycel.glowDot(c, m.x + Math.cos(t * 0.2 + m.p) * 12, y, 3 + m.s * 3, TEAL, 0.25 + 0.3 * (0.5 + 0.5 * Math.sin(t * 0.7 + m.p * 3))); });
+    if (!reduced && revealed > tree.length * 0.3 && pulses.length < 22 && Math.random() < dt * 3) {
+      var p = paths[(Math.random() * paths.length) | 0]; pulses.push({ path: p, d: 0, v: 70 + Math.random() * 60 });
+    }
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var q = pulses[i]; q.d += q.v * dt * (q.pos && q.pos.y > deepY ? 0.45 : 1);
+      if (q.d >= q.path.len) { pulses.splice(i, 1); continue; }
+      q.pos = Mycel.at(q.path, q.d); var py = q.pos.y - sy; if (py < -30 || py > L.h + 30) continue;
+      var soft = q.pos.y > fogY && q.pos.y < deepY;
+      Mycel.glowDot(c, q.pos.x, py, soft ? 15 : 8, colourAt(q.pos.y), soft ? 0.4 : 0.85);
+    }
+    c.restore();
+    // one readable request at a time, following the reader's depth
+    if (!feat) { featT -= dt; if (featT <= 0 && revealed > tree.length * 0.5) {
+      var want = sy + vh * 0.5 > fogY + vh * 0.3 ? 3 : sy + vh * 0.5 > maskY + vh * 0.3 ? 2 : 1;
+      var pool = SCRIPT.filter(function (s) { return s.t === want; }), s = pool[featI++ % pool.length];
+      var limit = s.t === 1 ? fogY : s.t === 2 ? deepY : H, min = s.t === 1 ? maskY + 80 : s.t === 2 ? fogY + 80 : deepY + 80;
+      var ok = paths.filter(function (p) { return p.leaf.y > min && p.leaf.y < limit; });
+      if (ok.length) feat = { s: s, path: ok[(Math.random() * ok.length) | 0], d: 0 }; else featT = 1;
+    } }
+    if (feat) {
+      feat.d += 120 * dt; var pos = Mycel.at(feat.path, feat.d), y2 = pos.y - sy, s2 = feat.s;
+      var cut = s2.t === 1 ? maskY : s2.t === 2 ? fogY : deepY, k = Math.max(0, Math.min(1, (pos.y - cut + 40) / 80));
+      c.save(); c.globalCompositeOperation = 'lighter'; Mycel.glowDot(c, pos.x, y2, 12, k < 0.5 ? LIGHT : colourAt(pos.y), 1); c.restore();
+      var end = Math.min(1, (feat.path.len - feat.d) / 60);
+      label(c, s2.a, pos.x, y2 - 24, LIGHT, (1 - k) * end, k * 5);
+      label(c, s2.b, pos.x, y2 - 24, s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT, k * end, 0);
+      if (feat.d >= feat.path.len) { feat = null; featT = 0.8; }
+    }
+  }
+  function start() {
+    if (world.getBoundingClientRect().width < 2) { requestAnimationFrame(start); return; }
+    build();
+    if (reduced) { frame(0, 0); window.addEventListener('scroll', function () { frame(0, 0); }, { passive: true }); }
+    else Mycel.loop(live, frame);
+  }
+  start();
+  var rt, lw = 0; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lw) > 2) { lw = window.innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+  lw = window.innerWidth;
+})();
+</script>
+</body>
+</html>

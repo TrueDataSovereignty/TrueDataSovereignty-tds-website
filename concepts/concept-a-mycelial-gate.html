@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept A · The Mycelial Gate · TDS (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("../../fonts/Lora-wght.ttf") format("truetype");font-weight:400 700;font-display:swap}
+:root{--ink:#060A1A;--navy:#101A3D;--marine:#1C2C66;--line:#33488F;--gold:#DDB04A;--deep:#B8862B;--light:#F8DF9C;--ivory:#F7F3EA;--mut:#AEB6CE;--moss:#8FAE6B;--teal:#5FD9C6;
+--sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:var(--ink);color:var(--ivory);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 17px/1.55 var(--sans);background:var(--ink);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--light);outline-offset:3px}
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:12px;padding:22px clamp(20px,5vw,64px);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.top img{width:30px;height:30px}
+.top .draft{margin-left:auto;font:400 11px/1 var(--mono);letter-spacing:.08em;color:var(--mut);text-transform:none}
+.copy{max-width:46rem}
+.kicker{font:700 clamp(15px,1.5vw,18px)/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;letter-spacing:-.012em;margin:0 0 26px;text-wrap:balance}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.5;margin:0 0 12px;max-width:31rem;color:var(--ivory)}
+.sub{font:italic 400 clamp(15px,1.25vw,17px)/1.5 "Lora",Georgia,serif;color:var(--mut);margin:0 0 34px}
+.cta{display:inline-block;padding:15px 26px;background:var(--gold);color:var(--ink);font:700 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;border-radius:2px}
+.cta:hover{background:var(--light)}
+.key{list-style:none;margin:34px 0 0;padding:0;font:400 13px/1.5 var(--sans);color:var(--mut);display:grid;gap:6px}
+.key b{color:var(--ivory);font-weight:600}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;vertical-align:1px}
+.note{font:400 11px/1.5 var(--mono);color:var(--mut);letter-spacing:.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.toggle{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px clamp(12px,3vw,24px);background:#0B1230;border-top:1px solid var(--marine);font:400 11px/1.3 var(--mono);color:var(--mut)}
+.toggle button{font:inherit;color:var(--ivory);background:none;border:1px solid var(--line);padding:5px 9px;border-radius:2px;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+.copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 110px}
+@media (max-width:759px){
+  .hero{display:flex;flex-direction:column;justify-content:flex-end}
+  .copy{padding:0 20px 96px;margin-top:48vh}
+  .key{margin-top:26px}
+}
+.cap{position:absolute;right:clamp(20px,5vw,64px);bottom:52px;margin:0;text-align:right}
+@media (max-width:759px){.cap{position:static;padding:0 20px 60px;text-align:left;margin-top:-80px}}
+</style>
+</head>
+<body>
+<main class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept A · draft, not published</span></div>
+  <div class="copy">
+<p class="kicker">The Layer</p>
+<h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
+<p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+<p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
+<a class="cta" href="#contact">Become a design partner</a>
+
+    <ul class="key" aria-label="What the picture shows">
+      <li><i style="background:var(--light)"></i><b>Gold:</b> your data, as typed. What must stay curls back and seals.</li>
+      <li><i style="background:var(--teal)"></i><b>Mask:</b> names and numbers leave as placeholders.</li>
+      <li><i style="background:var(--moss)"></i><b>Generalise:</b> telling details leave blurred.</li>
+    </ul>
+  </div>
+  <p class="note cap">Synthetic example. Every word change shown is real router output<br>on made-up text (router a822605).</p>
+</main>
+<div class="toggle" role="group" aria-label="Hero wording, for review only">
+<span>Review only, not on the final page. Hero wording:</span>
+<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
+<button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+</div>
+<script>
+(function(){var W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
+document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+</script>
+
+<script>
+/* Mycel: a tiny generative engine for the TDS site. Made from scratch.
+   Space-colonisation growth, pipe-model thickness, incremental reveal,
+   pulses that travel along grown paths. Canvas 2D only. */
+var Mycel = (function () {
+  'use strict';
+
+  function rng(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0;
+      return s / 4294967296;
+    };
+  }
+
+  /* Grow a tree from roots toward attractors.
+     o: {roots:[{x,y}], attractors:[{x,y}], step, kill, reach, iters, rand, jitter, maxNodes} */
+  function grow(o) {
+    var step = o.step || 6, kill = o.kill || step * 2, reach = o.reach || 80;
+    var rand = o.rand || Math.random, jitter = o.jitter == null ? 0.35 : o.jitter;
+    var maxNodes = o.maxNodes || 6000;
+    var nodes = [];
+    var cell = reach, grid = new Map();
+    function key(cx, cy) { return cx * 73856093 ^ cy * 19349663; }
+    function add(n) {
+      n.i = nodes.length; n.kids = 0; nodes.push(n);
+      var k = key(Math.floor(n.x / cell), Math.floor(n.y / cell));
+      var b = grid.get(k); if (!b) { b = []; grid.set(k, b); } b.push(n);
+      return n;
+    }
+    o.roots.forEach(function (r) { add({ x: r.x, y: r.y, p: -1, t: 0, d: 0 }); });
+    var att = o.attractors.map(function (a) { return { x: a.x, y: a.y, alive: true }; });
+    var iters = o.iters || 400, order = 1;
+    for (var it = 0; it < iters && nodes.length < maxNodes; it++) {
+      var pull = new Map(), any = false;
+      for (var a = 0; a < att.length; a++) {
+        var A = att[a]; if (!A.alive) continue;
+        var cx = Math.floor(A.x / cell), cy = Math.floor(A.y / cell);
+        var best = null, bd = reach * reach;
+        for (var gx = -1; gx <= 1; gx++) for (var gy = -1; gy <= 1; gy++) {
+          var b = grid.get(key(cx + gx, cy + gy)); if (!b) continue;
+          for (var j = 0; j < b.length; j++) {
+            var n = b[j], dx = A.x - n.x, dy = A.y - n.y, dd = dx * dx + dy * dy;
+            if (dd < bd) { bd = dd; best = n; }
+          }
+        }
+        if (!best) continue;
+        if (bd < kill * kill) { A.alive = false; continue; }
+        var l = Math.sqrt(bd), v = pull.get(best);
+        if (!v) { v = { x: 0, y: 0, c: 0 }; pull.set(best, v); }
+        v.x += (A.x - best.x) / l; v.y += (A.y - best.y) / l; v.c++;
+      }
+      pull.forEach(function (v, n) {
+        var l = Math.hypot(v.x, v.y); if (l < 1e-6) return;
+        var ang = Math.atan2(v.y, v.x) + (rand() - 0.5) * jitter;
+        // a little inertia from the parent direction makes threads look grown, not drawn
+        if (n.p >= 0) {
+          var P = nodes[n.p], pa = Math.atan2(n.y - P.y, n.x - P.x);
+          var diff = Math.atan2(Math.sin(ang - pa), Math.cos(ang - pa));
+          ang = pa + diff * 0.72;
+        }
+        var s = step * (0.85 + rand() * 0.3);
+        add({ x: n.x + Math.cos(ang) * s, y: n.y + Math.sin(ang) * s, p: n.i, t: order++, d: n.d + 1 });
+        any = true;
+      });
+      if (!any) break;
+    }
+    // pipe model: thickness from descendant count
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var N = nodes[i]; N.w = N.w || 1;
+      if (N.p >= 0) { nodes[N.p].w = (nodes[N.p].w || 1) + N.w; nodes[N.p].kids++; }
+    }
+    return nodes;
+  }
+
+  function leaves(nodes) { return nodes.filter(function (n) { return n.kids === 0 && n.p >= 0; }); }
+
+  /* Path from a node back to its root, as [{x,y}] from leaf to root. */
+  function pathToRoot(nodes, n) {
+    var out = [];
+    while (n) { out.push({ x: n.x, y: n.y }); n = n.p >= 0 ? nodes[n.p] : null; }
+    return out;
+  }
+  function measure(path) {
+    var L = [0];
+    for (var i = 1; i < path.length; i++) L.push(L[i - 1] + Math.hypot(path[i].x - path[i - 1].x, path[i].y - path[i - 1].y));
+    path.len = L[L.length - 1]; path.L = L; return path;
+  }
+  function at(path, d) {
+    var L = path.L; if (d <= 0) return path[0]; if (d >= path.len) return path[path.length - 1];
+    var lo = 0, hi = L.length - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (L[m] < d) lo = m; else hi = m; }
+    var f = (d - L[lo]) / (L[hi] - L[lo] || 1);
+    return { x: path[lo].x + (path[hi].x - path[lo].x) * f, y: path[lo].y + (path[hi].y - path[lo].y) * f };
+  }
+
+  /* Draw segments whose order lies in [from, to) onto ctx. Additive glow. */
+  function drawSegments(ctx, nodes, from, to, style) {
+    var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'butt';
+    for (var pass = 0; pass < 2; pass++) {
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
+        var P = nodes[n.p];
+        var w = Math.min(maxW, base + Math.pow(n.w, k) * 0.35);
+        var a = style.alpha(n, w);
+        if (pass === 0) { ctx.strokeStyle = style.glow; ctx.globalAlpha = a * 0.16; ctx.lineWidth = w * 4.5; }
+        else { ctx.strokeStyle = style.color; ctx.globalAlpha = a; ctx.lineWidth = w; }
+        // each piece runs midpoint to midpoint, bent through the joint: no gaps, no beads
+        var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2;
+        ctx.beginPath();
+        if (P.p >= 0) { var G = nodes[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); }
+        else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+        if (n.kids === 0) ctx.lineTo(n.x, n.y);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function glowDot(ctx, x, y, r, color, a) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = a; ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* Run a draw loop only while visible on screen and in a visible tab. */
+  function loop(el, frame) {
+    var onScreen = true, raf = 0, last = 0;
+    function tick(t) {
+      raf = 0;
+      var dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016; last = t;
+      frame(dt, t / 1000);
+      schedule();
+    }
+    function schedule() { if (!raf && onScreen && !document.hidden) raf = requestAnimationFrame(tick); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; if (onScreen) { last = 0; schedule(); } }).observe(el);
+    }
+    document.addEventListener('visibilitychange', function () { last = 0; schedule(); });
+    schedule();
+  }
+
+  function reducedMotion() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function fit(canvas, maxDpr) {
+    var dpr = Math.min(maxDpr || 2, window.devicePixelRatio || 1);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+    var ctx = canvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height, dpr: dpr };
+  }
+
+  return { rng: rng, grow: grow, leaves: leaves, pathToRoot: pathToRoot, measure: measure, at: at,
+    drawSegments: drawSegments, glowDot: glowDot, loop: loop, reducedMotion: reducedMotion, fit: fit };
+})();
+
+/* The Mycelial Gate: the network, the ring node, and real router tokens passing through it.
+   Used by concept A and by the home page hero. Needs Mycel. */
+function MycelGate(cv, opts) {
+  'use strict';
+  opts = opts || {};
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', IVORY = '#F7F3EA', MUT = '#AEB6CE';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  /* Every pair below is real router output on synthetic text (router a822605, web/how-it-works-data/cases-out.json). */
+  var SCRIPT = [
+    { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' },
+    { t: 2, a: 'Sorsele', b: 'northern Sweden' },
+    { t: 1, a: 'GB33 BUKB 2020 1555 5555 55', b: '⟦IBAN_1⟧' },
+    { t: 3, a: 'acquire a Finnish logistics company', b: null },
+    { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
+    { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' },
+    { t: 1, a: '+44 7700 900123', b: '⟦PHONE_1⟧' },
+    { t: 2, a: '13 June 2027', b: 'June 2027' }
+  ];
+  var reduced = Mycel.reducedMotion();
+  var S, w, h, portrait, node, R, stat, sctx, inb, out, inPaths, featPaths, outPaths, curl;
+  var revealIn, revealOut, pulses, feat, featIdx, featTimer, rings, sealFlash, lastW = 0;
+
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w;
+    portrait = w < 760;
+    var rand = Mycel.rng(20261111);
+    node = portrait ? { x: w * 0.5, y: Math.max(150, h * 0.235) } : { x: w * 0.7, y: h * 0.47 };
+    R = portrait ? Math.min(w * 0.15, 60) : Math.max(58, Math.min(h * 0.105, 96));
+    var i, a, A = [], roots = [];
+    // inbound side: your environment
+    if (portrait) {
+      for (i = 0; i < 380; i++) A.push({ x: rand() * w, y: node.y + R * 0.9 + Math.pow(rand(), 0.8) * (h - node.y) });
+      for (i = 0; i < 5; i++) { a = Math.PI * (0.18 + 0.16 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    } else {
+      for (i = 0; i < 620; i++) {
+        var x = -20 + rand() * (node.x - R * 1.25 + 20), y = rand() * h;
+        if (rand() > 0.3 + 0.7 * (x / node.x)) continue;
+        A.push({ x: x, y: y });
+      }
+      for (i = 0; i < 6; i++) { a = Math.PI * (0.56 + 0.176 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    }
+    inb = Mycel.grow({ roots: roots, attractors: A, step: portrait ? 6 : 7, reach: portrait ? 80 : 100, kill: 15, rand: rand, iters: 600, jitter: 0.5 });
+    // outbound side: outside, toward the frontier model
+    A = []; roots = [];
+    if (portrait) {
+      for (i = 0; i < 46; i++) A.push({ x: w * 0.06 + rand() * w * 0.88, y: -20 + rand() * (node.y - R * 0.9 + 20) });
+      for (i = 0; i < 3; i++) { a = -Math.PI * (0.3 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    } else {
+      for (i = 0; i < 64; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: h * 0.1 + rand() * h * 0.72 });
+      for (i = 0; i < 3; i++) { a = Math.PI * (-0.22 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    }
+    out = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 130, kill: 18, rand: rand, iters: 400, jitter: 0.3 });
+
+    function paths(nodes, minLen) {
+      return Mycel.leaves(nodes).map(function (n) { return Mycel.measure(Mycel.pathToRoot(nodes, n)); }).filter(function (p) { return p.len > minLen; });
+    }
+    inPaths = paths(inb, R * 1.2);
+    featPaths = inPaths.filter(function (p) {
+      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * 0.5 && p[0].y > h * 0.14 && p[0].y < h * 0.86));
+    });
+    if (!featPaths.length) featPaths = inPaths;
+    outPaths = paths(out, R).map(function (p) { p.reverse(); return Mycel.measure(p); });
+    // the curl: a thread that turns back on itself and seals (keep local)
+    var c = portrait ? { x: node.x + R * 1.75, y: node.y + R * 0.75 } : { x: node.x + R * 0.55, y: node.y + R * 1.9 };
+    var start = portrait ? { x: node.x + R * 0.8, y: node.y + R * 0.36 } : { x: node.x + R * 0.2, y: node.y + R * 0.6 };
+    curl = [start];
+    var a0 = Math.atan2(start.y - c.y, start.x - c.x), r0 = Math.hypot(start.x - c.x, start.y - c.y);
+    for (i = 1; i <= 90; i++) {
+      var f = i / 90, rr = r0 * (1 - f) + R * 0.2 * f, an = a0 + f * Math.PI * 3.2;
+      rr = Math.min(rr, R * 0.85 * (1 - f) + R * 0.2);
+      curl.push({ x: c.x + Math.cos(an) * rr, y: c.y + Math.sin(an) * rr * 0.8 });
+    }
+    Mycel.measure(curl); curl.c = c;
+
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    revealIn = 0; revealOut = 0; pulses = []; feat = null; featIdx = 0; featTimer = 1.2; rings = 3; sealFlash = 0;
+    if (reduced || opts.still) { reveal(1e9); }
+  }
+
+  var styleIn = { color: GOLD, glow: DEEP, maxW: 3.6, alpha: function (n, wd) {
+    var a = 0.2 + 0.5 * Math.min(1, wd / 2.6);
+    if (portrait) { if (n.y > h * 0.4) a *= 0.34; } else if (n.x < w * 0.47) a *= 0.3 + 0.5 * Math.max(0, (n.x - w * 0.3) / (w * 0.17));
+    return a;
+  } };
+  var styleOut = { color: '#5A72C4', glow: LINE, maxW: 2.2, alpha: function (n, wd) { return 0.3 + 0.35 * Math.min(1, wd / 2); } };
+
+  function reveal(n) {
+    var ti = inb.length, to = out.length;
+    var a = Math.min(ti, revealIn + n), b = Math.min(to, revealOut + n * to / ti);
+    if (a > revealIn) Mycel.drawSegments(sctx, inb, revealIn, a, styleIn);
+    if (b > revealOut) Mycel.drawSegments(sctx, out, revealOut, b, styleOut);
+    revealIn = a; revealOut = b;
+    if (revealIn >= ti && !curl.done) {
+      curl.done = true;
+      sctx.save(); sctx.globalCompositeOperation = 'lighter'; sctx.lineCap = 'round';
+      sctx.strokeStyle = GOLD; sctx.globalAlpha = 0.6; sctx.lineWidth = 1.5;
+      sctx.beginPath(); curl.forEach(function (p, i) { i ? sctx.lineTo(p.x, p.y) : sctx.moveTo(p.x, p.y); }); sctx.stroke();
+      sctx.restore();
+    }
+  }
+
+  function ellipse(ctx, x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); }
+  function diamond(ctx, x, y, hw, hh) { ctx.beginPath(); ctx.moveTo(x, y - hh); ctx.lineTo(x + hw, y); ctx.lineTo(x, y + hh); ctx.lineTo(x - hw, y); ctx.closePath(); }
+
+  function drawNode(ctx, t) {
+    var k = 0.6, br = 1 + Math.sin(t * 0.9) * 0.018, i;
+    ctx.save();
+    // soil cleared under the node so it reads as a gate, not a tangle
+    ctx.fillStyle = '#060A1A'; ellipse(ctx, node.x, node.y, R * 0.98, R * k * 0.98); ctx.fill();
+    // growth rings: one per request
+    ctx.lineWidth = 0.7; ctx.strokeStyle = GOLD;
+    for (i = 0; i < Math.min(rings, 13); i++) {
+      ctx.globalAlpha = 0.34 * (1 - i / 14);
+      ellipse(ctx, node.x, node.y, (R + 7 + i * 5.5) * br, (R + 7 + i * 5.5) * k * br); ctx.stroke();
+    }
+    // three stacked layers, echoing the mark
+    var hw = R * 0.66, hh = hw * 0.576, gap = R * 0.19;
+    for (i = 1; i >= -1; i--) {
+      ctx.globalAlpha = i === 0 ? 0.95 : 0.8;
+      diamond(ctx, node.x, node.y + i * gap, hw, hh);
+      ctx.fillStyle = i === 0 ? '#101A3D' : '#16224F'; ctx.fill();
+      ctx.strokeStyle = i === 0 ? LINE : DEEP; ctx.lineWidth = 0.8; ctx.stroke();
+    }
+    // the gold ring
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = DEEP; ctx.lineWidth = 7; ctx.globalAlpha = 0.22 + 0.08 * Math.sin(t * 0.9);
+    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
+    ctx.globalAlpha = 1; ctx.strokeStyle = LIGHT; ctx.lineWidth = 2.2;
+    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
+    // the seal at the end of the curl
+    var e = curl[curl.length - 1];
+    ctx.strokeStyle = LIGHT; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.6 + 0.4 * sealFlash;
+    ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, R * 0.2 + sealFlash * 3, 0, Math.PI * 2); ctx.stroke();
+    if (sealFlash > 0) Mycel.glowDot(ctx, e.x, e.y, 22, GOLD, sealFlash * 0.5);
+    ctx.restore();
+    // labels (the same words exist as text in the page)
+    ctx.save();
+    ctx.font = '11px ' + MONO; ctx.fillStyle = MUT; ctx.textBaseline = 'middle';
+    try { ctx.letterSpacing = '1.5px'; } catch (er) {}
+    if (portrait) {
+      ctx.textAlign = 'left'; ctx.fillText('OUTSIDE', 20, 74);
+      ctx.fillStyle = LIGHT; ctx.textAlign = 'right'; ctx.fillText('THE LAYER', node.x - R * 1.2, node.y - R * 0.5);
+      ctx.fillStyle = GOLD; ctx.textAlign = 'center'; ctx.fillText('KEPT LOCAL', curl.c.x, curl.c.y + R * 0.95);
+    } else {
+      ctx.textAlign = 'center';
+      ctx.fillStyle = LIGHT; ctx.fillText('THE LAYER  ·  DECIDES WHAT PASSES', node.x, node.y - R * 0.6 - 86);
+      ctx.fillStyle = MUT;
+      ctx.textAlign = 'right'; ctx.fillText('OUTSIDE  ·  FRONTIER AI', w - 28, h * 0.1);
+      ctx.textAlign = 'left'; ctx.fillText('YOUR ENVIRONMENT', w * 0.49, h * 0.92);
+      ctx.fillStyle = GOLD; ctx.textAlign = 'left'; ctx.fillText('KEPT LOCAL', curl.c.x + R * 1.0, curl.c.y);
+    }
+    ctx.restore();
+  }
+
+  function drawPulse(ctx, p) {
+    var pos = Mycel.at(p.path, p.d), i;
+    for (i = 4; i >= 1; i--) { var q = Mycel.at(p.path, p.d - i * 7); Mycel.glowDot(ctx, q.x, q.y, p.r * 0.7, p.col, 0.12 * (5 - i) * p.a); }
+    Mycel.glowDot(ctx, pos.x, pos.y, p.r * (p.soft ? 2.6 : 1.5), p.col, (p.soft ? 0.45 : 0.9) * p.a);
+    if (!p.soft) Mycel.glowDot(ctx, pos.x, pos.y, p.r * 0.45, '#FFFFFF', 0.9 * p.a);
+    return pos;
+  }
+
+  function label(ctx, txt, x, y, col, a, blur) {
+    if (a <= 0.01) return;
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.font = (portrait ? '11px ' : '12.5px ') + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+    var tw = ctx.measureText(txt).width + 16;
+    x = Math.max(tw / 2 + 8, Math.min(w - tw / 2 - 8, x));
+    if (blur && 'filter' in ctx) ctx.filter = 'blur(' + blur.toFixed(1) + 'px)';
+    ctx.globalAlpha = a * 0.86; ctx.fillStyle = '#060A1A'; ctx.fillRect(x - tw / 2, y - 11, tw, 22);
+    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillText(txt, x, y + 0.5);
+    ctx.restore();
+  }
+
+  function spawnAmbient() {
+    var p = inPaths[(Math.random() * inPaths.length) | 0];
+    pulses.push({ path: p, d: 0, v: 55 + Math.random() * 60, col: GOLD, r: 5, a: 0.75, phase: 'in' });
+  }
+  function leave(tier) {
+    if (tier === 3) return { path: curl, d: 0, v: 70, col: LIGHT, r: 5.5, a: 1, phase: 'curl' };
+    var p = outPaths[(Math.random() * outPaths.length) | 0];
+    return { path: p, d: 0, v: 85, col: tier === 2 ? MOSS : TEAL, r: tier === 2 ? 6 : 5, a: 0.9, soft: tier === 2, phase: 'out' };
+  }
+
+  function frame(dt, t) {
+    var ctx = S.ctx, i;
+    reveal(reduced ? 1e9 : Math.max(2, inb.length * dt / 7.5));
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(stat, 0, 0, w, h);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    var grown = revealIn / inb.length;
+    if (!reduced && !opts.still && grown > 0.45 && pulses.length < (portrait ? 9 : 16) && Math.random() < dt * 2.4) spawnAmbient();
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i]; p.d += p.v * dt;
+      if (p.d >= p.path.len) {
+        pulses.splice(i, 1);
+        if (p.phase === 'in') { rings++; var r = Math.random(); pulses.push(leave(r < 0.6 ? 1 : r < 0.8 ? 2 : 3)); }
+        else if (p.phase === 'curl') sealFlash = 1;
+        continue;
+      }
+      if (p.phase === 'out') p.a = Math.min(0.9, (p.path.len - p.d) / 80);
+      drawPulse(ctx, p);
+    }
+    ctx.restore();
+    sealFlash = Math.max(0, sealFlash - dt * 0.9);
+    drawNode(ctx, t);
+    // the featured request: a real token, readable, changing at the gate
+    if (!feat && grown > 0.7) {
+      featTimer -= dt;
+      if (featTimer <= 0) {
+        var s = SCRIPT[featIdx++ % SCRIPT.length];
+        feat = { s: s, path: featPaths[(Math.random() * featPaths.length) | 0], d: 0, phase: 'in', hold: 0, a: 1 };
+        feat.d = Math.max(0, feat.path.len - (portrait ? R * 3.2 : R * 5.2));
+      }
+    }
+    if (feat) {
+      var s2 = feat.s, pos, lx, ly;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      if (feat.phase === 'in') {
+        feat.d += 62 * dt;
+        pos = drawPulse(ctx, { path: feat.path, d: feat.d, col: LIGHT, r: 7, a: 1 });
+        ctx.restore();
+        label(ctx, s2.a, pos.x, pos.y - 24, LIGHT, Math.min(1, (feat.d - (feat.path.len - R * 5.2)) / 40 + 1));
+        if (feat.d >= feat.path.len) { feat.phase = 'hold'; feat.hold = 0; rings++; feat.pos = pos; }
+      } else if (feat.phase === 'hold') {
+        feat.hold += dt / 1.5;
+        var f = Math.min(1, feat.hold), col = s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT;
+        Mycel.glowDot(ctx, node.x, node.y, R * (0.5 + f * 0.5), s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : MOSS, 0.35 * Math.sin(f * Math.PI));
+        ctx.restore();
+        lx = node.x; ly = node.y - R * 0.6 - (portrait ? 34 : 50);
+        label(ctx, s2.a, lx, ly, LIGHT, 1 - f, f * 5);
+        label(ctx, s2.b || 'stays here', lx, ly, col, f, s2.t === 2 ? (1 - f) * 3 : 0);
+        if (feat.hold >= 1.5) { feat.phase = 'out'; feat.o = leave(s2.t); feat.o.r = 7; feat.o.a = 1; }
+      } else {
+        var o = feat.o; o.d += o.v * dt;
+        if (o.d >= o.path.len) { ctx.restore(); if (o.phase === 'curl') sealFlash = 1; feat = null; featTimer = 1.6; }
+        else {
+          var fade = Math.min(1, (o.path.len - o.d) / 70);
+          o.a = fade; pos = drawPulse(ctx, o); ctx.restore();
+          if (o.phase === 'curl') label(ctx, 'stays here', pos.x, pos.y + 26, LIGHT, fade);
+          else label(ctx, s2.b, pos.x, pos.y - 24, s2.t === 1 ? TEAL : MOSS, fade);
+        }
+      }
+    }
+  }
+
+  function still() {
+    // one composed frame: grown network, one token arriving, one masked token leaving
+    var ctx = S.ctx; frame(0, 0);
+    var p = featPaths[0], d = p.len * 0.72, pos;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    pos = drawPulse(ctx, { path: p, d: d, col: LIGHT, r: 7, a: 1 }); ctx.restore();
+    label(ctx, SCRIPT[0].a, pos.x, pos.y - 24, LIGHT, 1);
+    var o = outPaths[0];
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    pos = drawPulse(ctx, { path: o, d: o.len * 0.5, col: TEAL, r: 7, a: 1 }); ctx.restore();
+    label(ctx, SCRIPT[0].b, pos.x, pos.y - 24, TEAL, 1);
+  }
+
+  (function start() {
+    var r = cv.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) { requestAnimationFrame(start); return; }
+    build();
+    if (reduced || opts.still) still(); else Mycel.loop(cv, frame);
+  })();
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      if (Math.abs(cv.getBoundingClientRect().width - lastW) < 2) return;
+      build(); if (reduced || opts.still) still();
+    }, 180);
+  });
+}
+
+MycelGate(document.getElementById('net'), { still: /[?&]still/.test(location.search) });
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept C · The Rings · TDS (draft)</title>
+<style>
+{{base.css}}
+.copy{position:relative;padding:clamp(96px,13vh,150px) clamp(20px,5vw,64px) 120px}
+.copy h1{font-size:clamp(36px,4.2vw,60px)}
+.copy .cta{margin-bottom:0}
+.rec{margin:30px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);max-width:27rem;font:400 12px/1.7 var(--mono);color:var(--mut);min-height:9.5em}
+.rec b{color:var(--light);font-weight:400}
+.rec .h{color:var(--ivory);word-break:break-all}
+.rec .broken{color:var(--ivory)}
+.ringbtns{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.ringbtns button{font:400 11px/1 var(--mono);color:var(--ivory);background:none;border:1px solid var(--line);padding:7px 9px;border-radius:2px;cursor:pointer}
+.ringbtns button[aria-pressed=true]{border-color:var(--light);color:var(--light)}
+@media (max-width:759px){
+  .hero{display:flex;flex-direction:column}
+  .copy{padding:0 20px 150px;margin-top:114vw}
+}
+</style>
+</head>
+<body>
+<main class="hero">
+  <canvas id="rings" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept C · draft, not published</span></div>
+  <div class="copy">
+{{hero.html}}
+    <div class="rec" id="rec" aria-live="polite"></div>
+    <div class="ringbtns" id="btns" role="group" aria-label="Take one ring out and see what happens"></div>
+  </div>
+</main>
+{{toggle.html}}
+<script>
+{{mycel.js}}
+{{data.js}}
+(function () {
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  var cv = document.getElementById('rings'), rec = document.getElementById('rec'), btns = document.getElementById('btns');
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var C = TDS_DATA.cases, S, w, h, c0, R0, portrait, net, paths, stat, revealed, pulses, active = 0, removed = -1, timer = 0, born = [];
+  var TIER = { 1: ['Mask', TEAL], 2: ['Generalise', MOSS], 3: ['Keep local', LIGHT] };
+
+  // Each ring's shape comes from its record's own chain hash. The ring is the record.
+  function shape(hash) {
+    var b = []; for (var i = 0; i < 24; i += 2) b.push(parseInt(hash.substr(i, 2), 16) / 255);
+    return function (th) { var s = 0; for (var k = 0; k < 5; k++) s += (b[k] - 0.5) * Math.sin(th * (k + 2) + b[k + 5] * 6.283) / (k + 1.5); return s; };
+  }
+  var shapes = C.map(function (c) { return shape(c.audit.prev_hash === '0'.repeat(64) ? '5a3c9e17b2d4f6081a2b' + '0'.repeat(44) : c.audit.prev_hash); });
+
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; portrait = w < 760;
+    c0 = portrait ? { x: w * 0.5, y: w * 0.56 + 40 } : { x: w * 0.72, y: h * 0.47 };
+    R0 = portrait ? w * 0.42 : Math.min(h * 0.37, w * 0.24);
+    var rand = Mycel.rng(4242), A = [], roots = [], i, a;
+    // threads arrive at the living edge from all around
+    for (i = 0; i < (portrait ? 260 : 520); i++) {
+      a = rand() * 6.283; var d = R0 * (1.12 + Math.pow(rand(), 0.7) * 1.9);
+      var x = c0.x + Math.cos(a) * d, y = c0.y + Math.sin(a) * d * 0.94;
+      if (x < -30 || x > w + 30 || y < -30 || y > h + 30) continue; A.push({ x: x, y: y });
+    }
+    for (i = 0; i < 11; i++) { a = i / 11 * 6.283 + 0.3; roots.push({ x: c0.x + Math.cos(a) * R0 * 1.03, y: c0.y + Math.sin(a) * R0 * 1.03 }); }
+    net = Mycel.grow({ roots: roots, attractors: A, step: 7, reach: 95, kill: 15, rand: rand, iters: 500, jitter: 0.5 });
+    paths = Mycel.leaves(net).map(function (n) { return Mycel.measure(Mycel.pathToRoot(net, n)); }).filter(function (p) { return p.len > 90; });
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    var sc = stat.getContext('2d'); sc.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); stat.c = sc;
+    revealed = 0; pulses = []; born = C.map(function (_, i) { return reduced ? 1 : 0; });
+    if (reduced) { reveal(1e9); }
+  }
+  var style = { color: GOLD, glow: DEEP, maxW: 3, alpha: function (n, wd) {
+    var a = 0.16 + 0.42 * Math.min(1, wd / 2.4); if (!portrait && n.x < w * 0.44) a *= 0.3; if (portrait && n.y > w * 1.02) a *= 0.3; return a; } };
+  function reveal(n) { var to = Math.min(net.length, revealed + n); if (to > revealed) { Mycel.drawSegments(stat.c, net, revealed, to, style); revealed = to; } }
+
+  function ringR(i) { return R0 * (0.2 + 0.8 * (i + 1) / (C.length + 0.35)); }
+  function drawRing(ctx, i, t, grow) {
+    var base = ringR(i), inner = i ? ringR(i - 1) : R0 * 0.07, f = shapes[i], col = TIER[C[i].tier][1];
+    var broken = removed >= 0 && i > removed, gone = i === removed, on = i === active;
+    var lines = 9, k, th;
+    for (k = 0; k < lines; k++) {
+      var u = k / (lines - 1), r = inner + (base - inner) * (0.14 + 0.86 * u);
+      ctx.beginPath();
+      var end = 6.283 * Math.min(1, grow);
+      for (th = 0; th <= end + 0.001; th += 0.035) {
+        var rr = r * (1 + f(th) * 0.075 * (0.5 + u * 0.5)) + Math.sin(th * 23 + k * 1.7 + i) * 0.7;
+        var x = c0.x + Math.cos(th - 1.57) * rr, y = c0.y + Math.sin(th - 1.57) * rr;
+        th ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      if (grow >= 1) ctx.closePath();
+      var edge = k === lines - 1;
+      ctx.strokeStyle = gone ? '#33488F' : broken ? IVORY : edge ? col : (k % 3 === 0 ? DEEP : '#6E500E');
+      ctx.globalAlpha = gone ? 0.35 : broken ? (edge ? 0.5 : 0.14) : edge ? (on ? 1 : 0.8) : (on ? 0.6 : 0.36);
+      ctx.lineWidth = edge ? (on ? 2.4 : 1.4) : 0.8;
+      ctx.setLineDash(gone ? [2, 7] : broken ? [9, 6] : []);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  function frame(dt, t) {
+    var ctx = S.ctx, i;
+    reveal(reduced ? 1e9 : Math.max(2, net.length * dt / 6));
+    ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h);
+    ctx.fillStyle = '#060A1A'; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * 1.04, 0, 6.3); ctx.fill();
+    for (i = 0; i < C.length; i++) { if (!reduced && i <= active && born[i] < 1) born[i] = Math.min(1, born[i] + dt / 1.6); if (born[i] > 0) drawRing(ctx, i, t, born[i]); }
+    // the living edge: The Layer
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    var br = 1.035 + Math.sin(t * 0.9) * 0.006;
+    ctx.strokeStyle = DEEP; ctx.globalAlpha = 0.25; ctx.lineWidth = 9; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    ctx.strokeStyle = LIGHT; ctx.globalAlpha = 1; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    Mycel.glowDot(ctx, c0.x, c0.y, R0 * 0.06, GOLD, 0.9);
+    if (!reduced && revealed > net.length * 0.4 && pulses.length < 12 && Math.random() < dt * 2.2) pulses.push({ path: paths[(Math.random() * paths.length) | 0], d: 0, v: 60 + Math.random() * 50 });
+    for (i = pulses.length - 1; i >= 0; i--) { var p = pulses[i]; p.d += p.v * dt; if (p.d >= p.path.len) { pulses.splice(i, 1); continue; } var q = Mycel.at(p.path, p.d); Mycel.glowDot(ctx, q.x, q.y, 7, LIGHT, 0.85); }
+    ctx.restore();
+    ctx.save(); ctx.font = '11px ' + MONO; ctx.fillStyle = LIGHT; ctx.textAlign = 'center'; try { ctx.letterSpacing = '1.5px'; } catch (e) {}
+    ctx.fillText('THE LAYER  ·  THE LIVING EDGE', c0.x, c0.y - R0 * 1.035 - 14);
+    var ar = ringR(active); ctx.fillStyle = removed >= 0 && active > removed ? IVORY : TIER[C[active].tier][1];
+    ctx.fillText(C[active].audit.request_id.toUpperCase(), c0.x, c0.y + ar + (active === C.length - 1 ? -12 : 14));
+    ctx.restore();
+    if (!reduced && removed < 0) { timer += dt; if (timer > 3.4) { timer = 0; show((active + 1) % C.length); } }
+  }
+  function show(i) {
+    active = i; var a = C[i].audit, n = Object.keys(a.entity_counts).map(function (k) { return k + ' ' + a.entity_counts[k]; }).join(', ') || 'none';
+    var out = a.destination === 'ollama' ? 'local model (' + a.model + '), nothing sent out' : 'frontier model, ' + (C[i].tier === 1 ? 'masked' : 'generalised');
+    rec.innerHTML = removed >= 0 && i > removed
+      ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
+      : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+    btns.querySelectorAll('button').forEach(function (b, k) { if (k < C.length) b.setAttribute('aria-pressed', k === i); });
+  }
+  C.forEach(function (c, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = 'ring ' + (i + 1);
+    b.addEventListener('click', function () { timer = -6; born = born.map(function (v, k) { return k <= i ? 1 : v; }); show(i); if (reduced) frame(0, 0); });
+    btns.appendChild(b);
+  });
+  var rm = document.createElement('button'); rm.type = 'button'; rm.textContent = 'take ring 2 out';
+  rm.addEventListener('click', function () {
+    removed = removed < 0 ? 1 : -1; rm.textContent = removed < 0 ? 'take ring 2 out' : 'put it back';
+    born = born.map(function () { return 1; }); show(removed < 0 ? 1 : 2); timer = 0; if (reduced) frame(0, 0);
+  });
+  btns.appendChild(rm);
+  (function start() {
+    if (cv.getBoundingClientRect().width < 2) { requestAnimationFrame(start); return; }
+    build(); if (reduced) { active = C.length - 1; } show(active);
+    if (reduced) frame(0, 0); else Mycel.loop(cv, frame);
+  })();
+  var rt, lw = window.innerWidth; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lw) > 2) { lw = window.innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+})();
+</script>
+</body>
+</html>

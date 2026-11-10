@@ -1,0 +1,17 @@
+<div class="toggle" role="group" aria-label="Hero wording, for review only">
+<span>Review only, not on the final page. Hero wording:</span>
+<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
+<button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+</div>
+<script>
+(function(){var W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
+document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+</script>

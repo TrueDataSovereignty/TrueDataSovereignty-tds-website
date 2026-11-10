@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept B · Descent · TDS (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("../../fonts/Lora-wght.ttf") format("truetype");font-weight:400 700;font-display:swap}
+:root{--ink:#060A1A;--navy:#101A3D;--marine:#1C2C66;--line:#33488F;--gold:#DDB04A;--deep:#B8862B;--light:#F8DF9C;--ivory:#F7F3EA;--mut:#AEB6CE;--moss:#8FAE6B;--teal:#5FD9C6;
+--sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:var(--ink);color:var(--ivory);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 17px/1.55 var(--sans);background:var(--ink);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--light);outline-offset:3px}
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:12px;padding:22px clamp(20px,5vw,64px);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.top img{width:30px;height:30px}
+.top .draft{margin-left:auto;font:400 11px/1 var(--mono);letter-spacing:.08em;color:var(--mut);text-transform:none}
+.copy{max-width:46rem}
+.kicker{font:700 clamp(15px,1.5vw,18px)/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;letter-spacing:-.012em;margin:0 0 26px;text-wrap:balance}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.5;margin:0 0 12px;max-width:31rem;color:var(--ivory)}
+.sub{font:italic 400 clamp(15px,1.25vw,17px)/1.5 "Lora",Georgia,serif;color:var(--mut);margin:0 0 34px}
+.cta{display:inline-block;padding:15px 26px;background:var(--gold);color:var(--ink);font:700 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;border-radius:2px}
+.cta:hover{background:var(--light)}
+.key{list-style:none;margin:34px 0 0;padding:0;font:400 13px/1.5 var(--sans);color:var(--mut);display:grid;gap:6px}
+.key b{color:var(--ivory);font-weight:600}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;vertical-align:1px}
+.note{font:400 11px/1.5 var(--mono);color:var(--mut);letter-spacing:.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.toggle{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px clamp(12px,3vw,24px);background:#0B1230;border-top:1px solid var(--marine);font:400 11px/1.3 var(--mono);color:var(--mut)}
+.toggle button{font:inherit;color:var(--ivory);background:none;border:1px solid var(--line);padding:5px 9px;border-radius:2px;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+.world{position:relative}
+#soil{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#live{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;display:block}
+.world>section{position:relative;min-height:100vh;padding:0 clamp(20px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.world>section.first{justify-content:flex-start;padding-top:clamp(96px,14vh,140px);min-height:118vh}
+.first h1{font-size:clamp(36px,5vw,68px)}
+.st{max-width:25rem}
+.depth{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 18px;display:flex;align-items:center;gap:12px}
+.depth:before{content:"";width:34px;height:1px;background:var(--gold)}
+h2{font:700 clamp(28px,3.4vw,44px)/1.1 "Lora",Georgia,serif;margin:0 0 16px;text-wrap:balance}
+.st p{margin:0 0 12px;color:var(--ivory)}
+.st .note{display:block;margin-top:14px}
+.t1 .depth{color:var(--teal)}.t1 .depth:before{background:var(--teal)}
+.t2 .depth{color:var(--moss)}.t2 .depth:before{background:var(--moss)}
+code{font:400 .9em var(--mono);color:var(--light)}
+@media (max-width:759px){
+  .world>section.first{padding-top:84px;min-height:118vh}
+  .st{background:rgba(6,10,26,.84);padding:22px 18px;margin:0 -6px;border-left:1px solid var(--marine)}
+}
+</style>
+</head>
+<body>
+<main class="world" id="world">
+  <canvas id="soil" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept B · draft, not published</span></div>
+  <section class="first">
+    <div class="copy">
+<p class="kicker">The Layer</p>
+<h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
+<p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+<p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
+<a class="cta" href="#contact">Become a design partner</a>
+
+      <p class="note" style="margin-top:30px">Scroll to go down. The deeper a request sinks, the less of it leaves.</p>
+    </div>
+  </section>
+  <section class="t1"><div class="st">
+    <p class="depth">Depth one · Mask</p>
+    <h2>Names dissolve. The request travels on.</h2>
+    <p><code>Emma Whitfield</code> leaves as <code>⟦PERSON_1⟧</code>. The answer comes back with the real name put back, on your side.</p>
+    <span class="note">Synthetic example. Real router output (router a822605).</span>
+  </div></section>
+  <section class="t2"><div class="st">
+    <p class="depth">Depth two · Generalise</p>
+    <h2>Details soften, like light through fog.</h2>
+    <p><code>Sorsele</code> leaves as <code>northern Sweden</code>. <code>35,897 employees</code> leaves as <code>10,000–50,000 employees</code>.</p>
+    <span class="note">Synthetic example. Real router output (router a822605).</span>
+  </div></section>
+  <section class="t3"><div class="st">
+    <p class="depth">Depth three · Keep local</p>
+    <h2>Some work goes no further.</h2>
+    <p>A request about a confidential deal was routed to a local model. Nothing was sent out. The thread seals where it stops.</p>
+    <span class="note">Synthetic example. Real router decision (router a822605). The local model is selected, not yet installed.</span>
+  </div></section>
+</main>
+<canvas id="live" aria-hidden="true"></canvas>
+<div class="toggle" role="group" aria-label="Hero wording, for review only">
+<span>Review only, not on the final page. Hero wording:</span>
+<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
+<button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+</div>
+<script>
+(function(){var W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
+document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+</script>
+
+<script>
+/* Mycel: a tiny generative engine for the TDS site. Made from scratch.
+   Space-colonisation growth, pipe-model thickness, incremental reveal,
+   pulses that travel along grown paths. Canvas 2D only. */
+var Mycel = (function () {
+  'use strict';
+
+  function rng(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0;
+      return s / 4294967296;
+    };
+  }
+
+  /* Grow a tree from roots toward attractors.
+     o: {roots:[{x,y}], attractors:[{x,y}], step, kill, reach, iters, rand, jitter, maxNodes} */
+  function grow(o) {
+    var step = o.step || 6, kill = o.kill || step * 2, reach = o.reach || 80;
+    var rand = o.rand || Math.random, jitter = o.jitter == null ? 0.35 : o.jitter;
+    var maxNodes = o.maxNodes || 6000;
+    var nodes = [];
+    var cell = reach, grid = new Map();
+    function key(cx, cy) { return cx * 73856093 ^ cy * 19349663; }
+    function add(n) {
+      n.i = nodes.length; n.kids = 0; nodes.push(n);
+      var k = key(Math.floor(n.x / cell), Math.floor(n.y / cell));
+      var b = grid.get(k); if (!b) { b = []; grid.set(k, b); } b.push(n);
+      return n;
+    }
+    o.roots.forEach(function (r) { add({ x: r.x, y: r.y, p: -1, t: 0, d: 0 }); });
+    var att = o.attractors.map(function (a) { return { x: a.x, y: a.y, alive: true }; });
+    var iters = o.iters || 400, order = 1;
+    for (var it = 0; it < iters && nodes.length < maxNodes; it++) {
+      var pull = new Map(), any = false;
+      for (var a = 0; a < att.length; a++) {
+        var A = att[a]; if (!A.alive) continue;
+        var cx = Math.floor(A.x / cell), cy = Math.floor(A.y / cell);
+        var best = null, bd = reach * reach;
+        for (var gx = -1; gx <= 1; gx++) for (var gy = -1; gy <= 1; gy++) {
+          var b = grid.get(key(cx + gx, cy + gy)); if (!b) continue;
+          for (var j = 0; j < b.length; j++) {
+            var n = b[j], dx = A.x - n.x, dy = A.y - n.y, dd = dx * dx + dy * dy;
+            if (dd < bd) { bd = dd; best = n; }
+          }
+        }
+        if (!best) continue;
+        if (bd < kill * kill) { A.alive = false; continue; }
+        var l = Math.sqrt(bd), v = pull.get(best);
+        if (!v) { v = { x: 0, y: 0, c: 0 }; pull.set(best, v); }
+        v.x += (A.x - best.x) / l; v.y += (A.y - best.y) / l; v.c++;
+      }
+      pull.forEach(function (v, n) {
+        var l = Math.hypot(v.x, v.y); if (l < 1e-6) return;
+        var ang = Math.atan2(v.y, v.x) + (rand() - 0.5) * jitter;
+        // a little inertia from the parent direction makes threads look grown, not drawn
+        if (n.p >= 0) {
+          var P = nodes[n.p], pa = Math.atan2(n.y - P.y, n.x - P.x);
+          var diff = Math.atan2(Math.sin(ang - pa), Math.cos(ang - pa));
+          ang = pa + diff * 0.72;
+        }
+        var s = step * (0.85 + rand() * 0.3);
+        add({ x: n.x + Math.cos(ang) * s, y: n.y + Math.sin(ang) * s, p: n.i, t: order++, d: n.d + 1 });
+        any = true;
+      });
+      if (!any) break;
+    }
+    // pipe model: thickness from descendant count
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var N = nodes[i]; N.w = N.w || 1;
+      if (N.p >= 0) { nodes[N.p].w = (nodes[N.p].w || 1) + N.w; nodes[N.p].kids++; }
+    }
+    return nodes;
+  }
+
+  function leaves(nodes) { return nodes.filter(function (n) { return n.kids === 0 && n.p >= 0; }); }
+
+  /* Path from a node back to its root, as [{x,y}] from leaf to root. */
+  function pathToRoot(nodes, n) {
+    var out = [];
+    while (n) { out.push({ x: n.x, y: n.y }); n = n.p >= 0 ? nodes[n.p] : null; }
+    return out;
+  }
+  function measure(path) {
+    var L = [0];
+    for (var i = 1; i < path.length; i++) L.push(L[i - 1] + Math.hypot(path[i].x - path[i - 1].x, path[i].y - path[i - 1].y));
+    path.len = L[L.length - 1]; path.L = L; return path;
+  }
+  function at(path, d) {
+    var L = path.L; if (d <= 0) return path[0]; if (d >= path.len) return path[path.length - 1];
+    var lo = 0, hi = L.length - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (L[m] < d) lo = m; else hi = m; }
+    var f = (d - L[lo]) / (L[hi] - L[lo] || 1);
+    return { x: path[lo].x + (path[hi].x - path[lo].x) * f, y: path[lo].y + (path[hi].y - path[lo].y) * f };
+  }
+
+  /* Draw segments whose order lies in [from, to) onto ctx. Additive glow. */
+  function drawSegments(ctx, nodes, from, to, style) {
+    var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'butt';
+    for (var pass = 0; pass < 2; pass++) {
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
+        var P = nodes[n.p];
+        var w = Math.min(maxW, base + Math.pow(n.w, k) * 0.35);
+        var a = style.alpha(n, w);
+        if (pass === 0) { ctx.strokeStyle = style.glow; ctx.globalAlpha = a * 0.16; ctx.lineWidth = w * 4.5; }
+        else { ctx.strokeStyle = style.color; ctx.globalAlpha = a; ctx.lineWidth = w; }
+        // each piece runs midpoint to midpoint, bent through the joint: no gaps, no beads
+        var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2;
+        ctx.beginPath();
+        if (P.p >= 0) { var G = nodes[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); }
+        else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+        if (n.kids === 0) ctx.lineTo(n.x, n.y);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function glowDot(ctx, x, y, r, color, a) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = a; ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* Run a draw loop only while visible on screen and in a visible tab. */
+  function loop(el, frame) {
+    var onScreen = true, raf = 0, last = 0;
+    function tick(t) {
+      raf = 0;
+      var dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016; last = t;
+      frame(dt, t / 1000);
+      schedule();
+    }
+    function schedule() { if (!raf && onScreen && !document.hidden) raf = requestAnimationFrame(tick); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; if (onScreen) { last = 0; schedule(); } }).observe(el);
+    }
+    document.addEventListener('visibilitychange', function () { last = 0; schedule(); });
+    schedule();
+  }
+
+  function reducedMotion() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function fit(canvas, maxDpr) {
+    var dpr = Math.min(maxDpr || 2, window.devicePixelRatio || 1);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+    var ctx = canvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height, dpr: dpr };
+  }
+
+  return { rng: rng, grow: grow, leaves: leaves, pathToRoot: pathToRoot, measure: measure, at: at,
+    drawSegments: drawSegments, glowDot: glowDot, loop: loop, reducedMotion: reducedMotion, fit: fit };
+})();
+
+(function () {
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  var world = document.getElementById('world'), soil = document.getElementById('soil'), live = document.getElementById('live');
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var W, H, vh, sctx, L, tree, exits, paths, surfaceY, maskY, fogY, deepY, node, R, revealed, exRev, pulses, feat, featT, featI, motes, fog, portrait;
+  var SCRIPT = [
+    { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' }, { t: 2, a: 'Sorsele', b: 'northern Sweden' },
+    { t: 3, a: 'acquire a Finnish logistics company', b: 'stays here' }, { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
+    { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' }
+  ];
+  function build() {
+    var r = world.getBoundingClientRect(); W = r.width; H = world.scrollHeight; vh = window.innerHeight; portrait = W < 760;
+    var dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    soil.width = Math.round(W * dpr); soil.height = Math.round(H * dpr);
+    sctx = soil.getContext('2d'); sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    L = Mycel.fit(live, 2);
+    var secs = world.querySelectorAll('section'), tops = [];
+    secs.forEach(function (s) { tops.push(s.offsetTop); });
+    surfaceY = tops[1] - vh * 0.5; maskY = tops[1] + vh * 0.5; fogY = tops[2] + vh * 0.5; deepY = tops[3] + vh * 0.15;
+    var rand = Mycel.rng(77031), x0 = portrait ? 0 : W * 0.4, x1 = W, i;
+    R = portrait ? 40 : 54; node = { x: portrait ? W * 0.5 : W * 0.68, y: surfaceY + R * 1.1 };
+    // background strata: night air, soil, the deep
+    var g = sctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#060A1A'); g.addColorStop(deepY / H, '#060A1A'); g.addColorStop(Math.min(1, (deepY + vh * 0.5) / H), '#061423'); g.addColorStop(1, '#05161F');
+    sctx.fillStyle = g; sctx.fillRect(0, 0, W, H);
+    // the forest floor: a quiet hand-drawn line and a few stems (the people who type)
+    sctx.strokeStyle = MOSS; sctx.globalAlpha = 0.5; sctx.lineWidth = 1; sctx.beginPath();
+    for (i = 0; i <= W; i += 6) { var y = surfaceY + Math.sin(i * 0.011) * 5 + Math.sin(i * 0.047) * 2; i ? sctx.lineTo(i, y) : sctx.moveTo(i, y); }
+    sctx.stroke();
+    for (i = 0; i < (portrait ? 14 : 34); i++) {
+      var sx = x0 + rand() * (x1 - x0), sh = 14 + rand() * 46, lean = (rand() - 0.5) * 16;
+      sctx.globalAlpha = 0.25 + rand() * 0.3; sctx.beginPath(); sctx.moveTo(sx, surfaceY + 2);
+      sctx.quadraticCurveTo(sx + lean * 0.2, surfaceY - sh * 0.6, sx + lean, surfaceY - sh); sctx.stroke();
+    }
+    sctx.globalAlpha = 1;
+    // the network grows down from the gate, thinner with depth
+    var A = [];
+    for (i = 0; i < (portrait ? 700 : 1100); i++) {
+      var yy = node.y + R + Math.pow(rand(), 1.25) * (H - node.y - R - 40);
+      var keep = yy > deepY ? 0.32 : yy > fogY ? 0.6 : 1; if (rand() > keep) continue;
+      A.push({ x: x0 + rand() * (x1 - x0), y: yy });
+    }
+    var roots = []; for (i = 0; i < 5; i++) { var a = Math.PI * (0.14 + 0.18 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+    tree = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 120, kill: 18, rand: rand, iters: 900, jitter: 0.55, maxNodes: 9000 });
+    paths = Mycel.leaves(tree).map(function (n) { var p = Mycel.pathToRoot(tree, n); p.reverse(); p.leaf = n; return Mycel.measure(p); }).filter(function (p) { return p.len > 160; });
+    // exits to the outside: only from depth one and depth two
+    exits = [maskY + vh * 0.12, fogY + vh * 0.16].map(function (ey) {
+      var best = null; tree.forEach(function (n) { if (Math.abs(n.y - ey) < 60 && (!best || n.x > best.x)) best = n; });
+      var E = []; for (var k = 0; k < 16; k++) E.push({ x: best.x + rand() * (W + 40 - best.x), y: best.y - 70 + rand() * 140 });
+      var t = Mycel.grow({ roots: [{ x: best.x, y: best.y }], attractors: E, step: 8, reach: 400, kill: 18, rand: rand, iters: 200, jitter: 0.25 });
+      t.paths = Mycel.leaves(t).map(function (n) { var p = Mycel.pathToRoot(t, n); p.reverse(); return Mycel.measure(p); });
+      return t;
+    });
+    // fog for depth two
+    fog = document.createElement('canvas'); fog.width = Math.round(W); fog.height = Math.round(vh * 0.7);
+    var f = fog.getContext('2d'); if ('filter' in f) f.filter = 'blur(14px)';
+    for (i = 0; i < 46; i++) { f.globalAlpha = 0.03 + rand() * 0.05; f.fillStyle = '#C9D6C0'; var fw = W * (0.2 + rand() * 0.5); f.fillRect(rand() * W - fw / 2, fog.height * (0.12 + rand() * 0.76), fw, 5 + rand() * 16); }
+    motes = []; for (i = 0; i < (portrait ? 26 : 60); i++) motes.push({ x: rand() * W, y: deepY + rand() * (H - deepY), p: rand() * 6.28, s: 0.4 + rand() * 1.4 });
+    revealed = 0; exRev = 0; pulses = []; feat = null; featT = 0.5; featI = 0;
+    if (reduced) reveal(1e9);
+  }
+  var style = { color: GOLD, glow: DEEP, maxW: 3.4, alpha: function (n, w) {
+    var a = 0.2 + 0.5 * Math.min(1, w / 2.6);
+    if (n.y > deepY) a *= 0.8; return a; } };
+  function colourAt(y) { return y < maskY ? GOLD : y < fogY ? TEAL : y < deepY ? MOSS : LIGHT; }
+  function reveal(n) {
+    var to = Math.min(tree.length, revealed + n);
+    if (to > revealed) {
+      Mycel.drawSegments(sctx, tree, revealed, to, style);
+      // seals at the tips in the deep
+      sctx.save(); sctx.strokeStyle = TEAL; sctx.lineWidth = 1; sctx.globalAlpha = 0.75;
+      for (var i = 0; i < tree.length; i++) { var m = tree[i]; if (m.t >= revealed && m.t < to && m.kids === 0 && m.y > deepY) { sctx.beginPath(); sctx.arc(m.x, m.y, 4.5, 0, 6.3); sctx.stroke(); } }
+      sctx.restore();
+      revealed = to;
+    }
+    if (revealed >= tree.length && !exRev) { exRev = 1;
+      exits.forEach(function (t) { Mycel.drawSegments(sctx, t, 0, 1e9, { color: '#5A72C4', glow: LINE, maxW: 2, alpha: function () { return 0.6; } }); });
+      drawNode(sctx);
+    }
+  }
+  function drawNode(c) {
+    c.save(); c.fillStyle = '#060A1A'; c.beginPath(); c.ellipse(node.x, node.y, R, R * 0.6, 0, 0, 6.3); c.fill();
+    var hw = R * 0.66, hh = hw * 0.576;
+    for (var i = 1; i >= -1; i--) { c.beginPath(); c.moveTo(node.x, node.y + i * R * 0.19 - hh); c.lineTo(node.x + hw, node.y + i * R * 0.19); c.lineTo(node.x, node.y + i * R * 0.19 + hh); c.lineTo(node.x - hw, node.y + i * R * 0.19); c.closePath();
+      c.fillStyle = i === 0 ? '#101A3D' : '#16224F'; c.fill(); c.strokeStyle = i === 0 ? LINE : DEEP; c.lineWidth = 0.8; c.stroke(); }
+    c.strokeStyle = LIGHT; c.lineWidth = 2.2; c.beginPath(); c.ellipse(node.x, node.y, R, R * 0.6, 0, 0, 6.3); c.stroke();
+    c.font = '11px ' + MONO; c.fillStyle = LIGHT; c.textAlign = 'center'; try { c.letterSpacing = '1.5px'; } catch (e) {}
+    c.fillText('THE LAYER', node.x, node.y - R * 0.6 - 16);
+    c.fillStyle = MUT; c.textAlign = 'right';
+    c.fillText('OUT, MASKED', W - 18, maskY + vh * 0.12 - 84); c.fillText('OUT, BLURRED', W - 18, fogY + vh * 0.16 - 84);
+    c.restore();
+  }
+  function label(c, txt, x, y, col, a, blur) {
+    c.save(); c.font = '12px ' + MONO; c.textAlign = 'center'; c.textBaseline = 'middle';
+    var tw = c.measureText(txt).width + 16; x = Math.max(tw / 2 + 6, Math.min(W - tw / 2 - 6, x));
+    if (blur && 'filter' in c) c.filter = 'blur(' + blur + 'px)';
+    c.globalAlpha = a * 0.86; c.fillStyle = '#060A1A'; c.fillRect(x - tw / 2, y - 11, tw, 22);
+    c.globalAlpha = a; c.fillStyle = col; c.fillText(txt, x, y); c.restore();
+  }
+  function frame(dt, t) {
+    var c = L.ctx, sy = window.scrollY, i;
+    reveal(reduced ? 1e9 : Math.max(3, tree.length * dt / 9));
+    c.clearRect(0, 0, L.w, L.h);
+    // fog drifts across depth two
+    var fy = fogY - vh * 0.35 - sy;
+    if (fy < L.h && fy + fog.height > 0) { var off = (t * 9) % W; c.globalAlpha = 0.9; c.drawImage(fog, off, fy); c.drawImage(fog, off - W, fy); c.globalAlpha = 1; }
+    c.save(); c.globalCompositeOperation = 'lighter';
+    // bioluminescent motes in the deep: they drift, they do not travel
+    motes.forEach(function (m) { var y = m.y - sy + Math.sin(t * 0.3 + m.p) * 9; if (y < -20 || y > L.h + 20) return;
+      Mycel.glowDot(c, m.x + Math.cos(t * 0.2 + m.p) * 12, y, 3 + m.s * 3, TEAL, 0.25 + 0.3 * (0.5 + 0.5 * Math.sin(t * 0.7 + m.p * 3))); });
+    if (!reduced && revealed > tree.length * 0.3 && pulses.length < 22 && Math.random() < dt * 3) {
+      var p = paths[(Math.random() * paths.length) | 0]; pulses.push({ path: p, d: 0, v: 70 + Math.random() * 60 });
+    }
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var q = pulses[i]; q.d += q.v * dt * (q.pos && q.pos.y > deepY ? 0.45 : 1);
+      if (q.d >= q.path.len) { pulses.splice(i, 1); continue; }
+      q.pos = Mycel.at(q.path, q.d); var py = q.pos.y - sy; if (py < -30 || py > L.h + 30) continue;
+      var soft = q.pos.y > fogY && q.pos.y < deepY;
+      Mycel.glowDot(c, q.pos.x, py, soft ? 15 : 8, colourAt(q.pos.y), soft ? 0.4 : 0.85);
+    }
+    c.restore();
+    // one readable request at a time, following the reader's depth
+    if (!feat) { featT -= dt; if (featT <= 0 && revealed > tree.length * 0.5) {
+      var want = sy + vh * 0.5 > fogY + vh * 0.3 ? 3 : sy + vh * 0.5 > maskY + vh * 0.3 ? 2 : 1;
+      var pool = SCRIPT.filter(function (s) { return s.t === want; }), s = pool[featI++ % pool.length];
+      var limit = s.t === 1 ? fogY : s.t === 2 ? deepY : H, min = s.t === 1 ? maskY + 80 : s.t === 2 ? fogY + 80 : deepY + 80;
+      var ok = paths.filter(function (p) { return p.leaf.y > min && p.leaf.y < limit; });
+      if (ok.length) feat = { s: s, path: ok[(Math.random() * ok.length) | 0], d: 0 }; else featT = 1;
+    } }
+    if (feat) {
+      feat.d += 120 * dt; var pos = Mycel.at(feat.path, feat.d), y2 = pos.y - sy, s2 = feat.s;
+      var cut = s2.t === 1 ? maskY : s2.t === 2 ? fogY : deepY, k = Math.max(0, Math.min(1, (pos.y - cut + 40) / 80));
+      c.save(); c.globalCompositeOperation = 'lighter'; Mycel.glowDot(c, pos.x, y2, 12, k < 0.5 ? LIGHT : colourAt(pos.y), 1); c.restore();
+      var end = Math.min(1, (feat.path.len - feat.d) / 60);
+      label(c, s2.a, pos.x, y2 - 24, LIGHT, (1 - k) * end, k * 5);
+      label(c, s2.b, pos.x, y2 - 24, s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT, k * end, 0);
+      if (feat.d >= feat.path.len) { feat = null; featT = 0.8; }
+    }
+  }
+  function start() {
+    if (world.getBoundingClientRect().width < 2) { requestAnimationFrame(start); return; }
+    build();
+    if (reduced) { frame(0, 0); window.addEventListener('scroll', function () { frame(0, 0); }, { passive: true }); }
+    else Mycel.loop(live, frame);
+  }
+  start();
+  var rt, lw = 0; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lw) > 2) { lw = window.innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+  lw = window.innerWidth;
+})();
+</script>
+</body>
+</html>

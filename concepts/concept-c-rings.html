@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept C · The Rings · TDS (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("../../fonts/Lora-wght.ttf") format("truetype");font-weight:400 700;font-display:swap}
+:root{--ink:#060A1A;--navy:#101A3D;--marine:#1C2C66;--line:#33488F;--gold:#DDB04A;--deep:#B8862B;--light:#F8DF9C;--ivory:#F7F3EA;--mut:#AEB6CE;--moss:#8FAE6B;--teal:#5FD9C6;
+--sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:var(--ink);color:var(--ivory);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 17px/1.55 var(--sans);background:var(--ink);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--light);outline-offset:3px}
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:12px;padding:22px clamp(20px,5vw,64px);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.top img{width:30px;height:30px}
+.top .draft{margin-left:auto;font:400 11px/1 var(--mono);letter-spacing:.08em;color:var(--mut);text-transform:none}
+.copy{max-width:46rem}
+.kicker{font:700 clamp(15px,1.5vw,18px)/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;letter-spacing:-.012em;margin:0 0 26px;text-wrap:balance}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.5;margin:0 0 12px;max-width:31rem;color:var(--ivory)}
+.sub{font:italic 400 clamp(15px,1.25vw,17px)/1.5 "Lora",Georgia,serif;color:var(--mut);margin:0 0 34px}
+.cta{display:inline-block;padding:15px 26px;background:var(--gold);color:var(--ink);font:700 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;border-radius:2px}
+.cta:hover{background:var(--light)}
+.key{list-style:none;margin:34px 0 0;padding:0;font:400 13px/1.5 var(--sans);color:var(--mut);display:grid;gap:6px}
+.key b{color:var(--ivory);font-weight:600}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;vertical-align:1px}
+.note{font:400 11px/1.5 var(--mono);color:var(--mut);letter-spacing:.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.toggle{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px clamp(12px,3vw,24px);background:#0B1230;border-top:1px solid var(--marine);font:400 11px/1.3 var(--mono);color:var(--mut)}
+.toggle button{font:inherit;color:var(--ivory);background:none;border:1px solid var(--line);padding:5px 9px;border-radius:2px;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+.copy{position:relative;padding:clamp(96px,13vh,150px) clamp(20px,5vw,64px) 120px}
+.copy h1{font-size:clamp(36px,4.2vw,60px)}
+.copy .cta{margin-bottom:0}
+.rec{margin:30px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);max-width:27rem;font:400 12px/1.7 var(--mono);color:var(--mut);min-height:9.5em}
+.rec b{color:var(--light);font-weight:400}
+.rec .h{color:var(--ivory);word-break:break-all}
+.rec .broken{color:var(--ivory)}
+.ringbtns{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.ringbtns button{font:400 11px/1 var(--mono);color:var(--ivory);background:none;border:1px solid var(--line);padding:7px 9px;border-radius:2px;cursor:pointer}
+.ringbtns button[aria-pressed=true]{border-color:var(--light);color:var(--light)}
+@media (max-width:759px){
+  .hero{display:flex;flex-direction:column}
+  .copy{padding:0 20px 150px;margin-top:114vw}
+}
+</style>
+</head>
+<body>
+<main class="hero">
+  <canvas id="rings" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept C · draft, not published</span></div>
+  <div class="copy">
+<p class="kicker">The Layer</p>
+<h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
+<p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+<p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
+<a class="cta" href="#contact">Become a design partner</a>
+
+    <div class="rec" id="rec" aria-live="polite"></div>
+    <div class="ringbtns" id="btns" role="group" aria-label="Take one ring out and see what happens"></div>
+  </div>
+</main>
+<div class="toggle" role="group" aria-label="Hero wording, for review only">
+<span>Review only, not on the final page. Hero wording:</span>
+<button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
+<button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
+<button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+</div>
+<script>
+(function(){var W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
+document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+</script>
+
+<script>
+/* Mycel: a tiny generative engine for the TDS site. Made from scratch.
+   Space-colonisation growth, pipe-model thickness, incremental reveal,
+   pulses that travel along grown paths. Canvas 2D only. */
+var Mycel = (function () {
+  'use strict';
+
+  function rng(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0;
+      return s / 4294967296;
+    };
+  }
+
+  /* Grow a tree from roots toward attractors.
+     o: {roots:[{x,y}], attractors:[{x,y}], step, kill, reach, iters, rand, jitter, maxNodes} */
+  function grow(o) {
+    var step = o.step || 6, kill = o.kill || step * 2, reach = o.reach || 80;
+    var rand = o.rand || Math.random, jitter = o.jitter == null ? 0.35 : o.jitter;
+    var maxNodes = o.maxNodes || 6000;
+    var nodes = [];
+    var cell = reach, grid = new Map();
+    function key(cx, cy) { return cx * 73856093 ^ cy * 19349663; }
+    function add(n) {
+      n.i = nodes.length; n.kids = 0; nodes.push(n);
+      var k = key(Math.floor(n.x / cell), Math.floor(n.y / cell));
+      var b = grid.get(k); if (!b) { b = []; grid.set(k, b); } b.push(n);
+      return n;
+    }
+    o.roots.forEach(function (r) { add({ x: r.x, y: r.y, p: -1, t: 0, d: 0 }); });
+    var att = o.attractors.map(function (a) { return { x: a.x, y: a.y, alive: true }; });
+    var iters = o.iters || 400, order = 1;
+    for (var it = 0; it < iters && nodes.length < maxNodes; it++) {
+      var pull = new Map(), any = false;
+      for (var a = 0; a < att.length; a++) {
+        var A = att[a]; if (!A.alive) continue;
+        var cx = Math.floor(A.x / cell), cy = Math.floor(A.y / cell);
+        var best = null, bd = reach * reach;
+        for (var gx = -1; gx <= 1; gx++) for (var gy = -1; gy <= 1; gy++) {
+          var b = grid.get(key(cx + gx, cy + gy)); if (!b) continue;
+          for (var j = 0; j < b.length; j++) {
+            var n = b[j], dx = A.x - n.x, dy = A.y - n.y, dd = dx * dx + dy * dy;
+            if (dd < bd) { bd = dd; best = n; }
+          }
+        }
+        if (!best) continue;
+        if (bd < kill * kill) { A.alive = false; continue; }
+        var l = Math.sqrt(bd), v = pull.get(best);
+        if (!v) { v = { x: 0, y: 0, c: 0 }; pull.set(best, v); }
+        v.x += (A.x - best.x) / l; v.y += (A.y - best.y) / l; v.c++;
+      }
+      pull.forEach(function (v, n) {
+        var l = Math.hypot(v.x, v.y); if (l < 1e-6) return;
+        var ang = Math.atan2(v.y, v.x) + (rand() - 0.5) * jitter;
+        // a little inertia from the parent direction makes threads look grown, not drawn
+        if (n.p >= 0) {
+          var P = nodes[n.p], pa = Math.atan2(n.y - P.y, n.x - P.x);
+          var diff = Math.atan2(Math.sin(ang - pa), Math.cos(ang - pa));
+          ang = pa + diff * 0.72;
+        }
+        var s = step * (0.85 + rand() * 0.3);
+        add({ x: n.x + Math.cos(ang) * s, y: n.y + Math.sin(ang) * s, p: n.i, t: order++, d: n.d + 1 });
+        any = true;
+      });
+      if (!any) break;
+    }
+    // pipe model: thickness from descendant count
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var N = nodes[i]; N.w = N.w || 1;
+      if (N.p >= 0) { nodes[N.p].w = (nodes[N.p].w || 1) + N.w; nodes[N.p].kids++; }
+    }
+    return nodes;
+  }
+
+  function leaves(nodes) { return nodes.filter(function (n) { return n.kids === 0 && n.p >= 0; }); }
+
+  /* Path from a node back to its root, as [{x,y}] from leaf to root. */
+  function pathToRoot(nodes, n) {
+    var out = [];
+    while (n) { out.push({ x: n.x, y: n.y }); n = n.p >= 0 ? nodes[n.p] : null; }
+    return out;
+  }
+  function measure(path) {
+    var L = [0];
+    for (var i = 1; i < path.length; i++) L.push(L[i - 1] + Math.hypot(path[i].x - path[i - 1].x, path[i].y - path[i - 1].y));
+    path.len = L[L.length - 1]; path.L = L; return path;
+  }
+  function at(path, d) {
+    var L = path.L; if (d <= 0) return path[0]; if (d >= path.len) return path[path.length - 1];
+    var lo = 0, hi = L.length - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (L[m] < d) lo = m; else hi = m; }
+    var f = (d - L[lo]) / (L[hi] - L[lo] || 1);
+    return { x: path[lo].x + (path[hi].x - path[lo].x) * f, y: path[lo].y + (path[hi].y - path[lo].y) * f };
+  }
+
+  /* Draw segments whose order lies in [from, to) onto ctx. Additive glow. */
+  function drawSegments(ctx, nodes, from, to, style) {
+    var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'butt';
+    for (var pass = 0; pass < 2; pass++) {
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
+        var P = nodes[n.p];
+        var w = Math.min(maxW, base + Math.pow(n.w, k) * 0.35);
+        var a = style.alpha(n, w);
+        if (pass === 0) { ctx.strokeStyle = style.glow; ctx.globalAlpha = a * 0.16; ctx.lineWidth = w * 4.5; }
+        else { ctx.strokeStyle = style.color; ctx.globalAlpha = a; ctx.lineWidth = w; }
+        // each piece runs midpoint to midpoint, bent through the joint: no gaps, no beads
+        var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2;
+        ctx.beginPath();
+        if (P.p >= 0) { var G = nodes[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); }
+        else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+        if (n.kids === 0) ctx.lineTo(n.x, n.y);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function glowDot(ctx, x, y, r, color, a) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, color); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.globalAlpha = a; ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* Run a draw loop only while visible on screen and in a visible tab. */
+  function loop(el, frame) {
+    var onScreen = true, raf = 0, last = 0;
+    function tick(t) {
+      raf = 0;
+      var dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016; last = t;
+      frame(dt, t / 1000);
+      schedule();
+    }
+    function schedule() { if (!raf && onScreen && !document.hidden) raf = requestAnimationFrame(tick); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; if (onScreen) { last = 0; schedule(); } }).observe(el);
+    }
+    document.addEventListener('visibilitychange', function () { last = 0; schedule(); });
+    schedule();
+  }
+
+  function reducedMotion() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function fit(canvas, maxDpr) {
+    var dpr = Math.min(maxDpr || 2, window.devicePixelRatio || 1);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+    var ctx = canvas.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: r.width, h: r.height, dpr: dpr };
+  }
+
+  return { rng: rng, grow: grow, leaves: leaves, pathToRoot: pathToRoot, measure: measure, at: at,
+    drawSegments: drawSegments, glowDot: glowDot, loop: loop, reducedMotion: reducedMotion, fit: fit };
+})();
+
+/* Generated by make_data.py from web/how-it-works-data/cases-out.json. Real router output on synthetic text. Do not edit by hand. */
+var TDS_DATA = {"commit":"a822605","outbound_attempts":0,"cases":[{"parts":[{"lit":"Make this e-mail shorter and friendlier:\n\nHello,\n\nI am writing again about the refund for my cancelled order. Please pay it to my account "},{"a":"GB33 BUKB 2020 1555 5555 55","b":"⟦IBAN_1⟧","type":"iban","kind":"masked"},{"lit":" as soon as you can. Call me if anything is unclear.\n\nBest regards\n"},{"a":"Emma Whitfield","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"emma.whitfield@example.com","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"+44 7700 900123","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi there,\n\nJust following up on the refund for my cancelled order. Could you pay it to "},{"a":"⟦IBAN_1⟧","b":"GB33 BUKB 2020 1555 5555 55"},{"lit":" when you get a chance? Feel free to call if anything is unclear. Thanks so much!\n\nBest wishes\n"},{"a":"⟦PERSON_1⟧","b":"Emma Whitfield"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"emma.whitfield@example.com"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"+44 7700 900123"},{"lit":""}],"key":"email","title":"A customer's e-mail with bank details","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-001","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{"email":1,"iban":1,"person":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"iban":{"masked":1},"person":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"0000000000000000000000000000000000000000000000000000000000000000"}},{"parts":[{"lit":"Summarise the e-mail below in three points:\n\nHi "},{"a":"Helen Lindqvist","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":",\n\nThank you for the quote for "},{"a":"headsets","b":"⟦PRODUCT_1⟧","type":"product","kind":"masked"},{"lit":" for our support team. We at "},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":" would like to go ahead, but three things need sorting out first.\n\nFirst, we need the delivery at our office in "},{"a":"Sorsele","b":"northern Sweden","type":"location","kind":"widened"},{"lit":" by "},{"a":"13 June 2027","b":"June 2027","type":"date","kind":"widened"},{"lit":", because the roll-out to staff starts then.\n\nSecond, the contract must allow orders in several rounds. We have "},{"a":"35,897 employees","b":"10,000–50,000 employees","type":"count","kind":"widened"},{"lit":" in total today, and more departments will want to order once they see how it works.\n\nThird, please send order confirmations and delivery notes to "},{"a":"orders@northgate-freight.example","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":", so they reach the right place from the start.\n\nCall me on "},{"a":"+44 7700 900456","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":" if anything is unclear.\n\nBest regards\n"},{"a":"Philip Ashford","b":"⟦PERSON_2⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"Northgate Freight Ltd","b":"⟦ORG_1⟧","type":"org","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"• "},{"a":"⟦ORG_1⟧","b":"Northgate Freight Ltd"},{"lit":" wants to go ahead with the quote for "},{"a":"⟦PRODUCT_1⟧","b":"headsets"},{"lit":", but needs delivery to its office in northern Sweden by June 2027.\n• The contract must allow orders in several rounds: the company has 10,000–50,000 employees, and more departments are expected to order.\n• Order confirmations and delivery notes should go to "},{"a":"⟦EMAIL_1⟧","b":"orders@northgate-freight.example"},{"lit":". "},{"a":"⟦PERSON_2⟧","b":"Philip Ashford"},{"lit":" answers questions on "},{"a":"⟦PHONE_1⟧","b":"+44 7700 900456"},{"lit":"."}],"key":"generalise","title":"A supplier e-mail with telling details","tier":2,"rule":9,"reason":"Other task: k_est and U_sem are high enough after generalisation","sent":true,"audit":{"request_id":"demo-002","policy_version":"v1.1-provisional","task":"other","tier":2,"rule":9,"entity_counts":{"count":1,"date":1,"email":1,"location":1,"org":2,"person":2,"phone":1,"product":1},"generalised_counts":{"count_band":1,"date_month":1,"place_region":1},"handling":{"count":{"widened":1},"date":{"widened":1},"email":{"masked":1},"location":{"widened":1},"org":{"masked":2},"person":{"masked":2},"phone":{"masked":1},"product":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"984649b2469752f5292a2dbd57f2a796e6562f05c7ba74dfb998c1c315af53d9"}},{"parts":[{"lit":"Translate into Swedish before the meeting: We are preparing to acquire a "},{"a":"Finnish logistics company","b":null,"type":"org","kind":"kept"},{"lit":" with around "},{"a":"340 employees","b":null,"type":"count","kind":"kept"},{"lit":", for about 900 million kronor. Completion is planned for the second quarter, and nothing may become known before the board meeting."}],"ans_parts":null,"key":"vault","title":"A confidential deal, never named","tier":3,"rule":5,"reason":"C_vault above the threshold: close to vault material","sent":false,"audit":{"request_id":"demo-003","policy_version":"v1.1-provisional","task":"translate","tier":3,"rule":5,"entity_counts":{"count":1,"org":1},"generalised_counts":{},"handling":{"count":{"kept_local":1},"org":{"kept_local":1}},"destination":"ollama","model":"ministral-3:3b","provider":"ollama-local","prev_hash":"a74f614acf5b4d45bd49eb2a7892d429d8a0f317ee732e47f1a5519e34b3e03a"}},{"parts":[{"lit":"Make this reply warmer: Thank you for your message. We have received your question and will reply within two working days. In the summer it may take a little longer."}],"ans_parts":[{"lit":"Thank you so much for getting in touch! We have received your question and will get back to you within two working days. In the summer it may take a little longer, and we appreciate your patience."}],"key":"harmless","title":"A harmless reply","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-004","policy_version":"v1.1-provisional","task":"rewrite","tier":1,"rule":6,"entity_counts":{},"generalised_counts":{},"handling":{},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"a86c0900c6fb83cf641b45969e249e127d85e8ac9f1b0a5ec6b3e319828aff14"}},{"parts":[{"lit":"Översätt mejlet till engelska:\n\nHej!\n\nJag skickar mitt CV inför intervjun på torsdag. Mitt personnummer är "},{"a":"590505-2881","b":"⟦PERSONNUMMER_1⟧","type":"personnummer","kind":"masked"},{"lit":", om ni behöver det för bakgrundskontrollen. Ring gärna om något är oklart.\n\nMed vänliga hälsningar\n"},{"a":"Tove Sandberg","b":"⟦PERSON_1⟧","type":"person","kind":"masked"},{"lit":"\n"},{"a":"tove.sandberg@exempel.se","b":"⟦EMAIL_1⟧","type":"email","kind":"masked"},{"lit":"\n"},{"a":"070-123 45 67","b":"⟦PHONE_1⟧","type":"phone","kind":"masked"},{"lit":""}],"ans_parts":[{"lit":"Hi!\n\nI am sending my CV ahead of the interview on Thursday. My personal identity number is "},{"a":"⟦PERSONNUMMER_1⟧","b":"590505-2881"},{"lit":", in case you need it for the background check. Feel free to call if anything is unclear.\n\nKind regards\n"},{"a":"⟦PERSON_1⟧","b":"Tove Sandberg"},{"lit":"\n"},{"a":"⟦EMAIL_1⟧","b":"tove.sandberg@exempel.se"},{"lit":"\n"},{"a":"⟦PHONE_1⟧","b":"070-123 45 67"},{"lit":""}],"key":"sv-email","title":"A Swedish client e-mail with a personnummer and a signature","tier":1,"rule":6,"reason":"Translation or rewrite: k_est is high enough after masking","sent":true,"audit":{"request_id":"demo-005","policy_version":"v1.1-provisional","task":"translate","tier":1,"rule":6,"entity_counts":{"email":1,"person":1,"personnummer":1,"phone":1},"generalised_counts":{},"handling":{"email":{"masked":1},"person":{"masked":1},"personnummer":{"masked":1},"phone":{"masked":1}},"destination":"claude","model":"claude-opus-5-5","provider":"anthropic","prev_hash":"8fe8fbe792fb170c452384365509b86ba3664b920812500c04217ac8f042d457"}}]};
+
+(function () {
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', LINE = '#33488F', TEAL = '#5FD9C6', MOSS = '#8FAE6B', MUT = '#AEB6CE', IVORY = '#F7F3EA';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  var cv = document.getElementById('rings'), rec = document.getElementById('rec'), btns = document.getElementById('btns');
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var C = TDS_DATA.cases, S, w, h, c0, R0, portrait, net, paths, stat, revealed, pulses, active = 0, removed = -1, timer = 0, born = [];
+  var TIER = { 1: ['Mask', TEAL], 2: ['Generalise', MOSS], 3: ['Keep local', LIGHT] };
+
+  // Each ring's shape comes from its record's own chain hash. The ring is the record.
+  function shape(hash) {
+    var b = []; for (var i = 0; i < 24; i += 2) b.push(parseInt(hash.substr(i, 2), 16) / 255);
+    return function (th) { var s = 0; for (var k = 0; k < 5; k++) s += (b[k] - 0.5) * Math.sin(th * (k + 2) + b[k + 5] * 6.283) / (k + 1.5); return s; };
+  }
+  var shapes = C.map(function (c) { return shape(c.audit.prev_hash === '0'.repeat(64) ? '5a3c9e17b2d4f6081a2b' + '0'.repeat(44) : c.audit.prev_hash); });
+
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; portrait = w < 760;
+    c0 = portrait ? { x: w * 0.5, y: w * 0.56 + 40 } : { x: w * 0.72, y: h * 0.47 };
+    R0 = portrait ? w * 0.42 : Math.min(h * 0.37, w * 0.24);
+    var rand = Mycel.rng(4242), A = [], roots = [], i, a;
+    // threads arrive at the living edge from all around
+    for (i = 0; i < (portrait ? 260 : 520); i++) {
+      a = rand() * 6.283; var d = R0 * (1.12 + Math.pow(rand(), 0.7) * 1.9);
+      var x = c0.x + Math.cos(a) * d, y = c0.y + Math.sin(a) * d * 0.94;
+      if (x < -30 || x > w + 30 || y < -30 || y > h + 30) continue; A.push({ x: x, y: y });
+    }
+    for (i = 0; i < 11; i++) { a = i / 11 * 6.283 + 0.3; roots.push({ x: c0.x + Math.cos(a) * R0 * 1.03, y: c0.y + Math.sin(a) * R0 * 1.03 }); }
+    net = Mycel.grow({ roots: roots, attractors: A, step: 7, reach: 95, kill: 15, rand: rand, iters: 500, jitter: 0.5 });
+    paths = Mycel.leaves(net).map(function (n) { return Mycel.measure(Mycel.pathToRoot(net, n)); }).filter(function (p) { return p.len > 90; });
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+    var sc = stat.getContext('2d'); sc.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); stat.c = sc;
+    revealed = 0; pulses = []; born = C.map(function (_, i) { return reduced ? 1 : 0; });
+    if (reduced) { reveal(1e9); }
+  }
+  var style = { color: GOLD, glow: DEEP, maxW: 3, alpha: function (n, wd) {
+    var a = 0.16 + 0.42 * Math.min(1, wd / 2.4); if (!portrait && n.x < w * 0.44) a *= 0.3; if (portrait && n.y > w * 1.02) a *= 0.3; return a; } };
+  function reveal(n) { var to = Math.min(net.length, revealed + n); if (to > revealed) { Mycel.drawSegments(stat.c, net, revealed, to, style); revealed = to; } }
+
+  function ringR(i) { return R0 * (0.2 + 0.8 * (i + 1) / (C.length + 0.35)); }
+  function drawRing(ctx, i, t, grow) {
+    var base = ringR(i), inner = i ? ringR(i - 1) : R0 * 0.07, f = shapes[i], col = TIER[C[i].tier][1];
+    var broken = removed >= 0 && i > removed, gone = i === removed, on = i === active;
+    var lines = 9, k, th;
+    for (k = 0; k < lines; k++) {
+      var u = k / (lines - 1), r = inner + (base - inner) * (0.14 + 0.86 * u);
+      ctx.beginPath();
+      var end = 6.283 * Math.min(1, grow);
+      for (th = 0; th <= end + 0.001; th += 0.035) {
+        var rr = r * (1 + f(th) * 0.075 * (0.5 + u * 0.5)) + Math.sin(th * 23 + k * 1.7 + i) * 0.7;
+        var x = c0.x + Math.cos(th - 1.57) * rr, y = c0.y + Math.sin(th - 1.57) * rr;
+        th ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      if (grow >= 1) ctx.closePath();
+      var edge = k === lines - 1;
+      ctx.strokeStyle = gone ? '#33488F' : broken ? IVORY : edge ? col : (k % 3 === 0 ? DEEP : '#6E500E');
+      ctx.globalAlpha = gone ? 0.35 : broken ? (edge ? 0.5 : 0.14) : edge ? (on ? 1 : 0.8) : (on ? 0.6 : 0.36);
+      ctx.lineWidth = edge ? (on ? 2.4 : 1.4) : 0.8;
+      ctx.setLineDash(gone ? [2, 7] : broken ? [9, 6] : []);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  function frame(dt, t) {
+    var ctx = S.ctx, i;
+    reveal(reduced ? 1e9 : Math.max(2, net.length * dt / 6));
+    ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h);
+    ctx.fillStyle = '#060A1A'; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * 1.04, 0, 6.3); ctx.fill();
+    for (i = 0; i < C.length; i++) { if (!reduced && i <= active && born[i] < 1) born[i] = Math.min(1, born[i] + dt / 1.6); if (born[i] > 0) drawRing(ctx, i, t, born[i]); }
+    // the living edge: The Layer
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    var br = 1.035 + Math.sin(t * 0.9) * 0.006;
+    ctx.strokeStyle = DEEP; ctx.globalAlpha = 0.25; ctx.lineWidth = 9; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    ctx.strokeStyle = LIGHT; ctx.globalAlpha = 1; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(c0.x, c0.y, R0 * br, 0, 6.3); ctx.stroke();
+    Mycel.glowDot(ctx, c0.x, c0.y, R0 * 0.06, GOLD, 0.9);
+    if (!reduced && revealed > net.length * 0.4 && pulses.length < 12 && Math.random() < dt * 2.2) pulses.push({ path: paths[(Math.random() * paths.length) | 0], d: 0, v: 60 + Math.random() * 50 });
+    for (i = pulses.length - 1; i >= 0; i--) { var p = pulses[i]; p.d += p.v * dt; if (p.d >= p.path.len) { pulses.splice(i, 1); continue; } var q = Mycel.at(p.path, p.d); Mycel.glowDot(ctx, q.x, q.y, 7, LIGHT, 0.85); }
+    ctx.restore();
+    ctx.save(); ctx.font = '11px ' + MONO; ctx.fillStyle = LIGHT; ctx.textAlign = 'center'; try { ctx.letterSpacing = '1.5px'; } catch (e) {}
+    ctx.fillText('THE LAYER  ·  THE LIVING EDGE', c0.x, c0.y - R0 * 1.035 - 14);
+    var ar = ringR(active); ctx.fillStyle = removed >= 0 && active > removed ? IVORY : TIER[C[active].tier][1];
+    ctx.fillText(C[active].audit.request_id.toUpperCase(), c0.x, c0.y + ar + (active === C.length - 1 ? -12 : 14));
+    ctx.restore();
+    if (!reduced && removed < 0) { timer += dt; if (timer > 3.4) { timer = 0; show((active + 1) % C.length); } }
+  }
+  function show(i) {
+    active = i; var a = C[i].audit, n = Object.keys(a.entity_counts).map(function (k) { return k + ' ' + a.entity_counts[k]; }).join(', ') || 'none';
+    var out = a.destination === 'ollama' ? 'local model (' + a.model + '), nothing sent out' : 'frontier model, ' + (C[i].tier === 1 ? 'masked' : 'generalised');
+    rec.innerHTML = removed >= 0 && i > removed
+      ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
+      : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+    btns.querySelectorAll('button').forEach(function (b, k) { if (k < C.length) b.setAttribute('aria-pressed', k === i); });
+  }
+  C.forEach(function (c, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = 'ring ' + (i + 1);
+    b.addEventListener('click', function () { timer = -6; born = born.map(function (v, k) { return k <= i ? 1 : v; }); show(i); if (reduced) frame(0, 0); });
+    btns.appendChild(b);
+  });
+  var rm = document.createElement('button'); rm.type = 'button'; rm.textContent = 'take ring 2 out';
+  rm.addEventListener('click', function () {
+    removed = removed < 0 ? 1 : -1; rm.textContent = removed < 0 ? 'take ring 2 out' : 'put it back';
+    born = born.map(function () { return 1; }); show(removed < 0 ? 1 : 2); timer = 0; if (reduced) frame(0, 0);
+  });
+  btns.appendChild(rm);
+  (function start() {
+    if (cv.getBoundingClientRect().width < 2) { requestAnimationFrame(start); return; }
+    build(); if (reduced) { active = C.length - 1; } show(active);
+    if (reduced) frame(0, 0); else Mycel.loop(cv, frame);
+  })();
+  var rt, lw = window.innerWidth; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lw) > 2) { lw = window.innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+})();
+</script>
+</body>
+</html>

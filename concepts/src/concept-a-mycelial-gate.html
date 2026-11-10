@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Concept A · The Mycelial Gate · TDS (draft)</title>
+<style>
+{{base.css}}
+.copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 110px}
+@media (max-width:759px){
+  .hero{display:flex;flex-direction:column;justify-content:flex-end}
+  .copy{padding:0 20px 96px;margin-top:48vh}
+  .key{margin-top:26px}
+}
+.cap{position:absolute;right:clamp(20px,5vw,64px);bottom:52px;margin:0;text-align:right}
+@media (max-width:759px){.cap{position:static;padding:0 20px 60px;text-align:left;margin-top:-80px}}
+</style>
+</head>
+<body>
+<main class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="top"><img src="../../brand/final/tds-mark-small.svg" alt=""><span>True Data Sovereignty</span><span class="draft">Concept A · draft, not published</span></div>
+  <div class="copy">
+{{hero.html}}
+    <ul class="key" aria-label="What the picture shows">
+      <li><i style="background:var(--light)"></i><b>Gold:</b> your data, as typed. What must stay curls back and seals.</li>
+      <li><i style="background:var(--teal)"></i><b>Mask:</b> names and numbers leave as placeholders.</li>
+      <li><i style="background:var(--moss)"></i><b>Generalise:</b> telling details leave blurred.</li>
+    </ul>
+  </div>
+  <p class="note cap">Synthetic example. Every word change shown is real router output<br>on made-up text (router a822605).</p>
+</main>
+{{toggle.html}}
+<script>
+{{mycel.js}}
+{{gate.js}}
+MycelGate(document.getElementById('net'), { still: /[?&]still/.test(location.search) });
+</script>
+</body>
+</html>

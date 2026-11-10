@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mockups · the mark as a living filter (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("{{FONT}}") format("truetype");font-weight:400 700;font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:#0A1128;color:#F7F3EA;font:400 16px/1.55 "Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:1240px;margin:0 auto;padding:34px 18px 90px}
+.page>h1{font:600 30px/1.15 "Lora",Georgia,serif;margin:0 0 8px}
+.page>p{margin:0 0 36px;max-width:44rem;color:#AEB6CE}
+h2{font:600 22px/1.2 "Lora",Georgia,serif;margin:0 0 4px}
+.why{margin:0 0 14px;color:#AEB6CE;max-width:46rem}
+section{margin:0 0 64px}
+.frame{position:relative;overflow:hidden;border-radius:3px;background:#060A1A}
+.frame img.bg{display:block;width:100%;height:auto}
+.frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.a:before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(6,10,26,.78) 0%,rgba(6,10,26,.35) 30%,rgba(6,10,26,0) 52%);z-index:1;pointer-events:none}
+.a canvas{z-index:2}
+.words{position:absolute;left:4.5%;top:7%;z-index:3;max-width:46%}
+.k{font:600 clamp(10px,1.1vw,15px)/1 "Lora",Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:#F8DF9C;margin:0 0 1.1em}
+.h{font:500 clamp(22px,4vw,54px)/1.06 "Lora",Georgia,serif;letter-spacing:-.015em;margin:0}
+.cap{font:400 12px/1.5 "Segoe UI",system-ui,sans-serif;color:#AEB6CE;margin:10px 0 0;max-width:50rem}
+.b{aspect-ratio:16/9;background:radial-gradient(120% 90% at 50% 45%,#16234C 0%,#0B1330 55%,#060A1A 100%)}
+.b .words{top:9%}
+@media (max-width:700px){.b{aspect-ratio:4/5}.words{max-width:80%}}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;aspect-ratio:3/2;border-radius:3px;overflow:hidden}
+.tile canvas{position:absolute;inset:0;width:100%;height:100%}
+.tile.l{background:#FAFAF8}.tile.d{background:#101A3D}
+@media (max-width:700px){.tiles{grid-template-columns:1fr}}
+.ideas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 44px;max-width:1000px}
+.ideas div{border-top:2px solid #DDB04A;padding-top:14px}
+.ideas h3{font:600 18px/1.25 "Lora",Georgia,serif;margin:0 0 6px}
+.ideas p{margin:0;color:#C9CEDD;font-size:15px}
+@media (max-width:700px){.ideas{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Mockups: the mark as a living filter</h1>
+  <p>Draft, not published. Today's mark is kept. In both scenes it pulses each time a request reaches it, and what leaves on the other side has changed.</p>
+
+  <section>
+    <h2>A · The forest floor</h2>
+    <p class="why">Your reference picture, with the mark set where the mycelium gathers under the mushroom. Pale threads carry requests in from the left. The mark beats, and gold leaves on the right.</p>
+    <div class="frame a" id="fa">
+      <img class="bg" src="{{FOREST}}" alt="A forest floor in cross-section: moss, a mushroom and a birch above, pale mycelium in dark soil below.">
+      <canvas id="ca" aria-hidden="true"></canvas>
+      <div class="words"><p class="k">The Layer</p><p class="h">Data Sovereignty, beyond paper contracts.</p></div>
+    </div>
+    <p class="cap">Mockup only. The background is the reference picture Henrik supplied; it is not cleared for publishing. The word changes are real router output on made-up text (router a822605).</p>
+  </section>
+
+  <section>
+    <h2>B · The whole world, one network</h2>
+    <p class="why">The colours of your second reference: deep navy, gold light. A globe grown over with mycelium, lit like cities at night. The mark sits in it as the gate. A bigger idea than one forest: the network is everywhere, and so is the question of who controls it.</p>
+    <div class="frame b" id="fb">
+      <canvas id="cb" aria-hidden="true"></canvas>
+      <div class="words"><p class="k">True Data Sovereignty</p><p class="h">Sovereign Data Control.</p></div>
+    </div>
+    <p class="cap">Mockup only. The globe has no real coastlines yet: drawing true continents needs open map data, which I have not downloaded.</p>
+  </section>
+
+  <section>
+    <h2>C · Today's mark, rooted</h2>
+    <p class="why">A logo idea that keeps the mark you prefer. Fine mycelium grows from under its layers. Use it large (site, deck cover); keep the plain mark for small sizes.</p>
+    <div class="tiles"><div class="tile l"><canvas id="cl" aria-hidden="true"></canvas></div><div class="tile d"><canvas id="cd" aria-hidden="true"></canvas></div></div>
+    <p class="cap">The mark itself is the unchanged file from web/brand/final. Only the threads are new.</p>
+  </section>
+
+  <section>
+    <h2>Ideas we have not explored</h2>
+    <div class="ideas">
+      <div><h3>The cross-section as the whole identity</h3><p>Every page is cut the same way: light and life above a line, the network below it. Decks, the site and the report cover all share that one horizon.</p></div>
+      <div><h3>Spore print</h3><p>A mushroom cap left on paper leaves a unique radial print. Each customer, or each report, could get its own print made from its record: a seal nobody else has.</p></div>
+      <div><h3>Lichen map</h3><p>Lichen grows slowly outward on stone in pale rings and patches. A quiet, very Nordic texture for backgrounds, far from the usual tech look.</p></div>
+      <div><h3>Birch bark</h3><p>White bark with dark marks, like a ledger written by a tree. A tangible paper stock for the light pages, with navy and gold on top.</p></div>
+    </div>
+  </section>
+</div>
+<script>
+{{MYCEL}}
+{{MARKJS}}
+(function () {
+  var GOLD = '#DDB04A', DEEP = '#B8862B', LIGHT = '#F8DF9C', PALE = '#F4E9CC', NAVY = '#101A3D';
+  var MONO = '"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace';
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  /* Real router output on synthetic text (router a822605). */
+  var SCRIPT = [
+    { t: 1, a: 'Emma Whitfield', b: '⟦PERSON_1⟧' }, { t: 2, a: 'Sorsele', b: 'northern Sweden' },
+    { t: 3, a: 'acquire a Finnish logistics company', b: 'stays here' }, { t: 1, a: '590505-2881', b: '⟦PERSONNUMMER_1⟧' },
+    { t: 2, a: '35,897 employees', b: '10,000–50,000 employees' }
+  ];
+  var mark = null, redraw = [];
+  var im = new Image(); im.onload = function () { mark = im; redraw.forEach(function (f) { f(); }); };
+  im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TDS_MARK_SVG);
+  function paths(nodes, min, rev) { return Mycel.leaves(nodes).map(function (n) { var p = Mycel.pathToRoot(nodes, n); if (rev) p.reverse(); return Mycel.measure(p); }).filter(function (p) { return p.len > min; }); }
+  function label(ctx, w, txt, x, y, col, a, blur, small) {
+    if (a <= 0.01) return; ctx.save(); ctx.font = (small ? '11px ' : '12.5px ') + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+    var tw = ctx.measureText(txt).width + 16; x = Math.max(tw / 2 + 6, Math.min(w - tw / 2 - 6, x));
+    if (blur && 'filter' in ctx) ctx.filter = 'blur(' + blur.toFixed(1) + 'px)';
+    ctx.globalAlpha = a * 0.88; ctx.fillStyle = '#060A1A'; ctx.fillRect(x - tw / 2, y - 11, tw, 22);
+    ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillText(txt, x, y + 0.5); ctx.restore();
+  }
+  /* The mark, beating: it swells a little and throws a ring each time something reaches it. */
+  function drawMark(ctx, c, M, beat, t, plate) {
+    var k = 1 + 0.045 * beat + 0.012 * Math.sin(t * 1.3), g;
+    if (plate) { g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, 78 * M); g.addColorStop(0, plate); g.addColorStop(0.55, plate); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(c.x - 80 * M, c.y - 80 * M, 160 * M, 160 * M); }
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    if (beat > 0.01) { ctx.strokeStyle = LIGHT; ctx.lineWidth = 1 + 2.5 * beat; ctx.globalAlpha = beat * 0.8; ctx.beginPath(); ctx.ellipse(c.x, c.y - 2 * M, 17.7 * M * (1 + 2.6 * (1 - beat)), 10.2 * M * (1 + 2.6 * (1 - beat)), 0, 0, 6.3); ctx.stroke(); }
+    Mycel.glowDot(ctx, c.x, c.y, 60 * M, DEEP, 0.1 + 0.22 * beat);
+    ctx.restore();
+    if (mark) ctx.drawImage(mark, c.x - 50 * M * k, c.y - 48 * M * k, 100 * M * k, 100 * M * k);
+  }
+
+  /* A. The forest floor. Positions are in the picture's own pixels (1400 x 933). */
+  (function () {
+    var cv = document.getElementById('ca'), S, w, h, s, c, M, inb, out, inP, featP, outP, down, stat, pulses, feat, fi, ft, beat;
+    function build() {
+      S = Mycel.fit(cv, 2); w = S.w; h = S.h; s = w / 1400; c = { x: 690 * s, y: 600 * s }; M = 1.55 * s;
+      function mk(mx, my) { return { x: c.x + (mx - 50) * M, y: c.y + (my - 52) * M }; }
+      var rand = Mycel.rng(606), A = [], i;
+      for (i = 0; i < 260; i++) A.push({ x: rand() * 600 * s, y: (505 + Math.pow(rand(), 0.8) * 428) * s });
+      inb = Mycel.grow({ roots: [mk(33, 24), mk(16, 34), mk(16, 50), mk(16, 68), mk(33, 80)], attractors: A, step: 7 * Math.max(0.6, s), reach: 110 * Math.max(0.6, s), kill: 13 * Math.max(0.6, s), rand: rand, iters: 600, jitter: 0.7 });
+      A = []; for (i = 0; i < 60; i++) A.push({ x: (790 + rand() * 640) * s, y: (560 + rand() * 373) * s });
+      out = Mycel.grow({ roots: [mk(84, 34), mk(84, 50), mk(84, 68)], attractors: A, step: 8 * Math.max(0.6, s), reach: 170 * Math.max(0.6, s), kill: 16 * Math.max(0.6, s), rand: rand, iters: 400, jitter: 0.5 });
+      inP = paths(inb, 90 * s); featP = inP.filter(function (p) { return p.len > 260 * s && p[0].y > 560 * s; }); if (!featP.length) featP = inP;
+      outP = paths(out, 80 * s, true);
+      down = [mk(50, 89.8)]; for (i = 1; i <= 40; i++) down.push({ x: c.x + Math.sin(i * 0.5) * 9 * s + i * 0.6 * s, y: c.y + 38 * M + i * 6.2 * s }); Mycel.measure(down);
+      stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+      var x = stat.getContext('2d'); x.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+      Mycel.drawSegments(x, inb, 0, 1e9, { color: PALE, glow: '#8A7A55', maxW: 2.6, base: 0.3, alpha: function (n, wd) { return 0.22 + 0.4 * Math.min(1, wd / 2.2); } });
+      Mycel.drawSegments(x, out, 0, 1e9, { color: GOLD, glow: DEEP, maxW: 2.2, base: 0.4, alpha: function (n, wd) { return 0.45 + 0.35 * Math.min(1, wd / 2); } });
+      pulses = []; feat = null; fi = 0; ft = 0.6; beat = 0;
+    }
+    function leave(t) { return t === 3 ? { p: down, d: 0, v: 60 * s + 20, col: PALE, ph: 'down' } : { p: outP[(Math.random() * outP.length) | 0], d: 0, v: 90 * s + 30, col: GOLD, ph: 'out', soft: t === 2 }; }
+    function frame(dt, t) {
+      var ctx = S.ctx, i, pos, small = w < 700; ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      if (!reduced && pulses.length < 14 && Math.random() < dt * 2.6) pulses.push({ p: inP[(Math.random() * inP.length) | 0], d: 0, v: 60 * s + 30 + Math.random() * 40, col: '#FFFFFF', ph: 'in' });
+      for (i = pulses.length - 1; i >= 0; i--) { var q = pulses[i]; q.d += q.v * dt;
+        if (q.d >= q.p.len) { pulses.splice(i, 1); if (q.ph === 'in') { beat = 1; var r = Math.random(); pulses.push(leave(r < 0.6 ? 1 : r < 0.8 ? 2 : 3)); } continue; }
+        pos = Mycel.at(q.p, q.d); var fade = q.ph === 'in' ? 1 : Math.min(1, (q.p.len - q.d) / (70 * s + 20));
+        Mycel.glowDot(ctx, pos.x, pos.y, (q.soft ? 13 : 7) * Math.max(0.7, s), q.col, (q.soft ? 0.5 : 0.95) * fade); }
+      ctx.restore();
+      beat = Math.max(0, beat - dt * 1.6);
+      drawMark(ctx, c, M, beat, t, 'rgba(14,10,8,.82)');
+      if (!feat) { ft -= dt; if (ft <= 0 || reduced) { var sc = SCRIPT[fi++ % SCRIPT.length]; feat = { s: sc, p: featP[(Math.random() * featP.length) | 0], ph: 'in', hold: 0 }; feat.d = Math.max(0, feat.p.len - 330 * s); if (reduced) feat.d = feat.p.len * 0.72; } }
+      if (feat) { var s2 = feat.s, lx = c.x, ly = c.y - 52 * M - 16;
+        if (feat.ph === 'in') { feat.d += (62 * s + 20) * dt; pos = Mycel.at(feat.p, feat.d); ctx.save(); ctx.globalCompositeOperation = 'lighter'; Mycel.glowDot(ctx, pos.x, pos.y, 10 * Math.max(0.7, s), '#FFFFFF', 1); ctx.restore(); label(ctx, w, s2.a, pos.x, pos.y - 22, PALE, 1, 0, small); if (feat.d >= feat.p.len) { feat.ph = 'hold'; beat = 1; } }
+        else if (feat.ph === 'hold') { feat.hold += dt / 1.5; var f = Math.min(1, feat.hold); label(ctx, w, s2.a, lx, ly, PALE, 1 - f, f * 5, small); label(ctx, w, s2.b, lx, ly, GOLD, f, s2.t === 2 ? (1 - f) * 3 : 0, small); if (feat.hold >= 1.5) { feat.ph = 'out'; feat.o = leave(s2.t); beat = 1; } }
+        else { var o = feat.o; o.d += o.v * dt; if (o.d >= o.p.len) { feat = null; ft = 1.6; } else { var fd = Math.min(1, (o.p.len - o.d) / (80 * s + 20)); pos = Mycel.at(o.p, o.d); ctx.save(); ctx.globalCompositeOperation = 'lighter'; Mycel.glowDot(ctx, pos.x, pos.y, 10 * Math.max(0.7, s), o.col, fd); ctx.restore(); label(ctx, w, s2.b, pos.x + (o.ph === 'down' ? 70 * s : 0), pos.y - (o.ph === 'down' ? 0 : 22), GOLD, fd, 0, small); } } }
+    }
+    function start() { if (cv.getBoundingClientRect().height < 20) { requestAnimationFrame(start); return; } build(); if (reduced) { frame(0, 0); redraw.push(function () { frame(0, 0); }); } else Mycel.loop(cv, frame); }
+    var img = document.querySelector('#fa img'); if (img.complete) start(); else img.addEventListener('load', start);
+    var lw = innerWidth, rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(innerWidth - lw) > 2) { lw = innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+  })();
+
+  /* B. The globe: mycelium grown over a sphere, lit like cities at night. */
+  (function () {
+    var cv = document.getElementById('cb'), S, w, h, C, Rg, c, M, net, inP, outP, stat, pulses, beat;
+    function bulge(p) { var dx = p.x - C.x, dy = p.y - C.y, r = Math.hypot(dx, dy) || 1, r2 = Rg * Math.sin(Math.min(1, r / Rg) * Math.PI / 2); return { x: C.x + dx / r * r2, y: C.y + dy / r * r2 }; }
+    function build() {
+      S = Mycel.fit(cv, 2); w = S.w; h = S.h; var tall = h > w;
+      Rg = Math.min(w, h) * (tall ? 0.44 : 0.4); C = { x: tall ? w * 0.5 : w * 0.62, y: tall ? h * 0.6 : h * 0.52 };
+      var rand = Mycel.rng(4711), A = [], i, k, n0 = { x: C.x - Rg * 0.06, y: C.y - Rg * 0.2 };
+      function inDisc(x, y) { return Math.hypot(x - C.x, y - C.y) < Rg * 0.985; }
+      for (i = 0; i < 520; i++) { var a = rand() * 6.283, r = Math.sqrt(rand()) * Rg * 0.98; A.push({ x: C.x + Math.cos(a) * r, y: C.y + Math.sin(a) * r }); }
+      for (k = 0; k < 9; k++) { var ca = rand() * 6.283, cr = (0.25 + rand() * 0.6) * Rg, cx = C.x + Math.cos(ca) * cr, cy = C.y + Math.sin(ca) * cr; for (i = 0; i < 70; i++) { var x = cx + (rand() + rand() - 1) * Rg * 0.2, y = cy + (rand() + rand() - 1) * Rg * 0.14; if (inDisc(x, y)) A.push({ x: x, y: y }); } }
+      var roots = []; for (i = 0; i < 8; i++) roots.push({ x: n0.x + Math.cos(i / 8 * 6.283) * Rg * 0.07, y: n0.y + Math.sin(i / 8 * 6.283) * Rg * 0.055 });
+      net = Mycel.grow({ roots: roots, attractors: A, step: Rg * 0.018, reach: Rg * 0.2, kill: Rg * 0.03, rand: rand, iters: 700, jitter: 0.6, maxNodes: 9000 });
+      net.forEach(function (n) { var b = bulge(n); n.x = b.x; n.y = b.y; });
+      c = bulge(n0); M = Rg * 0.0034;
+      var all = paths(net, Rg * 0.25); inP = all; outP = all.map(function (p) { var q = p.slice().reverse(); return Mycel.measure(q); });
+      stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+      var x2 = stat.getContext('2d'); x2.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+      var g = x2.createRadialGradient(C.x - Rg * 0.35, C.y - Rg * 0.4, Rg * 0.1, C.x, C.y, Rg); g.addColorStop(0, '#1C2C66'); g.addColorStop(0.6, '#101A3D'); g.addColorStop(1, '#070C20');
+      x2.fillStyle = g; x2.beginPath(); x2.arc(C.x, C.y, Rg, 0, 6.3); x2.fill();
+      x2.save(); x2.beginPath(); x2.arc(C.x, C.y, Rg, 0, 6.3); x2.clip();
+      x2.strokeStyle = 'rgba(120,145,215,.16)'; x2.lineWidth = 0.8;
+      [-60, -30, 0, 30, 60].forEach(function (lat) { var la = lat * Math.PI / 180; x2.beginPath(); x2.ellipse(C.x, C.y - Rg * Math.sin(la) * 0.96, Rg * Math.cos(la), Rg * Math.cos(la) * 0.2, 0, 0, Math.PI); x2.stroke(); });
+      [20, 45, 70].forEach(function (lon) { var lo = lon * Math.PI / 180; x2.beginPath(); x2.ellipse(C.x, C.y, Rg * Math.sin(lo), Rg, 0, 0, 6.3); x2.stroke(); }); x2.beginPath(); x2.moveTo(C.x, C.y - Rg); x2.lineTo(C.x, C.y + Rg); x2.stroke();
+      Mycel.drawSegments(x2, net, 0, 1e9, { color: GOLD, glow: DEEP, maxW: 2.4, base: 0.3, alpha: function (n, wd) { var e = Math.hypot(n.x - C.x, n.y - C.y) / Rg; return (0.3 + 0.5 * Math.min(1, wd / 2)) * (1 - 0.6 * e * e); } });
+      x2.restore();
+      x2.strokeStyle = 'rgba(248,223,156,.45)'; x2.lineWidth = 1; x2.beginPath(); x2.arc(C.x, C.y, Rg, 0, 6.3); x2.stroke();
+      pulses = []; beat = 0;
+    }
+    function frame(dt, t) {
+      var ctx = S.ctx, i; ctx.clearRect(0, 0, w, h);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; Mycel.glowDot(ctx, C.x, C.y, Rg * 1.25, '#22367A', 0.5); ctx.restore();
+      ctx.drawImage(stat, 0, 0, w, h);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      if (!reduced && pulses.length < 26 && Math.random() < dt * 5) pulses.push({ p: inP[(Math.random() * inP.length) | 0], d: 0, v: Rg * (0.16 + Math.random() * 0.12), col: LIGHT, ph: 'in' });
+      for (i = pulses.length - 1; i >= 0; i--) { var q = pulses[i]; q.d += q.v * dt;
+        if (q.d >= q.p.len) { pulses.splice(i, 1); if (q.ph === 'in') { beat = 1; if (Math.random() < 0.75) pulses.push({ p: outP[(Math.random() * outP.length) | 0], d: 0, v: Rg * 0.26, col: '#FFFFFF', ph: 'out' }); } continue; }
+        var pos = Mycel.at(q.p, q.d); Mycel.glowDot(ctx, pos.x, pos.y, q.ph === 'in' ? 5 : 6.5, q.col, q.ph === 'in' ? 0.85 : Math.min(1, (q.p.len - q.d) / (Rg * 0.15))); }
+      ctx.restore();
+      beat = Math.max(0, beat - dt * 1.4);
+      drawMark(ctx, c, M * 1.45, beat, t, 'rgba(8,13,34,.88)');
+    }
+    function start() { if (cv.getBoundingClientRect().height < 20) { requestAnimationFrame(start); return; } build(); if (reduced) { frame(0, 0); redraw.push(function () { frame(0, 0); }); } else Mycel.loop(cv, frame); }
+    start();
+    var lw = innerWidth, rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(innerWidth - lw) > 2) { lw = innerWidth; build(); if (reduced) frame(0, 0); } }, 200); });
+  })();
+
+  /* C. Today's mark, rooted: a still logo idea, on light and on marine. */
+  function rooted(id, dark) {
+    var cv = document.getElementById(id);
+    function draw() {
+      var S = Mycel.fit(cv, 2), w = S.w, h = S.h, ctx = S.ctx, M = Math.min(w, h) * 0.0042, c = { x: w * 0.5, y: h * 0.36 }, rand = Mycel.rng(88), A = [], i;
+      function mk(mx, my) { return { x: c.x + (mx - 50) * M, y: c.y + (my - 52) * M }; }
+      for (i = 0; i < 230; i++) { var a = Math.PI * (0.08 + 0.84 * rand()), r = (46 + Math.pow(rand(), 0.7) * 120) * M; A.push({ x: c.x + Math.cos(a) * r * 1.5, y: c.y + 30 * M + Math.sin(a) * r * 0.62 }); }
+      var net = Mycel.grow({ roots: [mk(16, 70), mk(33, 80), mk(50, 89.8), mk(67, 80), mk(84, 70)], attractors: A, step: 3.2 * M, reach: 40 * M, kill: 5 * M, rand: rand, iters: 500, jitter: 0.9 });
+      ctx.clearRect(0, 0, w, h);
+      Mycel.drawSegments(ctx, net, 0, 1e9, { ink: true, color: dark ? GOLD : DEEP, maxW: 2.4, base: 0.3, alpha: function (n, wd) { var e = Math.min(1, Math.hypot(n.x - c.x, (n.y - c.y) * 2.2) / (190 * M)); return (0.45 + 0.5 * Math.min(1, wd / 2)) * (1 - 0.75 * e * e); } });
+      if (mark) ctx.drawImage(mark, c.x - 50 * M, c.y - 48 * M, 100 * M, 100 * M);
+    }
+    draw(); redraw.push(draw); addEventListener('resize', draw);
+  }
+  rooted('cl', false); rooted('cd', true);
+})();
+</script>
+</body>
+</html>

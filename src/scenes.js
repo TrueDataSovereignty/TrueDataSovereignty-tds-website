@@ -104,8 +104,7 @@ function SceneMini(cv) {
     seal = Math.max(0, seal - dt * 0.7);
     c.save(); c.fillStyle = INK; ell(c, R * 0.98, R * 0.59); c.fill();
     c.strokeStyle = GOLD; c.lineWidth = 0.7; for (i = 0; i < Math.min(rings, 8); i++) { c.globalAlpha = 0.3 * (1 - i / 9); ell(c, R + 5 + i * 4.5, (R + 5 + i * 4.5) * 0.6); c.stroke(); }
-    for (i = 1; i >= -1; i--) { c.globalAlpha = 0.9; c.beginPath(); c.moveTo(node.x, node.y + i * R * 0.19 - hh); c.lineTo(node.x + hw, node.y + i * R * 0.19); c.lineTo(node.x, node.y + i * R * 0.19 + hh); c.lineTo(node.x - hw, node.y + i * R * 0.19); c.closePath(); c.fillStyle = i === 0 ? '#101A3D' : '#16224F'; c.fill(); c.strokeStyle = i === 0 ? LINE : DEEP; c.lineWidth = 0.8; c.stroke(); }
-    c.globalAlpha = 1; c.strokeStyle = LIGHT; c.lineWidth = 2; ell(c, R, R * 0.6); c.stroke();
+    c.globalAlpha = 1; var Mm = R * 2.5 / 100; if (SceneMini.mark) c.drawImage(SceneMini.mark, node.x - 50 * Mm, node.y - 48 * Mm, 100 * Mm, 100 * Mm);
     c.strokeStyle = LIGHT; c.lineWidth = 1.3; c.globalAlpha = 0.55 + 0.45 * seal; c.beginPath(); c.arc(curl.c.x, curl.c.y, R * 0.22 + seal * 3, 0, 6.3); c.stroke();
     c.restore();
   }
@@ -113,6 +112,8 @@ function SceneMini(cv) {
   onResize(function () { build(); pulses = []; if (reduced) frame(0, 0); });
   return { send: function (tier, n) { if (reduced) return; for (var i = 0; i < n; i++) queue.push({ tier: tier, wait: i * 0.22 }); } };
 }
+
+if (typeof TDS_MARK_SVG !== 'undefined') { (function () { var im = new Image(); im.onload = function () { SceneMini.mark = im; }; im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TDS_MARK_SVG); })(); }
 
 /* The rings: each real audit record as one growth ring, shaped by its own chain hash. */
 function SceneRings(cv, rec, btns, cases) {

@@ -10,7 +10,7 @@
 .copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 110px}
 @media (max-width:759px){
   .hero{display:flex;flex-direction:column;justify-content:flex-end}
-  .copy{padding:0 20px 96px;margin-top:48vh}
+  .copy{padding:0 20px 96px;margin-top:max(430px,53vh)}
   .key{margin-top:26px}
 }
 .cap{position:absolute;right:clamp(20px,5vw,64px);bottom:52px;margin:0;text-align:right}
@@ -34,6 +34,7 @@
 {{toggle.html}}
 <script>
 {{mycel.js}}
+{{mark.js}}
 {{gate.js}}
 MycelGate(document.getElementById('net'), { still: /[?&]still/.test(location.search) });
 </script>

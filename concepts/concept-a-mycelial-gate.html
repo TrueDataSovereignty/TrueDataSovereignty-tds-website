@@ -38,7 +38,7 @@ h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;let
 .copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 110px}
 @media (max-width:759px){
   .hero{display:flex;flex-direction:column;justify-content:flex-end}
-  .copy{padding:0 20px 96px;margin-top:48vh}
+  .copy{padding:0 20px 96px;margin-top:max(430px,53vh)}
   .key{margin-top:26px}
 }
 .cap{position:absolute;right:clamp(20px,5vw,64px);bottom:52px;margin:0;text-align:right}
@@ -242,6 +242,8 @@ var Mycel = (function () {
     drawSegments: drawSegments, glowDot: glowDot, loop: loop, reducedMotion: reducedMotion, fit: fit };
 })();
 
+var TDS_MARK_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"512\" height=\"512\" viewBox=\"0 4 100 100\" aria-hidden=\"true\"><defs><radialGradient id=\"r83_0\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"66\" r=\"34.0\" gradientTransform=\"translate(0 66) scale(1 0.576) translate(0 -66)\"><stop offset=\"0\" stop-color=\"#1C2C66\"/><stop offset=\"0.45\" stop-color=\"#1C2C66\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#DDB04A\"/></radialGradient><radialGradient id=\"r83_1\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"50\" r=\"34.0\" gradientTransform=\"translate(0 50) scale(1 0.576) translate(0 -50)\"><stop offset=\"0\" stop-color=\"#F8DF9C\"/><stop offset=\"0.35\" stop-color=\"#F8DF9C\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#1C2C66\"/></radialGradient><radialGradient id=\"r83_2\" gradientUnits=\"userSpaceOnUse\" cx=\"50\" cy=\"34\" r=\"34.0\" gradientTransform=\"translate(0 34) scale(1 0.576) translate(0 -34)\"><stop offset=\"0\" stop-color=\"#1C2C66\"/><stop offset=\"0.45\" stop-color=\"#1C2C66\" stop-opacity=\".9\"/><stop offset=\"1\" stop-color=\"#DDB04A\"/></radialGradient></defs><g opacity=\"1\"><polygon points=\"16.0,66.0 50,85.6 50,89.8 16.0,70.2\" fill=\"#B8862B\"/><polygon points=\"50,85.6 84.0,66.0 84.0,70.2 50,89.8\" fill=\"#6E500E\"/><polygon points=\"50,46.4 84.0,66.0 50,85.6 16.0,66.0\" fill=\"url(#r83_0)\"/><polygon points=\"50,46.4 84.0,66.0 50,85.6 16.0,66.0\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\".7\" stroke-opacity=\".8\"/></g><g opacity=\"0.96\"><polygon points=\"16.0,50.0 50,69.6 50,73.8 16.0,54.2\" fill=\"#101A3D\"/><polygon points=\"50,69.6 84.0,50.0 84.0,54.2 50,73.8\" fill=\"#060A1A\"/><polygon points=\"50,30.4 84.0,50.0 50,69.6 16.0,50.0\" fill=\"url(#r83_1)\"/><polygon points=\"50,30.4 84.0,50.0 50,69.6 16.0,50.0\" fill=\"none\" stroke=\"#33488F\" stroke-width=\".7\" stroke-opacity=\".8\"/><ellipse cx=\"50\" cy=\"50\" rx=\"17.7\" ry=\"10.2\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\"2.4\"/></g><g opacity=\"0.96\"><polygon points=\"16.0,34.0 50,53.6 50,57.8 16.0,38.2\" fill=\"#B8862B\"/><polygon points=\"50,53.6 84.0,34.0 84.0,38.2 50,57.8\" fill=\"#6E500E\"/><polygon points=\"50,14.4 84.0,34.0 50,53.6 16.0,34.0\" fill=\"url(#r83_2)\"/><polygon points=\"50,14.4 84.0,34.0 50,53.6 16.0,34.0\" fill=\"none\" stroke=\"#F8DF9C\" stroke-width=\".7\" stroke-opacity=\".8\"/></g></svg>";
+
 /* The Mycelial Gate: the network, the ring node, and real router tokens passing through it.
    Used by concept A and by the home page hero. Needs Mycel. */
 function MycelGate(cv, opts) {
@@ -262,36 +264,39 @@ function MycelGate(cv, opts) {
   ];
   var reduced = Mycel.reducedMotion();
   var S, w, h, portrait, node, R, stat, sctx, inb, out, inPaths, featPaths, outPaths, curl;
-  var revealIn, revealOut, pulses, feat, featIdx, featTimer, rings, sealFlash, lastW = 0;
+  var G, M, mark = null, revealIn, revealOut, pulses, feat, featIdx, featTimer, rings, sealFlash, lastW = 0;
 
   function build() {
     S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w;
     portrait = w < 760;
     var rand = Mycel.rng(20261111);
-    node = portrait ? { x: w * 0.5, y: Math.max(150, h * 0.235) } : { x: w * 0.7, y: h * 0.47 };
+    G = Math.round(portrait ? Math.max(120, h * 0.19) : h * 0.36);   // the ground line: forest above, network below
     R = portrait ? Math.min(w * 0.15, 60) : Math.max(58, Math.min(h * 0.105, 96));
+    node = portrait ? { x: w * 0.5, y: G + R * 1.75 + 30 } : { x: w * 0.7, y: G + (h - G) * 0.46 };
+    M = R * 2.8 / 100;   // the mark is drawn 100 units wide; threads plug into its real corners
+    function mk(mx, my) { return { x: node.x + (mx - 50) * M, y: node.y + (my - 52) * M }; }
     var i, a, A = [], roots = [];
     // inbound side: your environment
     if (portrait) {
       for (i = 0; i < 380; i++) A.push({ x: rand() * w, y: node.y + R * 0.9 + Math.pow(rand(), 0.8) * (h - node.y) });
-      for (i = 0; i < 5; i++) { a = Math.PI * (0.18 + 0.16 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+      roots = [mk(16, 70), mk(33, 80), mk(50, 89.8), mk(67, 80), mk(84, 70)];
     } else {
       for (i = 0; i < 620; i++) {
-        var x = -20 + rand() * (node.x - R * 1.25 + 20), y = rand() * h;
+        var x = -20 + rand() * (node.x - R * 1.25 + 20), y = G + 10 + rand() * (h - G - 10);
         if (rand() > 0.3 + 0.7 * (x / node.x)) continue;
         A.push({ x: x, y: y });
       }
-      for (i = 0; i < 6; i++) { a = Math.PI * (0.56 + 0.176 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+      roots = [mk(33, 24), mk(16, 34), mk(16, 50), mk(16, 68), mk(33, 80)];
     }
     inb = Mycel.grow({ roots: roots, attractors: A, step: portrait ? 6 : 7, reach: portrait ? 80 : 100, kill: 15, rand: rand, iters: 600, jitter: 0.5 });
     // outbound side: outside, toward the frontier model
     A = []; roots = [];
     if (portrait) {
-      for (i = 0; i < 46; i++) A.push({ x: w * 0.06 + rand() * w * 0.88, y: -20 + rand() * (node.y - R * 0.9 + 20) });
-      for (i = 0; i < 3; i++) { a = -Math.PI * (0.3 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+      for (i = 0; i < 26; i++) A.push({ x: -20 + rand() * (node.x - R * 1.5 + 20), y: G + 14 + rand() * (node.y - G) });
+      roots = [mk(16, 34), mk(16, 50)];
     } else {
-      for (i = 0; i < 64; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: h * 0.1 + rand() * h * 0.72 });
-      for (i = 0; i < 3; i++) { a = Math.PI * (-0.22 + 0.2 * i); roots.push({ x: node.x + Math.cos(a) * R * 1.04, y: node.y + Math.sin(a) * R * 0.6 }); }
+      for (i = 0; i < 64; i++) A.push({ x: node.x + R * 1.5 + rand() * (w - node.x - R * 1.5 + 30), y: G + 16 + rand() * (h - G) * 0.8 });
+      roots = [mk(84, 34), mk(84, 50), mk(84, 68)];
     }
     out = Mycel.grow({ roots: roots, attractors: A, step: 8, reach: 130, kill: 18, rand: rand, iters: 400, jitter: 0.3 });
 
@@ -300,13 +305,13 @@ function MycelGate(cv, opts) {
     }
     inPaths = paths(inb, R * 1.2);
     featPaths = inPaths.filter(function (p) {
-      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * 0.5 && p[0].y > h * 0.14 && p[0].y < h * 0.86));
+      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * 0.5 && p[0].y > G + 24 && p[0].y < h * 0.9));
     });
     if (!featPaths.length) featPaths = inPaths;
     outPaths = paths(out, R).map(function (p) { p.reverse(); return Mycel.measure(p); });
     // the curl: a thread that turns back on itself and seals (keep local)
-    var c = portrait ? { x: node.x + R * 1.75, y: node.y + R * 0.75 } : { x: node.x + R * 0.55, y: node.y + R * 1.9 };
-    var start = portrait ? { x: node.x + R * 0.8, y: node.y + R * 0.36 } : { x: node.x + R * 0.2, y: node.y + R * 0.6 };
+    var c = portrait ? { x: node.x + R * 2.0, y: node.y + R * 0.45 } : { x: node.x + R * 0.55, y: node.y + R * 2.15 };
+    var start = portrait ? mk(84, 50) : mk(50, 89.8);
     curl = [start];
     var a0 = Math.atan2(start.y - c.y, start.x - c.x), r0 = Math.hypot(start.x - c.x, start.y - c.y);
     for (i = 1; i <= 90; i++) {
@@ -318,6 +323,7 @@ function MycelGate(cv, opts) {
 
     stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
     sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    drawForest(sctx);
     revealIn = 0; revealOut = 0; pulses = []; feat = null; featIdx = 0; featTimer = 1.2; rings = 3; sealFlash = 0;
     if (reduced || opts.still) { reveal(1e9); }
   }
@@ -344,34 +350,100 @@ function MycelGate(cv, opts) {
     }
   }
 
+  /* A Nordic forest edge at blue hour, drawn in code: spruce in layers of mist, a few birches, moss. No photo. */
+  function drawForest(c) {
+    var rnd = Mycel.rng(9041), i, L, k, canBlur = 'filter' in c;
+    var x0 = portrait ? -40 : w * 0.44;
+    function fade(x) { return portrait ? 1 : Math.max(0, Math.min(1, (x - x0) / (w * 0.2))); }
+    function gy(x) { return G + Math.sin(x * 0.006 + 1) * 3 + Math.sin(x * 0.021) * 1.5; }
+    var sky = c.createLinearGradient(0, 0, 0, G);
+    sky.addColorStop(0, '#060A1A'); sky.addColorStop(0.45, '#0A1230'); sky.addColorStop(0.85, '#1B2B59'); sky.addColorStop(1, '#2A3C6E');
+    c.fillStyle = sky; c.fillRect(0, 0, w, G + 4);
+    // a far ridge, low and soft
+    if (canBlur) c.filter = 'blur(3px)';
+    c.fillStyle = '#1D2D5C'; c.beginPath(); c.moveTo(0, G + 4);
+    for (i = 0; i <= w + 8; i += 8) c.lineTo(i, G - G * (0.12 + 0.06 * Math.sin(i * 0.004 + 2) + 0.02 * Math.sin(i * 0.013)));
+    c.lineTo(w, G + 4); c.fill();
+    function spruce(x, by, H, col) {
+      var tiers = Math.max(7, Math.round(H / 8)), hw0 = H * (0.14 + rnd() * 0.05), st = H * 0.92 / tiers;
+      c.fillStyle = col; c.fillRect(x - 1, by - H * 0.25, 2, H * 0.25 + 2);
+      for (k = 0; k < tiers; k++) {
+        var f = (k + 1) / tiers, y = by - H + f * H * 0.9, hw = hw0 * Math.pow(f, 0.8) * (0.78 + rnd() * 0.44);
+        c.beginPath(); c.moveTo(x, y - st * 1.4);
+        c.quadraticCurveTo(x - hw * 0.3, y - st * 0.1, x - hw * (0.85 + rnd() * 0.3), y + st * (0.45 + rnd() * 0.6));
+        c.quadraticCurveTo(x - hw * 0.4, y + st * 0.15, x, y + st * 0.4);
+        c.quadraticCurveTo(x + hw * 0.4, y + st * 0.15, x + hw * (0.85 + rnd() * 0.3), y + st * (0.45 + rnd() * 0.6));
+        c.quadraticCurveTo(x + hw * 0.3, y - st * 0.1, x, y - st * 1.4); c.fill();
+      }
+      c.beginPath(); c.moveTo(x, by - H * 1.05); c.lineTo(x - 1.6, by - H * 0.88); c.lineTo(x + 1.6, by - H * 0.88); c.fill();
+    }
+    function birch(x, by, H) {
+      var lean = (rnd() - 0.5) * H * 0.22, wd = 1.8 + H * 0.009;
+      c.lineCap = 'round'; c.strokeStyle = 'rgba(206,212,224,0.4)'; c.lineWidth = 0.7;
+      for (k = 0; k < 22; k++) {
+        var f = 0.35 + rnd() * 0.65, yy = by - f * H, xx = x + lean * f * f, dir = rnd() < 0.5 ? -1 : 1, len = H * (0.12 + rnd() * 0.22) * (1.3 - f);
+        c.beginPath(); c.moveTo(xx, yy); c.quadraticCurveTo(xx + dir * len * 0.45, yy - len * 0.75, xx + dir * len, yy - len * 0.35); c.stroke();
+      }
+      c.strokeStyle = 'rgba(214,216,216,0.82)'; c.lineWidth = wd;
+      c.beginPath(); c.moveTo(x, by + 2); c.quadraticCurveTo(x + lean * 0.3, by - H * 0.5, x + lean, by - H); c.stroke();
+      c.strokeStyle = '#0A1128'; c.lineWidth = 1; c.lineCap = 'butt';
+      for (k = 0; k < H / 8; k++) {
+        var f2 = rnd() * 0.9, y2 = by - f2 * H, x2 = x + lean * (0.6 * f2 * (1 - f2) + f2 * f2), l = wd * (0.3 + rnd() * 0.55), sd = rnd() < 0.5 ? -1 : 1;
+        c.beginPath(); c.moveTo(x2 + sd * wd / 2, y2); c.lineTo(x2 + sd * (wd / 2 - l), y2 + rnd() - 0.5); c.stroke();
+      }
+    }
+    // far trees are soft and pale, near trees sharp and dark: the way cold air really looks
+    var cols = ['#22346A', '#17244F', '#0E1736', '#080E24'], soft = [2.4, 1.3, 0.5, 0];
+    for (L = 0; L < 4; L++) {
+      if (canBlur) c.filter = soft[L] ? 'blur(' + soft[L] + 'px)' : 'none';
+      for (var x = x0 + rnd() * 30; x < w + 30; x += (portrait ? 15 : 22) * (1 + L * 0.55) * (0.5 + rnd())) {
+        var fd = fade(x); if (rnd() > fd + 0.1 || (L > 1 && fd < 0.45)) continue;
+        var H = Math.min(G * 0.9, G * (0.3 + L * 0.16) * (0.72 + rnd() * 0.5)) * (0.5 + 0.5 * fd);
+        spruce(x, gy(x) + 2, H, cols[L]);
+      }
+      if (canBlur) c.filter = 'none';
+      var mist = c.createLinearGradient(0, G * 0.3, 0, G);
+      mist.addColorStop(0, 'rgba(140,165,215,0)'); mist.addColorStop(1, 'rgba(140,165,215,' + (0.16 - L * 0.03) + ')');
+      c.fillStyle = mist; c.fillRect(0, G * 0.3, w, G * 0.7 + 4);
+      if (L === 2) { var nb = portrait ? 2 : 4; for (i = 0; i < nb; i++) { var bx = portrait ? w * (0.12 + 0.7 * rnd()) : w * (0.52 + 0.44 * (i + rnd() * 0.6) / nb); if (Math.abs(bx - node.x) < R * 0.5) bx += R; birch(bx, gy(bx), G * (0.5 + rnd() * 0.2)); } }
+    }
+    // fine grain over the air, like film: it takes the digital edge off
+    for (i = 0; i < w * G / 26; i++) { c.fillStyle = rnd() < 0.5 ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.10)'; c.fillRect(rnd() * w, rnd() * G, 1, 1); }
+    // the soil begins: ink, with a little depth just under the moss
+    c.fillStyle = '#060A1A'; c.beginPath(); c.moveTo(0, gy(0));
+    for (i = 0; i <= w + 6; i += 6) c.lineTo(i, gy(i));
+    c.lineTo(w, h); c.lineTo(0, h); c.fill();
+    var soil = c.createLinearGradient(0, G, 0, G + 80); soil.addColorStop(0, 'rgba(26,40,82,0.6)'); soil.addColorStop(1, 'rgba(26,40,82,0)');
+    c.fillStyle = soil; c.fillRect(0, G - 2, w, 84);
+    c.strokeStyle = '#8FAE6B'; c.lineWidth = 1.2; c.globalAlpha = 0.6; c.beginPath();
+    for (i = 0; i <= w + 6; i += 6) { if (i) c.lineTo(i, gy(i)); else c.moveTo(i, gy(i)); }
+    c.stroke(); c.lineWidth = 0.8;
+    for (i = 0; i < (portrait ? 40 : 110); i++) { var tx = x0 + rnd() * (w - x0), th = 3 + rnd() * 8; c.globalAlpha = (0.25 + rnd() * 0.4) * fade(tx); c.beginPath(); c.moveTo(tx, gy(tx)); c.quadraticCurveTo(tx + (rnd() - 0.5) * 3, gy(tx) - th * 0.6, tx + (rnd() - 0.5) * 6, gy(tx) - th); c.stroke(); }
+    c.globalAlpha = 1;
+  }
+
+  function hex(ctx, f) {   // the outline of the mark, grown outward: rings that follow the logo
+    var P = [[50, 14.4], [84, 34], [84, 70.2], [50, 89.8], [16, 70.2], [16, 34]];
+    ctx.beginPath();
+    P.forEach(function (q, i) { var x = node.x + (q[0] - 50) * M * f, y = node.y + (q[1] - 52) * M * f; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+    ctx.closePath();
+  }
+
   function ellipse(ctx, x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); }
   function diamond(ctx, x, y, hw, hh) { ctx.beginPath(); ctx.moveTo(x, y - hh); ctx.lineTo(x + hw, y); ctx.lineTo(x, y + hh); ctx.lineTo(x - hw, y); ctx.closePath(); }
 
   function drawNode(ctx, t) {
     var k = 0.6, br = 1 + Math.sin(t * 0.9) * 0.018, i;
     ctx.save();
-    // soil cleared under the node so it reads as a gate, not a tangle
-    ctx.fillStyle = '#060A1A'; ellipse(ctx, node.x, node.y, R * 0.98, R * k * 0.98); ctx.fill();
-    // growth rings: one per request
-    ctx.lineWidth = 0.7; ctx.strokeStyle = GOLD;
-    for (i = 0; i < Math.min(rings, 13); i++) {
-      ctx.globalAlpha = 0.34 * (1 - i / 14);
-      ellipse(ctx, node.x, node.y, (R + 7 + i * 5.5) * br, (R + 7 + i * 5.5) * k * br); ctx.stroke();
-    }
-    // three stacked layers, echoing the mark
-    var hw = R * 0.66, hh = hw * 0.576, gap = R * 0.19;
-    for (i = 1; i >= -1; i--) {
-      ctx.globalAlpha = i === 0 ? 0.95 : 0.8;
-      diamond(ctx, node.x, node.y + i * gap, hw, hh);
-      ctx.fillStyle = i === 0 ? '#101A3D' : '#16224F'; ctx.fill();
-      ctx.strokeStyle = i === 0 ? LINE : DEEP; ctx.lineWidth = 0.8; ctx.stroke();
-    }
-    // the gold ring
-    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'lighter';
-    ctx.strokeStyle = DEEP; ctx.lineWidth = 7; ctx.globalAlpha = 0.22 + 0.08 * Math.sin(t * 0.9);
-    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
-    ctx.globalAlpha = 1; ctx.strokeStyle = LIGHT; ctx.lineWidth = 2.2;
-    ellipse(ctx, node.x, node.y, R * br, R * k * br); ctx.stroke();
+    // growth rings: one per request, following the outline of the mark
+    ctx.lineWidth = 0.8; ctx.strokeStyle = GOLD; ctx.lineJoin = 'round';
+    for (i = 0; i < Math.min(rings, 8); i++) { ctx.globalAlpha = 0.3 * (1 - i / 9); hex(ctx, (1.2 + i * 0.075) * br); ctx.stroke(); }
+    // clean soil right under the mark, then the real mark itself
+    ctx.globalAlpha = 1; ctx.fillStyle = '#060A1A'; hex(ctx, 1.1); ctx.fill();
+    if (mark) ctx.drawImage(mark, node.x - 50 * M, node.y - 48 * M, 100 * M, 100 * M);
+    // its gold ring breathes
+    ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = LIGHT; ctx.lineWidth = 3.2; ctx.globalAlpha = 0.18 + 0.16 * Math.sin(t * 0.9);
+    ellipse(ctx, node.x, node.y - 2 * M, 17.7 * M, 10.2 * M); ctx.stroke(); ctx.globalAlpha = 1;
     // the seal at the end of the curl
     var e = curl[curl.length - 1];
     ctx.strokeStyle = LIGHT; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.6 + 0.4 * sealFlash;
@@ -383,14 +455,14 @@ function MycelGate(cv, opts) {
     ctx.font = '11px ' + MONO; ctx.fillStyle = MUT; ctx.textBaseline = 'middle';
     try { ctx.letterSpacing = '1.5px'; } catch (er) {}
     if (portrait) {
-      ctx.textAlign = 'left'; ctx.fillText('OUTSIDE', 20, 74);
-      ctx.fillStyle = LIGHT; ctx.textAlign = 'right'; ctx.fillText('THE LAYER', node.x - R * 1.2, node.y - R * 0.5);
+      ctx.textAlign = 'left'; ctx.fillText('OUTSIDE', 16, G + 22);
+      ctx.fillStyle = LIGHT; ctx.textAlign = 'center'; ctx.fillText('THE LAYER', node.x, node.y - 50 * M - 12);
       ctx.fillStyle = GOLD; ctx.textAlign = 'center'; ctx.fillText('KEPT LOCAL', curl.c.x, curl.c.y + R * 0.95);
     } else {
       ctx.textAlign = 'center';
-      ctx.fillStyle = LIGHT; ctx.fillText('THE LAYER  ·  DECIDES WHAT PASSES', node.x, node.y - R * 0.6 - 86);
+      ctx.fillStyle = LIGHT; ctx.fillText('THE LAYER  ·  DECIDES WHAT PASSES', node.x, node.y - 66 * M - 10);
       ctx.fillStyle = MUT;
-      ctx.textAlign = 'right'; ctx.fillText('OUTSIDE  ·  FRONTIER AI', w - 28, h * 0.1);
+      ctx.textAlign = 'right'; ctx.fillText('OUTSIDE  ·  FRONTIER AI', w - 28, G + 26);
       ctx.textAlign = 'left'; ctx.fillText('YOUR ENVIRONMENT', w * 0.49, h * 0.92);
       ctx.fillStyle = GOLD; ctx.textAlign = 'left'; ctx.fillText('KEPT LOCAL', curl.c.x + R * 1.0, curl.c.y);
     }
@@ -473,7 +545,7 @@ function MycelGate(cv, opts) {
         var f = Math.min(1, feat.hold), col = s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : LIGHT;
         Mycel.glowDot(ctx, node.x, node.y, R * (0.5 + f * 0.5), s2.t === 1 ? TEAL : s2.t === 2 ? MOSS : MOSS, 0.35 * Math.sin(f * Math.PI));
         ctx.restore();
-        lx = node.x; ly = node.y - R * 0.6 - (portrait ? 34 : 50);
+        lx = node.x; ly = portrait ? node.y + 46 * M + 16 : node.y - 46 * M - 14;
         label(ctx, s2.a, lx, ly, LIGHT, 1 - f, f * 5);
         label(ctx, s2.b || 'stays here', lx, ly, col, f, s2.t === 2 ? (1 - f) * 3 : 0);
         if (feat.hold >= 1.5) { feat.phase = 'out'; feat.o = leave(s2.t); feat.o.r = 7; feat.o.a = 1; }
@@ -503,6 +575,11 @@ function MycelGate(cv, opts) {
     label(ctx, SCRIPT[0].b, pos.x, pos.y - 24, TEAL, 1);
   }
 
+  if (typeof TDS_MARK_SVG !== 'undefined') {
+    var im = new Image();
+    im.onload = function () { mark = im; if ((reduced || opts.still) && S) still(); };
+    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TDS_MARK_SVG);
+  }
   (function start() {
     var r = cv.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) { requestAnimationFrame(start); return; }

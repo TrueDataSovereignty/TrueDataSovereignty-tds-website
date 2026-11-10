@@ -9,3 +9,7 @@ mycel = (root / "concepts" / "src" / "mycel.js").read_text(encoding="utf-8")
 out = s.replace("{{FONT}}", font).replace("{{FOREST}}", forest).replace("{{MARKJS}}", markjs).replace("{{MYCEL}}", mycel)
 (root / "mock.html").write_text(out, encoding="utf-8", newline=chr(10))
 print("mock.html", len(out.encode()), "bytes")
+
+lg = (root / "src" / "logo2.src.html").read_text(encoding="utf-8").replace("{{FONT}}", font).replace("{{MARKJS}}", markjs).replace("{{MYCEL}}", mycel)
+(root / "logo-mycelium.html").write_text(lg, encoding="utf-8", newline=chr(10))
+print("logo-mycelium.html", len(lg.encode()), "bytes")

@@ -5,6 +5,7 @@
 <button type="button" data-w="c" aria-pressed="false">C · Competition</button>
 <button type="button" data-w="d" aria-pressed="false">D · Henrik's new draft</button>
 <button type="button" data-w="e" aria-pressed="false">E · D, cleared by Compliance</button>
+<button type="button" data-w="f" aria-pressed="false">F · D, by Competition</button>
 </div>
 <script>
 (function(){var H="Data Sovereignty, beyond paper contracts.",W={
@@ -12,10 +13,11 @@ a:["Use frontier AI seamlessly with complete moderational control before any pro
 b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.",H],
 c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",H],
 d:["Use any frontier AI with moderational control before any prompt leaves your environment.","Data Sovereignty and seamless Model Routing, beyond Paper Contracts and Manual Bottlenecks."],
-e:["Use frontier AI with privacy control before any prompt leaves your environment.","Data Sovereignty and automatic Model Routing, beyond Paper Contracts and Manual Bottlenecks."]};
+e:["Use frontier AI with privacy control before any prompt leaves your environment.","Data Sovereignty and automatic Model Routing, beyond Paper Contracts and Manual Bottlenecks."],
+f:["Use the frontier AI you choose, with policy control before any prompt leaves your environment.","Data sovereignty, with routing by what’s in each prompt, beyond paper contracts and manual redaction."]};
 var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');if(sub)sub.hidden=true;
 bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
 document.getElementById('w-lede').textContent=w[0];document.getElementById('w-h1').textContent=w[1];
 bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
-var m=/[?&]w=([abcde])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+var m=/[?&]w=([abcdef])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
 </script>

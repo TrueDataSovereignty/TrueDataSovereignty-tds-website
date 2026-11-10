@@ -159,7 +159,7 @@ function SceneRings(cv, rec, btns, cases) {
     rec.innerHTML = removed >= 0 && i > removed
       ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
       : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
-        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none<br>Synthetic example (router a822605)';
     btns.querySelectorAll('button[data-i]').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
   }
   C.forEach(function (c, i) {

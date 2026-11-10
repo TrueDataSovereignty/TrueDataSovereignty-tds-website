@@ -38,7 +38,7 @@ h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;let
 .copy{position:relative;padding:clamp(96px,13vh,150px) clamp(20px,5vw,64px) 120px}
 .copy h1{font-size:clamp(36px,4.2vw,60px)}
 .copy .cta{margin-bottom:0}
-.rec{margin:30px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);max-width:27rem;font:400 12px/1.7 var(--mono);color:var(--mut);min-height:9.5em}
+.rec{margin:30px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);max-width:27rem;font:400 12px/1.7 var(--mono);color:var(--mut);min-height:11em}
 .rec b{color:var(--light);font-weight:400}
 .rec .h{color:var(--ivory);word-break:break-all}
 .rec .broken{color:var(--ivory)}
@@ -337,7 +337,7 @@ var TDS_DATA = {"commit":"a822605","outbound_attempts":0,"cases":[{"parts":[{"li
     rec.innerHTML = removed >= 0 && i > removed
       ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
       : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
-        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none<br>Synthetic example (router a822605)';
     btns.querySelectorAll('button').forEach(function (b, k) { if (k < C.length) b.setAttribute('aria-pressed', k === i); });
   }
   C.forEach(function (c, i) {

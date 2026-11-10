@@ -113,7 +113,7 @@ code,.m{font:400 .92em var(--mono);color:var(--light)}
 /* rings */
 .ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center;max-width:1160px}
 #ringcv{display:block;width:100%;aspect-ratio:1;max-width:520px;justify-self:center}
-.rec{margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);font:400 12.5px/1.75 var(--mono);color:var(--mut);min-height:11em;max-width:30rem}
+.rec{margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);font:400 12.5px/1.75 var(--mono);color:var(--mut);min-height:12.5em;max-width:30rem}
 .rec b{color:var(--light);font-weight:400}.rec .h,.rec .broken{color:var(--ivory)}.rec .h{word-break:break-all}
 .ringbtns{margin:14px 0 0}.ringbtns button{font:400 12px/1 var(--mono);padding:8px 10px}
 .ringbtns .take{border-color:var(--gold);color:var(--light)}
@@ -941,7 +941,7 @@ function SceneRings(cv, rec, btns, cases) {
     rec.innerHTML = removed >= 0 && i > removed
       ? '<span class="broken">Ring ' + (i + 1) + ' no longer fits. It was grown on the ring you took out, and its record carries that ring’s fingerprint. The gap shows in every ring outside it.</span>'
       : '<b>Ring ' + (i + 1) + ' of ' + C.length + ' · ' + a.request_id + '</b><br>route: ' + TIER[C[i].tier][0] + ' (tier ' + a.tier + ', rule ' + a.rule + ')<br>found: ' + n + '<br>went to: ' + out +
-        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none';
+        '<br>grown on: <span class="h">' + a.prev_hash.slice(0, 24) + '…</span><br>text stored: none<br>Synthetic example (router a822605)';
     btns.querySelectorAll('button[data-i]').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
   }
   C.forEach(function (c, i) {

@@ -29,4 +29,4 @@ python -I shots/shoot.py index.html home   # screenshots; needs: python -m http.
 - No fallback picture for browsers without JavaScript; the text still reads.
 - The body face is the system sans. No font files were added.
 - Subpages: how it works, pilot, trust, platform, extension, MCP.
-- Not committed: `web/` is not a git repository.
+- Commits are local, in a git repository inside `web/site-v3` only. No remote, no push.

@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>The Layer · True Data Sovereignty (draft, not published)</title>
 <meta name="description" content="The Layer is a gate on your own machine, between your staff and AI services. For every request it decides what may leave: mask, generalise, or keep local.">
-<link rel="icon" href="../brand/final/tds-mark-small.svg">
+<link rel="icon" href="logo/tds-tree-small.svg">
 <style>
 {{base.css}}
 /* Version 2: minimal. Paper above ground, soil below. One photograph, one living scene, plain type. */
@@ -139,20 +139,50 @@ footer.marine .l{color:var(--ivory)}
   .hero .copy{max-width:none;margin-top:300px;padding-top:0;padding-bottom:170px}
   .cap{position:static;padding:0 22px 150px;margin-top:-140px}
 }
+
+/* Version 4: the ground line. The hero is the logo, alive; the gold line runs the full width and the words sit on both sides of it. */
+.hero{--line:56%;display:block;min-height:max(100svh,640px)}
+.hero canvas{z-index:0}
+.hero .top,.hero .above,.hero .below,.hero .fig{position:absolute;z-index:2}
+.hero .above{left:clamp(22px,9vw,150px);bottom:calc(100% - var(--line) + 34px);max-width:min(40rem,48vw)}
+.hero .below{left:clamp(22px,9vw,150px);top:calc(var(--line) + 34px);max-width:min(32rem,42vw)}
+.hero .above .kicker{color:#8A6212;margin:0 0 20px}
+.hero .above h1{margin:0;font-size:clamp(36px,4.9vw,74px);max-width:9.6em}
+.hero .below .lede{color:var(--navytext);margin:0 0 10px;font-size:clamp(17px,1.35vw,20px)}
+.hero .below .sub{color:var(--soft);margin:0 0 26px}
+.fig{left:clamp(22px,9vw,150px);bottom:66px;margin:0;max-width:24rem;text-align:left;font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft)}
+.fig b{font-style:normal;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:11px;font-family:var(--sans);color:var(--navytext)}
+.top{border-bottom:1px solid var(--rule)}
+.top:after{content:"";position:absolute;left:0;right:0;bottom:-4px;border-bottom:1px solid var(--rule)}
+.top img{width:34px;height:34px}
+footer img{background:none}
+@media (max-width:759px){
+  .hero{min-height:0;padding:392px 22px 150px}
+  .hero .above,.hero .below,.hero .fig{position:static;max-width:none}
+  .hero .above h1{font-size:36px}
+  .hero .above{margin-bottom:22px}
+  .fig{text-align:left;margin-top:26px}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hero" id="top">
-  <canvas id="ink" aria-hidden="true"></canvas>
+  <canvas id="tree" role="img" aria-label="A tree drawn in ink. Branches gather above a gold line, roots spread below it. Small balls travel down the branches, meet the line, and leave along the roots in gold. Some stay at the line."></canvas>
   <div class="top">
-    <a class="home" href="#top"><img src="../brand/final/tds-mark-small.svg" alt="" width="30" height="30"><span>True Data Sovereignty</span></a>
+    <a class="home" href="#top"><img src="logo/tds-tree-colour.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
     <nav aria-label="On this page"><a href="#gate">The Layer</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
   </div>
-  <div class="copy">
-{{hero.html}}
+  <div class="above">
+    <p class="kicker">The Layer</p>
+    <h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
   </div>
-  <p class="cap">Synthetic example. The word changes in the drawing are real router output on made-up text (router a822605).</p>
+  <div class="below">
+    <p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
+    <p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
+    <a class="cta" href="#contact">Become a design partner</a>
+  </div>
+  <p class="fig"><b>Fig. 1</b> &nbsp;Every request meets the line. Some pass on, some pass changed, some stay. Move across the branches.</p>
 </header>
 
 <main id="main">
@@ -269,7 +299,7 @@ footer.marine .l{color:var(--ivory)}
 
 </main>
 <footer class="marine">
-  <div class="l"><img src="../brand/final/tds-mark-small.svg" alt="" width="26" height="26"><span>True Data Sovereignty</span></div>
+  <div class="l"><img src="logo/tds-tree-colour-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
@@ -278,13 +308,13 @@ footer.marine .l{color:var(--ivory)}
 <script>
 {{mycel.js}}
 {{mark.js}}
-{{ink.js}}
+{{tree.js}}
 {{data.js}}
 {{scenes.js}}
 (function () {
   var still = /[?&]still/.test(location.search);
   if (still) document.documentElement.style.scrollBehavior = 'auto';
-  MycelInk(document.getElementById('ink'), { still: still });
+  MycelTree(document.getElementById('tree'), { still: still, listen: document.getElementById('top') });
   function boot() {
     lazy(document.getElementById('lv'), function () { SceneLive(document.getElementById('lv'), TDS_DATA); });
     lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });

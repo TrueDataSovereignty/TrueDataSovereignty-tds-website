@@ -29,6 +29,12 @@ python -I shots/shoot.py index.html home   # screenshots; needs: python -m http.
 - Headlines are Lora at medium weight (500), from the same font file. Version 2 is commit 57d03e2.
 - `preview.html` is the same page with the font embedded, for sending.
 
+## Version 4 (the ground line)
+- Henrik, 12 Nov: the ground-line tree is the logo ("Ground line is my favorite"); the site is light, editorial, white and marine with gold; the hero animation has no words in it.
+- The hero (`src/tree.js`) is the logo grown large: marine branches above a full-width gold line, roots with gold ends below. Balls come in, meet the line, and leave in gold, or stay.
+- Logo files and their script are in `logo/`. Nothing in `web/brand/final` is replaced.
+- Version 3 is commit db12535.
+
 ## Rules it follows
 - Every masking example is real router output on synthetic text. `make_data.py` only slices the router's own strings, and checks that the slices rebuild them.
 - The answers in the live scene were written by us (no model was called). The page says so.

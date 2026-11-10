@@ -53,7 +53,6 @@ h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;let
 <p class="kicker">The Layer</p>
 <h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
 <p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
-<p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
 <a class="cta" href="#contact">Become a design partner</a>
 
     <ul class="key" aria-label="What the picture shows">
@@ -69,17 +68,19 @@ h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;let
 <button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
 <button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
 <button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+<button type="button" data-w="d" aria-pressed="false">D · Henrik's new draft</button>
 </div>
 <script>
-(function(){var W={
-a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
-b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
-c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
-var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+(function(){var H="Data Sovereignty, beyond paper contracts.",W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.",H],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.",H],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",H],
+d:["Use any frontier AI with moderational control before any prompt leaves your environment.","Data Sovereignty and seamless Model Routing, beyond Paper Contracts and Manual Bottlenecks."]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');if(sub)sub.hidden=true;
 bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
-document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+document.getElementById('w-lede').textContent=w[0];document.getElementById('w-h1').textContent=w[1];
 bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
-var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+var m=/[?&]w=([abcd])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
 </script>
 
 <script>
@@ -182,9 +183,9 @@ var Mycel = (function () {
   function drawSegments(ctx, nodes, from, to, style) {
     var maxW = style.maxW || 4, base = style.base || 0.5, k = style.k || 0.42;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = style.ink ? 'source-over' : 'lighter';
     ctx.lineCap = 'butt';
-    for (var pass = 0; pass < 2; pass++) {
+    for (var pass = style.ink ? 1 : 0; pass < 2; pass++) {
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i]; if (n.p < 0 || n.t < from || n.t >= to) continue;
         var P = nodes[n.p];

@@ -207,7 +207,6 @@ footer img{background:none}
   </div>
   <div class="below">
     <p class="lede" id="w-lede">Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.</p>
-    <p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
     <a class="cta" href="#contact">Become a design partner</a>
   </div>
   <p class="fig"><b>Fig. 1</b> &nbsp;Every request meets the line. Some pass on unchanged, some pass changed, some stay. Move across the branches.</p>
@@ -337,17 +336,19 @@ footer img{background:none}
 <button type="button" data-w="a" aria-pressed="true">A · Henrik's words</button>
 <button type="button" data-w="b" aria-pressed="false">B · Compliance</button>
 <button type="button" data-w="c" aria-pressed="false">C · Competition</button>
+<button type="button" data-w="d" aria-pressed="false">D · Henrik's new draft</button>
 </div>
 <script>
-(function(){var W={
-a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.","An AI moderation layer tailored to your enterprise teams."],
-b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.","An AI privacy layer tailored to your enterprise teams."],
-c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",""]};
-var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');
+(function(){var H="Data Sovereignty, beyond paper contracts.",W={
+a:["Use frontier AI seamlessly with complete moderational control before any prompt leaves your environment.",H],
+b:["Use frontier AI with privacy control over every prompt, before it leaves your environment.",H],
+c:["Sovereign Data Control for every AI request. Decide what may leave, keep the rest on your machine, and keep a record you can check.",H],
+d:["Use any frontier AI with moderational control before any prompt leaves your environment.","Data Sovereignty and seamless Model Routing, beyond Paper Contracts and Manual Bottlenecks."]};
+var bs=document.querySelectorAll('.toggle button'),sub=document.getElementById('w-sub');if(sub)sub.hidden=true;
 bs.forEach(function(b){b.addEventListener('click',function(){var w=W[b.dataset.w];
-document.getElementById('w-lede').textContent=w[0];sub.textContent=w[1];sub.hidden=!w[1];
+document.getElementById('w-lede').textContent=w[0];document.getElementById('w-h1').textContent=w[1];
 bs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
-var m=/[?&]w=([abc])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
+var m=/[?&]w=([abcd])/.exec(location.search);if(m)document.querySelector('.toggle button[data-w='+m[1]+']').click();})();
 </script>
 
 <script>
@@ -588,32 +589,49 @@ function MycelTree(cv, opts) {
     if (all && grownAt === null) grownAt = t;
   }
   function ball(ctx, path, d, r, col, a) {
-    for (var k = 3; k >= 0; k--) { var p = Mycel.at(path, d - k * r * 1.9); ctx.globalAlpha = a * (k ? 0.16 * (4 - k) : 1); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(p.x, p.y, r * (k ? 0.82 - k * 0.12 : 1), 0, 6.3); ctx.fill(); }
+    for (var k = 4; k >= 0; k--) { var p = Mycel.at(path, d - k * r * 1.5); ctx.globalAlpha = a * (k ? 0.1 * (5 - k) : 1); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(p.x, p.y, r * (k ? 0.86 - k * 0.1 : 1), 0, 6.3); ctx.fill(); }
     ctx.globalAlpha = 1;
   }
-  function spawn(path) { if (balls.length < (portrait ? 6 : 9)) balls.push({ ph: 'in', p: path || inP[(Math.random() * inP.length) | 0], d: 0, v: (64 + Math.random() * 46) * Math.max(0.7, U / 7), hold: 0 }); }
+  function dotAt(ctx, y, r, col, a) { ctx.globalAlpha = a; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.3); ctx.fill(); ctx.globalAlpha = 1; }
+  function spawn(path) {
+    if (balls.length < (portrait ? 6 : 9)) balls.push({ ph: 'in', p: path || inP[(Math.random() * inP.length) | 0], d: 0, v: (58 + Math.random() * 40) * Math.max(0.7, U / 7), k: Math.random() * 6.3, stay: Math.random() < 0.22, fade: null, hit: 0 });
+  }
   function frame(dt, tt) {
-    var ctx = S.ctx, i, r = Math.max(2.6, 0.46 * U);
+    var ctx = S.ctx, i, r = Math.max(2.4, 0.42 * U), k1 = Math.max(0.7, U / 7);
     t0 += dt; grow(t0);
     ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h);
     if (t0 > 0.15 || reduced) trunk(ctx);
     // the ground line: The Layer. It runs the full width of the page.
     var lw = Math.max(2, 0.34 * U), reach = reduced ? 1 : Math.min(1, t0 / 1.1);
     ctx.strokeStyle = GOLDC; ctx.lineWidth = lw; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.moveTo(x - (x + 10) * reach, lineY); ctx.lineTo(x + (w - x + 10) * reach, lineY); ctx.stroke();
-    for (i = ripples.length - 1; i >= 0; i--) { var q = ripples[i]; q.t += dt; var f = q.t / 1.1; if (f >= 1) { ripples.splice(i, 1); continue; }
-      var dx = (18 + f * 210) * Math.max(0.7, U / 7), len = 34 * (1 - f) + 6; ctx.strokeStyle = q.col; ctx.globalAlpha = (1 - f) * 0.95; ctx.lineWidth = lw * (2.6 - 1.2 * f); ctx.lineCap = 'round';
+    // a soft, short ping runs out along the line when something passes
+    for (i = ripples.length - 1; i >= 0; i--) { var q = ripples[i]; q.t += dt; var f = q.t / 1.5; if (f >= 1) { ripples.splice(i, 1); continue; }
+      var g = 1 - (1 - f) * (1 - f), dx = (9 + g * 88) * k1, len = (11 * (1 - f) + 2) * k1;
+      ctx.strokeStyle = GOLDC; ctx.globalAlpha = (1 - f) * (1 - f) * 0.9; ctx.lineWidth = lw * (1.75 - 0.75 * f); ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(x - dx, lineY); ctx.lineTo(x - dx - len, lineY); ctx.moveTo(x + dx, lineY); ctx.lineTo(x + dx + len, lineY); ctx.stroke(); ctx.globalAlpha = 1; }
-    for (i = keeps.length - 1; i >= 0; i--) { var k = keeps[i]; k.t += dt; var g = k.t / 1.3; if (g >= 1) { keeps.splice(i, 1); continue; } ctx.strokeStyle = NAVY; ctx.globalAlpha = (1 - g) * 0.8; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.ellipse(x, lineY, (5 + g * 26) * Math.max(0.8, U / 7), (2 + g * 9) * Math.max(0.8, U / 7), 0, 0, 6.3); ctx.stroke(); ctx.globalAlpha = 1; }
-    if (!reduced && grownAt !== null) { if (tt - lastSpawn > 0.85 + Math.random() * 0.5) { lastSpawn = tt; spawn(); } }
+    // what stays leaves one quiet ring, thin and small
+    for (i = keeps.length - 1; i >= 0; i--) { var kp = keeps[i]; kp.t += dt; var kg = kp.t / 1.7; if (kg >= 1) { keeps.splice(i, 1); continue; }
+      var ke = 1 - (1 - kg) * (1 - kg); ctx.strokeStyle = GOLDC; ctx.globalAlpha = (1 - kg) * (1 - kg) * 0.9; ctx.lineWidth = 1.1;
+      ctx.beginPath(); ctx.ellipse(x, lineY, (3 + ke * 12) * k1, (1.3 + ke * 5) * k1, 0, 0, 6.3); ctx.stroke(); ctx.globalAlpha = 1; }
+    if (!reduced && grownAt !== null) { if (tt - lastSpawn > 0.95 + Math.random() * 0.6) { lastSpawn = tt; spawn(); } }
     for (i = balls.length - 1; i >= 0; i--) {
-      var b = balls[i];
-      if (b.ph === 'in') { b.d += b.v * dt; if (b.d >= b.p.len) { b.ph = 'fall'; b.y = topO.y; } else ball(ctx, b.p, b.d, r, NAVY, Math.min(1, b.d / 14)); }
-      if (b.ph === 'fall') { b.y += b.v * 0.9 * dt; ctx.fillStyle = PAPER; ctx.beginPath(); ctx.arc(x, Math.min(b.y, lineY), r * 0.85, 0, 6.3); ctx.fill();
-        if (b.y >= lineY) { b.ph = 'hold'; b.stay = Math.random() < 0.22; if (b.stay) keeps.push({ t: 0 }); else ripples.push({ t: 0, col: GOLDC }); } }
-      else if (b.ph === 'hold') { b.hold += dt; var hf = Math.min(1, b.hold / 0.42);
-        ctx.fillStyle = b.stay ? PAPER : mix([250, 250, 248], GOLD, hf); ctx.globalAlpha = b.stay ? 1 - hf : 1; ctx.beginPath(); ctx.arc(x, lineY, r * (b.stay ? 0.85 * (1 - hf * 0.5) : 0.85 + 0.5 * Math.sin(hf * Math.PI)), 0, 6.3); ctx.fill(); ctx.globalAlpha = 1;
-        if (hf >= 1) { if (b.stay) { balls.splice(i, 1); continue; } b.ph = 'out'; b.p = outP[(Math.random() * outP.length) | 0]; b.d = 0; b.v *= 1.15; } }
-      else if (b.ph === 'out') { b.d += b.v * dt; if (b.d >= b.p.len) { balls.splice(i, 1); continue; } ball(ctx, b.p, b.d, r, GOLDC, Math.min(1, (b.p.len - b.d) / (10 * U))); }
+      var b = balls[i], pf;
+      if (b.ph === 'in') {   // slow in the fine tips, quicker as the threads thicken, never quite even
+        pf = b.d / b.p.len; b.d += b.v * (0.5 + 0.95 * pf) * (1 + 0.16 * Math.sin(tt * 2.6 + b.k)) * dt;
+        if (b.d >= b.p.len) { b.ph = 'pass'; b.y = topO.y; } else ball(ctx, b.p, b.d, r * (0.85 + 0.15 * pf), NAVY, Math.min(1, b.d / 18));
+      } else if (b.ph === 'pass') {   // through the trunk: it slows as it nears the line, and picks up again after
+        var span = botO.y - topO.y;
+        if (b.fade !== null) { b.fade += dt / 0.85; if (b.fade >= 1) { balls.splice(i, 1); continue; } dotAt(ctx, lineY, r * 0.75 * (1 - 0.4 * b.fade), GOLDC, 1 - b.fade); }
+        else {
+          pf = (b.y - topO.y) / span; b.y += b.v * (0.38 + 0.95 * Math.abs(pf - 0.5) * 2) * dt; pf = (b.y - topO.y) / span;
+          if (!b.hit && pf >= 0.5) { b.hit = 1; if (b.stay) { b.fade = 0; keeps.push({ t: 0 }); } else ripples.push({ t: 0 }); }
+          if (b.y >= botO.y) { b.ph = 'out'; b.p = outP[(Math.random() * outP.length) | 0]; b.d = 0; }
+          else if (b.fade === null) dotAt(ctx, b.y, r * 0.72, pf < 0.5 ? PAPER : mix([250, 250, 248], GOLD, (pf - 0.5) * 2.6), 1);
+        }
+      } else {   // out along a root: quick at first, easing as the thread thins
+        pf = b.d / b.p.len; b.d += b.v * (1.35 - 0.85 * pf) * (1 + 0.14 * Math.sin(tt * 2.3 + b.k)) * dt;
+        if (b.d >= b.p.len) { balls.splice(i, 1); continue; } ball(ctx, b.p, b.d, r * (1 - 0.2 * pf), GOLDC, Math.min(1, (1 - pf) * 3.2));
+      }
     }
     if (reduced) { ball(ctx, inP[0], inP[0].len * 0.55, r, NAVY, 1); ball(ctx, outP[1 % outP.length], outP[1 % outP.length].len * 0.6, r, GOLDC, 1); }
   }

@@ -37,62 +37,66 @@ h1{max-width:9.6em;font:700 clamp(38px,4.7vw,68px)/1.05 "Lora",Georgia,serif;let
 .toggle button{font:inherit;color:var(--ivory);background:none;border:1px solid var(--line);padding:5px 9px;border-radius:2px;cursor:pointer}
 .toggle button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 
-html{scroll-behavior:smooth}
+/* Version 2: minimal. Paper above ground, soil below. One photograph, one living scene, plain type. */
+:root{--paper:#F7F3EA;--navytext:#101A3D;--soft:#4D5672;--rule:#DDD6C4}
+html{scroll-behavior:smooth;background:var(--paper)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--navytext);font-size:18px;line-height:1.6}
 .skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:var(--ink);padding:10px 14px;z-index:50}
 .skip:focus{left:8px}
-.top{z-index:5}
-.top nav{margin-left:auto;display:flex;gap:26px;font:400 13px/1 var(--sans);letter-spacing:.04em;text-transform:none}
-.top nav a{text-decoration:none;color:var(--mut);padding:6px 0}
-.top nav a:hover{color:var(--ivory)}
+.wrap{padding:0 clamp(22px,9vw,150px)}
+/* hero: a real photograph when one is supplied, the drawn forest until then */
+.hero{color:var(--ivory);background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;min-height:100vh;min-height:100svh}
+.hero .photo{position:absolute;inset:0;z-index:-1;background:center/cover no-repeat;opacity:0;transition:opacity .8s}
+.hero.has-photo .photo{opacity:1}
+.hero.has-photo canvas{display:none}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,26,.25) 0%,rgba(6,10,26,0) 30%,rgba(6,10,26,.5) 62%,rgba(6,10,26,.92) 100%)}
+.top{z-index:5;padding-left:clamp(22px,9vw,150px);padding-right:clamp(22px,9vw,150px)}
+.top nav{margin-left:auto;display:flex;gap:30px;font:400 14px/1 var(--sans);letter-spacing:.02em;text-transform:none}
+.top nav a{text-decoration:none;color:var(--ivory);opacity:.85;padding:6px 0}
+.top nav a:hover{opacity:1}
 .top .home{display:flex;align-items:center;gap:12px;text-decoration:none}
-.hero .copy{position:relative;padding:clamp(120px,19vh,190px) clamp(20px,5vw,64px) 90px}
-.cap{position:absolute;right:clamp(20px,5vw,64px);bottom:24px;margin:0;text-align:right}
-@media (max-width:759px){
-  .top nav a:not(.keep){display:none}
-  .hero{display:flex;flex-direction:column;justify-content:flex-end}
-  .hero .copy{padding:0 20px 28px;margin-top:max(430px,53vh)}
-  .cap{position:static;padding:0 20px 28px;text-align:left}
-}
-/* the page below the hero: one thread runs down the left, and each section hangs on it */
-.page{position:relative;padding:0 clamp(20px,5vw,64px)}
-.page:before{content:"";position:absolute;left:clamp(20px,5vw,64px);top:0;bottom:0;width:1px;background:linear-gradient(var(--deep),var(--deep)) no-repeat;opacity:.45}
-.sec{position:relative;padding:clamp(72px,12vh,140px) 0 clamp(72px,12vh,140px) clamp(28px,7vw,120px);max-width:1240px}
-.sec:before{content:"";position:absolute;left:-6px;top:calc(clamp(72px,12vh,140px) + 1px);width:11px;height:11px;border:1.5px solid var(--gold);border-radius:50%;background:var(--ink)}
-.lab{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 26px}
-h2{font:700 clamp(30px,4vw,54px)/1.08 "Lora",Georgia,serif;letter-spacing:-.01em;margin:0 0 24px;max-width:15em;text-wrap:balance}
-h2 em{font-style:normal;color:var(--gold)}
-h3{font:700 22px/1.2 "Lora",Georgia,serif;margin:0 0 10px}
-.sec p{max-width:36rem;margin:0 0 16px}
-.sec .big{font-size:clamp(18px,1.6vw,21px);line-height:1.5}
-.note{display:block;max-width:44rem}
-.sec p.note{max-width:44rem;margin-top:22px}
-code,.m{font:400 .92em var(--mono);color:var(--light)}
-/* problem */
-#shore{display:block;width:100%;height:clamp(200px,30vw,340px);margin:36px 0 30px}
-/* the gate: three threads */
-.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:44px 0 0;max-width:1060px}
-.route{padding:26px 28px 6px 0;border-top:1px solid var(--marine);position:relative}
-.route + .route{padding-left:28px;border-left:1px solid var(--marine)}
-.route svg{display:block;width:100%;max-width:220px;height:64px;margin:0 0 18px}
-.route .k{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}
-.route p{font-size:16px;margin:0 0 12px}
-.r1 .k{color:var(--teal)}.r2 .k{color:var(--moss)}.r3 .k{color:var(--light)}
-@media (max-width:859px){.routes{grid-template-columns:1fr}.route + .route{padding-left:0;border-left:0}}
+.hero .copy{position:relative;max-width:none;padding:0 clamp(22px,9vw,150px) clamp(56px,10vh,110px)}
+.hero .kicker{color:var(--light);margin-bottom:20px}
+.hero h1{font-size:clamp(38px,5.4vw,80px);max-width:11em;margin-bottom:26px}
+.hero .lede{max-width:33rem;font-size:clamp(17px,1.4vw,20px)}
+.hero .sub{color:#C9CEDD;margin-bottom:30px}
+@media (max-width:759px){.top nav a:not(.keep){display:none}}
+/* text sections */
+.sec{padding:clamp(88px,17vh,190px) 0;max-width:46rem}
+.sec.wide{max-width:1120px}
+.lab{font:400 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 30px}
+h2{font:700 clamp(30px,3.9vw,54px)/1.1 "Lora",Georgia,serif;letter-spacing:-.01em;margin:0 0 30px;max-width:16em;text-wrap:balance}
+h3{font:700 21px/1.25 "Lora",Georgia,serif;margin:0 0 8px}
+.sec p{margin:0 0 20px;max-width:38rem}
+.big{font-size:clamp(19px,1.7vw,23px);line-height:1.5}
+.note{display:block;font:400 13px/1.6 var(--sans);color:var(--soft);letter-spacing:0;max-width:40rem}
+.sec p.note{margin-top:30px}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
+code,.m{font:400 .9em var(--mono)}
+/* below ground: the one dark world */
+.soil{background:var(--ink);color:var(--ivory);--soft:#AEB6CE;--rule:#1C2C66;--navytext:#F7F3EA}
+.soil .m{color:var(--light)}
+#gatecv{display:block;width:100%;height:clamp(420px,74vh,760px)}
+.gateband{position:relative}
+.routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,64px);max-width:1120px;padding-bottom:10px}
+.route .k{font:400 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.route .k i{width:9px;height:9px;border-radius:50%}
+.route p{font-size:17px;margin:0}
+@media (max-width:859px){.routes{grid-template-columns:1fr}}
 /* live */
-.cases,.ringbtns{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 22px}
-.cases button,.ringbtns button,.replay{font:400 13px/1.2 var(--sans);color:var(--ivory);background:none;border:1px solid var(--line);padding:10px 14px;border-radius:2px;cursor:pointer;text-align:left}
+.cases,.ringbtns{display:flex;flex-wrap:wrap;gap:8px;margin:34px 0 26px}
+.cases button,.ringbtns button,.replay{font:400 14px/1.2 var(--sans);color:var(--ivory);background:none;border:1px solid var(--line);padding:10px 15px;border-radius:2px;cursor:pointer;text-align:left}
 .cases button:hover,.ringbtns button:hover,.replay:hover{border-color:var(--light)}
-.cases button[aria-pressed=true],.ringbtns button[aria-pressed=true]{border-color:var(--gold);color:var(--light);box-shadow:inset 0 -2px 0 var(--gold)}
-.stage{display:grid;grid-template-columns:minmax(0,1fr) 230px minmax(0,1fr);align-items:stretch;max-width:1160px}
-.pane{border-top:1px solid var(--marine);padding:16px 0 20px;min-width:0}
-.pane h3{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
-.pane pre{margin:0;font:400 13.5px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;color:#D5D9E6;min-height:6em}
+.cases button[aria-pressed=true],.ringbtns button[aria-pressed=true]{border-color:var(--gold);color:var(--light)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 220px minmax(0,1fr);align-items:stretch}
+.pane{padding:16px 0 20px;min-width:0}
+.pane h3{font:400 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 16px}
+.pane pre{margin:0;font:400 13.5px/1.7 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;color:#D5D9E6;min-height:6em}
 .mid{position:relative;min-height:300px}
 .mid canvas{position:absolute;inset:0;width:100%;height:100%}
-.verdict{position:absolute;left:0;right:0;bottom:4px;margin:0;text-align:center;font:400 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);max-width:none}
+.verdict{position:absolute;left:0;right:0;bottom:4px;margin:0;text-align:center;font:400 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);max-width:none}
 .verdict.t1{color:var(--teal)}.verdict.t2{color:var(--moss)}.verdict.t3{color:var(--light)}
-.ans{max-width:1160px;margin-top:8px}
 .ans pre{min-height:4em}
 .tok{transition:opacity .22s,filter .22s;border-radius:2px;padding:1px 3px;margin:0 -1px}
 .tok.raw{color:var(--light);background:rgba(221,176,74,.14)}
@@ -100,63 +104,49 @@ code,.m{font:400 .92em var(--mono);color:var(--light)}
 .tok.wide{color:var(--moss);background:rgba(143,174,107,.16)}
 .tok.go{opacity:0;filter:blur(4px)}
 .none{color:var(--light)}
-#lv-steps{list-style:none;counter-reset:s;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1160px;font-size:14px;color:var(--mut)}
-#lv-steps li{counter-increment:s;border-top:1px solid var(--marine);padding-top:12px;transition:color .3s,border-color .3s}
-#lv-steps li:before{content:counter(s) ". ";font-family:var(--mono)}
+#lv-steps{list-style:none;counter-reset:s;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;font-size:15px;color:var(--soft)}
+#lv-steps li{counter-increment:s;border-top:1px solid var(--rule);padding-top:14px;transition:color .3s,border-color .3s}
+#lv-steps li:before{content:counter(s) ". "}
 #lv-steps li.on{color:var(--ivory);border-color:var(--gold)}
 #lv-steps li.done{color:var(--ivory)}
-.replay{margin-top:22px}
-@media (max-width:859px){
-  .stage{grid-template-columns:1fr}.mid{min-height:150px}
-  #lv-steps{grid-template-columns:1fr 1fr}
-}
+.replay{margin-top:26px}
+@media (max-width:859px){.stage{grid-template-columns:1fr}.mid{min-height:150px}#lv-steps{grid-template-columns:1fr 1fr}}
 /* rings */
-.ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center;max-width:1160px}
-#ringcv{display:block;width:100%;aspect-ratio:1;max-width:520px;justify-self:center}
-.rec{margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--marine);font:400 12.5px/1.75 var(--mono);color:var(--mut);min-height:12.5em;max-width:30rem}
+.ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,6vw,96px);align-items:center}
+#ringcv{display:block;width:100%;aspect-ratio:1;max-width:500px;justify-self:center}
+.rec{margin:28px 0 0;padding:16px 0 0;border-top:1px solid var(--rule);font:400 12.5px/1.8 var(--mono);color:var(--soft);min-height:12.5em;max-width:30rem}
 .rec b{color:var(--light);font-weight:400}.rec .h,.rec .broken{color:var(--ivory)}.rec .h{word-break:break-all}
 .ringbtns{margin:14px 0 0}.ringbtns button{font:400 12px/1 var(--mono);padding:8px 10px}
 .ringbtns .take{border-color:var(--gold);color:var(--light)}
-@media (max-width:859px){.ringwrap{grid-template-columns:1fr}#ringcv{order:-1;max-width:360px;justify-self:start}}
+@media (max-width:859px){.ringwrap{grid-template-columns:1fr}#ringcv{order:-1;max-width:340px;justify-self:start}}
 /* proof */
-.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,5vw,72px);max-width:1060px;margin:40px 0 0}
-.num{border-top:1px solid var(--marine);padding:24px 0 30px}
-.num .v{font:700 clamp(40px,5vw,64px)/1 "Lora",Georgia,serif;letter-spacing:-.01em;color:var(--ivory);margin:0 0 12px}
-.num .v small{font:400 15px/1 var(--mono);color:var(--mut);letter-spacing:.02em;margin-left:8px}
-.num p{font-size:16px;margin:0 0 14px;max-width:26rem}
-.num.gap .v{color:var(--gold)}
-.num.gap p b{color:var(--light)}
-.iv{position:relative;height:18px;margin:0 0 8px;max-width:26rem}
-.iv:before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--line)}
-.iv i{position:absolute;top:6px;height:7px;background:var(--gold);min-width:3px;border-radius:1px}
-.iv:after{content:"0%";position:absolute;left:0;top:14px;font:400 9px/1 var(--mono);color:var(--mut)}
-.iv b{position:absolute;right:0;top:14px;font:400 9px/1 var(--mono);color:var(--mut)}
-.num .src{font:400 11px/1.6 var(--mono);color:var(--mut);margin:14px 0 0}
-@media (max-width:759px){.nums{grid-template-columns:1fr}}
-/* why, pilot, close */
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,4vw,56px);max-width:1060px;margin:36px 0 0}
-.cols>div{border-top:1px solid var(--marine);padding:22px 0 8px}
-.cols p{font-size:16px}
-.give{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,5vw,72px);max-width:820px;margin:34px 0 0}
-.give>div{border-top:1px solid var(--marine);padding:20px 0 6px}
-.give ul{margin:0;padding:0;list-style:none}.give li{padding:5px 0 5px 20px;position:relative;font-size:16px}
-.give li:before{content:"";position:absolute;left:0;top:14px;width:9px;height:1px;background:var(--gold)}
-@media (max-width:759px){.cols,.give{grid-template-columns:1fr}}
-.close h2{font-size:clamp(40px,6.4vw,92px);max-width:none}
-.contact{margin:30px 0 0;padding:20px 0 0;border-top:1px solid var(--marine);max-width:36rem;font-size:18px}
-.contact .ph{font:400 12px/1.6 var(--mono);color:var(--gold);display:block;margin-top:8px}
-footer{padding:44px clamp(20px,5vw,64px) 96px;border-top:1px solid var(--marine);display:grid;gap:10px;font-size:13px;color:var(--mut)}
-footer .l{display:flex;align-items:center;gap:12px;color:var(--ivory);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.nums{margin:44px 0 36px;max-width:1000px}
+.num{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:8px clamp(20px,4vw,64px);align-items:baseline;border-top:1px solid var(--rule);padding:26px 0}
+.num .v{font:700 clamp(34px,4.2vw,52px)/1 "Lora",Georgia,serif;letter-spacing:-.01em;margin:0;white-space:nowrap}
+.num p{margin:0 0 6px;max-width:34rem}
+.num .src{font:400 13px/1.6 var(--sans);color:var(--soft);margin:0}
+.num.gap .v{color:#8A6212}
+@media (max-width:759px){.num{grid-template-columns:1fr}}
+/* pilot and close */
+.give{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,5vw,72px);max-width:760px;margin:38px 0 0}
+.give ul{margin:0;padding:0;list-style:none}.give li{padding:6px 0;border-top:1px solid var(--rule)}
+@media (max-width:759px){.give{grid-template-columns:1fr;gap:28px}}
+.close h2{font-size:clamp(40px,6vw,88px);max-width:none}
+.contact{margin:34px 0 0;font-size:19px}
+.contact .ph{font:400 13px/1.6 var(--sans);color:#8A6212;display:block;margin-top:8px}
+footer{padding:44px clamp(22px,9vw,150px) 110px;border-top:1px solid var(--rule);display:grid;gap:8px;font-size:13px;color:var(--soft)}
+footer .l{display:flex;align-items:center;gap:12px;color:var(--navytext);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
 footer img{width:26px;height:26px}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hero" id="top">
-  <canvas id="net" aria-hidden="true"></canvas>
+  <canvas id="forest" aria-hidden="true"></canvas>
+  <div class="photo" id="photo" role="img" aria-label="A Nordic forest at dusk."></div>
   <div class="top">
     <a class="home" href="#top"><img src="../brand/final/tds-mark-small.svg" alt="" width="30" height="30"><span>True Data Sovereignty</span></a>
-    <nav aria-label="On this page"><a href="#gate">The gate</a><a href="#live">Watch it</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
+    <nav aria-label="On this page"><a href="#gate">The Layer</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
   </div>
   <div class="copy">
 <p class="kicker">The Layer</p>
@@ -165,137 +155,102 @@ footer img{width:26px;height:26px}
 <p class="sub" id="w-sub">An AI moderation layer tailored to your enterprise teams.</p>
 <a class="cta" href="#contact">Become a design partner</a>
 
-    <ul class="key" aria-label="What the picture shows">
-      <li><i style="background:var(--light)"></i><b>Gold:</b> your requests, with your data in them. What must stay curls back and seals.</li>
-      <li><i style="background:var(--teal)"></i><b>Mask:</b> names and numbers leave as placeholders.</li>
-      <li><i style="background:var(--moss)"></i><b>Generalise:</b> telling details leave blurred.</li>
-    </ul>
   </div>
-  <p class="note cap">Synthetic example. Every word change shown is real router output on made-up text (router a822605).</p>
 </header>
 
-<main class="page" id="main">
+<main id="main">
 
+<div class="wrap">
+<section class="sec" id="vision" aria-labelledby="h-vision">
+  <h2 id="h-vision">What you write should stay yours to decide.</h2>
+  <p class="big">Every day, people hand their words to AI services they do not run. Names, cases, plans. A contract says the data is safe. A contract does not decide what happens to it.</p>
+  <p class="big">We think that decision belongs to you. To a company first, because that is where we start. In time, to anyone: a person, a town, a country.</p>
+  <p class="big">That is what sovereignty means to us. It is a kind of freedom.</p>
+</section>
+<hr>
 <section class="sec" id="problem" aria-labelledby="h-problem">
   <p class="lab">The problem</p>
-  <h2 id="h-problem">Staff paste company data into AI.</h2>
-  <p class="big">Names, ID numbers, case notes: pasted in full into a service you do not run. It reads the text, and it may store it.</p>
-  <canvas id="shore" role="img" aria-label="Gold threads leave your staff for a far shore, a US AI service. A dashed line, a US order, reaches back along one of them."></canvas>
-  <h3>Your contract does not override it.</h3>
-  <p>A US provider can be ordered to hand over data it controls, wherever that data is stored. A contract does not change that law. A data centre in the EU does not change who operates it.</p>
+  <h2 id="h-problem">Your contract does not override it.</h2>
+  <p>Staff paste company data into AI. The service reads the text, and it may store it. A US provider can be ordered to hand over data it controls, wherever that data is stored. A data centre in the EU does not change who operates it.</p>
   <p class="note">18 U.S.C. § 2713 (the US CLOUD Act). EU location alone may not end US legal reach. Our reading, not legal advice.</p>
 </section>
+</div>
 
-<section class="sec" id="gate" aria-labelledby="h-gate">
-  <p class="lab">The gate</p>
-  <h2 id="h-gate">A gate on your own machine, for <em>every AI request</em>.</h2>
-  <p class="big">The Layer reads each request before any model does. Then it decides what may leave. Three threads lead out of it.</p>
-  <div class="routes">
-    <div class="route r1">
-      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 32 C160 22 180 44 218 30" stroke="#5FD9C6" stroke-width="1.6"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/><rect x="170" y="29" width="14" height="7" fill="#5FD9C6"/></svg>
-      <p class="k">Mask</p>
-      <h3>Names leave as placeholders.</h3>
-      <p>Names and numbers are hidden before the request goes to a frontier model. They are put back in the answer, on your side.</p>
-    </div>
-    <div class="route r2">
-      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 32 C160 22 180 44 218 30" stroke="#8FAE6B" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round"/><path d="M134 26 C162 16 182 38 216 24M134 38 C162 28 182 50 216 36" stroke="#8FAE6B" stroke-width="1" opacity=".45"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/></svg>
-      <p class="k">Generalise</p>
-      <h3>Details soften, like light through fog.</h3>
-      <p>Telling details are blurred. In our example, <span class="m">Sorsele</span> leaves as <span class="m">northern Sweden</span>.</p>
-    </div>
-    <div class="route r3">
-      <svg viewBox="0 0 220 64" aria-hidden="true" fill="none"><path d="M2 40 C40 20 70 52 108 34" stroke="#DDB04A" stroke-width="1.6"/><ellipse cx="118" cy="33" rx="12" ry="7.4" stroke="#F8DF9C" stroke-width="1.8"/><path d="M130 33 C150 30 176 20 184 34 C190 46 172 52 166 42 C162 34 172 30 176 36" stroke="#DDB04A" stroke-width="1.6"/><circle cx="175" cy="38" r="3.4" stroke="#F8DF9C" stroke-width="1.4"/><circle cx="60" cy="38" r="3" fill="#F8DF9C"/></svg>
-      <p class="k">Keep local</p>
-      <h3>The thread curls back and seals.</h3>
-      <p>The most sensitive work goes to a local model on your own machine. Nothing is sent out.</p>
-    </div>
+<div class="soil">
+  <div class="wrap">
+  <section class="sec" id="gate" aria-labelledby="h-gate" style="padding-bottom:0">
+    <p class="lab">The Layer</p>
+    <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
+    <p class="big">It reads each request before any model does. Then it decides what may leave.</p>
+  </section>
   </div>
-  <p class="note">Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
-</section>
-
-<section class="sec" id="live" aria-labelledby="h-live">
-  <p class="lab">Watch one request</p>
-  <h2 id="h-live">See it pass the gate.</h2>
-  <p class="big">Pick a request. Everything you see below is what the router really produced. Nothing is staged.</p>
-  <div id="lv">
-    <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
-    <div class="stage">
-      <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre></article>
-      <div class="mid"><canvas id="lv-cv" aria-hidden="true"></canvas><p class="verdict" id="lv-verdict" aria-live="polite"></p></div>
-      <article class="pane"><h3 id="lv-out-h">What the model sees</h3><pre id="lv-out" aria-live="polite"></pre></article>
-    </div>
-    <article class="pane ans"><h3>The answer, back on your side</h3><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>
-    <ol id="lv-steps">
-      <li>A request arrives. The Layer finds the names, numbers and telling details in it.</li>
-      <li>It decides the route: mask, generalise, or keep local.</li>
-      <li>The model answers. It only saw what the gate let through.</li>
-      <li>The Layer puts the real details back, on your side.</li>
-    </ol>
-    <button type="button" class="replay" id="lv-replay">Play it again</button>
+  <div class="gateband">
+    <canvas id="gatecv" role="img" aria-label="Gold threads carry requests to The Layer. Some leave with names replaced by placeholders, some leave with details blurred, and some curl back and stay."></canvas>
   </div>
-  <p class="note">Synthetic example. Every name, number and company is made up. The routing, the placeholders and the restoring are real router output (router a822605), measured on synthetic data, round one. The placeholder map stays on the machine that runs The Layer and is not sent to the model.</p>
-</section>
-
-<section class="sec" id="rings" aria-labelledby="h-rings">
-  <p class="lab">The record</p>
-  <div class="ringwrap">
-    <div>
-      <h2 id="h-rings">Every request leaves a ring.</h2>
-      <p class="big">A tree keeps a ring for every year. The Layer keeps a record for every request: which route, which rule, what kind of data it found, which model. No text is in it.</p>
-      <p>Each record carries the fingerprint of the one before it. Take one out, and it shows.</p>
-      <div class="rec" id="rec" aria-live="polite"></div>
-      <div class="ringbtns" id="ringbtns" role="group" aria-label="Look at a ring, or take one out"></div>
+  <div class="wrap">
+  <section class="sec wide" style="padding-top:clamp(30px,5vh,60px)" aria-label="Three routes">
+    <div class="routes">
+      <div class="route"><p class="k"><i style="background:var(--teal)"></i>Mask</p><p>Names and numbers leave as placeholders. They are put back in the answer, on your side.</p></div>
+      <div class="route"><p class="k"><i style="background:var(--moss)"></i>Generalise</p><p>Telling details leave blurred. <span class="m">Sorsele</span> becomes <span class="m">northern Sweden</span>.</p></div>
+      <div class="route"><p class="k"><i style="background:var(--light)"></i>Keep local</p><p>The most sensitive work goes to a local model on your own machine. Nothing is sent out.</p></div>
     </div>
-    <canvas id="ringcv" role="img" aria-label="Five growth rings, one for each request in the example above. The gold outer edge is The Layer."></canvas>
-  </div>
-  <p class="note">Synthetic example. The five rings are the five real records from our demo run (router a822605). The fingerprint is a hash chain. A one-file evidence report, with no text in it, checks that chain for your auditor.</p>
-</section>
+    <p class="note">Synthetic example: every word change in the picture is real router output on made-up text (router a822605). Masking protects who is in the text, not what it says: on the first two routes the model provider still reads the content. The local model is selected, not yet installed; the third route has not run live yet.</p>
+  </section>
 
-<section class="sec" id="proof" aria-labelledby="h-proof">
+  <section class="sec wide" id="live" aria-labelledby="h-live">
+    <p class="lab">Watch one request</p>
+    <h2 id="h-live">See it pass the gate.</h2>
+    <p>Pick a request. What you see is what the router really produced.</p>
+    <div id="lv">
+      <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
+      <div class="stage">
+        <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre></article>
+        <div class="mid"><canvas id="lv-cv" aria-hidden="true"></canvas><p class="verdict" id="lv-verdict" aria-live="polite"></p></div>
+        <article class="pane"><h3 id="lv-out-h">What the model sees</h3><pre id="lv-out" aria-live="polite"></pre></article>
+      </div>
+      <article class="pane ans"><h3>The answer, back on your side</h3><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>
+      <ol id="lv-steps">
+        <li>A request arrives. The Layer finds the names, numbers and telling details in it.</li>
+        <li>It decides the route: mask, generalise, or keep local.</li>
+        <li>The model answers. It only saw what the gate let through.</li>
+        <li>The Layer puts the real details back, on your side.</li>
+      </ol>
+      <button type="button" class="replay" id="lv-replay">Play it again</button>
+    </div>
+    <p class="note">Synthetic example. Every name, number and company is made up. The routing, the placeholders and the restoring are real router output (router a822605), measured on synthetic data, round one. The placeholder map stays on the machine that runs The Layer and is not sent to the model.</p>
+  </section>
+
+  <section class="sec wide" id="rings" aria-labelledby="h-rings">
+    <div class="ringwrap">
+      <div>
+        <p class="lab">The record</p>
+        <h2 id="h-rings">Every request leaves a ring.</h2>
+        <p>A tree keeps a ring for every year. The Layer keeps a record for every request, with no text in it. Each record carries the fingerprint of the one before. Take one out, and it shows.</p>
+        <div class="rec" id="rec" aria-live="polite"></div>
+        <div class="ringbtns" id="ringbtns" role="group" aria-label="Look at a ring, or take one out"></div>
+      </div>
+      <canvas id="ringcv" role="img" aria-label="Five growth rings, one for each request in the example above. The gold outer edge is The Layer."></canvas>
+    </div>
+    <p class="note">Synthetic example. The five rings are the five real records from our demo run (router a822605). The fingerprint is a hash chain. A one-file evidence report, with no text in it, checks that chain for your auditor.</p>
+  </section>
+  </div>
+</div>
+
+<div class="wrap">
+<section class="sec wide" id="proof" aria-labelledby="h-proof">
   <p class="lab">Proof, with the gaps</p>
   <h2 id="h-proof">Every number here can be re-run.</h2>
-  <p class="big">Four numbers, each with its sample size and its 95% range. All four are measured on synthetic data, round one. One of them is our main gap, and we show it.</p>
+  <p>Four numbers, each with its sample size and its 95% range. All are measured on synthetic data, round one. One of them is our main gap, and we show it.</p>
   <div class="nums">
-    <div class="num">
-      <p class="v">0 / 249</p>
-      <p>Masked or generalised outputs that still leaked an identity, judged one request at a time.</p>
-      <div class="iv" aria-hidden="true"><i style="left:0;width:1.2%"></i><b>100%</b></div>
-      <p class="src">n = 249 outputs · 95% upper bound 1.2% (one-sided) · measured on synthetic data, round one · ledger V11-4</p>
-    </div>
-    <div class="num">
-      <p class="v">0 / 400</p>
-      <p>Harmless near-miss texts wrongly flagged as secret.</p>
-      <div class="iv" aria-hidden="true"><i style="left:0;width:.9%"></i><b>100%</b></div>
-      <p class="src">n = 400 rows · 95% range 0.0–0.9% · measured on synthetic data, round one · ledger N15</p>
-    </div>
-    <div class="num gap">
-      <p class="v">93 / 200 <small>46.5%</small></p>
-      <p><b>Our main gap.</b> Reworded secrets that the gate caught. More than half still got past it.</p>
-      <div class="iv" aria-hidden="true"><i style="left:39.4%;width:14.3%"></i><b>100%</b></div>
-      <p class="src">n = 200 rows · 95% range 39.4–53.7% · measured on synthetic data, round one · ledger N13</p>
-    </div>
-    <div class="num">
-      <p class="v">50 / 287 <small>17.4%</small></p>
-      <p>Texts kept local that could have left. The gate errs on the careful side.</p>
-      <div class="iv" aria-hidden="true"><i style="left:13.2%;width:9.1%"></i><b>100%</b></div>
-      <p class="src">n = 287 rows · 95% range 13.2–22.3% · measured on synthetic data, round one · ledger V11-2</p>
-    </div>
+    <div class="num"><p class="v">0 / 249</p><div><p>Masked or generalised outputs that still leaked an identity, judged one request at a time.</p><p class="src">n = 249 outputs · 95% upper bound 1.2% (one-sided) · measured on synthetic data, round one · ledger V11-4</p></div></div>
+    <div class="num"><p class="v">0 / 400</p><div><p>Harmless near-miss texts wrongly flagged as secret.</p><p class="src">n = 400 rows · 95% range 0.0–0.9% · measured on synthetic data, round one · ledger N15</p></div></div>
+    <div class="num gap"><p class="v">93 / 200</p><div><p><strong>Our main gap.</strong> Reworded secrets that the gate caught: 46.5%. More than half still got past it.</p><p class="src">n = 200 rows · 95% range 39.4–53.7% · measured on synthetic data, round one · ledger N13</p></div></div>
+    <div class="num"><p class="v">50 / 287</p><div><p>Texts kept local that could have left: 17.4%. The gate errs on the careful side.</p><p class="src">n = 287 rows · 95% range 13.2–22.3% · measured on synthetic data, round one · ledger V11-2</p></div></div>
   </div>
   <p><strong>Until that gap closes, work on your confidential list stays local.</strong></p>
   <p class="note">95% bounds are Clopper–Pearson; one-sided for V11-4. Each number is a row in our numbers ledger, with its commit, data hash and re-run command. The same reworded set on other settings: 52 / 200 with the basic check alone (26%, 95% range 20.1–32.7%, N12), and 99 / 200 with a second vault and the fact stage (49.5%, 42.4–56.6%, N14; that vault and the test set have the same authors). Whole chats: joining the turns of one chat can re-identify a person. A fix is built and tested; it is off by default and on for pilots, and its figures are being re-checked.</p>
 </section>
-
-<section class="sec" id="why" aria-labelledby="h-why">
-  <p class="lab">Why us</p>
-  <h2 id="h-why">Many tools mask. The Layer first decides <em>whether a request may leave at all</em>.</h2>
-  <div class="cols">
-    <div><h3>A decision before the mask.</h3><p>Three routes for every request, and one of them is local only. If masking is all you need, free tools do that.</p></div>
-    <div><h3>Swedish IDs, by checksum.</h3><p>Personal identity numbers and organisation numbers are found by their checksums. Other Nordic IDs are on the roadmap, not built.</p></div>
-    <div><h3>A record for every request.</h3><p>Model, provider, route and policy version, in a chain you can check. Decisions and counts, no text.</p></div>
-  </div>
-  <p class="note">A prototype. The Layer does not write your text or the placeholder map to disk: they live in memory and are gone when it stops. (The operating system may page memory to disk.) No ISO 27001 or SOC 2 yet.</p>
-</section>
-
+<hr>
 <section class="sec" id="pilot" aria-labelledby="h-pilot">
   <p class="lab">The free pilot</p>
   <h2 id="h-pilot">Start where nothing is sent out.</h2>
@@ -304,22 +259,21 @@ footer img{width:26px;height:26px}
     <div><h3>You give</h3><ul><li>One workflow</li><li>20–50 made-up prompts</li><li>One machine, for a few hours</li></ul></div>
     <div><h3>You get</h3><ul><li>A measured answer for your workflow</li><li>An evidence report for your auditor</li><li>A delete-everything step, with a receipt</li></ul></div>
   </div>
-  <p class="note">The other two routes open only by a written change, after a legal opinion. The local model is selected, not yet installed. Nothing is signed before our company is registered.</p>
+  <p class="note">The Layer is a prototype. Many tools mask; The Layer first decides whether a request may leave at all. The other two routes open only by a written change, after a legal opinion. The local model is selected, not yet installed. Nothing is signed before our company is registered.</p>
 </section>
-
+<hr>
 <section class="sec close" id="contact" aria-labelledby="h-close">
-  <p class="lab">Next step</p>
   <h2 id="h-close">One 30-minute call.</h2>
   <p class="big">Pick one workflow. We do the rest.</p>
   <p class="contact">Henrik Thulin · True Data Sovereignty<span class="ph">[Draft: the contact address goes here, as plain text, once it exists.]</span></p>
 </section>
+</div>
 
 </main>
 <footer>
   <div class="l"><img src="../brand/final/tds-mark-small.svg" alt="" width="26" height="26"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
-  <span>The network on this page is grown in code. It is a metaphor, not a claim about fungi.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
 <div class="toggle" role="group" aria-label="Hero wording, for review only">
@@ -528,11 +482,16 @@ function MycelGate(cv, opts) {
     S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w;
     portrait = w < 760;
     var rand = Mycel.rng(20261111);
-    G = Math.round(portrait ? Math.max(120, h * 0.19) : h * 0.36);   // the ground line: forest above, network below
+    G = opts.forestOnly ? Math.round(h * 0.9) : opts.noForest ? 0 : Math.round(portrait ? Math.max(120, h * 0.19) : h * 0.36);   // the ground line: forest above, network below
     R = portrait ? Math.min(w * 0.15, 60) : Math.max(58, Math.min(h * 0.105, 96));
-    node = portrait ? { x: w * 0.5, y: G + R * 1.75 + 30 } : { x: w * 0.7, y: G + (h - G) * 0.46 };
+    node = portrait ? { x: w * 0.5, y: G + R * 1.75 + 30 } : { x: w * (opts.center ? 0.58 : 0.7), y: G + (h - G) * (opts.noForest ? 0.5 : 0.46) };
     M = R * 2.8 / 100;   // the mark is drawn 100 units wide; threads plug into its real corners
     function mk(mx, my) { return { x: node.x + (mx - 50) * M, y: node.y + (my - 52) * M }; }
+    if (opts.forestOnly) {   // only the forest: one still picture, no network
+      stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
+      sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+      drawForest(sctx); S.ctx.clearRect(0, 0, w, h); S.ctx.drawImage(stat, 0, 0, w, h); return;
+    }
     var i, a, A = [], roots = [];
     // inbound side: your environment
     if (portrait) {
@@ -563,7 +522,7 @@ function MycelGate(cv, opts) {
     }
     inPaths = paths(inb, R * 1.2);
     featPaths = inPaths.filter(function (p) {
-      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * 0.5 && p[0].y > G + 24 && p[0].y < h * 0.9));
+      return p.len > R * 2.6 && (portrait ? true : (p[0].x > w * (opts.center ? 0.1 : 0.5) && p[0].y > G + 24 && p[0].y < h * 0.9));
     });
     if (!featPaths.length) featPaths = inPaths;
     outPaths = paths(out, R).map(function (p) { p.reverse(); return Mycel.measure(p); });
@@ -581,14 +540,14 @@ function MycelGate(cv, opts) {
 
     stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height;
     sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
-    drawForest(sctx);
+    if (!opts.noForest) drawForest(sctx);
     revealIn = 0; revealOut = 0; pulses = []; feat = null; featIdx = 0; featTimer = 1.2; rings = 3; sealFlash = 0;
     if (reduced || opts.still) { reveal(1e9); }
   }
 
   var styleIn = { color: GOLD, glow: DEEP, maxW: 3.6, alpha: function (n, wd) {
     var a = 0.2 + 0.5 * Math.min(1, wd / 2.6);
-    if (portrait) { if (n.y > h * 0.4) a *= 0.34; } else if (n.x < w * 0.47) a *= 0.3 + 0.5 * Math.max(0, (n.x - w * 0.3) / (w * 0.17));
+    if (portrait) { if (n.y > h * 0.4) a *= 0.34; } else if (!opts.center && n.x < w * 0.47) a *= 0.3 + 0.5 * Math.max(0, (n.x - w * 0.3) / (w * 0.17));
     return a;
   } };
   var styleOut = { color: '#5A72C4', glow: LINE, maxW: 2.2, alpha: function (n, wd) { return 0.3 + 0.35 * Math.min(1, wd / 2); } };
@@ -612,7 +571,7 @@ function MycelGate(cv, opts) {
   function drawForest(c) {
     var rnd = Mycel.rng(9041), i, L, k, canBlur = 'filter' in c;
     var x0 = portrait ? -40 : w * 0.44;
-    function fade(x) { return portrait ? 1 : Math.max(0, Math.min(1, (x - x0) / (w * 0.2))); }
+    function fade(x) { return portrait || opts.forestOnly ? 1 : Math.max(0, Math.min(1, (x - x0) / (w * 0.2))); }
     function gy(x) { return G + Math.sin(x * 0.006 + 1) * 3 + Math.sin(x * 0.021) * 1.5; }
     var sky = c.createLinearGradient(0, 0, 0, G);
     sky.addColorStop(0, '#060A1A'); sky.addColorStop(0.45, '#0A1230'); sky.addColorStop(0.85, '#1B2B59'); sky.addColorStop(1, '#2A3C6E');
@@ -708,6 +667,7 @@ function MycelGate(cv, opts) {
     ctx.beginPath(); ctx.arc(curl.c.x, curl.c.y, R * 0.2 + sealFlash * 3, 0, Math.PI * 2); ctx.stroke();
     if (sealFlash > 0) Mycel.glowDot(ctx, e.x, e.y, 22, GOLD, sealFlash * 0.5);
     ctx.restore();
+    if (opts.quiet) return;
     // labels (the same words exist as text in the page)
     ctx.save();
     ctx.font = '11px ' + MONO; ctx.fillStyle = MUT; ctx.textBaseline = 'middle';
@@ -835,13 +795,14 @@ function MycelGate(cv, opts) {
 
   if (typeof TDS_MARK_SVG !== 'undefined') {
     var im = new Image();
-    im.onload = function () { mark = im; if ((reduced || opts.still) && S) still(); };
+    im.onload = function () { mark = im; if (!opts.forestOnly && (reduced || opts.still) && S) still(); };
     im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TDS_MARK_SVG);
   }
   (function start() {
     var r = cv.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) { requestAnimationFrame(start); return; }
     build();
+    if (opts.forestOnly) return;
     if (reduced || opts.still) still(); else Mycel.loop(cv, frame);
   })();
   var rt;
@@ -849,7 +810,7 @@ function MycelGate(cv, opts) {
     clearTimeout(rt);
     rt = setTimeout(function () {
       if (Math.abs(cv.getBoundingClientRect().width - lastW) < 2) return;
-      build(); if (reduced || opts.still) still();
+      build(); if (!opts.forestOnly && (reduced || opts.still)) still();
     }, 180);
   });
 }
@@ -1084,14 +1045,16 @@ function SceneLive(root, data) {
 (function () {
   var still = /[?&]still/.test(location.search);
   if (still) document.documentElement.style.scrollBehavior = 'auto';
+  // The hero shows photos/hero.jpg when that file exists (Henrik's own photograph). Until then: the drawn forest.
+  var hero = document.getElementById('top'), ph = new Image();
+  ph.onload = function () { document.getElementById('photo').style.backgroundImage = 'url(photos/hero.jpg)'; hero.classList.add('has-photo'); };
+  ph.onerror = function () { MycelGate(document.getElementById('forest'), { forestOnly: true }); };
+  ph.src = 'photos/hero.jpg';
   function boot() {
-    MycelGate(document.getElementById('net'), { still: still });
-    lazy(document.getElementById('shore'), function () { SceneShore(document.getElementById('shore')); });
+    lazy(document.getElementById('gatecv'), function () { MycelGate(document.getElementById('gatecv'), { still: still, noForest: true, center: true, quiet: true }); });
     lazy(document.getElementById('lv'), function () { SceneLive(document.getElementById('lv'), TDS_DATA); });
     lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });
-    var m = /#y(\d+)/.exec(location.hash); if (m) setTimeout(function () { window.scrollTo(0, +m[1]); }, 50);
   }
-  // text first, the living network after
   if (document.readyState === 'complete') setTimeout(boot, 0); else window.addEventListener('load', function () { setTimeout(boot, 0); });
 })();
 </script>

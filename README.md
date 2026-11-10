@@ -16,6 +16,12 @@ python -I src/build.py                # index.html, plus a banned-word scan
 python -I shots/shoot.py index.html home   # screenshots; needs: python -m http.server 8741 --directory web
 ```
 
+## Version 2 (minimal)
+- Paper-light page, one dark band below ground for the network, the live scene and the rings.
+- The hero shows `photos/hero.jpg` when that file exists. Until then it shows the drawn forest.
+- The first dark version is commit ce702a1.
+- `shots/shoot.py` can leave headless Edge processes behind when a capture fails. Check Task Manager after using it.
+
 ## Rules it follows
 - Every masking example is real router output on synthetic text. `make_data.py` only slices the router's own strings, and checks that the slices rebuild them.
 - The answers in the live scene were written by us (no model was called). The page says so.

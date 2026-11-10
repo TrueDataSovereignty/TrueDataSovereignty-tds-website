@@ -28,5 +28,6 @@ d = here / f"{name}-desktop.png"; p = here / f"{name}-phone.png"
 inner = urllib.parse.quote("/site-v3/" + page + ("&" if "?" in page else "?") + "still&t=%d" % time.time(), safe="")
 shot(base + "shots/phone.html?w=1440&h=%d&y=%d&u=%s" % (dh, y, inner), d, 1440, dh, 1)
 shot(base + "shots/phone.html?w=390&h=%d&y=%d&u=%s" % (ph, y, inner), p, 500, ph, 2)
-im = Image.open(p); im.crop((0, 0, 780, im.height)).save(p)
-print(d.name, d.stat().st_size, p.name, p.stat().st_size)
+if p.exists():
+    im = Image.open(p); im.crop((0, 0, 780, im.height)).save(p)
+print(d.name, d.exists(), p.name, p.exists())

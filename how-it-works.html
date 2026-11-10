@@ -83,15 +83,30 @@ ul.limits li{border-top:1px solid var(--rule);padding:16px 0}
 footer{padding:44px clamp(22px,9vw,150px) 90px;border-top:1px solid #2A3B78;display:grid;gap:8px;font-size:13px;color:#AEB6CE}
 footer .l{display:flex;align-items:center;gap:12px;color:var(--ivory);font:700 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
 footer img{width:34px;height:34px}
+
+.block{padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--rule)}
+.sec.wide{max-width:1120px}
+.cols2,.cols3{display:grid;gap:clamp(22px,4vw,56px);margin-top:34px}
+.cols2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1000px}
+.cols3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:1120px}
+.cols2>div,.cols3>div{border-top:2px solid var(--gold);padding-top:18px}
+.cols2 p,.cols3 p{font-size:16px;margin:0 0 10px}
+.lim{color:var(--soft);font-size:14px !important}
+ul.plain{list-style:none;margin:0;padding:0}ul.plain li{padding:8px 0;border-top:1px solid var(--rule);font-size:16px}
+.src{display:block;font:400 12px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-top:6px}
+a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+.after{margin-top:44px}
+.sitemap{display:flex;flex-wrap:wrap;gap:6px 22px;margin:10px 0 6px}
+.sitemap a{color:var(--ivory);text-decoration:none;font-size:14px}.sitemap a:hover{text-decoration:underline}
+@media (max-width:859px){.cols2,.cols3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <a class="home" href="index.html"><img src="logo/tds-tree-small.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
-  <nav aria-label="Site"><a href="index.html">Home</a><a href="how-it-works.html" aria-current="page">How it works</a><a href="index.html#proof">Proof</a><a href="index.html#pilot">Pilot</a><a class="keep" href="index.html#contact">Contact</a></nav>
+  <nav aria-label="Site"><a href="how-it-works.html" aria-current="page">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a class="keep" href="index.html#contact">Contact</a></nav>
 </header>
-
 <main id="main">
 <div class="wrap">
   <section class="intro">
@@ -175,11 +190,11 @@ footer img{width:34px;height:34px}
   </section>
 </div>
 </main>
-
 <footer class="marine">
   <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
-  <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
+  <nav class="sitemap" aria-label="All pages"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a href="index.html#contact">Contact</a></nav>
+  <span>The Layer is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
 <script>

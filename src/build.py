@@ -27,13 +27,3 @@ for name in ("tds-tree-small-on-marine.svg", "tds-tree-small.svg", "tds-tree-tin
     pv = pv.replace("logo/" + name, uri(name))
 (root / "preview.html").write_text(pv, encoding="utf-8", newline=chr(10))
 print("preview.html", len(pv.encode("utf-8")), "bytes (for sending; not the page to publish)")
-
-# the "how it works" subpage, and its sendable twin
-how = re.sub(r"\{\{([\w.\-]+)\}\}", lambda m: parts[m.group(1)], (src / "how.src.html").read_text(encoding="utf-8"))
-(root / "how-it-works.html").write_text(how, encoding="utf-8", newline=chr(10))
-htext = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", how).lower()
-print("how-it-works.html", len(how.encode("utf-8")), "bytes; banned words found:", [b for b in banned if b.lower() in htext] or "none")
-hp = how.replace('url("../fonts/Lora-wght.ttf")', 'url("' + font + '")')
-for name in ("tds-tree-small-on-marine.svg", "tds-tree-small.svg", "tds-tree-tiny.svg"):
-    hp = hp.replace("logo/" + name, uri(name))
-(root / "preview-how.html").write_text(hp, encoding="utf-8", newline=chr(10))

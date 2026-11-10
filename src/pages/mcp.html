@@ -1,0 +1,30 @@
+<!--title: TDS Layer MCP · True Data Sovereignty (draft, not published)-->
+<!--desc: TDS Layer MCP lets an AI assistant read files from folders you allow, with the router's decision on every result.-->
+<div class="wrap">
+  <section class="intro">
+    <p class="lab">TDS Layer MCP · documents</p>
+    <h1>Let your AI assistant read files, through the gate.</h1>
+    <p class="big">TDS Layer MCP is a local MCP server for Claude Desktop or any MCP host. Its tools read files from folders you allow, and every result gets the router's decision before the model sees it.</p>
+  </section>
+  <section class="block" aria-labelledby="h-how">
+    <p class="lab">How it works</p>
+    <h2 id="h-how">Masked, widened, or not sent at all.</h2>
+    <div class="cols3">
+      <div><h3>Only your folders</h3><p>It reads UTF-8 text files in folders you allow. Anything outside them, network paths, binary files, and secrets and credential files by name (.env, key files, .git) are always refused.</p></div>
+      <div><h3>One decision per file</h3><p>Each result is masked, widened and masked, or replaced by a short note. File names in a folder listing are masked too.</p></div>
+      <div><h3>A record of each call</h3><p>Each tool call writes one line to its own audit log: route, rule and counts only. Not the path, the arguments or the text.</p></div>
+    </div>
+  </section>
+  <section class="sec" aria-labelledby="h-lim">
+    <p class="lab">What it does not protect</p>
+    <h2 id="h-lim">The limits, stated plainly.</h2>
+    <ul class="limits">
+      <li>An early local version.</li>
+      <li>It protects only what passes through its own tools. What you type into the chat, files you attach by hand and other MCP servers' results go to the model as they are.</li>
+      <li>Text files only: no PDF, Word, images or e-mail yet. Local files only.</li>
+      <li>Widening cannot be undone: the model and its answer see the region and the range.</li>
+      <li>The answers keep the placeholders; this version does not put real values back into them.</li>
+    </ul>
+    <p class="after"><a class="cta dark" href="index.html#contact">Try it with us</a></p>
+  </section>
+</div>

@@ -163,6 +163,19 @@ footer img{background:none}
   .hero .above{margin-bottom:22px}
   .fig{text-align:left;margin-top:26px}
 }
+
+/* finishing: links, three ways in, footer map, no-script hero */
+a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,4vw,56px);margin-top:36px}
+.ways>div{border-top:2px solid var(--gold);padding-top:18px}
+.ways p{font-size:16px;margin:0 0 10px}
+@media (max-width:859px){.ways{grid-template-columns:1fr}}
+.sitemap{display:flex;flex-wrap:wrap;gap:6px 22px;margin:10px 0 6px}
+.sitemap a{color:var(--ivory);text-decoration:none;font-size:14px}.sitemap a:hover{text-decoration:underline}
+.top nav{gap:clamp(14px,2vw,30px)}
+.nojs{position:absolute;right:8%;top:16%;width:min(44vw,560px);height:auto;z-index:0}
+footer{padding-bottom:60px}
+@media (max-width:759px){.hero{padding-bottom:70px}.nojs{position:static;width:70%;margin:0 auto 20px;display:block}}
 </style>
 </head>
 <body>
@@ -171,8 +184,9 @@ footer img{background:none}
   <canvas id="tree" role="img" aria-label="A tree drawn in ink. Branches gather above a gold line, roots spread below it, all in one dark ink. Small balls travel down the branches, meet the line, and leave along the roots in gold. Some stay at the line."></canvas>
   <div class="top">
     <a class="home" href="#top"><img src="logo/tds-tree-small.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
-    <nav aria-label="On this page"><a href="#gate">The Layer</a><a href="how-it-works.html">How it works</a><a href="#proof">Proof</a><a href="#pilot">Pilot</a><a class="keep" href="#contact">Contact</a></nav>
+    <nav aria-label="Site"><a href="how-it-works.html">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a class="keep" href="#contact">Contact</a></nav>
   </div>
+  <noscript><img class="nojs" src="logo/tds-tree-colour.svg" alt=""></noscript>
   <div class="above">
     <p class="kicker">The Layer</p>
     <h1 id="w-h1">Data Sovereignty, beyond paper contracts.</h1>
@@ -209,6 +223,7 @@ footer img{background:none}
     <p class="lab">The Layer</p>
     <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
     <p class="big">It reads each request before any model does. Then it decides what may leave.</p>
+    <p><a class="text" href="how-it-works.html">How it decides, step by step</a></p>
   </section>
   <section class="sec wide" style="padding-top:0" aria-label="Three routes">
     <div class="routes">
@@ -276,10 +291,21 @@ footer img{background:none}
   <p class="note">95% bounds are Clopper–Pearson; one-sided for V11-4. Each number is a row in our numbers ledger, with its commit, data hash and re-run command. The same reworded set on other settings: 52 / 200 with the basic check alone (26%, 95% range 20.1–32.7%, N12), and 99 / 200 with a second vault and the fact stage (49.5%, 42.4–56.6%, N14; that vault and the test set have the same authors). Whole chats: joining the turns of one chat can re-identify a person. A fix is built and tested; it is off by default and on for pilots, and its figures are being re-checked.</p>
 </section>
 <hr>
+<section class="sec wide" id="products" aria-labelledby="h-products">
+  <p class="lab">Three ways in</p>
+  <h2 id="h-products">One gate, wherever your people meet AI.</h2>
+  <div class="ways">
+    <div><h3>The Layer</h3><p>For teams. It sits between your people and the AI models they use, and routes each request.</p><p><a class="text" href="platform.html">The Layer for teams</a></p></div>
+    <div><h3>TDS Layer</h3><p>A free browser extension, in closed beta. It masks personal data in AI chat sites before you send.</p><p><a class="text" href="extension.html">The browser extension</a></p></div>
+    <div><h3>TDS Layer MCP</h3><p>For AI assistants that read your files. Every file passes the gate first. An early local version.</p><p><a class="text" href="mcp.html">The MCP server</a></p></div>
+  </div>
+</section>
+<hr>
 <section class="sec" id="pilot" aria-labelledby="h-pilot">
   <p class="lab">The free pilot</p>
   <h2 id="h-pilot">Start where nothing is sent out.</h2>
   <p class="big">4 weeks on made-up text first, extendable to 8 weeks. One machine. In a pilot only the local route is open, and The Layer runs offline. No purchase.</p>
+  <p><a class="text" href="pilot.html">What the pilot gives you, and what it takes</a></p>
   <div class="give">
     <div><h3>You give</h3><ul><li>One workflow</li><li>20–50 made-up prompts</li><li>One machine, for a few hours</li></ul></div>
     <div><h3>You get</h3><ul><li>A measured answer for your workflow</li><li>An evidence report for your auditor</li><li>A delete-everything step, with a receipt</li></ul></div>
@@ -300,10 +326,10 @@ footer img{background:none}
 <footer class="marine">
   <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
+  <nav class="sitemap" aria-label="All pages"><a href="how-it-works.html">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a href="#contact">Contact</a></nav>
   <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
-{{toggle.html}}
 <script>
 {{mycel.js}}
 {{mark.js}}

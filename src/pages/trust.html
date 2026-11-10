@@ -1,0 +1,58 @@
+<!--title: Trust · True Data Sovereignty (draft, not published)-->
+<!--desc: What leaves, where the key lives, what we have built to protect it, and who else is involved. Each measure comes with its limit.-->
+<div class="wrap">
+  <section class="intro">
+    <p class="lab">Trust</p>
+    <h1>How we handle your data.</h1>
+    <p class="big">What leaves, where the key lives, what we have built to protect it, and who else is involved. Each measure comes with its limit.</p>
+    <p class="note">Stage: a prototype, tested on synthetic data only. No client data has been processed. No ISO 27001 or SOC 2 certification. ISO 27001 is planned.</p>
+  </section>
+  <section class="block" aria-labelledby="h-leaves">
+    <p class="lab">Your data</p>
+    <h2 id="h-leaves">What leaves, on each route.</h2>
+    <div class="cols3 rule">
+      <div><h3>Mask</h3><p><b>Leaves:</b> the text, with the names, IDs, e-mails, phone numbers and IBANs it finds replaced by placeholders.</p><p><b>Goes to:</b> a frontier model provider (today: Anthropic).</p><p><b>Protects:</b> who is in the text.</p></div>
+      <div><h3>Generalise</h3><p><b>Leaves:</b> as for mask, with figures, dates and small places turned into ranges and regions.</p><p><b>Goes to:</b> the same provider.</p><p><b>Protects:</b> who, and details that could single someone out.</p></div>
+      <div><h3>Keep local</h3><p><b>Leaves:</b> nothing.</p><p><b>Goes to:</b> a local model on your own machine or your own server.</p><p><b>Protects:</b> who and what.</p></div>
+    </div>
+    <p class="note">What the first two routes do not protect: the business content. The model provider still reads it. Anything detection misses is sent as written, including secrets said in other words.</p>
+  </section>
+  <section class="block" aria-labelledby="h-key">
+    <p class="lab">The key and the log</p>
+    <h2 id="h-key">Where things live.</h2>
+    <div class="cols2">
+      <div><h3>The key</h3><p>The map from placeholders back to real values stays in memory, on the machine that runs The Layer. It is not sent to the model provider, and not written into the log.</p><p>The Layer does not write your requests or the placeholder map to disk: they live in memory and are gone when it stops. The operating system may still write memory to disk, for example when paging or hibernating. Your confidential list is stored on disk, encrypted.</p></div>
+      <div><h3>The log</h3><p>For each request: time, route, rule, scores, counts per type of data, destination and region, model and provider. Not the text itself.</p><p>Each line holds the fingerprint of the line before. Take one out or change it, and the check shows it. To catch the newest records being cut off, keep a copy of the latest fingerprint somewhere else.</p></div>
+    </div>
+  </section>
+</div>
+<div class="marine"><div class="wrap">
+  <section class="sec wide" aria-labelledby="h-sec">
+    <span class="goldline"></span>
+    <p class="lab">Security</p>
+    <h2 id="h-sec">What we have built, and its limits.</h2>
+    <div class="cols2 rule">
+      <div><h3>Access: a token per client</h3><p>Every request needs a token; only its hash is stored. The client is taken from the token, not from the request. It listens on this machine only, unless set otherwise.</p><p class="lim">Limit: a token holder can still mark a request as not confidential; this is being changed.</p></div>
+      <div><h3>Storage: an encrypted confidential list</h3><p>A client's confidential reference material is kept encrypted (Windows DPAPI, per user).</p><p class="lim">Limit: it protects a copied disk or file. Programs running as the same user, and domain admins, can decrypt it.</p></div>
+      <div><h3>Evidence: a chained log</h3><p>Every line holds the hash of the line before (SHA-256). The chain head can be anchored outside the log, and off the machine for stronger proof. No text in the log; you set the retention.</p><p class="lim">Limit: anchoring is run by hand today; lines after the last anchor are not covered.</p></div>
+      <div><h3>Transport: a TLS option</h3><p>HTTPS with TLS 1.2 or later. A helper makes a certificate for local use.</p><p class="lim">Limit: off by default; across a network, use a certificate from your own authority.</p></div>
+      <div><h3>Supply chain: SBOM and pinned models</h3><p>A software bill of materials (CycloneDX) for every build. The detection models are pinned and checked by SHA-256 before they load.</p><p class="lim">Limit: no automatic vulnerability scanner yet.</p></div>
+      <div><h3>Process: incidents and AI marking</h3><p>A written incident and vulnerability process. Every answer carries a machine-readable flag that it came from an AI model.</p></div>
+    </div>
+  </section>
+</div></div>
+<div class="wrap">
+  <section class="sec wide" aria-labelledby="h-sub">
+    <p class="lab">Sub-processors</p>
+    <h2 id="h-sub">Who else touches your data.</h2>
+    <p>When we process data for you, you are the controller and we act as your processor under a data processing agreement. In a pilot on your own hardware, we receive none of your data. Today's prototype has one outside party, and only on the first two routes.</p>
+    <ul class="limits">
+      <li><b>Anthropic (Claude API).</b> Answers on the mask and generalise routes. It gets masked, or generalised and masked, text; not keep-local text, and not the key. Inference is in the US. Zero-data-retention terms are not yet agreed. Synthetic tests only so far.</li>
+      <li><b>Local model (Ollama).</b> Answers on the keep-local route. It runs on the same machine; nothing is sent to its vendor. Not a sub-processor.</li>
+      <li><b>Hugging Face.</b> The download source for the detection models. It gets no client data. Not a sub-processor.</li>
+      <li><b>An EU gateway host.</b> Hosting for a pilot. Planned, not chosen; EU-owned.</li>
+    </ul>
+    <p class="note">As a US company, the provider can be ordered to hand over what it receives (masked text), not the key or keep-local text. The safest start is the local route only, on your own hardware: then no outside party receives your content.</p>
+    <p class="after"><a class="cta dark" href="index.html#contact">Become a design partner</a></p>
+  </section>
+</div>

@@ -29,6 +29,23 @@ python -I shots/shoot.py index.html home   # screenshots; needs: python -m http.
 - Headlines are Lora at medium weight (500), from the same font file. Version 2 is commit 57d03e2.
 - `preview.html` is the same page with the font embedded, for sending.
 
+## The finished first site (12 Nov 2026)
+
+Seven pages, all in the light editorial style, all self-contained, none published:
+- `index.html` (home), `how-it-works.html`, `platform.html`, `extension.html`, `mcp.html`, `pilot.html`, `trust.html`.
+- `preview.html` and `preview-<page>.html` are the same pages with the font and logo embedded, for sending. Do not publish those.
+
+Build:
+```
+python -I logo/make_logo.py          # the logo files
+python -I src/build.py               # index.html and preview.html
+python -I src/build_pages.py         # the six subpages and their previews
+```
+- The subpages share one shell (styles, masthead, footer) in `src/build_pages.py`. Their content is in `src/pages/*.html`; the how-it-works content and its three figures are in `src/how.src.html`.
+- The review bar is gone: the hero wording is settled and cleared by Compliance.
+- Subpage copy for platform, extension, MCP, pilot and trust is taken from the earlier site pages (`web/platform`, `web/extension`, `web/mcp`, `web/pilot`, `web/trust.html`), with later corrections applied. It has not had a fresh Compliance read in this form.
+- Before publishing: a contact address; Henrik's yes to the logo swap; a Compliance read of the five subpages; a check in Safari and Firefox and on a real phone.
+
 ## Version 4 (the ground line)
 - Henrik, 12 Nov: the ground-line tree is the logo ("Ground line is my favorite"); the site is light, editorial, white and marine with gold; the hero animation has no words in it.
 - The hero (`src/tree.js`) is the logo grown large: marine branches above a full-width gold line, roots with gold ends below. Balls come in, meet the line, and leave in gold, or stay.

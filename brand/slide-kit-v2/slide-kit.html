@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>TDS slide kit v2 · the ground line (draft)</title>
+<style>
+@font-face{font-family:"Lora";src:url("../../../fonts/Lora-wght.ttf") format("truetype");font-weight:400 700;font-display:swap}
+:root{--paper:#FAFAF8;--marine:#101A3D;--ink:#101A3D;--ivory:#F7F3EA;--gold:#DDB04A;--goldtext:#8A6212;--soft:#4D5672;--softdark:#AEB6CE;--rule:#D9DDDC;--ruledark:#2A3B78;
+--sans:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--mono:"Cascadia Mono",Consolas,ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:#DAD6CC}
+body{margin:0;padding:24px 0;font:400 20px/1.5 var(--sans);color:var(--ink)}
+/* one slide: 1280 x 720. Everything inside is placed in px so it prints the same everywhere. */
+.slide{position:relative;width:1280px;height:720px;margin:0 auto 24px;overflow:hidden;background:var(--paper);color:var(--ink)}
+.slide.marine{background:var(--marine);color:var(--ivory)}
+.pad{position:absolute;left:96px;right:96px}
+.kick{font:400 15px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0}
+.marine .kick{color:var(--softdark)}
+h1,h2,.q{font-family:"Lora",Georgia,serif;font-weight:500;letter-spacing:-.018em;margin:0;text-wrap:balance}
+h1{font-size:92px;line-height:1.02}
+h2{font-size:56px;line-height:1.08}
+h2 em,h1 em{font-style:normal;color:var(--goldtext)}
+.marine h2 em,.marine h1 em{color:var(--gold)}
+p{margin:0}
+.lede{font-size:26px;line-height:1.45;max-width:760px}
+.goldline{display:block;width:84px;height:3px;background:var(--gold)}
+/* the ground line: one gold rule across the whole slide */
+.ground{position:absolute;left:0;right:0;height:3px;background:var(--gold)}
+/* footer on every slide */
+.foot{position:absolute;left:96px;right:96px;bottom:34px;display:flex;align-items:center;gap:12px;font:400 13px/1 var(--sans);letter-spacing:.06em;color:var(--soft)}
+.marine .foot{color:var(--softdark)}
+.foot img{width:26px;height:26px}
+.foot .n{margin-left:auto;font-family:var(--mono)}
+.draft{position:absolute;right:96px;top:44px;font:400 12px/1 var(--mono);letter-spacing:.14em;color:var(--goldtext);border:1px solid currentColor;padding:6px 9px}
+.marine .draft{color:var(--gold)}
+.note{font:400 14px/1.5 var(--sans);color:var(--soft)}
+.marine .note{color:var(--softdark)}
+/* 3: routes */
+.routes{position:absolute;left:96px;right:96px;top:250px;display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+.routes svg{display:block;width:100%;height:210px}
+.routes h3{font:600 26px/1.2 "Lora",Georgia,serif;margin:14px 0 6px}
+.routes .k{font:400 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0}
+.routes p.t{font-size:18px;line-height:1.45}
+/* 4: proof tiles */
+.tiles{position:absolute;left:96px;right:96px;top:232px;display:grid;grid-template-columns:1fr 1fr;gap:0 64px}
+.tile{border-top:1px solid var(--rule);padding:20px 0 22px}
+.tile .v{font:500 58px/1 "Lora",Georgia,serif;letter-spacing:-.015em;margin:0 0 8px}
+.tile.gap .v{color:var(--goldtext)}
+.tile p.t{font-size:19px;line-height:1.4;margin:0 0 6px}
+.tile .src{font:400 13px/1.5 var(--sans);color:var(--soft)}
+/* 5: quote */
+.q{font-size:60px;line-height:1.14;font-style:italic;max-width:980px}
+/* print: one slide per page, no margins */
+@page{size:1280px 720px;margin:0}
+@media print{html{background:none}body{padding:0}.slide{margin:0;page-break-after:always;break-after:page}}
+</style>
+</head>
+<body>
+
+<!-- 1. Title -->
+<section class="slide" aria-label="Template 1: title">
+  <span class="draft">DRAFT</span>
+  <img src="logo/tds-tree-no-line.svg" alt="" style="position:absolute;left:770px;top:173px;width:460px;height:460px">
+  <div class="ground" style="top:402px"></div>
+  <div class="pad" style="top:150px;right:560px">
+    <p class="kick">For CISOs and IT leads · November 2026</p>
+    <h1 style="margin-top:34px">The Layer</h1>
+  </div>
+  <div class="pad" style="top:440px;right:560px">
+    <p class="lede">Data Sovereignty, beyond paper contracts.</p>
+  </div>
+  <div class="foot"><img src="logo/tds-tree-small.svg" alt=""><span>True Data Sovereignty</span><span class="n">01</span></div>
+</section>
+
+<!-- 2. One big idea -->
+<section class="slide marine" aria-label="Template 2: one big idea">
+  <span class="draft">DRAFT</span>
+  <div class="pad" style="top:214px">
+    <span class="goldline"></span>
+    <h2 style="margin-top:44px;font-size:72px;max-width:1000px">You set the rules. <em>The Layer applies them</em> to every prompt.</h2>
+  </div>
+  <div class="foot"><img src="logo/tds-tree-small-on-marine.svg" alt=""><span>The Layer · sales pitch · draft</span><span class="n">02</span></div>
+</section>
+
+<!-- 3. Routes on the ground line -->
+<section class="slide" aria-label="Template 3: three routes on the ground line">
+  <span class="draft">DRAFT</span>
+  <div class="pad" style="top:92px">
+    <p class="kick">What The Layer does</p>
+    <h2 style="margin-top:22px">Every request meets the line.</h2>
+  </div>
+  <div class="ground" style="top:355px"></div>
+  <div class="routes">
+    <div>
+      <svg viewBox="0 0 330 210" fill="none" stroke-linecap="round" aria-hidden="true"><path d="M120 6 C150 40 130 78 165 105" stroke="#101A3D" stroke-width="3"/><path d="M165 105 C200 132 178 172 214 204" stroke="#101A3D" stroke-width="3"/><path d="M140 42 C116 44 104 58 82 54 M150 74 C172 66 184 48 206 48 M188 150 C210 150 222 164 246 160" stroke="#101A3D" stroke-width="1.2" opacity=".5"/><circle cx="192" cy="158" r="7" fill="#DDB04A"/></svg>
+      <p class="k">Route one</p><h3>Mask</h3><p class="t">Names and numbers it finds leave as placeholders, and come back on your side.</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 330 210" fill="none" stroke-linecap="round" aria-hidden="true"><g fill="#101A3D" opacity=".07"><rect x="40" y="126" width="250" height="13" rx="6"/><rect x="62" y="150" width="230" height="13" rx="6"/><rect x="30" y="174" width="240" height="13" rx="6"/></g><path d="M120 6 C150 40 130 78 165 105" stroke="#101A3D" stroke-width="3"/><path d="M165 105 C200 132 178 172 214 204" stroke="#101A3D" stroke-width="3" stroke-dasharray="1 9" opacity=".5"/><path d="M140 42 C116 44 104 58 82 54 M150 74 C172 66 184 48 206 48" stroke="#101A3D" stroke-width="1.2" opacity=".5"/><circle cx="192" cy="158" r="13" fill="#DDB04A" opacity=".35"/><circle cx="192" cy="158" r="7" fill="#DDB04A" opacity=".7"/></svg>
+      <p class="k">Route two</p><h3>Generalise</h3><p class="t">Telling details leave blurred: a town becomes a region, a date becomes a month.</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 330 210" fill="none" stroke-linecap="round" aria-hidden="true"><path d="M120 6 C150 40 130 78 165 100" stroke="#101A3D" stroke-width="3"/><path d="M165 100 C182 100 214 100 232 92 C258 80 256 44 228 38 C204 34 190 54 200 68 C208 78 222 72 220 62" stroke="#101A3D" stroke-width="2.4"/><path d="M140 42 C116 44 104 58 82 54" stroke="#101A3D" stroke-width="1.2" opacity=".5"/><circle cx="214" cy="60" r="10" stroke="#DDB04A" stroke-width="2"/><circle cx="220" cy="62" r="5.5" fill="#101A3D"/></svg>
+      <p class="k">Route three</p><h3>Keep local</h3><p class="t">The most sensitive work stays, on a local model on your own machine.</p>
+    </div>
+  </div>
+  <div class="foot"><img src="logo/tds-tree-small.svg" alt=""><span>The Layer · sales pitch · draft</span><span class="n">03</span></div>
+</section>
+
+<!-- 4. Proof tiles -->
+<section class="slide" aria-label="Template 4: proof tiles">
+  <span class="draft">DRAFT</span>
+  <div class="pad" style="top:84px">
+    <p class="kick">Proof, with the gaps</p>
+    <h2 style="margin-top:20px">Every number can be re-run.</h2>
+  </div>
+  <div class="tiles">
+    <div class="tile"><p class="v">0 / 249</p><p class="t">Masked outputs that still leaked an identity.</p><p class="src">n = 249 · 95% upper bound 1.2% · V11-4</p></div>
+    <div class="tile"><p class="v">0 / 400</p><p class="t">Harmless texts wrongly flagged as secret.</p><p class="src">n = 400 · 95% range 0.0–0.9% · N15</p></div>
+    <div class="tile gap"><p class="v">93 / 200</p><p class="t">Reworded secrets caught: 46.5%. Our main gap.</p><p class="src">n = 200 · 95% range 39.4–53.7% · N13</p></div>
+    <div class="tile"><p class="v">50 / 287</p><p class="t">Texts kept local that could have left: 17.4%.</p><p class="src">n = 287 · 95% range 13.2–22.3% · V11-2</p></div>
+  </div>
+  <p class="note pad" style="bottom:78px">Measured on synthetic data, round one. Each number is a row in our numbers ledger, with its commit, data hash and re-run command.</p>
+  <div class="foot"><img src="logo/tds-tree-small.svg" alt=""><span>The Layer · sales pitch · draft</span><span class="n">04</span></div>
+</section>
+
+<!-- 5. Quote -->
+<section class="slide marine" aria-label="Template 5: quote">
+  <span class="draft">DRAFT</span>
+  <div class="pad" style="top:176px">
+    <span class="goldline"></span>
+    <p class="q" style="margin-top:44px">“We never fake our way. Numbers must be provable and true. Always.”</p>
+    <p class="kick" style="margin-top:40px">Our rule</p>
+  </div>
+  <div class="foot"><img src="logo/tds-tree-small-on-marine.svg" alt=""><span>The Layer · sales pitch · draft</span><span class="n">05</span></div>
+</section>
+
+<!-- 6. Close -->
+<section class="slide marine" aria-label="Template 6: close">
+  <span class="draft">DRAFT</span>
+  <img src="logo/tds-tree-no-line-on-marine.svg" alt="" style="position:absolute;left:800px;top:193px;width:420px;height:420px">
+  <div class="ground" style="top:402px"></div>
+  <div class="pad" style="top:176px;right:540px">
+    <p class="kick">Next step</p>
+    <h2 style="margin-top:26px;font-size:70px;white-space:nowrap">One 30-minute call.</h2>
+  </div>
+  <div class="pad" style="top:440px;right:540px">
+    <p class="lede">Pick one workflow. We do the rest.</p>
+    <p class="note" style="margin-top:26px;font-size:17px">Henrik Thulin, True Data Sovereignty</p>
+  </div>
+  <div class="foot"><img src="logo/tds-tree-small-on-marine.svg" alt=""><span>True Data Sovereignty</span><span class="n">06</span></div>
+</section>
+
+</body>
+</html>

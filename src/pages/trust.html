@@ -32,7 +32,7 @@
     <p class="lab">Security</p>
     <h2 id="h-sec">What we have built, and its limits.</h2>
     <div class="cols2 rule">
-      <div><h3>Access: a token per client</h3><p>Every request needs a token; only its hash is stored. The client is taken from the token, not from the request. It listens on this machine only, unless set otherwise.</p><p class="lim">Limit: a token holder can still mark a request as not confidential; this is being changed.</p></div>
+      <div><h3>Access: a token per client</h3><p>Every request needs a token; only its hash is stored. The client is taken from the token, not from the request. It listens on this machine only, unless set otherwise.</p><p class="lim">Limit: a token holder can still mark a request as not confidential. Whether to remove that option is an open decision.</p></div>
       <div><h3>Storage: an encrypted confidential list</h3><p>A client's confidential reference material is kept encrypted (Windows DPAPI, per user).</p><p class="lim">Limit: it protects a copied disk or file. Programs running as the same user, and domain admins, can decrypt it.</p></div>
       <div><h3>Evidence: a chained log</h3><p>Every line holds the hash of the line before (SHA-256). The chain head can be anchored outside the log, and off the machine for stronger proof. No text in the log; you set the retention.</p><p class="lim">Limit: anchoring is run by hand today; lines after the last anchor are not covered.</p></div>
       <div><h3>Transport: a TLS option</h3><p>HTTPS with TLS 1.2 or later. A helper makes a certificate for local use.</p><p class="lim">Limit: off by default; across a network, use a certificate from your own authority.</p></div>
@@ -45,12 +45,12 @@
   <section class="sec wide" aria-labelledby="h-sub">
     <p class="lab">Sub-processors</p>
     <h2 id="h-sub">Who else touches your data.</h2>
-    <p>When we process data for you, you are the controller and we act as your processor under a data processing agreement. In a pilot on your own hardware, we receive none of your data. Today's prototype has one outside party, and only on the first two routes.</p>
+    <p>If we ever process data for you (a hosted version), you are the controller and we act as your processor under a data processing agreement. On your own hardware, as in the pilot, we are not your processor. In a pilot on your own hardware, we receive none of your data. Today's prototype has one outside party, and only on the first two routes.</p>
     <ul class="limits">
       <li><b>Anthropic (Claude API).</b> Answers on the mask and generalise routes. It gets masked, or generalised and masked, text; not keep-local text, and not the key. Inference is in the US. Zero-data-retention terms are not yet agreed. Synthetic tests only so far.</li>
       <li><b>Local model (Ollama).</b> Answers on the keep-local route. It runs on the same machine; nothing is sent to its vendor. Not a sub-processor.</li>
       <li><b>Hugging Face.</b> The download source for the detection models. It gets no client data. Not a sub-processor.</li>
-      <li><b>An EU gateway host.</b> Hosting for a pilot. Planned, not chosen; EU-owned.</li>
+      <li><b>An EU gateway host.</b> Hosting for a later hosted version. Planned, not chosen; EU-owned.</li>
     </ul>
     <p class="note">As a US company, the provider can be ordered to hand over what it receives (masked text), not the key or keep-local text. The safest start is the local route only, on your own hardware: then no outside party receives your content.</p>
     <p class="after"><a class="cta dark" href="index.html#contact">Become a design partner</a></p>

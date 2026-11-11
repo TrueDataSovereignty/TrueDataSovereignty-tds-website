@@ -169,16 +169,17 @@ footer.marine .l{color:var(--ivory)}
 }
 
 /* Version 4: the ground line. The hero is the logo, alive; the gold line runs the full width and the words sit on both sides of it. */
-.hero{--line:56%;display:block;min-height:max(100svh,640px)}
+.hero{--line:56%;display:block;min-height:max(100svh,700px)}
 .hero canvas{z-index:0}
-.hero .top,.hero .above,.hero .below,.hero .fig{position:absolute;z-index:2}
+.hero .top,.hero .above,.hero .below{position:absolute;z-index:2}
 .hero .above{left:clamp(22px,9vw,150px);bottom:calc(100% - var(--line) + 34px);max-width:min(40rem,48vw)}
 .hero .below{left:clamp(22px,9vw,150px);top:calc(var(--line) + 34px);max-width:min(32rem,42vw)}
 .hero .above .kicker{color:#8A6212;margin:0 0 20px}
 .hero .above h1{margin:0;font-size:clamp(36px,4.9vw,74px);max-width:9.6em}
 .hero .below .lede{color:var(--navytext);margin:0 0 10px;font-size:clamp(17px,1.35vw,20px)}
 .hero .below .sub{color:var(--soft);margin:0 0 26px}
-.fig{left:clamp(22px,9vw,150px);bottom:66px;margin:0;max-width:24rem;text-align:left;font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft)}
+/* the caption sits in the text flow under the button, so the two can never overlap in a small window */
+.fig{margin:30px 0 0;max-width:24rem;text-align:left;font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft)}
 .fig b{font-style:normal;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:11px;font-family:var(--sans);color:var(--navytext)}
 .top{border-bottom:1px solid var(--rule)}
 .top:after{content:"";position:absolute;left:0;right:0;bottom:-4px;border-bottom:1px solid var(--rule)}
@@ -226,8 +227,8 @@ footer{padding-bottom:60px}
   <div class="below">
     <p class="lede" id="w-lede">Use frontier AI with privacy control before any prompt leaves your environment. The Layer routes each prompt by what’s in it and by your rules.</p>
     <a class="cta" href="#contact">Become a design partner</a>
+    <p class="fig"><b>Fig. 1</b> &nbsp;Every request meets the line. Some pass on unchanged, some pass changed, some stay. Move across the branches.</p>
   </div>
-  <p class="fig"><b>Fig. 1</b> &nbsp;Every request meets the line. Some pass on unchanged, some pass changed, some stay. Move across the branches.</p>
 </header>
 
 <main id="main">

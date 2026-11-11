@@ -15,6 +15,9 @@ how_main = how[how.index('<main id="main">') + len('<main id="main">'):how.index
 how_script = how[how.rindex("<script>") + 8:how.rindex("</script>")].replace("{{mycel.js}}", (root / "concepts" / "src" / "mycel.js").read_text(encoding="utf-8"))
 
 EXTRA = """
+:focus-visible{outline:2px solid #101A3D;outline-offset:3px}
+.marine :focus-visible,.soil :focus-visible{outline-color:#F8DF9C}
+.cta:focus-visible{outline-offset:4px}
 .block{padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--rule)}
 .sec.wide{max-width:1120px}
 .cols2,.cols3{display:grid;gap:clamp(22px,4vw,56px);margin-top:34px}

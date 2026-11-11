@@ -185,7 +185,7 @@ footer.marine .l{color:var(--ivory)}
 .top img{width:34px;height:34px}
 footer img{background:none}
 @media (max-width:759px){
-  .hero{min-height:0;padding:392px 22px 150px}
+  .hero{min-height:0;padding:clamp(286px,46.5vh,392px) 22px 150px}   /* shorter phones get a smaller tree, so the button stays on the first screen */
   .hero .above,.hero .below,.hero .fig{position:static;max-width:none}
   .hero .above h1{font-size:36px}
   .hero .above{margin-bottom:22px}
@@ -193,6 +193,10 @@ footer img{background:none}
 }
 
 /* finishing: links, three ways in, footer map, no-script hero */
+:focus-visible{outline:2px solid #101A3D;outline-offset:3px}
+.marine :focus-visible,.soil :focus-visible{outline-color:#F8DF9C}
+.cta:focus-visible{outline-offset:4px}
+
 a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
 .ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,4vw,56px);margin-top:36px}
 .ways>div{border-top:2px solid var(--gold);padding-top:18px}
@@ -548,7 +552,7 @@ function MycelTree(cv, opts) {
   }
   function build() {
     S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w; portrait = w < 760;
-    lineY = portrait ? 216 : Math.round(h * (opts.line || 0.56));
+    lineY = portrait ? Math.max(140, (parseFloat(getComputedStyle(cv.parentElement).paddingTop) || 392) - 176) : Math.round(h * (opts.line || 0.56));
     x = portrait ? w * 0.5 : w * 0.72;
     R = portrait ? Math.min(w * 0.42, 170) : Math.min(w * 0.25, 390);
     U = Math.min(R / 45, (h - lineY - 78) / 49, (lineY - (portrait ? 64 : 84)) / 46); R = 45 * U; RYb = 37 * U; RYt = 34 * U;

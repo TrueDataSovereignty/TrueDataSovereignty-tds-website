@@ -59,7 +59,7 @@ def shell(name, title, desc, main, script=""):
 <meta name="robots" content="noindex,nofollow">
 <title>%s</title>
 <meta name="description" content="%s">
-<link rel="icon" href="logo/tds-tree-tiny.svg">
+<link rel="icon" href="logo/tds-favicon.svg">
 <style>%s%s</style>
 </head>
 <body>
@@ -125,7 +125,7 @@ for name, (title, desc, main, script) in pages.items():
     text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", html).lower()
     hits = [b for b in banned if b.lower() in text]
     pv = html.replace('url("../fonts/Lora-wght.ttf")', 'url("' + font + '")')
-    for n in ("tds-tree-small-on-marine.svg", "tds-tree-small.svg", "tds-tree-tiny.svg"):
+    for n in ("tds-tree-small-on-marine.svg", "tds-tree-small.svg", "tds-favicon.svg"):
         pv = pv.replace("logo/" + n, uri(n))
     (root / ("preview-" + name + ".html")).write_text(pv, encoding="utf-8", newline="\n")
     print("%-18s %6d bytes; banned words found: %s" % (name + ".html", len(html.encode()), hits or "none"))

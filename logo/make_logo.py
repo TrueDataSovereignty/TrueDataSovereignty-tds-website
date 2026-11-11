@@ -11,6 +11,7 @@ import math, pathlib
 
 HERE = pathlib.Path(__file__).parent
 MARINE, IVORY, GOLD, LIGHT, DEEP = (16, 26, 61), (247, 243, 234), (221, 176, 74), (248, 223, 156), (184, 134, 43)
+WHITE, BLACK = (255, 255, 255), (0, 0, 0)
 
 
 def rng(seed):
@@ -192,10 +193,49 @@ def hand(base, mono=False, tiny=False):
     return g
 
 
-def lockup(font, base, mono=False, stacked=False, bg=None):
+def favicon():
+    """The small logo as the browser-tab icon. The tree turns white when the browser is in dark mode; the line stays gold."""
+    body = hand(MARINE).replace('stroke="#101A3D"', 'class="t"')
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>.t{stroke:#101A3D}@media (prefers-color-scheme:dark){.t{stroke:#FFFFFF}}</style>%s</svg>\n') % body
+
+
+def raster(body, px):
+    """Draw the small logo as a PNG with Pillow: no SVG program is needed. Strokes are drawn 8 times too large with round ends, then scaled down."""
+    import re
+    from PIL import Image, ImageDraw
+    ss = max(4, 2048 // px) if px < 512 else 4
+    S = px * ss; k = S / 100.0
+    im = Image.new("RGBA", (S, S), (0, 0, 0, 0)); dr = ImageDraw.Draw(im)
+    for stroke, width, d in [(m.group(1), float(m.group(2)), m.group(3)) for m in re.finditer(r'<g fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"[^>]*><path d="([^"]+)"', body)] + \
+                            [(m.group(2), float(m.group(3)), m.group(1)) for m in re.finditer(r'<path d="([^"]+)" fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"', body)]:
+        col = tuple(int(stroke[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
+        r = width * k / 2; cur = None; lines = []
+        for cmd, args in re.findall(r"([MCVH])([^MCVH]*)", d):
+            v = [float(a) for a in re.findall(r"-?[\d.]+", args)]
+            if cmd == "M": cur = (v[0], v[1]); lines.append([cur])
+            elif cmd == "V": cur = (cur[0], v[0]); lines[-1].append(cur)
+            elif cmd == "H": cur = (v[0], cur[1]); lines[-1].append(cur)
+            else:
+                p0, p1, p2, p3 = cur, (v[0], v[1]), (v[2], v[3]), (v[4], v[5])
+                for i in range(1, 49):
+                    s = i / 48.0; u = 1 - s
+                    lines[-1].append(tuple(u ** 3 * p0[j] + 3 * u * u * s * p1[j] + 3 * u * s * s * p2[j] + s ** 3 * p3[j] for j in (0, 1)))
+                cur = p3
+        for pts in lines:
+            P = [(x * k, y * k) for x, y in pts]
+            dr.line(P, fill=col, width=max(1, round(2 * r)))
+            for x, y in P: dr.ellipse((x - r, y - r, x + r, y + r), fill=col)
+    return im.resize((px, px), Image.LANCZOS)
+
+
+PNG = [("tds-icon", dict(base=MARINE)), ("tds-icon-on-dark", dict(base=WHITE)), ("tds-icon-black", dict(base=BLACK, mono=True)), ("tds-icon-white", dict(base=WHITE, mono=True))]
+PNG_SIZES = (16, 32, 48, 128, 512)
+
+
+def lockup(font, base, mono=False, stacked=False, bg=None, small=False):
     """The mark beside (or above) the name, with the letters as outlines read from the Lora font file."""
     ink = mix(base, base, 0)
-    body, _, _ = logo(base=base, mono=mono, dark=base == IVORY)
+    body = hand(base, mono=mono) if small else logo(base=base, mono=mono, dark=base == IVORY)[0]
     name = "TRUE DATA SOVEREIGNTY"
     if stacked:
         size, track = 15.0, 0.2
@@ -222,13 +262,12 @@ GROWN = [
     ("tds-tree-production-true-black.svg", dict(base=(0, 0, 0), mono=True), None, "Production fallback only: true black (#000000), one ink. For engraving, stamps and single-colour print where marine cannot be matched. Not for screens."),
     ("tds-tree-gradient.svg", dict(base=MARINE, gradient=True), None, "Earlier look, kept for reference: roots fading to gold."),
 ]
-HAND = [
-    ("tds-tree-small.svg", dict(base=MARINE), None, "Small cut, drawn by hand: five branch ends, five root ends. For 32 to 48 px."),
-    ("tds-tree-small-on-marine.svg", dict(base=IVORY), "#101A3D", "Small cut on marine."),
-    ("tds-tree-small-one-ink.svg", dict(base=MARINE, mono=True), None, "Small cut in one ink."),
-    ("tds-tree-small-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "Small cut in one ink, ivory on marine."),
-    ("tds-tree-tiny.svg", dict(base=MARINE, tiny=True), None, "Tiny cut, drawn by hand: three and three. For 16 to 24 px, the browser tab."),
-    ("tds-tree-tiny-on-marine.svg", dict(base=IVORY, tiny=True), "#101A3D", "Tiny cut on marine."),
+HAND = [   # THE small logo (Henrik, 12 Nov 2026): five branch ends, five root ends, one trunk, one thick line
+    ("tds-tree-small.svg", dict(base=MARINE), None, "The small logo on light: marine tree, gold line. Header, favicon, icons."),
+    ("tds-tree-small-on-marine.svg", dict(base=WHITE), "#101A3D", "The small logo on dark: white tree, gold line. Footer."),
+    ("tds-tree-small-one-ink.svg", dict(base=MARINE, mono=True), None, "Full dark: one ink, midnight marine, line included."),
+    ("tds-tree-small-black.svg", dict(base=BLACK, mono=True), None, "Full black (#000000), line included."),
+    ("tds-tree-small-one-ink-reversed.svg", dict(base=WHITE, mono=True), "#101A3D", "Full white, line included, shown on marine."),
 ]
 LOCKUPS = [
     ("tds-lockup-horizontal.svg", dict(base=MARINE), None, "Mark and name side by side."),
@@ -237,6 +276,10 @@ LOCKUPS = [
     ("tds-lockup-stacked.svg", dict(base=MARINE, stacked=True), None, "Mark above the name."),
     ("tds-lockup-stacked-on-marine.svg", dict(base=IVORY, stacked=True), "#101A3D", "Stacked, on marine."),
     ("tds-lockup-stacked-one-ink.svg", dict(base=MARINE, mono=True, stacked=True), None, "Stacked, one ink."),
+    ("tds-lockup-small-horizontal.svg", dict(base=MARINE, small=True), None, "For small sizes: the small logo beside the name."),
+    ("tds-lockup-small-horizontal-on-marine.svg", dict(base=WHITE, small=True), "#101A3D", "For small sizes, on marine: white, gold line."),
+    ("tds-lockup-small-horizontal-one-ink.svg", dict(base=MARINE, mono=True, small=True), None, "For small sizes, one ink."),
+    ("tds-lockup-small-stacked.svg", dict(base=MARINE, small=True, stacked=True), None, "For small sizes: the small logo above the name."),
 ]
 
 if __name__ == "__main__":
@@ -247,6 +290,12 @@ if __name__ == "__main__":
     title = "True Data Sovereignty: threads gather above, pass one ground line, and spread below"
     for old in HERE.glob("*.svg"):
         old.unlink()
+    (HERE / "tds-favicon.svg").write_text(favicon(), encoding="utf-8", newline=chr(10))
+    (HERE / "png").mkdir(exist_ok=True)
+    for stem, opts in PNG:   # transparent background, every one
+        for px in PNG_SIZES:
+            raster(hand(**opts), px).save(HERE / "png" / ("%s-%d.png" % (stem, px)))
+    print("png/: %d files (%s, at %s px), transparent" % (len(PNG) * len(PNG_SIZES), ", ".join(s for s, _ in PNG), "/".join(map(str, PNG_SIZES))))
     groups = []
 
     def card(name, text, bg, note, sizes, wide=False):
@@ -269,8 +318,8 @@ if __name__ == "__main__":
         text = svg(hand(**opts), title, bg)
         (HERE / name).write_text(text, encoding="utf-8", newline="\n")
         print("%-40s %6d bytes  hand-drawn" % (name, len(text.encode())))
-        cards.append(card(name, text, bg, note, (16, 24) if "tiny" in name else (48, 32, 24)))
-    groups.append(("Small sizes", "Drawn by hand, stroke by stroke, so the line and the tree still read at favicon size.", cards))
+        cards.append(card(name, text, bg, note, (48, 32, 24, 16)))
+    groups.append(("The small logo", "Drawn by hand, stroke by stroke. This is the logo wherever it is small: header, footer, browser tab, app and extension icons. PNG copies (16, 32, 48, 128, 512 px, transparent) are in png/.", cards))
     cards = []
     for name, opts, bg, note in LOCKUPS:
         text = lockup(font, bg=bg, **opts)

@@ -26,10 +26,10 @@ function MycelTree(cv, opts) {
   }
   function build() {
     S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w; portrait = w < 760;
-    lineY = portrait ? Math.max(140, (parseFloat(getComputedStyle(cv.parentElement).paddingTop) || 392) - 176) : Math.round(h * (opts.line || 0.56));
+    lineY = portrait ? Math.max(86, (parseFloat(getComputedStyle(cv.parentElement).paddingTop) || 329) - 176) : Math.round(h * (opts.line || 0.56));
     x = portrait ? w * 0.5 : w * 0.72;
     R = portrait ? Math.min(w * 0.42, 170) : Math.min(w * 0.25, 390);
-    U = Math.min(R / 45, (h - lineY - 78) / 49, (lineY - (portrait ? 64 : 84)) / 46); R = 45 * U; RYb = 37 * U; RYt = 34 * U;
+    U = Math.min(R / 45, (h - lineY - 78) / 49, (lineY - (portrait ? 20 : 28)) / 46); R = 45 * U; RYb = 37 * U; RYt = 34 * U;
     topO = { x: x, y: lineY - 10.5 * U }; botO = { x: x, y: lineY + 10.5 * U };
     var up = fan(topO, R * 0.86, RYt, -1, 44, 52), down = fan(botO, R, RYb, 1, 70, 34);
     nets = [

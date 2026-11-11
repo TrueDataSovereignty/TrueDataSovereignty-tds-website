@@ -17,6 +17,8 @@ Nothing here is published. Nothing goes live without Henrik's clear yes in chat.
 - `preview*.html` : sendable copies with the font embedded. Large, and only for review.
 - `brand/slide-kit-v2/` : the slide templates for the sales pitch.
 - `shots/` : screenshots and the screenshot tool.
+- `notes/` : working notes (what we take from other sites, as principles only).
+- `before-after/` : a page that shows the site before and after a design change, side by side.
 - `src/`, `README.md`, `DEPLOY.md`, `go-live-runbook.md`, `deploy-headers/`, `.git`.
 
 ## Make the clean copy

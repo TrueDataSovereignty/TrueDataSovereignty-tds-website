@@ -20,9 +20,9 @@ Steps 2 to 5 each need Henrik's yes.
 ## 0. What we publish
 
 - Ten pages: `index.html`, `how-it-works.html`, `platform.html`, `extension.html`, `mcp.html`, `pilot.html`, `trust.html`, `about.html`, `privacy.html`, and `404.html` for missing addresses.
-- Four logo files, the Lora font with its licence, and `robots.txt`.
-- English only. No cookies, no trackers, nothing loaded from another site [T: the script stops if a page links out]. Two pages (home, how it works) run a script for the drawings. The script is inside the page.
-- Size: about 231 KB for pages and logos, 207 KB for the font [T].
+- Three logo files, the Lora font with its licence, and `robots.txt`.
+- English only. No cookies, no trackers, nothing loaded from another site [T: the script stops if a page links out]. Every page runs one small script that follows the scroll (the mark in the header, the lines between sections). Two pages (home, how it works) also run a script for the drawings. The scripts are inside the pages.
+- Size: about 307 KB for pages and logos, 207 KB for the font [T].
 - Canonical address: **`truedatasovereignty.eu`**. `.com` redirects to it with a 301 (site-plan.md, decision 1).
 
 **Making the copy** (from `web/site-v3/`, nothing leaves the computer):
@@ -62,7 +62,7 @@ python -I src/make_deploy.py --launch
 
 | Header | What it does |
 |---|---|
-| `Content-Security-Policy` | Nothing loads from other sites. Only the two scripts of this build may run, named by their hash. No forms, no framing. |
+| `Content-Security-Policy` | Nothing loads from other sites. Only the three scripts of this build may run, named by their hash. No forms, no framing. |
 | `Strict-Transport-Security` (one year) | Browsers use HTTPS only. |
 | `Referrer-Policy: no-referrer` | Links out do not say where the visitor came from. |
 | `X-Content-Type-Options`, `X-Frame-Options`, `Cross-Origin-Opener-Policy`, `Permissions-Policy` | No type guessing, no framing, no shared window, no camera, microphone or location. |

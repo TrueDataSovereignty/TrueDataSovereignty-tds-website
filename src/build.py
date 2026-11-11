@@ -5,7 +5,7 @@ root = src.parent
 parts = {}
 for d in (root / "concepts" / "src", src):
     for p in d.iterdir():
-        if p.suffix in (".css", ".js") or p.name in ("hero.html", "toggle.html"):
+        if p.suffix in (".css", ".js") or p.name in ("hero.html", "toggle.html", "headmark.html"):
             parts[p.name] = p.read_text(encoding="utf-8")
 import json
 parts["mark.js"] = "var TDS_MARK_SVG = " + json.dumps(re.sub(r'<rect width="100" height="100"[^>]*/>', "", (root / "logo" / "tds-tree-colour-on-marine.svg").read_text(encoding="utf-8"))) + ";\n"  # the new logo, for the small gate in the live scene

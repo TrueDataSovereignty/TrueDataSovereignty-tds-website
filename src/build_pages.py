@@ -35,6 +35,9 @@ a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold)
 .sitemap a{color:var(--ivory);text-decoration:none;font-size:14px}.sitemap a:hover{text-decoration:underline}
 @media (max-width:859px){.cols2,.cols3{grid-template-columns:1fr}}
 """
+EXTRA += (src / "flow.css").read_text(encoding="utf-8")       # the header that stays, the scroll mark, the reading template
+HEADMARK = (src / "headmark.html").read_text(encoding="utf-8").strip()
+FLOW = (src / "flow.js").read_text(encoding="utf-8")
 NAV = [("how-it-works", "How it works"), ("platform", "The Layer"), ("extension", "Extension"), ("mcp", "MCP"), ("pilot", "Pilot"), ("trust", "Trust")]
 
 
@@ -62,7 +65,7 @@ def shell(name, title, desc, main, script=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <a class="home" href="index.html"><img src="logo/tds-tree-small.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
+  <a class="home" href="index.html">%s<span>True Data Sovereignty</span></a>
   <nav aria-label="Site">%s</nav>
 </header>
 <main id="main">%s</main>
@@ -73,9 +76,30 @@ def shell(name, title, desc, main, script=""):
   <span>The Layer is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
-%s</body>
+%s<script>
+%s</script>
+</body>
 </html>
-""" % (title, desc, css, EXTRA, nav(name), main, sitemap(), "<script>%s</script>\n" % script if script else "")
+""" % (title, desc, css, EXTRA, HEADMARK, nav(name), main, sitemap(), "<script>%s</script>\n" % script if script else "", FLOW)
+
+
+def read_layout(t):
+    """The reading template. A page file marked <!--layout: read--> has three parts, split by <!--side--> and <!--body-->:
+    the head (label, h1, standfirst), extra lines for the side column, and the body as <section id> blocks with an h2 each.
+    The "On this page" list is made from those h2 headings."""
+    head, rest = t.split("<!--side-->")
+    side, body = rest.split("<!--body-->")
+    toc = "".join('<a href="#%s">%s</a>' % (i, re.sub(r"<[^>]+>", "", h).rstrip("."))
+                  for i, h in re.findall(r'<section id="([\w\-]+)"[^>]*>\s*<h2[^>]*>(.*?)</h2>', body))
+    assert toc, "a reading page needs <section id=...><h2> blocks"
+    return """<div class="wrap">
+  <div class="read-head">%s</div>
+  <div class="read-grid">
+    <aside class="read-side"><div class="in"><p class="lab">On this page</p><nav aria-label="On this page">%s</nav>%s</div></aside>
+    <article class="read-body">%s</article>
+  </div>
+</div>
+""" % (head.strip(), toc, side.strip(), body.strip())
 
 
 banned = ["guarantee", "compliant", "never leaves", "tamper-proof", "zero plaintext egress", " AB ", "hello@"]
@@ -90,7 +114,10 @@ pages = {"how-it-works": ("How The Layer decides · True Data Sovereignty (draft
                           "How The Layer routes each AI request: mask, generalise, or keep local. With real examples and the limits.", how_main, how_script)}
 for p in sorted((src / "pages").glob("*.html")):
     t = p.read_text(encoding="utf-8")
-    pages[p.stem] = (re.search(r"<!--title: (.*?)-->", t).group(1), re.search(r"<!--desc: (.*?)-->", t).group(1), re.sub(r"<!--(title|desc):.*?-->\n?", "", t), "")
+    title, desc = re.search(r"<!--title: (.*?)-->", t).group(1), re.search(r"<!--desc: (.*?)-->", t).group(1)
+    reading = "<!--layout: read-->" in t
+    t = re.sub(r"<!--(title|desc|layout):.*?-->\n?", "", t)
+    pages[p.stem] = (title, desc, read_layout(t) if reading else t, "")
 
 for name, (title, desc, main, script) in pages.items():
     html = shell(name, title, desc, main, script)

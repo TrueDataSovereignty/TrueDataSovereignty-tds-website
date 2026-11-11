@@ -160,7 +160,7 @@ def logo(base, mono=False, dark=False, small=False, gradient=False):
         g += '<clipPath id="c"><path d="M0 0H100V%sH0ZM0 %sH100V100H0Z"/></clipPath><path d="%s" fill="%s" clip-path="url(#c)"/>' % (f(line_y - gap), f(line_y + gap), stem, ink)
     else:
         g += '<path d="%s" fill="%s"/>' % (stem, ink)
-    return g + line, len([n for n in below if n["kids"] == 0 and n["p"] >= 0]), len([n for n in above if n["kids"] == 0 and n["p"] >= 0])
+    return line + g, len([n for n in below if n["kids"] == 0 and n["p"] >= 0]), len([n for n in above if n["kids"] == 0 and n["p"] >= 0])
 
 
 def svg(body, title, bg=None):
@@ -188,8 +188,9 @@ def hand(base, mono=False, tiny=False):
                 "M50 %d C52 74 66 72 78 81" % bot, "M64 73 C72 79 80 77 89 81"]
     gap = lw / 2 + (3.2 if tiny else 2.4)
     trunk = ("M50 %s V%sM50 %s V%s" % (f(top + 2), f(50 - gap), f(50 + gap), f(bot - 2))) if mono else ("M50 %d V%d" % (top + 2, bot - 2))
-    g = '<g fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round" stroke-linejoin="round"><path d="%s"/></g>' % (ink, f(sw), "".join(up + down) + trunk)
-    g += '<path d="M5 50 H95" fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round"/>' % (ink if mono else GOLD_HEX, f(lw))
+    # the line is drawn first and the tree over it: the trunk crosses the line, the gold never covers the ink (Henrik, 12 Nov 2026)
+    g = '<path d="M5 50 H95" fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round"/>' % (ink if mono else GOLD_HEX, f(lw))
+    g += '<g fill="none" stroke="%s" stroke-width="%s" stroke-linecap="round" stroke-linejoin="round"><path d="%s"/></g>' % (ink, f(sw), "".join(up + down) + trunk)
     return g
 
 
@@ -206,8 +207,9 @@ def raster(body, px):
     ss = max(4, 2048 // px) if px < 512 else 4
     S = px * ss; k = S / 100.0
     im = Image.new("RGBA", (S, S), (0, 0, 0, 0)); dr = ImageDraw.Draw(im)
-    for stroke, width, d in [(m.group(1), float(m.group(2)), m.group(3)) for m in re.finditer(r'<g fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"[^>]*><path d="([^"]+)"', body)] + \
-                            [(m.group(2), float(m.group(3)), m.group(1)) for m in re.finditer(r'<path d="([^"]+)" fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"', body)]:
+    line = [(m.group(2), float(m.group(3)), m.group(1)) for m in re.finditer(r'<path d="([^"]+)" fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"', body)]
+    ink = [(m.group(1), float(m.group(2)), m.group(3)) for m in re.finditer(r'<g fill="none" stroke="(#\w+)" stroke-width="([\d.]+)"[^>]*><path d="([^"]+)"', body)]
+    for stroke, width, d in line + ink:   # the same order as the SVG: line first, tree over it
         col = tuple(int(stroke[i:i + 2], 16) for i in (1, 3, 5)) + (255,)
         r = width * k / 2; cur = None; lines = []
         for cmd, args in re.findall(r"([MCVH])([^MCVH]*)", d):

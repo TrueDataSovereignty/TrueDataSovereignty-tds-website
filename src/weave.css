@@ -1,0 +1,14 @@
+
+/* ---- weave: threads between sections, focus on scroll, one line that holds (landing page only) ---- */
+#main{position:relative}
+.weave{position:absolute;z-index:2;pointer-events:none;overflow:hidden}
+.weave-clip{position:absolute;inset:0;overflow:hidden;will-change:transform}
+.weave canvas{display:block;will-change:transform}
+.weave i{position:absolute;left:0;top:0;width:7px;height:7px;border-radius:50%;background:#F8DF9C;box-shadow:0 0 0 1px #B8862B,0 0 10px 2px rgba(221,176,74,.55);opacity:0;will-change:transform,opacity}
+.weave-on .fx{will-change:transform,opacity}
+/* the line that holds: the section is made taller and its content sticks to the screen while you scroll through it */
+.weave-on .beat{height:165vh;height:165svh;padding-top:0 !important;padding-bottom:0 !important}
+.weave-on .beat-in{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:60px;box-sizing:border-box}
+.beat-rule{display:block;width:min(100%,30rem);height:2px;background:var(--gold);margin-top:34px;transform:scaleX(0);transform-origin:0 50%}
+@media (max-width:759px){.weave-on .beat{height:150vh;height:150svh}}
+@media (prefers-reduced-motion:reduce){.weave i{display:none}}

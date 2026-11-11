@@ -22,6 +22,7 @@
   function ease(v) { return v * v * (3 - 2 * v); }
   var rise = [].slice.call(document.querySelectorAll('main section, main .route')).filter(function (s) {
     // sections rise into place as they enter; reading pages stay still under the eye, and what is already on screen is simply there
+    if (root.classList.contains('weave-on') && s.classList.contains('sec')) return false;   // the landing page moves its own sections (weave.js)
     return !s.closest('.read-body') && !s.querySelector('section') && s.getBoundingClientRect().top > innerHeight * 0.9;
   });
   rise.forEach(function (s) { s.classList.add('rv'); });

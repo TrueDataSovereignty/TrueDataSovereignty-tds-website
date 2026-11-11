@@ -168,6 +168,7 @@ function MycelTree(cv, opts) {
     g.addColorStop(0, 'rgba(0,0,0,' + a0.toFixed(3) + ')');
     for (k = 0; k <= 8; k++) g.addColorStop(flat + (1 - flat) * k / 8, 'rgba(0,0,0,' + (a0 * (1 - sm(k / 8))).toFixed(3) + ')');
     tctx.globalCompositeOperation = 'destination-in'; tctx.fillStyle = g; tctx.fillRect(0, 0, w, h); tctx.globalCompositeOperation = 'source-over';
+    tctx.clearRect(0, 0, w, lineY);   // gold lives below the line only: nothing of it may show above
   }
   /* A ball is a bead of light inside the thread: a pale core with a fine dark rim above the line, a light gold core with a
      gold rim below it. So it reads the same on a hair-thin tip, inside a thick branch, and on a root that has turned gold. */

@@ -91,28 +91,44 @@ code,.m{font:400 .9em var(--mono)}
 .cases button,.ringbtns button,.replay{font:400 14px/1.2 var(--sans);color:var(--ivory);background:none;border:1px solid var(--line);padding:10px 15px;border-radius:2px;cursor:pointer;text-align:left}
 .cases button:hover,.ringbtns button:hover,.replay:hover{border-color:var(--light)}
 .cases button[aria-pressed=true],.ringbtns button[aria-pressed=true]{border-color:var(--gold);color:var(--light)}
-.stage{display:grid;grid-template-columns:minmax(0,1fr) 220px minmax(0,1fr);align-items:stretch}
-.pane{padding:16px 0 20px;min-width:0}
-.pane h3{font:400 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 16px}
-.pane pre{margin:0;font:400 13.5px/1.7 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;color:#D5D9E6;min-height:6em}
-.mid{position:relative;min-height:300px}
-.mid canvas{position:absolute;inset:0;width:100%;height:100%}
-.verdict{position:absolute;left:0;right:0;bottom:4px;margin:0;text-align:center;font:400 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);max-width:none}
+.sides,.stage{display:grid;grid-template-columns:minmax(0,1fr) 210px minmax(0,1fr)}
+.sides{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--light);margin:0 0 12px}
+.sides span:nth-child(2){text-align:center;color:var(--gold)}
+.stage{grid-template-rows:auto auto;row-gap:34px}
+.p1{grid-area:1/1}.gate{grid-area:1/2/3/3}.p3{grid-area:1/3}.p4{grid-area:2/3}.p5{grid-area:2/1}.gate2{display:none}
+.pane{min-width:0;border-top:2px solid var(--rule);padding:14px 0 0;transition:opacity .4s,border-color .4s}
+.pane h3,.call h3{font:600 17px/1.3 var(--sans);letter-spacing:0;text-transform:none;color:var(--ivory);margin:0 0 4px;display:flex;gap:10px;align-items:center}
+.pane h3 b,.call h3 b{font:600 12px/22px var(--sans);width:24px;height:24px;border-radius:50%;border:1px solid var(--gold);color:var(--light);text-align:center;flex:none}
+.pane.on{border-color:var(--gold)}.pane.on h3 b,.call.on h3 b{background:var(--gold);color:#101A3D}
+.pane.wait{opacity:.5}.pane.wait pre{color:transparent}.pane.wait pre *,.pane.wait .note{visibility:hidden}
+.what{font-size:14px;line-height:1.5;color:var(--soft);margin:0 0 12px 34px;min-height:1.5em;max-width:none}
+.pane pre{margin:0;font:400 13.5px/1.7 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;color:#D5D9E6;min-height:5em;background:rgba(255,255,255,.035);border:1px solid var(--rule);border-radius:2px;padding:14px 16px}
+.pane .note{font-size:13px;margin:10px 0 0}
+.gate{position:relative;min-height:320px}
+.gate canvas{position:absolute;inset:0;width:100%;height:100%}
+.call{position:relative;z-index:1;padding:14px 8px 12px;background:var(--marine);transition:opacity .4s}
+.call h3{flex-direction:column;gap:6px;text-align:center;font-size:15px}
+.call.wait{opacity:.42}
+.verdict{margin:8px 0 0;text-align:center;font:400 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);max-width:none;min-height:3em}
 .verdict.t1{color:var(--teal)}.verdict.t2{color:var(--moss)}.verdict.t3{color:var(--light)}
-.ans pre{min-height:4em}
 .tok{transition:opacity .22s,filter .22s;border-radius:2px;padding:1px 3px;margin:0 -1px}
 .tok.raw{color:var(--light);background:rgba(221,176,74,.14)}
 .tok.ph{color:var(--teal);background:rgba(95,217,198,.12)}
 .tok.wide{color:var(--moss);background:rgba(143,174,107,.16)}
 .tok.go{opacity:0;filter:blur(4px)}
 .none{color:var(--light)}
-#lv-steps{list-style:none;counter-reset:s;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;font-size:15px;color:var(--soft)}
-#lv-steps li{counter-increment:s;border-top:1px solid var(--rule);padding-top:14px;transition:color .3s,border-color .3s}
-#lv-steps li:before{content:counter(s) ". "}
-#lv-steps li.on{color:var(--ivory);border-color:var(--gold)}
-#lv-steps li.done{color:var(--ivory)}
 .replay{margin-top:26px}
-@media (max-width:859px){.stage{grid-template-columns:1fr}.mid{min-height:150px}#lv-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:859px){
+  .sides{display:none}.stage{grid-template-columns:1fr;row-gap:22px}
+  .p1,.gate,.p3,.p4,.p5{grid-area:auto}
+  .gate{min-height:0;border-top:2px solid var(--rule);display:flex;flex-direction:column}.gate canvas{position:static;display:block;height:96px;order:2}
+  .call{padding:14px 0 0}.call h3{flex-direction:row;text-align:left;font-size:17px}.verdict{text-align:left;margin:4px 0 6px 34px;min-height:0}
+  .gate2{display:flex;align-items:center;gap:12px;font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .gate2:before,.gate2:after{content:"";flex:1;height:2px;background:var(--gold)}
+  .p1 h3:before,.p5 h3:before,.p3 h3:before,.p4 h3:before{display:none}
+  .p1:before,.p5:before{content:"Your side"}.p3:before,.p4:before{content:"Outside: the AI model"}
+  .pane:before{display:block;font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--light);margin:0 0 10px}
+}
 /* rings */
 .ringwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,6vw,96px);align-items:center}
 #ringcv{display:block;width:100%;aspect-ratio:1;max-width:500px;justify-self:center}
@@ -333,18 +349,15 @@ div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;b
     <p>Pick a request. What you see is what the router really produced. The model's answer is an example we wrote.</p>
     <div id="lv">
       <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
+      <div class="sides" aria-hidden="true"><span>Your side</span><span>The line</span><span>Outside: the AI model</span></div>
       <div class="stage">
-        <article class="pane"><h3>What your colleague types</h3><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
-        <div class="mid"><canvas id="lv-cv" aria-hidden="true"></canvas><p class="verdict" id="lv-verdict" aria-live="polite"></p></div>
-        <article class="pane"><h3 id="lv-out-h">What the model sees</h3><pre id="lv-out" aria-live="polite"></pre></article>
+        <article class="pane p1" id="lv-p1"><h3><b>1</b><span>A request arrives</span></h3><p class="what">TDS finds the names, numbers and telling details in it.</p><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
+        <div class="gate" id="lv-gate"><canvas id="lv-cv" aria-hidden="true"></canvas><div class="call" id="lv-p2"><h3><b>2</b><span>TDS decides the route</span></h3><p class="verdict" id="lv-verdict" aria-live="polite"></p></div></div>
+        <article class="pane p3" id="lv-p3"><h3><b>3</b><span id="lv-out-h">What the model sees</span></h3><p class="what" id="lv-out-what"></p><pre id="lv-out"></pre></article>
+        <article class="pane p4" id="lv-p4"><h3><b>4</b><span id="lv-ans-h">The model answers</span></h3><p class="what" id="lv-ans-what"></p><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>
+        <div class="gate2" aria-hidden="true"><span>Back across the line</span></div>
+        <article class="pane p5" id="lv-p5"><h3><b>5</b><span id="lv-back-h">TDS puts the real details back</span></h3><p class="what" id="lv-back-what"></p><pre id="lv-back"></pre><p class="note" id="lv-back-note"></p></article>
       </div>
-      <article class="pane ans"><h3>The answer, back on your side</h3><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>
-      <ol id="lv-steps">
-        <li>A request arrives. TDS finds the names, numbers and telling details in it.</li>
-        <li>It decides the route: mask, generalise, or keep local.</li>
-        <li>The model answers. It only saw what the gate let through.</li>
-        <li>TDS puts the real details back, on your side.</li>
-      </ol>
       <button type="button" class="replay" id="lv-replay">Play it again</button>
     </div>
     <p class="note">Synthetic example. Every name, number and company is made up. The routing, the placeholders and the restoring are real router output (router a822605), measured on synthetic data, round one. The placeholder map stays on the machine that runs TDS and is not sent to the model.</p>
@@ -752,6 +765,7 @@ function MycelTree(cv, opts) {
     g.addColorStop(0, 'rgba(0,0,0,' + a0.toFixed(3) + ')');
     for (k = 0; k <= 8; k++) g.addColorStop(flat + (1 - flat) * k / 8, 'rgba(0,0,0,' + (a0 * (1 - sm(k / 8))).toFixed(3) + ')');
     tctx.globalCompositeOperation = 'destination-in'; tctx.fillStyle = g; tctx.fillRect(0, 0, w, h); tctx.globalCompositeOperation = 'source-over';
+    tctx.clearRect(0, 0, w, lineY);   // gold lives below the line only: nothing of it may show above
   }
   /* A ball is a bead of light inside the thread: a pale core with a fine dark rim above the line, a light gold core with a
      gold rim below it. So it reads the same on a hair-thin tip, inside a thick branch, and on a root that has turned gold. */
@@ -1014,48 +1028,150 @@ function SceneRings(cv, rec, btns, cases) {
   onResize(function () { build(); if (reduced) frame(0, 0); });
 }
 
-/* The live interception: real router output, one request at a time. */
+/* The line, with mycelium on both sides of it. On a wide screen the line stands upright between "your side" and
+   "outside": threads cross it once on the way out (upper) and once on the way back (lower). On a phone it lies flat.
+   Small balls carry the request across: light gold while the details are real, teal once masked, moss once blurred. */
+function SceneGate(cv, rows) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var IV = [247, 243, 234], GOLD = [221, 176, 74], LIGHT = [248, 223, 156], TEAL = [95, 217, 198], MOSS = [143, 174, 107];
+  var S, w, h, flat, cross = [], balls = [], rings = [], tier = 1, dirty = true, stat, sctx;
+  function rgb(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (a == null ? 1 : a) + ')'; }
+  function fan(c, ang, Rx, Ry, n, seed) {
+    var rand = Mycel.rng(seed), A = [], U = Math.max(Rx, Ry) / 40;
+    for (var i = 0; i < n; i++) { var a = ang + (rand() - 0.5) * 2.1, r = 0.32 + 0.68 * Math.pow(rand(), 0.55); A.push({ x: c.x + Math.cos(a) * r * Rx, y: c.y + Math.sin(a) * r * Ry }); }
+    var net = Mycel.grow({ roots: [{ x: c.x, y: c.y }], attractors: A, step: 1.5 * U, reach: 22 * U, kill: 2.9 * U, rand: rand, iters: 300, jitter: 0.5 });
+    var paths = Mycel.leaves(net).map(function (l) { return Mycel.pathToRoot(net, l); }).filter(function (p) { return p.length > 4; });
+    return { net: net, paths: paths };
+  }
+  function threads(ctx, net, alpha) {
+    ctx.lineCap = 'round'; ctx.strokeStyle = rgb(IV, alpha);
+    for (var i = 0; i < net.length; i++) {
+      var n = net[i]; if (n.p < 0) continue; var P = net[n.p];
+      ctx.lineWidth = Math.max(0.55, Math.min(2.6, 0.4 + Math.sqrt(n.w) * 0.13));
+      var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2; ctx.beginPath();
+      if (P.p >= 0) { var G = net[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); } else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+      if (n.kids === 0) ctx.lineTo(n.x, n.y); ctx.stroke();
+    }
+  }
+  function paint() {
+    sctx.clearRect(0, 0, w, h);
+    cross.forEach(function (c) { threads(sctx, c.mine.net, 0.62); threads(sctx, c.out.net, tier === 3 ? 0.16 : 0.62); });
+    sctx.strokeStyle = rgb(GOLD); sctx.lineWidth = 2; sctx.lineCap = 'butt'; sctx.beginPath();
+    if (flat) { sctx.moveTo(0, h / 2); sctx.lineTo(w, h / 2); } else { sctx.moveTo(w / 2, 0); sctx.lineTo(w / 2, h); }
+    sctx.stroke();
+    // a small arrowhead at each crossing says which way it goes: out on the upper one, back on the lower one
+    sctx.fillStyle = rgb(GOLD);
+    if (tier !== 3) cross.forEach(function (c, k) {
+      var d = flat ? 0 : (k === 0 ? 1 : -1), x0 = c.c.x, y0 = c.c.y; sctx.beginPath();
+      if (flat) { sctx.moveTo(x0 - 6, y0 + 5); sctx.lineTo(x0 + 6, y0 + 5); sctx.lineTo(x0, y0 + 13); }
+      else { sctx.moveTo(x0 + d * 5, y0 - 6); sctx.lineTo(x0 + d * 5, y0 + 6); sctx.lineTo(x0 + d * 13, y0); }
+      sctx.closePath(); sctx.fill();
+    });
+    dirty = true;
+  }
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; if (w < 4 || h < 4) return;
+    var r = rows(); flat = !r; cross = []; balls = []; rings = [];
+    if (flat) {
+      var c = { x: w / 2, y: h / 2 }, Rx = Math.min(w * 0.42, 190), Ry = h / 2 - 5;
+      cross.push({ c: c, mine: fan(c, -Math.PI / 2, Rx, Ry, 46, 52), out: fan(c, Math.PI / 2, Rx, Ry, 46, 34) });
+    } else {
+      var Rx2 = w / 2 - 6, y1 = r[0], y2 = r[1], Ry2 = Math.max(40, Math.min(132, (y2 - y1) / 2 - 10, y1 - 92, h - y2 - 8));
+      cross.push({ c: { x: w / 2, y: y1 }, mine: fan({ x: w / 2, y: y1 }, Math.PI, Rx2, Ry2, 44, 52), out: fan({ x: w / 2, y: y1 }, 0, Rx2, Ry2, 44, 34) });
+      cross.push({ c: { x: w / 2, y: y2 }, mine: fan({ x: w / 2, y: y2 }, Math.PI, Rx2, Ry2, 44, 913), out: fan({ x: w / 2, y: y2 }, 0, Rx2, Ry2, 44, 477) });
+    }
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height; sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    paint();
+  }
+  function pick(a) { return a[(Math.random() * a.length) | 0]; }
+  /* dir 'out': from your side across the line. dir 'back': from outside, back across it. With keep-local, 'out' stops at the line. */
+  function send(dir, n) {
+    if (reduced || !cross.length) return;
+    var c = dir === 'back' && cross[1] ? cross[1] : cross[0], from = dir === 'back' ? c.out : c.mine, to = dir === 'back' ? c.mine : c.out;
+    var away = tier === 2 ? MOSS : TEAL, stop = dir === 'out' && tier === 3;
+    for (var i = 0; i < n; i++) {
+      var p = pick(from.paths).slice(), sLine; Mycel.measure(p); sLine = p.len;
+      if (!stop) { p = p.concat(pick(to.paths).slice().reverse().slice(1)); Mycel.measure(p); }
+      balls.push({ p: p, s: -i * 26, sLine: sLine, a: dir === 'back' ? away : LIGHT, b: dir === 'back' ? LIGHT : away, stop: stop, c: c.c });
+    }
+    dirty = true;
+  }
+  function frame(dt) {
+    if (!S || !stat || (!balls.length && !rings.length && !dirty)) return;
+    var ctx = S.ctx, i; ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h); dirty = false;
+    for (i = rings.length - 1; i >= 0; i--) { var q = rings[i]; q.t += dt; var f = q.t / 1.4; if (f >= 1) { rings.splice(i, 1); continue; }
+      ctx.strokeStyle = rgb(GOLD, (1 - f) * (1 - f)); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(q.x, q.y, 4 + 14 * f, 0, 6.3); ctx.stroke(); }
+    for (i = balls.length - 1; i >= 0; i--) {
+      var b = balls[i]; b.s += 120 * dt; if (b.s < 0) continue;
+      if (b.s >= b.p.len) { if (b.stop) rings.push({ x: b.c.x, y: b.c.y, t: 0 }); balls.splice(i, 1); continue; }
+      var at = Mycel.at(b.p, b.s), col = b.s < b.sLine ? b.a : b.b, fade = Math.min(1, b.s / 14, (b.p.len - b.s) / (b.stop ? 4 : 14));
+      var g = ctx.createRadialGradient(at.x, at.y, 1, at.x, at.y, 9); g.addColorStop(0, rgb(col, 0.4 * fade)); g.addColorStop(1, rgb(col, 0));
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(at.x, at.y, 9, 0, 6.3); ctx.fill();
+      ctx.fillStyle = rgb(col, fade); ctx.beginPath(); ctx.arc(at.x, at.y, 3, 0, 6.3); ctx.fill();
+    }
+  }
+  build(); if (reduced) frame(0); else Mycel.loop(cv, frame);
+  return { build: function () { build(); if (reduced) frame(0); }, send: send, tier: function (t) { tier = t; if (stat) { paint(); if (reduced) frame(0); } } };
+}
+
+/* The live interception: real router output, one request at a time. Five small steps, each next to what it describes:
+   out across the line on the upper row, back across it on the lower row. */
 function SceneLive(root, data) {
   var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
   var $ = function (s) { return root.querySelector(s); };
-  var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), verdict = $('#lv-verdict'), steps = root.querySelectorAll('#lv-steps li'), tabs = $('#lv-cases'), outH = $('#lv-out-h'), ansNote = $('#lv-ans-note');
-  var mini = SceneMini($('#lv-cv')), timers = [], cur = 0;
+  var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), paneBack = $('#lv-back'), verdict = $('#lv-verdict'), tabs = $('#lv-cases');
+  var P = [$('#lv-p1'), $('#lv-p2'), $('#lv-p3'), $('#lv-p4'), $('#lv-p5')], gateEl = $('#lv-gate'), timers = [], cur = 0;
+  function rows() {   // where the threads cross the line: level with the middle of each row of boxes. null on a phone.
+    if (getComputedStyle($('.sides')).display === 'none') return null;
+    var g = gateEl.getBoundingClientRect(), a = paneIn.getBoundingClientRect(), b = paneBack.getBoundingClientRect();
+    var y1 = Math.max(150, a.top - g.top + Math.min(a.height / 2, 120)), y2 = Math.max(y1 + 120, b.top - g.top + Math.min(b.height / 2, 120));
+    return [y1, Math.min(y2, g.height - 50)];
+  }
+  var gate = SceneGate($('#lv-cv'), rows);
   var order = ['email', 'generalise', 'vault', 'sv-email'], label = { email: 'A customer e-mail with bank details', generalise: 'A supplier e-mail with telling details', vault: 'A confidential deal', 'sv-email': 'Swedish example: an e-mail with a personnummer' };
   var cases = order.map(function (k) { return data.cases.filter(function (c) { return c.key === k; })[0]; });
   var TIER = { 1: ['Mask', 't1'], 2: ['Generalise', 't2'], 3: ['Keep local', 't3'] };
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
   function later(ms, fn) { timers.push(setTimeout(fn, reduced ? 0 : ms)); }
-  function step(n) { steps.forEach(function (li, i) { li.classList.toggle('on', i === n); li.classList.toggle('done', i < n); }); }
+  function step(n) { P.forEach(function (p, i) { p.classList.toggle('wait', i > n); p.classList.toggle('on', i === n); }); }
   function swap(tok, txt, cls, i, gap) { later(i * gap, function () { tok.classList.add('go'); later(230, function () { tok.textContent = txt; tok.className = 'tok ' + cls; }); }); }
+  function fill(pane, parts, cls) { var toks = []; parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok ' + cls, p.a); toks.push([t, p]); pane.appendChild(t); } else pane.appendChild(document.createTextNode(p.lit)); }); return toks; }
   function play(i) {
     timers.forEach(clearTimeout); timers = []; cur = i;
-    var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; });
+    var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; }), local = c.tier === 3, outT = [], backT = [];
     tabs.querySelectorAll('button').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
-    paneIn.textContent = ''; paneOut.textContent = ''; paneAns.textContent = ''; verdict.textContent = ''; verdict.className = 'verdict'; ansNote.textContent = '';
-    var gloss = $('#lv-gloss'); if (gloss) gloss.textContent = c.key === 'sv-email' ? 'Swedish example. In English, it asks: translate this e-mail into English. The writer sends a CV before an interview and gives a personal identity number (personnummer) for the background check.' : '';
-    outH.textContent = c.tier === 3 ? 'What was sent out' : 'What the model sees';
-    c.parts.forEach(function (p) { paneIn.appendChild('a' in p ? el('span', 'tok raw', p.a) : document.createTextNode(p.lit)); });
-    step(0);
-    later(900, function () {
-      step(1); verdict.textContent = TIER[c.tier][0] + ' · tier ' + c.tier + ', rule ' + c.rule; verdict.className = 'verdict ' + TIER[c.tier][1];
-      mini.send(c.tier, Math.max(3, found.length));
-      if (c.tier === 3) { paneOut.appendChild(el('span', 'none', 'Nothing. This request stayed on this side.')); return; }
-      var toks = [];
-      c.parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok raw', p.a); toks.push([t, p]); paneOut.appendChild(t); } else paneOut.appendChild(document.createTextNode(p.lit)); });
-      toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, tp[1].kind === 'masked' ? 'ph' : 'wide', k + 1, 380); });
-    });
-    var t2 = 900 + (c.tier === 3 ? 1800 : (found.length + 2) * 380 + 500);
-    later(t2, function () {
-      step(2);
-      if (c.tier === 3) { paneAns.appendChild(el('span', 'none', 'A local model answers here, on your own machine.')); ansNote.textContent = 'The local model is selected, not yet installed, so this example has no answer to show yet.'; later(1200, function () { step(3); }); return; }
-      var toks = [];
-      c.ans_parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok ph', p.a); toks.push([t, p]); paneAns.appendChild(t); } else paneAns.appendChild(document.createTextNode(p.lit)); });
-      ansNote.textContent = 'Example answer, written by us with the placeholders in it. No model was called. Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
-      later(1500, function () { step(3); toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, 'raw', k, 320); }); });
-    });
+    [paneIn, paneOut, paneAns, paneBack].forEach(function (p) { p.textContent = ''; });
+    $('#lv-gloss').textContent = c.key === 'sv-email' ? 'Swedish example. In English, it asks: translate this e-mail into English. The writer sends a CV before an interview and gives a personal identity number (personnummer) for the background check.' : '';
+    verdict.textContent = TIER[c.tier][0] + ' · tier ' + c.tier + ', rule ' + c.rule; verdict.className = 'verdict ' + TIER[c.tier][1];
+    $('#lv-out-h').textContent = local ? 'What was sent out' : 'What the model sees';
+    $('#lv-out-what').textContent = local ? 'Nothing crossed the line.' : 'Only what the line let through.';
+    $('#lv-ans-h').textContent = local ? 'No outside model' : 'The model answers';
+    $('#lv-ans-what').textContent = local ? 'This route calls no model outside.' : 'It only saw what the line let through.';
+    $('#lv-back-h').textContent = local ? 'The answer, on your side' : 'TDS puts the real details back';
+    $('#lv-back-what').textContent = local ? 'Still on your side.' : 'On your side.';
+    // every box is filled at once and stays hidden until its step, so nothing on the page moves while it plays
+    fill(paneIn, c.parts, 'raw');
+    if (local) {
+      paneOut.appendChild(el('span', 'none', 'Nothing. This request stayed on this side.'));
+      paneAns.appendChild(el('span', 'none', 'Nothing was sent, so there is nothing to answer.'));
+      paneBack.appendChild(el('span', 'none', 'A local model answers here, on your own machine.'));
+      $('#lv-ans-note').textContent = ''; $('#lv-back-note').textContent = 'The local model is selected, not yet installed, so this example has no answer to show yet.';
+    } else {
+      outT = fill(paneOut, c.parts, 'raw'); fill(paneAns, c.ans_parts, 'ph'); backT = fill(paneBack, c.ans_parts, 'ph');
+      $('#lv-ans-note').textContent = 'Example answer, written by us with the placeholders in it. No model was called.';
+      $('#lv-back-note').textContent = 'Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
+    }
+    gate.tier(c.tier); gate.build(); step(0);
+    later(900, function () { step(1); gate.send('out', Math.max(3, found.length)); });
+    later(2000, function () { step(2); outT.forEach(function (tp, k) { swap(tp[0], tp[1].b, tp[1].kind === 'masked' ? 'ph' : 'wide', k + 1, 380); }); });
+    var t3 = 2000 + (local ? 1400 : (found.length + 2) * 380 + 500);
+    later(t3, function () { step(3); });
+    later(t3 + 1500, function () { step(4); if (!local) { gate.send('back', Math.max(3, backT.length)); backT.forEach(function (tp, k) { swap(tp[0], tp[1].b, 'raw', k + 2, 320); }); } });
+    later(t3 + 1500 + (local ? 1200 : (backT.length + 3) * 320 + 600), function () { step(5); });
   }
   cases.forEach(function (c, i) { var b = el('button', '', label[c.key]); b.type = 'button'; b.addEventListener('click', function () { play(i); }); tabs.appendChild(b); });
   $('#lv-replay').addEventListener('click', function () { play(cur); });
+  onResize(function () { gate.build(); });
   play(0);
 }
 

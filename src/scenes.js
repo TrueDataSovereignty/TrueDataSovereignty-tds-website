@@ -178,47 +178,149 @@ function SceneRings(cv, rec, btns, cases) {
   onResize(function () { build(); if (reduced) frame(0, 0); });
 }
 
-/* The live interception: real router output, one request at a time. */
+/* The line, with mycelium on both sides of it. On a wide screen the line stands upright between "your side" and
+   "outside": threads cross it once on the way out (upper) and once on the way back (lower). On a phone it lies flat.
+   Small balls carry the request across: light gold while the details are real, teal once masked, moss once blurred. */
+function SceneGate(cv, rows) {
+  var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
+  var IV = [247, 243, 234], GOLD = [221, 176, 74], LIGHT = [248, 223, 156], TEAL = [95, 217, 198], MOSS = [143, 174, 107];
+  var S, w, h, flat, cross = [], balls = [], rings = [], tier = 1, dirty = true, stat, sctx;
+  function rgb(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (a == null ? 1 : a) + ')'; }
+  function fan(c, ang, Rx, Ry, n, seed) {
+    var rand = Mycel.rng(seed), A = [], U = Math.max(Rx, Ry) / 40;
+    for (var i = 0; i < n; i++) { var a = ang + (rand() - 0.5) * 2.1, r = 0.32 + 0.68 * Math.pow(rand(), 0.55); A.push({ x: c.x + Math.cos(a) * r * Rx, y: c.y + Math.sin(a) * r * Ry }); }
+    var net = Mycel.grow({ roots: [{ x: c.x, y: c.y }], attractors: A, step: 1.5 * U, reach: 22 * U, kill: 2.9 * U, rand: rand, iters: 300, jitter: 0.5 });
+    var paths = Mycel.leaves(net).map(function (l) { return Mycel.pathToRoot(net, l); }).filter(function (p) { return p.length > 4; });
+    return { net: net, paths: paths };
+  }
+  function threads(ctx, net, alpha) {
+    ctx.lineCap = 'round'; ctx.strokeStyle = rgb(IV, alpha);
+    for (var i = 0; i < net.length; i++) {
+      var n = net[i]; if (n.p < 0) continue; var P = net[n.p];
+      ctx.lineWidth = Math.max(0.55, Math.min(2.6, 0.4 + Math.sqrt(n.w) * 0.13));
+      var mx = (P.x + n.x) / 2, my = (P.y + n.y) / 2; ctx.beginPath();
+      if (P.p >= 0) { var G = net[P.p]; ctx.moveTo((G.x + P.x) / 2, (G.y + P.y) / 2); ctx.quadraticCurveTo(P.x, P.y, mx, my); } else { ctx.moveTo(P.x, P.y); ctx.lineTo(mx, my); }
+      if (n.kids === 0) ctx.lineTo(n.x, n.y); ctx.stroke();
+    }
+  }
+  function paint() {
+    sctx.clearRect(0, 0, w, h);
+    cross.forEach(function (c) { threads(sctx, c.mine.net, 0.62); threads(sctx, c.out.net, tier === 3 ? 0.16 : 0.62); });
+    sctx.strokeStyle = rgb(GOLD); sctx.lineWidth = 2; sctx.lineCap = 'butt'; sctx.beginPath();
+    if (flat) { sctx.moveTo(0, h / 2); sctx.lineTo(w, h / 2); } else { sctx.moveTo(w / 2, 0); sctx.lineTo(w / 2, h); }
+    sctx.stroke();
+    // a small arrowhead at each crossing says which way it goes: out on the upper one, back on the lower one
+    sctx.fillStyle = rgb(GOLD);
+    if (tier !== 3) cross.forEach(function (c, k) {
+      var d = flat ? 0 : (k === 0 ? 1 : -1), x0 = c.c.x, y0 = c.c.y; sctx.beginPath();
+      if (flat) { sctx.moveTo(x0 - 6, y0 + 5); sctx.lineTo(x0 + 6, y0 + 5); sctx.lineTo(x0, y0 + 13); }
+      else { sctx.moveTo(x0 + d * 5, y0 - 6); sctx.lineTo(x0 + d * 5, y0 + 6); sctx.lineTo(x0 + d * 13, y0); }
+      sctx.closePath(); sctx.fill();
+    });
+    dirty = true;
+  }
+  function build() {
+    S = Mycel.fit(cv, 2); w = S.w; h = S.h; if (w < 4 || h < 4) return;
+    var r = rows(); flat = !r; cross = []; balls = []; rings = [];
+    if (flat) {
+      var c = { x: w / 2, y: h / 2 }, Rx = Math.min(w * 0.42, 190), Ry = h / 2 - 5;
+      cross.push({ c: c, mine: fan(c, -Math.PI / 2, Rx, Ry, 46, 52), out: fan(c, Math.PI / 2, Rx, Ry, 46, 34) });
+    } else {
+      var Rx2 = w / 2 - 6, y1 = r[0], y2 = r[1], Ry2 = Math.max(40, Math.min(132, (y2 - y1) / 2 - 10, y1 - 92, h - y2 - 8));
+      cross.push({ c: { x: w / 2, y: y1 }, mine: fan({ x: w / 2, y: y1 }, Math.PI, Rx2, Ry2, 44, 52), out: fan({ x: w / 2, y: y1 }, 0, Rx2, Ry2, 44, 34) });
+      cross.push({ c: { x: w / 2, y: y2 }, mine: fan({ x: w / 2, y: y2 }, Math.PI, Rx2, Ry2, 44, 913), out: fan({ x: w / 2, y: y2 }, 0, Rx2, Ry2, 44, 477) });
+    }
+    stat = document.createElement('canvas'); stat.width = cv.width; stat.height = cv.height; sctx = stat.getContext('2d'); sctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    paint();
+  }
+  function pick(a) { return a[(Math.random() * a.length) | 0]; }
+  /* dir 'out': from your side across the line. dir 'back': from outside, back across it. With keep-local, 'out' stops at the line. */
+  function send(dir, n) {
+    if (reduced || !cross.length) return;
+    var c = dir === 'back' && cross[1] ? cross[1] : cross[0], from = dir === 'back' ? c.out : c.mine, to = dir === 'back' ? c.mine : c.out;
+    var away = tier === 2 ? MOSS : TEAL, stop = dir === 'out' && tier === 3;
+    for (var i = 0; i < n; i++) {
+      var p = pick(from.paths).slice(), sLine; Mycel.measure(p); sLine = p.len;
+      if (!stop) { p = p.concat(pick(to.paths).slice().reverse().slice(1)); Mycel.measure(p); }
+      balls.push({ p: p, s: -i * 26, sLine: sLine, a: dir === 'back' ? away : LIGHT, b: dir === 'back' ? LIGHT : away, stop: stop, c: c.c });
+    }
+    dirty = true;
+  }
+  function frame(dt) {
+    if (!S || !stat || (!balls.length && !rings.length && !dirty)) return;
+    var ctx = S.ctx, i; ctx.clearRect(0, 0, w, h); ctx.drawImage(stat, 0, 0, w, h); dirty = false;
+    for (i = rings.length - 1; i >= 0; i--) { var q = rings[i]; q.t += dt; var f = q.t / 1.4; if (f >= 1) { rings.splice(i, 1); continue; }
+      ctx.strokeStyle = rgb(GOLD, (1 - f) * (1 - f)); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(q.x, q.y, 4 + 14 * f, 0, 6.3); ctx.stroke(); }
+    for (i = balls.length - 1; i >= 0; i--) {
+      var b = balls[i]; b.s += 120 * dt; if (b.s < 0) continue;
+      if (b.s >= b.p.len) { if (b.stop) rings.push({ x: b.c.x, y: b.c.y, t: 0 }); balls.splice(i, 1); continue; }
+      var at = Mycel.at(b.p, b.s), col = b.s < b.sLine ? b.a : b.b, fade = Math.min(1, b.s / 14, (b.p.len - b.s) / (b.stop ? 4 : 14));
+      var g = ctx.createRadialGradient(at.x, at.y, 1, at.x, at.y, 9); g.addColorStop(0, rgb(col, 0.4 * fade)); g.addColorStop(1, rgb(col, 0));
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(at.x, at.y, 9, 0, 6.3); ctx.fill();
+      ctx.fillStyle = rgb(col, fade); ctx.beginPath(); ctx.arc(at.x, at.y, 3, 0, 6.3); ctx.fill();
+    }
+  }
+  build(); if (reduced) frame(0); else Mycel.loop(cv, frame);
+  return { build: function () { build(); if (reduced) frame(0); }, send: send, tier: function (t) { tier = t; if (stat) { paint(); if (reduced) frame(0); } } };
+}
+
+/* The live interception: real router output, one request at a time. Five small steps, each next to what it describes:
+   out across the line on the upper row, back across it on the lower row. */
 function SceneLive(root, data) {
   var reduced = Mycel.reducedMotion() || /[?&]still/.test(location.search);
   var $ = function (s) { return root.querySelector(s); };
-  var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), verdict = $('#lv-verdict'), steps = root.querySelectorAll('#lv-steps li'), tabs = $('#lv-cases'), outH = $('#lv-out-h'), ansNote = $('#lv-ans-note');
-  var mini = SceneMini($('#lv-cv')), timers = [], cur = 0;
+  var paneIn = $('#lv-in'), paneOut = $('#lv-out'), paneAns = $('#lv-ans'), paneBack = $('#lv-back'), verdict = $('#lv-verdict'), tabs = $('#lv-cases');
+  var P = [$('#lv-p1'), $('#lv-p2'), $('#lv-p3'), $('#lv-p4'), $('#lv-p5')], gateEl = $('#lv-gate'), timers = [], cur = 0;
+  function rows() {   // where the threads cross the line: level with the middle of each row of boxes. null on a phone.
+    if (getComputedStyle($('.sides')).display === 'none') return null;
+    var g = gateEl.getBoundingClientRect(), a = paneIn.getBoundingClientRect(), b = paneBack.getBoundingClientRect();
+    var y1 = Math.max(150, a.top - g.top + Math.min(a.height / 2, 120)), y2 = Math.max(y1 + 120, b.top - g.top + Math.min(b.height / 2, 120));
+    return [y1, Math.min(y2, g.height - 50)];
+  }
+  var gate = SceneGate($('#lv-cv'), rows);
   var order = ['email', 'generalise', 'vault', 'sv-email'], label = { email: 'A customer e-mail with bank details', generalise: 'A supplier e-mail with telling details', vault: 'A confidential deal', 'sv-email': 'Swedish example: an e-mail with a personnummer' };
   var cases = order.map(function (k) { return data.cases.filter(function (c) { return c.key === k; })[0]; });
   var TIER = { 1: ['Mask', 't1'], 2: ['Generalise', 't2'], 3: ['Keep local', 't3'] };
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
   function later(ms, fn) { timers.push(setTimeout(fn, reduced ? 0 : ms)); }
-  function step(n) { steps.forEach(function (li, i) { li.classList.toggle('on', i === n); li.classList.toggle('done', i < n); }); }
+  function step(n) { P.forEach(function (p, i) { p.classList.toggle('wait', i > n); p.classList.toggle('on', i === n); }); }
   function swap(tok, txt, cls, i, gap) { later(i * gap, function () { tok.classList.add('go'); later(230, function () { tok.textContent = txt; tok.className = 'tok ' + cls; }); }); }
+  function fill(pane, parts, cls) { var toks = []; parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok ' + cls, p.a); toks.push([t, p]); pane.appendChild(t); } else pane.appendChild(document.createTextNode(p.lit)); }); return toks; }
   function play(i) {
     timers.forEach(clearTimeout); timers = []; cur = i;
-    var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; });
+    var c = cases[i], found = c.parts.filter(function (p) { return 'a' in p; }), local = c.tier === 3, outT = [], backT = [];
     tabs.querySelectorAll('button').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i); });
-    paneIn.textContent = ''; paneOut.textContent = ''; paneAns.textContent = ''; verdict.textContent = ''; verdict.className = 'verdict'; ansNote.textContent = '';
-    var gloss = $('#lv-gloss'); if (gloss) gloss.textContent = c.key === 'sv-email' ? 'Swedish example. In English, it asks: translate this e-mail into English. The writer sends a CV before an interview and gives a personal identity number (personnummer) for the background check.' : '';
-    outH.textContent = c.tier === 3 ? 'What was sent out' : 'What the model sees';
-    c.parts.forEach(function (p) { paneIn.appendChild('a' in p ? el('span', 'tok raw', p.a) : document.createTextNode(p.lit)); });
-    step(0);
-    later(900, function () {
-      step(1); verdict.textContent = TIER[c.tier][0] + ' · tier ' + c.tier + ', rule ' + c.rule; verdict.className = 'verdict ' + TIER[c.tier][1];
-      mini.send(c.tier, Math.max(3, found.length));
-      if (c.tier === 3) { paneOut.appendChild(el('span', 'none', 'Nothing. This request stayed on this side.')); return; }
-      var toks = [];
-      c.parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok raw', p.a); toks.push([t, p]); paneOut.appendChild(t); } else paneOut.appendChild(document.createTextNode(p.lit)); });
-      toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, tp[1].kind === 'masked' ? 'ph' : 'wide', k + 1, 380); });
-    });
-    var t2 = 900 + (c.tier === 3 ? 1800 : (found.length + 2) * 380 + 500);
-    later(t2, function () {
-      step(2);
-      if (c.tier === 3) { paneAns.appendChild(el('span', 'none', 'A local model answers here, on your own machine.')); ansNote.textContent = 'The local model is selected, not yet installed, so this example has no answer to show yet.'; later(1200, function () { step(3); }); return; }
-      var toks = [];
-      c.ans_parts.forEach(function (p) { if ('a' in p) { var t = el('span', 'tok ph', p.a); toks.push([t, p]); paneAns.appendChild(t); } else paneAns.appendChild(document.createTextNode(p.lit)); });
-      ansNote.textContent = 'Example answer, written by us with the placeholders in it. No model was called. Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
-      later(1500, function () { step(3); toks.forEach(function (tp, k) { swap(tp[0], tp[1].b, 'raw', k, 320); }); });
-    });
+    [paneIn, paneOut, paneAns, paneBack].forEach(function (p) { p.textContent = ''; });
+    $('#lv-gloss').textContent = c.key === 'sv-email' ? 'Swedish example. In English, it asks: translate this e-mail into English. The writer sends a CV before an interview and gives a personal identity number (personnummer) for the background check.' : '';
+    verdict.textContent = TIER[c.tier][0] + ' · tier ' + c.tier + ', rule ' + c.rule; verdict.className = 'verdict ' + TIER[c.tier][1];
+    $('#lv-out-h').textContent = local ? 'What was sent out' : 'What the model sees';
+    $('#lv-out-what').textContent = local ? 'Nothing crossed the line.' : 'Only what the line let through.';
+    $('#lv-ans-h').textContent = local ? 'No outside model' : 'The model answers';
+    $('#lv-ans-what').textContent = local ? 'This route calls no model outside.' : 'It only saw what the line let through.';
+    $('#lv-back-h').textContent = local ? 'The answer, on your side' : 'TDS puts the real details back';
+    $('#lv-back-what').textContent = local ? 'Still on your side.' : 'On your side.';
+    // every box is filled at once and stays hidden until its step, so nothing on the page moves while it plays
+    fill(paneIn, c.parts, 'raw');
+    if (local) {
+      paneOut.appendChild(el('span', 'none', 'Nothing. This request stayed on this side.'));
+      paneAns.appendChild(el('span', 'none', 'Nothing was sent, so there is nothing to answer.'));
+      paneBack.appendChild(el('span', 'none', 'A local model answers here, on your own machine.'));
+      $('#lv-ans-note').textContent = ''; $('#lv-back-note').textContent = 'The local model is selected, not yet installed, so this example has no answer to show yet.';
+    } else {
+      outT = fill(paneOut, c.parts, 'raw'); fill(paneAns, c.ans_parts, 'ph'); backT = fill(paneBack, c.ans_parts, 'ph');
+      $('#lv-ans-note').textContent = 'Example answer, written by us with the placeholders in it. No model was called.';
+      $('#lv-back-note').textContent = 'Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
+    }
+    gate.tier(c.tier); gate.build(); step(0);
+    later(900, function () { step(1); gate.send('out', Math.max(3, found.length)); });
+    later(2000, function () { step(2); outT.forEach(function (tp, k) { swap(tp[0], tp[1].b, tp[1].kind === 'masked' ? 'ph' : 'wide', k + 1, 380); }); });
+    var t3 = 2000 + (local ? 1400 : (found.length + 2) * 380 + 500);
+    later(t3, function () { step(3); });
+    later(t3 + 1500, function () { step(4); if (!local) { gate.send('back', Math.max(3, backT.length)); backT.forEach(function (tp, k) { swap(tp[0], tp[1].b, 'raw', k + 2, 320); }); } });
+    later(t3 + 1500 + (local ? 1200 : (backT.length + 3) * 320 + 600), function () { step(5); });
   }
   cases.forEach(function (c, i) { var b = el('button', '', label[c.key]); b.type = 'button'; b.addEventListener('click', function () { play(i); }); tabs.appendChild(b); });
   $('#lv-replay').addEventListener('click', function () { play(cur); });
+  onResize(function () { gate.build(); });
   play(0);
 }

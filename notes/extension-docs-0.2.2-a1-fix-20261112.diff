@@ -1,0 +1,34 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -4 +4 @@
+-Reviewed by Compliance (`compliance/tds-shield-privacy-review.md`, 7 Nov); all its changes are applied. The update to version 0.2.1 was checked by Compliance (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); its must-fixes F1 and F2 and its should-points are applied. The update to version 0.2.2 (Autopilot) is not yet checked by Compliance. Placeholders are in `[[double brackets]]`.
++Reviewed by Compliance (`compliance/tds-shield-privacy-review.md`, 7 Nov); all its changes are applied. The update to version 0.2.1 was checked by Compliance (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); its must-fixes F1 and F2 and its should-points are applied. The update to version 0.2.2 (Autopilot) was checked by Compliance (`compliance/reviews/extension-0.2.2-autopilot-check-20261111.md`); its must-fix A1 is applied. Placeholders are in `[[double brackets]]`.
+@@ -41 +41 @@
+-- It never sends, clicks or calls a site for you. You always start the send yourself.
++- You always start the send yourself. With Autopilot on, the TDS extension masks the text at that moment and then passes your send on to the site. It never sends anything you did not start.
+--- before/store-listing.md
++++ after/store-listing.md
+@@ -43 +43 @@
+-> • You always press send yourself. The TDS extension never sends, clicks or calls a site for you.
++> • You always start the send yourself. With Autopilot on, the TDS extension masks the text at that moment and then passes your send on to the site. It never sends anything you did not start.
+--- before/store-privacy-answers.md
++++ after/store-privacy-answers.md
+@@ -5 +5 @@
+-Facts are for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commits a0e6862 and 209e8ef (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). The 0.2.2 update (Autopilot) is not yet checked by Compliance. Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
++Facts are for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commits a0e6862 and 209e8ef (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). Compliance checked the 0.2.2 update (`compliance/reviews/extension-0.2.2-autopilot-check-20261111.md`). Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
+@@ -37 +37 @@
+-| User activity | No | No clicks, keystrokes or scrolls are recorded. The paste and send events are acted on, not logged |
++| User activity | **Yes** | The extension listens to typing pauses, leaving the chat box and the send on the three sites, to mask in time. On the device only; no keystrokes, clicks or scrolls are recorded or sent. |
+@@ -39 +39 @@
+-Recommendation: tick the five categories, and use the policy's table to say that all of it stays on the device. Ticking more than strictly needed is safer than a rejection for under-disclosure **[E]**.
++Recommendation: tick the six categories, and use the policy's table to say that all of it stays on the device. Ticking more than strictly needed is safer than a rejection for under-disclosure **[E]**.
+@@ -65 +65 @@
+-- Open (12 Nov): Compliance checks the 0.2.2 update (Autopilot). User activity stays "No": Autopilot acts on typing pauses and the send, and logs neither. The bug report now includes the browser's user-agent string; it is copied to the clipboard on the user's press and is not sent by the extension.
++- Done (12 Nov): Compliance checked the 0.2.2 update (Autopilot). User activity changed to Yes, as Compliance advised: Autopilot listens to typing events, and the store's categories cover data handled on the device, not only data sent. The bug report now includes the browser's user-agent string; it is copied to the clipboard on the user's press and is not sent by the extension.
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -28,2 +28,2 @@
+-| Type text yourself | **Autopilot** (on by default) masks what it finds after a short pause, finished words only, and all of it when you leave the box or send. There is no Mask button to press. Until the masking happens, the typed text sits unmasked in the chat box, where the site's page can read it |
+-| Press send | You always start the send yourself. Autopilot masks what is left and then lets your send go on. If it cannot mask the text, it stops the send and tells you. After a masked send, a message says what was masked; it cannot be undone after the send |
++| Type text yourself | **Autopilot** (on by default) masks what it finds after a short pause, finished words only, and all of it when you leave the box or send. You don't have to press anything; to mask at once, press the **TDS** pill or **Alt+Shift+M**. Until the masking happens, the typed text sits unmasked in the chat box, where the site's page can read it |
++| Press send | You always start the send yourself. Autopilot masks what is left and then passes your send on to the site. If it cannot mask the text, it stops the send and tells you. After a masked send, a message says what was masked; it cannot be undone after the send |

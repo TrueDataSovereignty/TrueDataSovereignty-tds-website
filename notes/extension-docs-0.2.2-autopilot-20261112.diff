@@ -1,0 +1,64 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -4,2 +4,2 @@
+-Reviewed by Compliance (`compliance/tds-shield-privacy-review.md`, 7 Nov); all its changes are applied. The update to version 0.2.1 was checked by Compliance (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); its must-fixes F1 and F2 and its should-points are applied, and the result is with Compliance for a last look. Placeholders are in `[[double brackets]]`.
+-Written for version 0.2.1 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's list, checked against the code at commit efc08c5 (`tds-extension-0.2.1-facts-for-privacy-policy.md`, 12 Nov 2026). If the code changes, this text must be checked again.
++Reviewed by Compliance (`compliance/tds-shield-privacy-review.md`, 7 Nov); all its changes are applied. The update to version 0.2.1 was checked by Compliance (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); its must-fixes F1 and F2 and its should-points are applied. The update to version 0.2.2 (Autopilot) is not yet checked by Compliance. Placeholders are in `[[double brackets]]`.
++Written for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commit a0e6862 (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). If the code changes, this text must be checked again.
+@@ -34,3 +34,3 @@
+-| Your settings, with no text in them: that you agreed on the welcome page (with the version, date and time), which sites are switched on, the two restore switches, whether explanations are on, whether Strict mode is on, your language (English or Svenska), that you have seen the tour, and the names-model setting (no names model is installed in version 0.2.1) | In the browser's extension storage (`chrome.storage.local`), on this computer | Until you remove the TDS extension | **No** |
+-| Two random values: one made once, and one made for each new chat. Together they give each chat an id inside the extension | The same extension storage, on this computer | Until you remove the TDS extension | **No.** In version 0.2.1 the id is not sent anywhere |
+-| Settings made by your organisation, if it manages your browser: whether explanations are on, whether that is locked, and whether Strict mode is on | Set by your IT department through the browser's managed policies. The TDS extension only reads them | As long as your organisation keeps them | **No** |
++| Your settings, with no text in them: that you agreed on the welcome page (with the version, date and time), which sites are switched on, the two restore switches, whether Autopilot is on, whether explanations are on, whether Strict mode is on, your language (English or Svenska), that you have seen the tour, and the names-model setting (no names model is installed in version 0.2.2) | In the browser's extension storage (`chrome.storage.local`), on this computer | Until you remove the TDS extension | **No** |
++| Two random values: one made once, and one made for each new chat. Together they give each chat an id inside the extension | The same extension storage, on this computer | Until you remove the TDS extension | **No.** In version 0.2.2 the id is not sent anywhere |
++| Settings made by your organisation, if it manages your browser: whether explanations are on, whether Autopilot is on, whether each of those is locked, and whether Strict mode is on | Set by your IT department through the browser's managed policies. The TDS extension only reads them | As long as your organisation keeps them | **No** |
+@@ -41,2 +41,5 @@
+-- It never sends, clicks or calls a site for you. You always press send yourself.
+-- Text you paste is masked as it lands. Text you type is checked when you press Enter or Send, or Alt+Shift+M. **Until then, typed text sits unmasked in the chat box, where the site's page can read it.**
++- It never sends, clicks or calls a site for you. You always start the send yourself.
++- Text you paste is masked as it lands.
++- **Autopilot** is on by default. While you type, after a short pause (about 0.4 seconds), the TDS extension masks what it finds in the chat box: finished words only, and only when the cursor is at the end of the text. When you leave the chat box, it masks all of it. When you send, it masks what is left, checks the box again, and then lets your send go on. If it cannot mask the text or cannot read the box, it stops the send and tells you.
++- **Typed text is still unmasked in the chat box for a short time, and the site's page can read the box in that time.** That is: until the pause after a finished word, or until you leave the box or send. The word you are typing, and text typed with the cursor not at the end, stay unmasked until the pause at the end, until you leave the box, or until you send.
++- You can switch Autopilot off in the menu; your organisation can set the default and lock it. With Autopilot off, typed text is checked when you press Enter or Send, or Alt+Shift+M, and sits unmasked in the chat box until then.
+@@ -46 +49 @@
+-- After masking, a one-line message says what was hidden, as counts per kind only (for example "2 names"), and where it comes back. It is on by default. You can switch it off; your organisation can set the default and lock it. The menu also has a short tour the first time you open it.
++- After masking, a one-line message says what was hidden, as counts per kind only (for example "2 names"), and where it comes back. After a send that Autopilot masked, the message also says that it cannot be undone after the send. It is on by default. You can switch it off; your organisation can set the default and lock it. The menu also has a short tour the first time you open it.
+@@ -101 +104 @@
+-4. Restore default: off (Henrik, 7 Nov, as Compliance advised). Version 0.2.1 has two restore switches, both off by default: into TDS's own panel, and into the page itself. Neither is available on chatgpt.com and gemini.google.com until a legal review (Product UI's facts, 12 Nov).
++4. Restore default: off (Henrik, 7 Nov, as Compliance advised). Since version 0.2.1 there are two restore switches, both off by default: into TDS's own panel, and into the page itself. Neither is available on chatgpt.com and gemini.google.com until a legal review (Product UI's facts, 12 Nov).
+@@ -106,0 +110 @@
++10. **Version 0.2.2 (12 Nov):** Autopilot, on by default. New setting `autopilot`; new managed settings `autopilotDefault` and `autopilotLocked`. Typed text is unmasked for a shorter time than in 0.2.1, not for no time. Still no network calls, and the `storage` permission only. Product UI's tests ran on mock sites with made-up data; the build has not yet been tried on the live sites.
+--- before/store-privacy-answers.md
++++ after/store-privacy-answers.md
+@@ -5 +5 @@
+-Facts are for version 0.2.1 (name in the browser: "TDS (beta 0.2, test mode)"): Product UI's list, checked against the code at commit efc08c5 (`tds-extension-0.2.1-facts-for-privacy-policy.md`, 12 Nov 2026). Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
++Facts are for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commit a0e6862 (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). The 0.2.2 update (Autopilot) is not yet checked by Compliance. Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
+@@ -15 +15 @@
+-| `storage` | Keeps the user's settings (consent given, sites switched on, the two restore switches, explanations, Strict mode, language, tour seen, the names-model setting, and two random values that give each chat an id inside the extension) in extension storage on the device, and the placeholder list for each chat in session memory, which is cleared when the browser closes. It also reads three read-only settings that an organisation can set through managed policies (explanations default, explanations locked, Strict mode). Nothing is sent anywhere. |
++| `storage` | Keeps the user's settings (consent given, sites switched on, the two restore switches, Autopilot, explanations, Strict mode, language, tour seen, the names-model setting, and two random values that give each chat an id inside the extension) in extension storage on the device, and the placeholder list for each chat in session memory, which is cleared when the browser closes. It also reads five read-only settings that an organisation can set through managed policies (explanations default, explanations locked, Autopilot default, Autopilot locked, Strict mode). Nothing is sent anywhere. |
+@@ -43 +43 @@
+-Tick all three. Each is true for version 0.2.1:
++Tick all three. Each is true for version 0.2.2:
+@@ -59 +59 @@
+-The store listing alone is not enough; consent must be given in the product ([Disclosure requirements](https://developer.chrome.com/docs/webstore/program-policies/disclosure-requirements), from the Compliance check). Version 0.2.1 has it: the welcome page opens on install, explains what is read and where it stays, and nothing is read on any site until the user presses "I understand. Turn TDS on". The policy matches that text.
++The store listing alone is not enough; consent must be given in the product ([Disclosure requirements](https://developer.chrome.com/docs/webstore/program-policies/disclosure-requirements), from the Compliance check). Version 0.2.2 has it: the welcome page opens on install, explains what is read and where it stays, and nothing is read on any site until the user presses "I understand. Turn TDS on". The policy matches that text.
+@@ -65 +65 @@
+-- Open (12 Nov): Compliance re-checks the 0.2.1 update. The bug report now includes the browser's user-agent string; it is copied to the clipboard on the user's press and is not sent by the extension.
++- Open (12 Nov): Compliance checks the 0.2.2 update (Autopilot). User activity stays "No": Autopilot acts on typing pauses and the send, and logs neither. The bug report now includes the browser's user-agent string; it is copied to the clipboard on the user's press and is not sent by the extension.
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -3 +3 @@
+-*One page. Version 0.2.1 (in the browser it is called "TDS (beta 0.2, test mode)"), [[date]]. Questions: [[beta@truedatasovereignty.eu]]*
++*One page. Version 0.2.2 (in the browser it is called "TDS (beta 0.2, test mode)"), [[date]]. Questions: [[beta@truedatasovereignty.eu]]*
+@@ -28,2 +28,4 @@
+-| Type text yourself | Checks it when you press Enter or Send. To mask it sooner, press the **TDS** pill (bottom right) or **Alt+Shift+M**. Until then the typed text sits unmasked in the chat box, where the site's page can read it |
+-| Press send while something is still unmasked | Stops the send, with a **Mask now** button |
++| Type text yourself | **Autopilot** (on by default) masks what it finds after a short pause, finished words only, and all of it when you leave the box or send. Until then the typed text sits unmasked in the chat box, where the site's page can read it. To mask at once, press the **TDS** pill (bottom right) or **Alt+Shift+M** |
++| Press send | You always start the send yourself. Autopilot masks what is left and then lets your send go on. If it cannot mask the text, it stops the send and tells you. After a masked send, a message says what was masked; it cannot be undone after the send |
++| Switch **Autopilot** off in the menu | Typed text is checked only when you press Enter or Send, or Alt+Shift+M |
++| Press send while something is still unmasked, with Autopilot off | Stops the send, with a **Mask now** button |
+--- before/tester-invite.md
++++ after/tester-invite.md
+@@ -46 +46 @@
+-5. The claims match version 0.2.1: names in running text are "only partly found", as in the privacy policy. No names model is installed yet (gate G3). Check this sentence again if a later version ships before the invite goes out.
++5. The claims match version 0.2.2: names in running text are "only partly found", as in the privacy policy. No names model is installed yet (gate G3). Check this sentence again if a later version ships before the invite goes out.

@@ -1,4 +1,4 @@
-Content-Security-Policy: default-src 'none'; script-src 'sha256-P5gvif5I+9FeLdYSfB5jtRidkhpJVUh/ACW7Cb0U9Q0=' 'sha256-ReVaWGFmr3GpRe8bcfqcrDpZiMvrngjMEdmSJOwMDn4=' 'sha256-sk3EniXTdj6c0WaVGpef93iRpeF8TeXe1olKZvLkjlc='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Content-Security-Policy: default-src 'none'; script-src 'sha256-C3WRkAT4XMiF94D1a2UWqRHC/YWJqesJDl4w1SO3TlY=' 'sha256-xaqBnjDk/mf7ijzTTv8Fc4GmZlevmNv8AEzNmh7pZ7Y=' 'sha256-sk3EniXTdj6c0WaVGpef93iRpeF8TeXe1olKZvLkjlc='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 Strict-Transport-Security: max-age=31536000
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff

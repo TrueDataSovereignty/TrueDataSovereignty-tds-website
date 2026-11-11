@@ -6,13 +6,11 @@
 .top.moved{padding-top:12px;padding-bottom:12px}
 .top .home{color:#101A3D}
 .mark{display:block;width:34px;height:34px;flex:none;overflow:visible}
-.mark .ghost{opacity:0}
-.mark .r0,.mark .r1,.mark .r2{stroke-dasharray:1 3}
-.mark .r0{stroke-dashoffset:calc(1.2 - 1.2*var(--q0,1))}
+/* the mark is always whole and in one ink, with the gold line: on scroll the roots only reach a little further */
+.mark .r1,.mark .r2{stroke-dasharray:1 3}
 .mark .r1{stroke-dashoffset:calc(1.2 - 1.2*var(--q1,1))}
 .mark .r2{stroke-dashoffset:calc(1.2 - 1.2*var(--q2,1))}
 .mark .gl{transform-box:fill-box;transform-origin:50% 50%;transform:scaleX(var(--g,1))}
-.flow .mark .ghost{opacity:.16}
 /* a dark band opens with the ground line, drawn across as the band comes into view */
 .marine{position:relative}
 div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold);transform:scaleX(var(--in,1));transform-origin:0 50%}

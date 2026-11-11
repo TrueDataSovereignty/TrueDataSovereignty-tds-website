@@ -32,9 +32,9 @@
     if (mark) {
       var q = clamp((p - 0.04) / 0.9);              // the roots finish a little before the very end
       mark.style.setProperty('--g', (0.5 + 0.5 * ease(clamp(max > 40 ? y / 260 : 1))).toFixed(3));   // the gold line settles first
-      mark.style.setProperty('--q0', clamp(q / 0.12).toFixed(3));
-      mark.style.setProperty('--q1', ease(clamp((q - 0.08) / 0.62)).toFixed(3));
-      mark.style.setProperty('--q2', ease(clamp((q - 0.5) / 0.5)).toFixed(3));
+      // the roots are always there, in the same ink as the branches; they reach their full length as the page is read
+      mark.style.setProperty('--q1', (0.62 + 0.38 * ease(clamp(q / 0.7))).toFixed(3));
+      mark.style.setProperty('--q2', (0.45 + 0.55 * ease(clamp((q - 0.3) / 0.7))).toFixed(3));
     }
     for (var i = 0; i < bands.length; i++) {
       var t = bands[i].getBoundingClientRect().top;

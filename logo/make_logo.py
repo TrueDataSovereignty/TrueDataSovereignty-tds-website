@@ -226,6 +226,7 @@ HAND = [
     ("tds-tree-small.svg", dict(base=MARINE), None, "Small cut, drawn by hand: five branch ends, five root ends. For 32 to 48 px."),
     ("tds-tree-small-on-marine.svg", dict(base=IVORY), "#101A3D", "Small cut on marine."),
     ("tds-tree-small-one-ink.svg", dict(base=MARINE, mono=True), None, "Small cut in one ink."),
+    ("tds-tree-small-one-ink-reversed.svg", dict(base=IVORY, mono=True), "#101A3D", "Small cut in one ink, ivory on marine."),
     ("tds-tree-tiny.svg", dict(base=MARINE, tiny=True), None, "Tiny cut, drawn by hand: three and three. For 16 to 24 px, the browser tab."),
     ("tds-tree-tiny-on-marine.svg", dict(base=IVORY, tiny=True), "#101A3D", "Tiny cut on marine."),
 ]

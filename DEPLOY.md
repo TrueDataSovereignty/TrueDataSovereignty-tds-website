@@ -5,7 +5,7 @@ Nothing here is published. Nothing goes live without Henrik's clear yes in chat.
 ## What is the site, and what is working material
 
 **Site pages (deploy these):**
-- `index.html`, `how-it-works.html`, `platform.html`, `extension.html`, `mcp.html`, `pilot.html`, `trust.html`, `404.html`
+- `index.html`, `how-it-works.html`, `platform.html`, `extension.html`, `mcp.html`, `pilot.html`, `trust.html`, `about.html`, `privacy.html`, `404.html`
 - `logo/` : only the logo files those pages use (the script below picks them)
 - the Lora font, `web/fonts/Lora-wght.ttf`, with its licence `Lora-OFL.txt`
 
@@ -29,7 +29,7 @@ python -I src/audit.py
 python -I src/make_deploy.py
 ```
 
-`make_deploy.py` writes `deploy/` with the eight pages, the logo files they use, and the font. It fixes the font path and stops if a page links to anything that is not a site page. `deploy/` is ignored by git.
+`make_deploy.py` writes `deploy/` with the ten pages, the logo files they use, and the font. It fixes the font path and stops if a page links to anything that is not a site page. `deploy/` is ignored by git.
 
 It also writes `deploy-headers/` (the security headers and a Caddyfile). With `--launch` it removes the draft marks and stops if the site is not ready.
 

@@ -1,6 +1,6 @@
 """Make a clean copy of the site in deploy/, with only what a web server needs.
 
-It copies the eight site pages, the logo files they use and the Lora font, and points the font path at the copy.
+It copies the ten site pages, the logo files they use and the Lora font, and points the font path at the copy.
 It also writes deploy-headers/ (the security headers and a Caddyfile). Those are server settings, not site files.
 It publishes nothing: deploy/ is a local folder, ignored by git. Nothing goes live without Henrik's yes.
 
@@ -16,7 +16,7 @@ META_CSP = "--meta-csp" in sys.argv
 root = pathlib.Path(__file__).parent.parent
 out = root / "deploy"
 hdr = root / "deploy-headers"
-PAGES = ["index", "how-it-works", "platform", "extension", "mcp", "pilot", "trust", "404"]
+PAGES = ["index", "how-it-works", "platform", "extension", "mcp", "pilot", "trust", "about", "privacy", "404"]
 ROBOTS = '<meta name="robots" content="noindex,nofollow">\n'
 FOOT = "<span>Draft for review. Not published. No trackers, no cookies.</span>"
 
@@ -51,7 +51,7 @@ for n in PAGES:
         s = s.replace(ROBOTS, "").replace(" (draft, not published)", "").replace(FOOT, "<span>No trackers, no cookies.</span>")
         seen = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", s)
         if 'class="ph"' in seen or "[Draft" in seen:
-            not_ready.append(n + ": a marked placeholder is still on the page (the contact address)")
+            not_ready.append(n + ": a marked placeholder is still on the page")
         if re.search(r"not published|draft for review", seen, re.I):
             not_ready.append(n + ": a draft mark is still in the text")
         if "noindex" in s:

@@ -30,6 +30,7 @@ ul.plain{list-style:none;margin:0;padding:0}ul.plain li{padding:8px 0;border-top
 .src{display:block;font:400 12px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-top:6px}
 a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
 .after{margin-top:44px}
+.ph{font:400 13px/1.6 var(--sans);color:#8A6212;border:1px dashed #8A6212;border-radius:2px;padding:1px 6px}
 .sitemap{display:flex;flex-wrap:wrap;gap:6px 22px;margin:10px 0 6px}
 .sitemap a{color:var(--ivory);text-decoration:none;font-size:14px}.sitemap a:hover{text-decoration:underline}
 @media (max-width:859px){.cols2,.cols3{grid-template-columns:1fr}}
@@ -43,7 +44,7 @@ def nav(current):
 
 
 def sitemap():
-    return '<a href="index.html">Home</a>' + "".join('<a href="%s.html">%s</a>' % (k, label) for k, label in NAV) + '<a href="index.html#contact">Contact</a>'
+    return '<a href="index.html">Home</a>' + "".join('<a href="%s.html">%s</a>' % (k, label) for k, label in NAV) + '<a href="about.html">About</a><a href="index.html#contact">Contact</a><a href="privacy.html">Privacy</a>'
 
 
 def shell(name, title, desc, main, script=""):

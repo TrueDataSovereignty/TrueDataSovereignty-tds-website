@@ -9,7 +9,7 @@ Run:  python -I src/audit.py
 import pathlib, re
 
 root = pathlib.Path(__file__).parent.parent
-PAGES = ["index", "how-it-works", "platform", "extension", "mcp", "pilot", "trust", "404"]
+PAGES = ["index", "how-it-works", "platform", "extension", "mcp", "pilot", "trust", "about", "privacy", "404"]
 
 
 def lum(h):

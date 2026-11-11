@@ -1,17 +1,17 @@
-<!--title: The Layer for teams · True Data Sovereignty (draft, not published)-->
-<!--desc: The Layer sits between your people and the AI models they use. For each request it decides what may leave, and writes a record you can check.-->
+<!--title: TDS for teams · True Data Sovereignty (draft, not published)-->
+<!--desc: TDS sits between your people and the AI models they use. For each request it decides what may leave, and writes a record you can check.-->
 <div class="wrap">
   <section class="intro">
-    <p class="lab">The Layer · for teams</p>
+    <p class="lab">TDS gateway · for teams</p>
     <h1>One gate for every AI request.</h1>
-    <p class="big">The Layer sits between your people and the AI models they use. For each request it decides what may leave, masks the identities it finds, keeps the key to put them back on the machine that runs The Layer, and writes a record you can check.</p>
+    <p class="big">TDS sits between your people and the AI models they use. For each request it decides what may leave, masks the identities it finds, keeps the key to put them back on the machine that runs TDS, and writes a record you can check.</p>
     <p><a class="text" href="how-it-works.html">See the three routes, with examples</a></p>
   </section>
   <section class="block" aria-labelledby="h-get">
     <p class="lab">What you get</p>
     <h2 id="h-get">Built for the people who must answer for the data.</h2>
     <div class="cols2">
-      <div><h3>A drop-in API</h3><p>OpenAI- and Anthropic-compatible endpoints, so existing tools can point at The Layer. Streaming and tool use work.</p></div>
+      <div><h3>A drop-in API</h3><p>OpenAI- and Anthropic-compatible endpoints, so existing tools can point at TDS. Streaming and tool use work.</p></div>
       <div><h3>Your rules, per client and per task</h3><p>Each client has its own token and its own profile. A missing or unknown setting makes a request stricter, never looser.</p></div>
       <div><h3>A record of every decision</h3><p>One line per request: the route, the rule, counts and where the text went. No text from the request. Each line is chained to the one before, and the chain head can be anchored outside the log.</p></div>
       <div><h3>A local dashboard and an evidence report</h3><p>See each decision, and give your auditor a self-contained report built from the log only. It says plainly what it cannot show.</p></div>
@@ -22,7 +22,7 @@
   <section class="sec" aria-labelledby="h-fail">
     <span class="goldline"></span>
     <h2 id="h-fail">When something goes wrong, it stays.</h2>
-    <p class="big">If The Layer cannot finish its check (any error or timeout), the text stays on your machine. If the AI service itself is down, the request is refused, never sent elsewhere.</p>
+    <p class="big">If TDS cannot finish its check (any error or timeout), the text stays on your machine. If the AI service itself is down, the request is refused, never sent elsewhere.</p>
   </section>
 </div></div>
 <div class="wrap">

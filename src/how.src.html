@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>How The Layer decides · True Data Sovereignty (draft, not published)</title>
-<meta name="description" content="How The Layer routes each AI request: mask, generalise, or keep local. With real examples and the limits.">
+<title>How TDS decides · True Data Sovereignty (draft, not published)</title>
+<meta name="description" content="How TDS routes each AI request: mask, generalise, or keep local. With real examples and the limits.">
 <link rel="icon" href="logo/tds-tree-tiny.svg">
 <style>
 {{base.css}}
@@ -72,7 +72,7 @@ footer img{width:34px;height:34px}
   <section class="intro">
     <p class="lab">How it works</p>
     <h1>One decision for every request.</h1>
-    <p class="big">The Layer sits on your own machine, between your staff and the AI they use. It reads each request before any model does. Then it sends the request one of three ways.</p>
+    <p class="big">TDS sits on your own machine, between your staff and the AI they use. It reads each request before any model does. Then it sends the request one of three ways.</p>
     <p class="big">Which way depends on what is in the request, and on the rules you set.</p>
   </section>
 
@@ -110,7 +110,7 @@ footer img{width:34px;height:34px}
     <div>
       <h2 id="h-local">Some work goes no further.</h2>
       <p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p>
-      <p>In our example, a note about a confidential deal was too close to the company's confidential list. The Layer kept it.</p>
+      <p>In our example, a note about a confidential deal was too close to the company's confidential list. TDS kept it.</p>
       <p class="note">Synthetic example: a real router decision on made-up text (router a822605). The local model is selected, not yet installed; this route has not run live yet.</p>
     </div>
   </section>
@@ -119,13 +119,13 @@ footer img{width:34px;height:34px}
 <div class="marine"><div class="wrap">
   <section class="sec" aria-labelledby="h-order">
     <span class="goldline"></span>
-    <h2 id="h-order">You set the rules. The Layer applies them.</h2>
+    <h2 id="h-order">You set the rules. TDS applies them.</h2>
     <p class="big">For each request, in this order:</p>
     <ol class="steps">
       <li>It reads the request and finds the names, numbers and telling details in it.</li>
       <li>It compares the request with your confidential list.</li>
       <li>It picks the route from what it found and from your rules. A missing or unknown setting makes it stricter, never looser.</li>
-      <li>If The Layer cannot finish its check (any error or timeout), the text stays on your machine. If the AI service itself is down, the request is refused, never sent elsewhere.</li>
+      <li>If TDS cannot finish its check (any error or timeout), the text stays on your machine. If the AI service itself is down, the request is refused, never sent elsewhere.</li>
       <li>It writes a record of the decision, with no text in it. Each record carries the fingerprint of the one before.</li>
     </ol>
   </section>
@@ -151,7 +151,7 @@ footer img{width:34px;height:34px}
 <footer class="marine">
   <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
-  <span>The Layer is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
+  <span>TDS is a prototype. Every figure on this page is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
 <script>

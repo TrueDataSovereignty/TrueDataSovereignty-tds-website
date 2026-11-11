@@ -1,4 +1,4 @@
-"""The ground-line logo ("Through the layer", variant E), saved as fixed vector files.
+"""The ground-line logo (variant E), saved as fixed vector files.
 
 Threads gather from above, pass one gold ground line, and spread again below. Marine in, gold out.
 The branches are grown once by a seeded program (the same growth Henrik saw in logo-through.html),

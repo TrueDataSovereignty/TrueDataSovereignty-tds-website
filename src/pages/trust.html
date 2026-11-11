@@ -27,8 +27,8 @@
 <section id="key">
   <h2>Where things live.</h2>
   <h3>The key</h3>
-  <p>The map from placeholders back to real values stays in memory, on the machine that runs The Layer. It is not sent to the model provider, and not written into the log.</p>
-  <p>The Layer does not write your requests or the placeholder map to disk: they live in memory and are gone when it stops. The operating system may still write memory to disk, for example when paging or hibernating. Your confidential list is stored on disk, encrypted.</p>
+  <p>The map from placeholders back to real values stays in memory, on the machine that runs TDS. It is not sent to the model provider, and not written into the log.</p>
+  <p>TDS does not write your requests or the placeholder map to disk: they live in memory and are gone when it stops. The operating system may still write memory to disk, for example when paging or hibernating. Your confidential list is stored on disk, encrypted.</p>
   <h3>The log</h3>
   <p>For each request: time, route, rule, scores, counts per type of data, destination and region, model and provider. Not the text itself.</p>
   <p>Each line holds the fingerprint of the line before. Take one out or change it, and the check shows it. To catch the newest records being cut off, keep a copy of the latest fingerprint somewhere else.</p>

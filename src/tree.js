@@ -207,7 +207,7 @@ function MycelTree(cv, opts) {
     if (!reduced && grownAt !== null) gold = Math.min(1, gold + dt / 210);   // time alone gilds the roots in about three and a half minutes; each ball that passes brings it closer
     gild(dt);
     ctx.clearRect(0, 0, w, h); ctx.drawImage(statN, 0, 0, w, h); if (gold > 0) ctx.drawImage(tmp, 0, 0, w, h);
-    // the ground line: The Layer. It runs the full width of the page.
+    // the ground line. It runs the full width of the page.
     var lw = Math.max(2, 0.34 * U / 0.9), reach = reduced ? 1 : sm(t0 / 1.3);
     ctx.strokeStyle = GOLDC; ctx.lineWidth = lw; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.moveTo(x - (x + 10) * reach, lineY); ctx.lineTo(x + (w - x + 10) * reach, lineY); ctx.stroke();
     // a soft, short ping runs out along the line when something passes

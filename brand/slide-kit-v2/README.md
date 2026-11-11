@@ -19,7 +19,7 @@ For Deck & investors' sales pitch. Nothing here is published. It replaces `web/b
 ## Rules for every slide
 - One idea per slide. Headline at most 12 words.
 - Colours: paper #FAFAF8, midnight marine #101A3D, ivory #F7F3EA, gold #DDB04A. Gold as text on paper is dark gold #8A6212, so it can be read.
-- Gold means the layer: the ground line, the short rule on marine slides, one phrase. Not decoration.
+- Gold means the line: the ground line, the short rule on marine slides, one phrase. Not decoration.
 - The logo is one ink (marine on paper, ivory on marine) with a gold line. Do not recolour it.
 - Numbers only from cleared ledger rows, with n, the 95% range and "measured on synthetic data, round one".
 - Banned words: guarantee, compliant, "never leaves", tamper-proof, "zero plaintext egress", "makes you compliant".

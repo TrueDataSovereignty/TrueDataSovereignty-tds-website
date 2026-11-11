@@ -1,7 +1,7 @@
 # The ground-line logo (draft)
 
 Henrik chose this direction on 12 Nov 2026: "Ground line is my favorite".
-Threads gather from above, pass one gold ground line (The Layer), and spread again below. Marine in, gold out.
+Threads gather from above, pass one gold ground line, and spread again below. Marine in, gold out.
 
 - `make_logo.py` writes the six `.svg` files and `sheet.html`. The growth is seeded, so the drawing is the same on every run.
 - Gold is on the line only (Henrik, 12 Nov). The tree is one ink: marine on light, ivory on marine. One-ink files have the line in the same ink.

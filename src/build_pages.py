@@ -38,7 +38,7 @@ a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold)
 EXTRA += (src / "flow.css").read_text(encoding="utf-8")       # the header that stays, the scroll mark, the reading template
 HEADMARK = (src / "headmark.html").read_text(encoding="utf-8").strip()
 FLOW = (src / "flow.js").read_text(encoding="utf-8")
-NAV = [("how-it-works", "How it works"), ("platform", "The Layer"), ("extension", "Extension"), ("mcp", "MCP"), ("pilot", "Pilot"), ("trust", "Trust")]
+NAV = [("how-it-works", "How it works"), ("platform", "Product"), ("extension", "Extension"), ("mcp", "MCP"), ("pilot", "Pilot"), ("trust", "Trust")]
 
 
 def nav(current):
@@ -73,7 +73,7 @@ def shell(name, title, desc, main, script=""):
   <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <nav class="sitemap" aria-label="All pages">%s</nav>
-  <span>The Layer is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
+  <span>TDS is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
 %s<script>
@@ -110,8 +110,8 @@ def uri(n):
     return "data:image/svg+xml;charset=utf-8," + urllib.parse.quote((root / "logo" / n).read_text(encoding="utf-8"))
 
 
-pages = {"how-it-works": ("How The Layer decides · True Data Sovereignty (draft, not published)",
-                          "How The Layer routes each AI request: mask, generalise, or keep local. With real examples and the limits.", how_main, how_script)}
+pages = {"how-it-works": ("How TDS decides · True Data Sovereignty (draft, not published)",
+                          "How TDS routes each AI request: mask, generalise, or keep local. With real examples and the limits.", how_main, how_script)}
 for p in sorted((src / "pages").glob("*.html")):
     t = p.read_text(encoding="utf-8")
     title, desc = re.search(r"<!--title: (.*?)-->", t).group(1), re.search(r"<!--desc: (.*?)-->", t).group(1)

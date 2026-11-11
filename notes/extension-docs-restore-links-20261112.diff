@@ -1,0 +1,9 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -64,0 +65,2 @@
++If the AI puts a placeholder inside a link or a web address, TDS leaves it as it is and tells you, because the real value in a link could be sent out when the page loads or you click.
++
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -41,0 +42 @@
++If the AI puts a placeholder inside a link or a web address, TDS leaves it as it is and tells you, because the real value in a link could be sent out when the page loads or you click.

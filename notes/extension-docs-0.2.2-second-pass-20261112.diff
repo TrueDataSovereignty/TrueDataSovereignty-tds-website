@@ -1,0 +1,27 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -5 +5 @@
+-Written for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commit a0e6862 (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). If the code changes, this text must be checked again.
++Written for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commits a0e6862 and 209e8ef (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). If the code changes, this text must be checked again.
+@@ -15 +15 @@
+-The TDS extension is a browser extension. On claude.ai, chatgpt.com and gemini.google.com, it finds personal data in the text you type or paste into the chat box, such as e-mail addresses, phone numbers, Swedish personal identity numbers and some names. It also hides a birth date written next to a word such as "born" or "date of birth". Before you send, it replaces that data with placeholders such as `⟦PERSON_1⟧`. When the answer comes back, it can show the real values again on your screen.
++The TDS extension is a browser extension. On claude.ai, chatgpt.com and gemini.google.com, it finds personal data in the text you type or paste into the chat box, such as e-mail addresses, phone numbers, Swedish personal identity numbers and some names. It also hides birth dates written next to words like "född", "born" or "DOB". Before you send, it replaces that data with placeholders such as `⟦PERSON_1⟧`. When the answer comes back, it can show the real values again on your screen.
+@@ -47 +47 @@
+-- The site can see that the TDS extension is on its page, and its state (for example that it masked something), but not what was masked.
++- The site may be able to tell that the TDS extension is on its page. The extension does not mark its state there, and the site cannot see what was masked.
+@@ -110 +110 @@
+-10. **Version 0.2.2 (12 Nov):** Autopilot, on by default. New setting `autopilot`; new managed settings `autopilotDefault` and `autopilotLocked`. Typed text is unmasked for a shorter time than in 0.2.1, not for no time. Still no network calls, and the `storage` permission only. Product UI's tests ran on mock sites with made-up data; the build has not yet been tried on the live sites.
++10. **Version 0.2.2 (12 Nov):** Autopilot, on by default. New setting `autopilot`; new managed settings `autopilotDefault` and `autopilotLocked`. Typed text is unmasked for a shorter time than in 0.2.1, not for no time. Still no network calls, and the `storage` permission only. Product UI's tests ran on mock sites with made-up data; the build has not yet been tried on the live sites. Since commit 209e8ef the extension no longer puts its state marks on the page in normal use (they are for tests only), and the menu's Strict-mode label matches Compliance's wording.
+--- before/store-privacy-answers.md
++++ after/store-privacy-answers.md
+@@ -5 +5 @@
+-Facts are for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commit a0e6862 (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). The 0.2.2 update (Autopilot) is not yet checked by Compliance. Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
++Facts are for version 0.2.2 (name in the browser: "TDS (beta 0.2, test mode)"). The facts are Product UI's lists, checked against the code: 0.2.1 at commit efc08c5 and the changes in 0.2.2 at commits a0e6862 and 209e8ef (`tds-extension-0.2.1-facts-for-privacy-policy.md` and `tds-extension-0.2.2-facts-for-privacy-policy.md`). The 0.2.2 update (Autopilot) is not yet checked by Compliance. Compliance checked the 0.2.1 update (`compliance/reviews/extension-privacy-0.2.1-check-20261111.md`); F2 is applied in section 5.
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -28 +28 @@
+-| Type text yourself | **Autopilot** (on by default) masks what it finds after a short pause, finished words only, and all of it when you leave the box or send. Until then the typed text sits unmasked in the chat box, where the site's page can read it. To mask at once, press the **TDS** pill (bottom right) or **Alt+Shift+M** |
++| Type text yourself | **Autopilot** (on by default) masks what it finds after a short pause, finished words only, and all of it when you leave the box or send. There is no Mask button to press. Until the masking happens, the typed text sits unmasked in the chat box, where the site's page can read it |
+@@ -30 +30 @@
+-| Switch **Autopilot** off in the menu | Typed text is checked only when you press Enter or Send, or Alt+Shift+M |
++| Switch **Autopilot** off in the menu | Typed text is checked only when you press Enter or Send. To mask it sooner, press the **TDS** pill (bottom right) or **Alt+Shift+M** |

@@ -73,7 +73,7 @@ def shell(name, title, desc, main, script=""):
   <div class="l"><img src="logo/tds-tree-small-on-marine.svg" alt="" width="34" height="34"><span>True Data Sovereignty</span></div>
   <span>Data Sovereignty, beyond paper contracts.</span>
   <nav class="sitemap" aria-label="All pages">%s</nav>
-  <span>TDS is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
+  <span>The TDS gateway is a prototype. Every figure on this site is measured on synthetic data, round one.</span>
   <span>Draft for review. Not published. No trackers, no cookies.</span>
 </footer>
 %s<script>

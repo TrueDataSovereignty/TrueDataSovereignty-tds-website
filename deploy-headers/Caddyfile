@@ -1,0 +1,27 @@
+# Caddyfile for route B (a small EU server). Caddy gets the HTTPS certificates itself.
+# Written by src/make_deploy.py. The script hashes change with every build: copy this file again after each build.
+truedatasovereignty.eu, www.truedatasovereignty.eu {
+    @www host www.truedatasovereignty.eu
+    redir @www https://truedatasovereignty.eu{uri} permanent
+    root * /srv/site
+    encode zstd gzip
+    file_server
+    handle_errors {
+        rewrite * /404.html
+        file_server
+    }
+    header {
+        Content-Security-Policy "default-src 'none'; script-src 'sha256-zWrx3YIn3txNtkbBlkiqZlhGK869tJU4XLUDlDuxD/Q=' 'sha256-sk3EniXTdj6c0WaVGpef93iRpeF8TeXe1olKZvLkjlc='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+        Strict-Transport-Security "max-age=31536000"
+        Referrer-Policy "no-referrer"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        Cross-Origin-Opener-Policy "same-origin"
+        -Server
+    }
+}
+
+truedatasovereignty.com, www.truedatasovereignty.com {
+    redir https://truedatasovereignty.eu{uri} permanent
+}

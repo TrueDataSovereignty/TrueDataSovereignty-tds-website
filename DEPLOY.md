@@ -17,7 +17,7 @@ Nothing here is published. Nothing goes live without Henrik's clear yes in chat.
 - `preview*.html` : sendable copies with the font embedded. Large, and only for review.
 - `brand/slide-kit-v2/` : the slide templates for the sales pitch.
 - `shots/` : screenshots and the screenshot tool.
-- `src/`, `README.md`, `DEPLOY.md`, `.git`.
+- `src/`, `README.md`, `DEPLOY.md`, `go-live-runbook.md`, `deploy-headers/`, `.git`.
 
 ## Make the clean copy
 
@@ -30,6 +30,10 @@ python -I src/make_deploy.py
 ```
 
 `make_deploy.py` writes `deploy/` with the eight pages, the logo files they use, and the font. It fixes the font path and stops if a page links to anything that is not a site page. `deploy/` is ignored by git.
+
+It also writes `deploy-headers/` (the security headers and a Caddyfile). With `--launch` it removes the draft marks and stops if the site is not ready.
+
+**How the copy gets onto the domain is in `go-live-runbook.md`**: hosts, DNS, headers, the checklist and rollback.
 
 ## Before going live
 

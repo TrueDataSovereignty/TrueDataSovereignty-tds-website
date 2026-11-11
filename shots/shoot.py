@@ -2,6 +2,13 @@
 Needs the local server on 8741 (python -m http.server 8741 --directory web). Shots go through phone.html,
 a fixed-width frame, because Edge will not open a window narrower than 500 px.
 usage: python shoot.py <page under /site-v3/> <name> [desktop height] [phone height] [scroll y] [desktop|phone|both]"""
+
+# DO NOT RUN, 11 Nov 2026: this tool still leaves headless Edge processes behind (about 30 per run).
+# The kill-on-close job below does not catch them. Until that is solved, take screenshots in the app's browser pane instead.
+import os, sys
+if os.environ.get("TDS_SHOOT_ANYWAY") != "1":
+    sys.exit("shoot.py is switched off: it leaks browser processes. See the note at the top of the file.")
+
 import subprocess, sys, time, pathlib, urllib.parse, tempfile, shutil
 from PIL import Image
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"

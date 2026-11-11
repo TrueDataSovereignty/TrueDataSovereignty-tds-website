@@ -1,0 +1,29 @@
+--- before/store-listing.md
++++ after/store-listing.md
+@@ -3,2 +3,3 @@
+-**Owner:** Brand & web · **Date:** 7 November 2026 · **Status:** draft. Nothing is submitted; there is no developer account yet (gate G6). Publishing, even unlisted, needs Henrik's yes.
+-Claims match beta 0.1 as built (`the-layer-tds-main/extension/README.md`) and are measured on synthetic data, round one.
++**Owner:** Brand & web · **Date:** 12 November 2026 · **Status:** draft. Nothing is submitted; there is no developer account yet (gate G6). Publishing, even unlisted, needs Henrik's yes.
++Claims match version 0.2.2 as built: Product UI's fact notes, checked against the code at commits efc08c5, a0e6862 and 209e8ef (`tds-extension-0.2.1-facts-for-privacy-policy.md`, `tds-extension-0.2.2-facts-for-privacy-policy.md`). The wording follows the privacy policy that Compliance cleared for 0.2.2.
++**Two things block a listing, besides Henrik's yes:** (1) the detection sentence in the long description was measured on the beta 0.1 rules; it must be re-run on 0.2.2 from a committed script, with its sample size and confidence bound, or come out. (2) Autopilot has been tested on mock sites only; it must be tried on the three live sites before this text is submitted.
+@@ -26 +27 @@
+-> The TDS extension masks personal data in the chat box on claude.ai, chatgpt.com and gemini.google.com before you send. The AI gets placeholders such as ⟦PERSON_1⟧ and ⟦EMAIL_1⟧. On claude.ai, the TDS extension can also show the real values again in the answer, on your screen, if you switch restore on. Restore is off by default. On chatgpt.com and gemini.google.com it masks only; it does not restore, for now.
++> The TDS extension masks personal data in the chat box on claude.ai, chatgpt.com and gemini.google.com before you send. The AI gets placeholders such as ⟦PERSON_1⟧ and ⟦EMAIL_1⟧. On claude.ai, the TDS extension can also show the real values again, on your screen, if you switch restore on. Restore is off by default. On chatgpt.com and gemini.google.com it masks only; it does not restore, for now.
+@@ -34 +35,4 @@
+-> • Names in a signature or behind a first.last email address, wherever they appear again
++> • Names in a signature, an email address or a greeting, wherever they appear again
++> • Birth dates written next to words like född, born, DOB
++>
++> **Strict mode** is off by default. With it on, the TDS extension also hides dates with a four-digit year, runs of 6 or more digits, and capitalised words inside a sentence. It does not catch everything, and it gives more false alarms.
+@@ -37 +41 @@
+-> • Names that appear only in running text
++> • Names that appear only in running text are only partly found
+@@ -40 +44 @@
+-> Detection is not perfect. Always read the masked text before you send. On our synthetic test texts, the rules found every labelled ID number, email address and phone number, and about half of the person names (measured on synthetic data, round one).
++> Detection is not perfect. Always read the masked text before you send. **[[Before listing: re-run on 0.2.2, and state the sample size and confidence bound, or remove.]]** On our synthetic test texts, the rules found every labelled ID number, email address and phone number, and about half of the person names (measured on synthetic data, round one).
+@@ -43,0 +48 @@
++> • Text you paste is masked as it lands. With Autopilot on (the default), text you type is masked when you pause after a finished word, when you leave the chat box, and right before your send. Until then, typed text is unmasked in the chat box, where the site's page can read it. You can switch Autopilot off.
+@@ -46 +51,2 @@
+-> • With restore on, the real values go back into the site's page. The site's own scripts can read them on your screen, and could send them back to the site (for example through analytics or error reports). Other browser extensions that can read the page can see them too. The site's stored copy of the chat holds only the placeholders. Restore is off by default, and works on claude.ai only for now.
++> • There are two ways to restore, both off by default, on claude.ai only for now. With "Show real values in TDS's own panel", the real values are shown in a panel that the site's own scripts cannot read. Other browser extensions that can read the page may still be able to read it, and anything on your screen can be seen in screen sharing or a screenshot.
++> • With "Put real values into the page itself", the real values go back into the site's page. The site's own scripts can read them on your screen, and could send them back to the site (for example through analytics or error reports). Other browser extensions that can read the page can see them too. The site's stored copy of the chat holds only the placeholders.

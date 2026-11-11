@@ -1,7 +1,7 @@
 # Go-live runbook: truedatasovereignty.eu (site-v3)
 
 **Owner:** Brand & web · **Date:** 11 November 2026 · **Status:** plan only. No accounts, no DNS changes, nothing published.
-This replaces `web/go-live-runbook.md` of 9 November, which was written for the old two-page site.
+This replaces the go-live runbook of 9 November (now `web/old site/go-live-runbook.md`), which was written for the old two-page site.
 
 Every step marked **🔒 Henrik's yes** leaves this computer (an account, a payment, an upload, a DNS change). It waits for Henrik's clear yes in chat.
 
@@ -38,7 +38,7 @@ python -I src/make_deploy.py --launch
 - Without `--launch` the copy keeps its draft marks. Use that for a private test.
 - With `--launch` the script removes the draft marks (section 7). It stops with **NOT READY** and empties `deploy/` if a placeholder or draft mark is left. Today it stops, as expected: the contact address is missing, and the privacy notice has open placeholders [T].
 - The script also writes `deploy-headers/` (section 2). That folder is server settings. Do not upload it as site files.
-- This replaces `web/dist/` and `deploy/build_and_verify.py`. Those belong to the old site.
+- This replaces `dist/` and `deploy/build_and_verify.py` of the old site (now in `web/old site/`).
 
 ## 1. Choose the route (one decision, Henrik's)
 

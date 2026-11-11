@@ -1,0 +1,159 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -1 +1 @@
+-# TDS Layer privacy policy (draft)
++# TDS extension privacy policy (draft)
+@@ -9 +9 @@
+-## TDS Layer: privacy
++## TDS extension: privacy
+@@ -11 +11 @@
+-**Short version:** TDS Layer works on your computer. Its code makes no network calls, so it sends nothing you type to us or to anyone else. We only get data from you if you choose to e-mail us a bug report.
++**Short version:** The TDS extension works on your computer. Its code makes no network calls, so it sends nothing you type to us or to anyone else. We only get data from you if you choose to e-mail us a bug report.
+@@ -13 +13 @@
+-### What TDS Layer is
++### What the TDS extension is
+@@ -15 +15 @@
+-TDS Layer is a browser extension. On claude.ai, chatgpt.com and gemini.google.com, it finds personal data in the text you type or paste into the chat box, such as e-mail addresses, phone numbers, Swedish personal identity numbers and some names. Before you send, it replaces that data with placeholders such as `⟦PERSON_1⟧`. When the answer comes back, it can show the real values again on your screen.
++The TDS extension is a browser extension. On claude.ai, chatgpt.com and gemini.google.com, it finds personal data in the text you type or paste into the chat box, such as e-mail addresses, phone numbers, Swedish personal identity numbers and some names. Before you send, it replaces that data with placeholders such as `⟦PERSON_1⟧`. When the answer comes back, it can show the real values again on your screen.
+@@ -17 +17 @@
+-TDS Layer is a privacy tool, not a decision system. It protects text before it reaches an AI and makes no decisions about people. It is not affiliated with Anthropic, OpenAI or Google.
++The TDS extension is a privacy tool, not a decision system. It protects text before it reaches an AI and makes no decisions about people. It is not affiliated with Anthropic, OpenAI or Google.
+@@ -24 +24 @@
+-We are the controller only for the bug-report e-mails you choose to send us. What TDS Layer keeps in your browser is never sent to us, so we never see it.
++We are the controller only for the bug-report e-mails you choose to send us. What the TDS extension keeps in your browser is never sent to us, so we never see it.
+@@ -26 +26 @@
+-### What TDS Layer reads, and where it stays
++### What the TDS extension reads, and where it stays
+@@ -30 +30 @@
+-| The text in the chat box, and the answers shown on the page, on the three sites only | Read in the page, in TDS Layer's isolated part of the browser | Only while it checks the text | **No** |
++| The text in the chat box, and the answers shown on the page, on the three sites only | Read in the page, in the TDS extension's isolated part of the browser | Only while it checks the text | **No** |
+@@ -32 +32 @@
+-| Your settings: that you agreed on the welcome page (with the date and time), which sites are switched on, whether restore is on | In the browser's extension storage (`chrome.storage.local`), on this computer | Until you remove TDS Layer | **No** |
++| Your settings: that you agreed on the welcome page (with the date and time), which sites are switched on, whether restore is on | In the browser's extension storage (`chrome.storage.local`), on this computer | Until you remove the TDS extension | **No** |
+@@ -35 +35 @@
+-- **TDS Layer's code makes no network calls.** It loads no code from the internet. All its code and rules are inside the extension package.
++- **The TDS extension's code makes no network calls.** It loads no code from the internet. All its code and rules are inside the extension package.
+@@ -42 +42 @@
+-With restore on, TDS Layer puts the real values back into the answer on your screen, and they become part of the site's web page. **The site's own scripts can read them on your screen, and could send them back to the site** (for example through analytics or error reports). Other browser extensions that can read the page can see them too. The site never received them in your message, and the site's stored copy of the chat holds only the placeholders.
++With restore on, the TDS extension puts the real values back into the answer on your screen, and they become part of the site's web page. **The site's own scripts can read them on your screen, and could send them back to the site** (for example through analytics or error reports). Other browser extensions that can read the page can see them too. The site never received them in your message, and the site's stored copy of the chat holds only the placeholders.
+@@ -44 +44 @@
+-**Restore is off by default, and is available on claude.ai only for now.** On chatgpt.com and gemini.google.com, TDS Layer masks before you send but does not restore the answer. On claude.ai, the answer keeps the placeholders until you switch on "Show real values in the answer" on the welcome page or in the TDS Layer menu. You can switch it off again at any time.
++**Restore is off by default, and is available on claude.ai only for now.** On chatgpt.com and gemini.google.com, the TDS extension masks before you send but does not restore the answer. On claude.ai, the answer keeps the placeholders until you switch on "Show real values in the answer" on the welcome page or in the TDS extension menu. You can switch it off again at any time.
+@@ -48 +48 @@
+-The AI site (Anthropic, OpenAI or Google) receives what you send: your text with the found data replaced by placeholders. **Detection is not perfect.** In this beta, names that appear only in running text are not found. Anything TDS Layer does not find is sent as you wrote it. Always read the masked text before you send. What the AI site does with your messages is covered by that site's own privacy policy, not this one.
++The AI site (Anthropic, OpenAI or Google) receives what you send: your text with the found data replaced by placeholders. **Detection is not perfect.** In this beta, names that appear only in running text are not found. Anything the TDS extension does not find is sent as you wrote it. Always read the masked text before you send. What the AI site does with your messages is covered by that site's own privacy policy, not this one.
+@@ -52 +52 @@
+-- The TDS Layer menu has **"Copy a bug report (no text)"**. It copies technical facts to your clipboard: TDS Layer version, browser and version, the site's name (for example `claude.ai`), TDS Layer's state, your browser language, and how many items of each type were masked in this chat (for example "email: 2"). **It contains no text and no real values.**
++- The TDS extension menu has **"Copy a bug report (no text)"**. It copies technical facts to your clipboard: TDS extension version, browser and version, the site's name (for example `claude.ai`), the TDS extension's state, your browser language, and how many items of each type were masked in this chat (for example "email: 2"). **It contains no text and no real values.**
+@@ -54 +54 @@
+-- Nothing is sent by TDS Layer. You paste the report into an e-mail to **[[beta@truedatasovereignty.eu]]** yourself, and you can read and change it first.
++- Nothing is sent by the TDS extension. You paste the report into an e-mail to **[[beta@truedatasovereignty.eu]]** yourself, and you can read and change it first.
+@@ -70 +70 @@
+-Data that stays in your browser is under your control. Close the browser, use "Clear this chat's values", or remove TDS Layer to delete it.
++Data that stays in your browser is under your control. Close the browser, use "Clear this chat's values", or remove the TDS extension to delete it.
+@@ -74 +74 @@
+-TDS Layer is not meant for children under 16.
++The TDS extension is not meant for children under 16.
+@@ -78 +78 @@
+-If TDS Layer ever needs a network call, for example for a paid feature, we will update this policy and ask for your consent in the extension before the change takes effect.
++If the TDS extension ever needs a network call, for example for a paid feature, we will update this policy and ask for your consent in the extension before the change takes effect.
+--- before/store-listing.md
++++ after/store-listing.md
+@@ -1 +1 @@
+-# TDS Layer: Chrome Web Store listing text (draft)
++# TDS extension: Chrome Web Store listing text (draft)
+@@ -10 +10 @@
+-| **Name** | TDS Layer |
++| **Name** | TDS – private AI prompts **[placeholder until the attorney's answer on Q4; in running text: "the TDS extension"]** |
+@@ -20 +20 @@
+-Note: the manifest name is now "TDS Layer (beta 0.1, test mode)". For the store, Router may want it to say "TDS Layer (beta)". That is Router's file.
++Note: the manifest name is now "TDS (beta 0.2, test mode)". For the store it must match the name above once that is decided. That is Product UI's file.
+@@ -26 +26 @@
+-> TDS Layer masks personal data in the chat box on claude.ai, chatgpt.com and gemini.google.com before you send. The AI gets placeholders such as ⟦PERSON_1⟧ and ⟦EMAIL_1⟧. On claude.ai, TDS Layer can also show the real values again in the answer, on your screen, if you switch restore on. Restore is off by default. On chatgpt.com and gemini.google.com it masks only; it does not restore, for now.
++> The TDS extension masks personal data in the chat box on claude.ai, chatgpt.com and gemini.google.com before you send. The AI gets placeholders such as ⟦PERSON_1⟧ and ⟦EMAIL_1⟧. On claude.ai, the TDS extension can also show the real values again in the answer, on your screen, if you switch restore on. Restore is off by default. On chatgpt.com and gemini.google.com it masks only; it does not restore, for now.
+@@ -28 +28 @@
+-> **Runs on your device.** TDS Layer's code makes no network calls. Nothing you type is sent to us or to anyone else. No account, no tracking, no analytics.
++> **Runs on your device.** The TDS extension's code makes no network calls. Nothing you type is sent to us or to anyone else. No account, no tracking, no analytics.
+@@ -43 +43 @@
+-> • You always press send yourself. TDS Layer never sends, clicks or calls a site for you.
++> • You always press send yourself. The TDS extension never sends, clicks or calls a site for you.
+@@ -45 +45 @@
+-> • Voice input and file uploads are stopped first, because TDS Layer cannot check them.
++> • Voice input and file uploads are stopped first, because the TDS extension cannot check them.
+@@ -50 +50 @@
+-> TDS Layer is a privacy tool, not a decision system. It protects text before it reaches an AI and makes no decisions about people.
++> The TDS extension is a privacy tool, not a decision system. It protects text before it reaches an AI and makes no decisions about people.
+@@ -52 +52 @@
+-> TDS Layer is not affiliated with, endorsed by or sponsored by Anthropic, OpenAI or Google. Claude, ChatGPT and Gemini are trademarks of their owners.
++> The TDS extension is not affiliated with, endorsed by or sponsored by Anthropic, OpenAI or Google. Claude, ChatGPT and Gemini are trademarks of their owners.
+@@ -60 +60 @@
+-| Small promo tile | 440 × 280 | `store-assets/promo-tile-440x280.png` | Mark and "TDS LAYER" on midnight navy, in Lora Bold (self-hosted, `web/fonts/`) |
++| Small promo tile | 440 × 280 | `store-assets/promo-tile-440x280.png` | Mark and "TDS" on midnight navy **[the tile must be redrawn: it still shows the old name]**, in Lora Bold (self-hosted, `web/fonts/`) |
+--- before/store-privacy-answers.md
++++ after/store-privacy-answers.md
+@@ -1 +1 @@
+-# TDS Layer: Chrome Web Store privacy answers (draft)
++# TDS extension: Chrome Web Store privacy answers (draft)
+@@ -9 +9 @@
+-> TDS Layer masks personal data, such as e-mail addresses, phone numbers, ID numbers and some names, in the chat box on AI chat sites before the user sends a message, and, on supported sites (today claude.ai), can show the real values again in the answer on the user's screen. All processing happens on the user's device.
++> The TDS extension masks personal data, such as e-mail addresses, phone numbers, ID numbers and some names, in the chat box on AI chat sites before the user sends a message, and, on supported sites (today claude.ai), can show the real values again in the answer on the user's screen. All processing happens on the user's device.
+@@ -19 +19 @@
+-| Remote code | **No, I am not using remote code.** All JavaScript and rules are in the package. The code has no `fetch`, XHR or WebSocket, so TDS Layer's code makes no network calls. (`connect-src 'none'` covers the extension pages only, not the content scripts.) |
++| Remote code | **No, I am not using remote code.** All JavaScript and rules are in the package. The code has no `fetch`, XHR or WebSocket, so the TDS extension's code makes no network calls. (`connect-src 'none'` covers the extension pages only, not the content scripts.) |
+@@ -33 +33 @@
+-| Health information | **Yes** | The chat box can hold health data, and TDS Layer reads all of it, on the device only (Compliance, 7 Nov) |
++| Health information | **Yes** | The chat box can hold health data, and the TDS extension reads all of it, on the device only (Compliance, 7 Nov) |
+@@ -45 +45 @@
+-- [x] **I do not sell or transfer user data to third parties, outside of the approved use cases.** Nothing is transferred: TDS Layer's code makes no network calls.
++- [x] **I do not sell or transfer user data to third parties, outside of the approved use cases.** Nothing is transferred: the TDS extension's code makes no network calls.
+@@ -51 +51 @@
+-> **Limited Use.** TDS Layer's use of the data it reads follows the Chrome Web Store User Data Policy, including the Limited Use requirements. TDS Layer reads the text in the chat box on claude.ai, chatgpt.com and gemini.google.com to mask personal data before you send. On claude.ai only, and only if you switch restore on, it also reads the answers shown, to show the real values again on your screen. All of it happens on your device. TDS Layer's code makes no network calls, so it never sends this data to us or to anyone else. With restore on, the real values go back into the site's page. The site's own scripts can read them on your screen, and could send them back to the site (for example through analytics or error reports). Other browser extensions that can read the page can see them too. Restore is off by default; you choose whether to switch it on. It is not sold, not used for advertising, not used to decide creditworthiness, and not read by people. The only data we receive is a bug report that you choose to e-mail us yourself.
++> **Limited Use.** The TDS extension's use of the data it reads follows the Chrome Web Store User Data Policy, including the Limited Use requirements. The TDS extension reads the text in the chat box on claude.ai, chatgpt.com and gemini.google.com to mask personal data before you send. On claude.ai only, and only if you switch restore on, it also reads the answers shown, to show the real values again on your screen. All of it happens on your device. The TDS extension's code makes no network calls, so it never sends this data to us or to anyone else. With restore on, the real values go back into the site's page. The site's own scripts can read them on your screen, and could send them back to the site (for example through analytics or error reports). Other browser extensions that can read the page can see them too. Restore is off by default; you choose whether to switch it on. It is not sold, not used for advertising, not used to decide creditworthiness, and not read by people. The only data we receive is a bug report that you choose to e-mail us yourself.
+@@ -59 +59 @@
+-The store listing alone is not enough; consent must be given in the product ([Disclosure requirements](https://developer.chrome.com/docs/webstore/program-policies/disclosure-requirements), from the Compliance check). Beta 0.1 has it: the welcome page opens on install, explains what is read and where it stays, and nothing is read on any site until the user presses "I understand. Turn TDS Layer on". The policy matches that text.
++The store listing alone is not enough; consent must be given in the product ([Disclosure requirements](https://developer.chrome.com/docs/webstore/program-policies/disclosure-requirements), from the Compliance check). Beta 0.1 has it: the welcome page opens on install, explains what is read and where it stays, and nothing is read on any site until the user presses "I understand. Turn TDS on". The policy matches that text.
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -1 +1 @@
+-# TDS Layer beta: tester guide
++# TDS extension beta: tester guide
+@@ -7 +7 @@
+-**Use made-up text, or your own harmless text, only.** Never paste your employer's or clients' data, health details, or real personal data about other people. TDS Layer is a test version: it misses things, and it is not protection you can rely on yet.
++**Use made-up text, or your own harmless text, only.** Never paste your employer's or clients' data, health details, or real personal data about other people. The TDS extension is a test version: it misses things, and it is not protection you can rely on yet.
+@@ -21 +21 @@
+-**Then, either way:** the welcome page opens. Read it, press **I understand. Turn TDS Layer on**, and try the sample. Pin TDS Layer to the toolbar (puzzle-piece icon, then the pin).
++**Then, either way:** the welcome page opens. Read it, press **I understand. Turn TDS on**, and try the sample. Pin the TDS extension to the toolbar (puzzle-piece icon, then the pin).
+@@ -25 +25 @@
+-| You do | TDS Layer does |
++| You do | The TDS extension does |
+@@ -28 +28 @@
+-| Type text yourself | Press the **TDS Layer** pill (bottom right) or **Alt+Shift+M** to mask it |
++| Type text yourself | Press the **TDS** pill (bottom right) or **Alt+Shift+M** to mask it |
+@@ -39 +39 @@
+-1. Click the TDS Layer toolbar button, then **Copy a bug report (no text)**. It copies technical facts only: version, browser, site, state, and counts per type. No text. Other apps can read your clipboard until you copy something else.
++1. Click the TDS extension toolbar button, then **Copy a bug report (no text)**. It copies technical facts only: version, browser, site, state, and counts per type. No text. Other apps can read your clipboard until you copy something else.
+@@ -48 +48 @@
+-Switch a site off in the toolbar menu, or remove TDS Layer at `chrome://extensions`. Removing it deletes its settings. Bug reports you sent are deleted 90 days after the beta ends, at the latest on [[30 June 2027]].
++Switch a site off in the toolbar menu, or remove the TDS extension at `chrome://extensions`. Removing it deletes its settings. Bug reports you sent are deleted 90 days after the beta ends, at the latest on [[30 June 2027]].
+@@ -50 +50 @@
+-*TDS Layer is a privacy tool, not a decision system. It is not affiliated with Anthropic, OpenAI or Google.*
++*The TDS extension is a privacy tool, not a decision system. It is not affiliated with Anthropic, OpenAI or Google.*
+--- before/tester-invite.md
++++ after/tester-invite.md
+@@ -1 +1 @@
+-# TDS Layer beta: tester invite (draft, gate G8)
++# TDS extension beta: tester invite (draft, gate G8)
+@@ -12 +12 @@
+-I'm building a browser extension called **TDS Layer**, and I'd like you to be one of [[20–50]] early testers.
++I'm building a browser extension, the **TDS extension**, and I'd like you to be one of [[20–50]] early testers.
+@@ -36 +36 @@
+-*TDS Layer is not affiliated with Anthropic, OpenAI or Google.*
++*The TDS extension is not affiliated with Anthropic, OpenAI or Google.*
+--- before/legitimate-interest-note.md
++++ after/legitimate-interest-note.md
+@@ -1 +1 @@
+-# TDS Layer beta: legitimate interest balancing note (GDPR Art. 6(1)(f))
++# TDS extension beta: legitimate interest balancing note (GDPR Art. 6(1)(f))
+@@ -6 +6 @@
+-1. **Interest:** finding and fixing bugs in the TDS Layer beta, and replying to testers about it.
++1. **Interest:** finding and fixing bugs in the TDS extension beta, and replying to testers about it.

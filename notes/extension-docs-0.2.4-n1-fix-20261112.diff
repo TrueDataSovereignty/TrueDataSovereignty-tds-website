@@ -1,0 +1,10 @@
+--- before/privacy-policy-tds-layer.md
++++ after/privacy-policy-tds-layer.md
+@@ -34 +34 @@
+-| The content of .txt, .md and .csv files you add on the three sites | In memory, in the TDS extension's part of the browser | Only while it checks the file | **No.** Only the masked copy goes to the site, and only when you send |
++| The content of .txt, .md and .csv files you add on the three sites | In memory, in the TDS extension's part of the browser | Only while it checks the file | **No.** The site gets the masked copy, or the file as it is if TDS found nothing or you chose "Allow once". Many sites upload a file as soon as it is attached, before you press send. |
+--- before/tester-guide.md
++++ after/tester-guide.md
+@@ -32 +32 @@
+-| Add a .txt, .md or .csv file (up to 1 MB) | Reads it on your device, masks what it finds, and attaches a masked copy named "masked-by-TDS.txt" (or .md, .csv) instead of the original. **Check that the file shows before you send**: the site may not take the copy. If the site takes no file from TDS, the masked text goes into the chat box. With Autopilot off, it asks first: "Attach masked copy", "Allow once" or "Cancel" |
++| Add a .txt, .md or .csv file (up to 1 MB) | Reads it on your device, masks what it finds, and attaches a masked copy named "masked-by-TDS.txt" (or .md, .csv) instead of the original. **Check that the file shows before you send**: the site may not take the copy. The site may upload it as soon as it is attached. If the site takes no file from TDS, the masked text goes into the chat box. With Autopilot off, it asks first: "Attach masked copy", "Allow once" or "Cancel" |

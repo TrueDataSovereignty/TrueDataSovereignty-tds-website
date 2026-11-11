@@ -6,6 +6,10 @@
 .weave canvas{display:block;will-change:transform}
 .weave i{position:absolute;left:0;top:0;width:7px;height:7px;border-radius:50%;background:#F8DF9C;box-shadow:0 0 0 1px #B8862B,0 0 10px 2px rgba(221,176,74,.55);opacity:0;will-change:transform,opacity}
 .weave-on .fx{will-change:transform,opacity}
+/* one edge has no thread: a gold ball runs along it, left to right, and the line lights up behind it */
+.weave-line{height:16px;overflow:visible}
+.weave-line b{position:absolute;left:0;right:0;top:7px;height:2px;background:linear-gradient(90deg,rgba(221,176,74,.25),#DDB04A);transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+.weave-line i{top:3px;width:11px;height:11px;box-shadow:0 0 0 1px #B8862B,0 0 14px 4px rgba(221,176,74,.6)}
 /* the line that holds: the section is made taller and its content sticks to the screen while you scroll through it */
 .weave-on .beat{height:165vh;height:165svh;padding-top:0 !important;padding-bottom:0 !important}
 .weave-on .beat-in{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:60px;box-sizing:border-box}

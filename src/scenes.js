@@ -309,7 +309,7 @@ function SceneLive(root, data) {
     } else {
       outT = fill(paneOut, c.parts, 'raw'); fill(paneAns, c.ans_parts, 'ph'); backT = fill(paneBack, c.ans_parts, 'ph');
       $('#lv-ans-note').textContent = 'Example answer, written by us with the placeholders in it. No model was called.';
-      $('#lv-back-note').textContent = 'Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
+      $('#lv-back-note').textContent = 'Putting the real details back is TDS’s own work, on your side.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
     }
     gate.tier(c.tier); gate.build(); step(0);
     later(900, function () { step(1); gate.send('out', Math.max(3, found.length)); });

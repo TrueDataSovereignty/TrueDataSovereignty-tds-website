@@ -1,0 +1,24 @@
+diff --git a/src/index.src.html b/src/index.src.html
+index a559be9..546fc34 100644
+--- a/src/index.src.html
++++ b/src/index.src.html
+@@ -247 +247 @@ footer{padding-bottom:60px}
+-    <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
++    <h2 id="h-gate">A gate on your own machine, for every AI request sent through it.</h2>
+@@ -271 +271 @@ footer{padding-bottom:60px}
+-        <article class="pane p1" id="lv-p1"><h3><b>1</b><span>A request arrives</span></h3><p class="what">TDS finds the names, numbers and telling details in it.</p><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
++        <article class="pane p1" id="lv-p1"><h3><b>1</b><span>A request arrives</span></h3><p class="what">TDS looks for names, numbers and telling details in it.</p><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
+diff --git a/src/pages/platform.html b/src/pages/platform.html
+index 524a969..1d7cfc3 100644
+--- a/src/pages/platform.html
++++ b/src/pages/platform.html
+@@ -6 +6 @@
+-    <h1>One gate for every AI request.</h1>
++    <h1>One gate for every AI request sent through it.</h1>
+diff --git a/src/scenes.js b/src/scenes.js
+index 637eb9a..2af5417 100644
+--- a/src/scenes.js
++++ b/src/scenes.js
+@@ -312 +312 @@ function SceneLive(root, data) {
+-      $('#lv-back-note').textContent = 'Putting the real details back is the router’s own work.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');
++      $('#lv-back-note').textContent = 'Putting the real details back is TDS’s own work, on your side.' + (c.tier === 2 ? ' Blurred details stay blurred.' : '');

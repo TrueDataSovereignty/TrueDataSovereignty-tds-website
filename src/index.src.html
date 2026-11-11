@@ -244,7 +244,7 @@ footer{padding-bottom:60px}
 <div class="wrap">
   <section class="sec" id="gate" aria-labelledby="h-gate" style="padding-bottom:0">
     <p class="lab">TDS</p>
-    <h2 id="h-gate">A gate on your own machine, for every AI request.</h2>
+    <h2 id="h-gate">A gate on your own machine, for every AI request sent through it.</h2>
     <p class="big">It reads each request before any model does. Then it decides what may leave.</p>
     <p><a class="text" href="how-it-works.html">How it decides, step by step</a></p>
   </section>
@@ -268,7 +268,7 @@ footer{padding-bottom:60px}
       <div class="cases" id="lv-cases" role="group" aria-label="Pick a request"></div>
       <div class="sides" aria-hidden="true"><span>Your side</span><span>The line</span><span>Outside: the AI model</span></div>
       <div class="stage">
-        <article class="pane p1" id="lv-p1"><h3><b>1</b><span>A request arrives</span></h3><p class="what">TDS finds the names, numbers and telling details in it.</p><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
+        <article class="pane p1" id="lv-p1"><h3><b>1</b><span>A request arrives</span></h3><p class="what">TDS looks for names, numbers and telling details in it.</p><pre id="lv-in"></pre><p class="note" id="lv-gloss"></p></article>
         <div class="gate" id="lv-gate"><canvas id="lv-cv" aria-hidden="true"></canvas><div class="call" id="lv-p2"><h3><b>2</b><span>TDS decides the route</span></h3><p class="verdict" id="lv-verdict" aria-live="polite"></p></div></div>
         <article class="pane p3" id="lv-p3"><h3><b>3</b><span id="lv-out-h">What the model sees</span></h3><p class="what" id="lv-out-what"></p><pre id="lv-out"></pre></article>
         <article class="pane p4" id="lv-p4"><h3><b>4</b><span id="lv-ans-h">The model answers</span></h3><p class="what" id="lv-ans-what"></p><pre id="lv-ans"></pre><p class="note" id="lv-ans-note"></p></article>

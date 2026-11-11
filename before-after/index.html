@@ -23,14 +23,14 @@ p{margin:0;color:#AEB6CE;font-size:13px}
 <header>
   <b>Before and after</b>
   <span id="pick"></span>
-  <p>Scroll each side yourself. Before = commit 75fae65. After = the pages as they are now.</p>
+  <p>Scroll each side yourself. Before = commit be581d0. On the home page, wait: the tree grows and its roots turn gold over about two minutes. After = the pages as they are now.</p>
 </header>
 <main>
   <figure><figcaption>Before</figcaption><iframe id="a" title="Before"></iframe></figure>
   <figure><figcaption>After</figcaption><iframe id="b" title="After"></iframe></figure>
 </main>
 <script>
-var PAGES = [["Home", "before/preview.html", "../index.html"], ["Trust", "before/preview-trust.html", "../trust.html"], ["Privacy", "before/preview-privacy.html", "../privacy.html"], ["How it works", "before/preview-how-it-works.html", "../how-it-works.html"]];
+var PAGES = [["Home: the tree", "before/preview.html", "../index.html"], ["How it works: route titles", "before/preview-how-it-works.html", "../how-it-works.html#mask"]];
 var pick = document.getElementById('pick');
 function show(i) {
   document.getElementById('a').src = PAGES[i][1]; document.getElementById('b').src = PAGES[i][2];

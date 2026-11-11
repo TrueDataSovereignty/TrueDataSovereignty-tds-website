@@ -169,9 +169,10 @@ footer.marine .l{color:var(--ivory)}
 }
 
 /* Version 4: the ground line. The hero is the logo, alive; the gold line runs the full width and the words sit on both sides of it. */
-.hero{--line:56%;display:block;min-height:max(100svh,700px)}
+.hero{--line:56%;display:block;min-height:max(calc(100svh - 79px),640px);scroll-margin-top:100px}
+@media (min-width:760px) and (max-width:899px){.hero{min-height:max(calc(100svh - 79px),700px)}}   /* narrow windows wrap the text more, so they need the room */
 .hero canvas{z-index:0}
-.hero .top,.hero .above,.hero .below{position:absolute;z-index:2}
+.hero .above,.hero .below{position:absolute;z-index:2}
 .hero .above{left:clamp(22px,9vw,150px);bottom:calc(100% - var(--line) + 34px);max-width:min(40rem,48vw)}
 .hero .below{left:clamp(22px,9vw,150px);top:calc(var(--line) + 34px);max-width:min(32rem,42vw)}
 .hero .above .kicker{color:#8A6212;margin:0 0 20px}
@@ -186,7 +187,7 @@ footer.marine .l{color:var(--ivory)}
 .top img{width:34px;height:34px}
 footer img{background:none}
 @media (max-width:759px){
-  .hero{min-height:0;padding:clamp(286px,46.5vh,392px) 22px 150px}   /* shorter phones get a smaller tree, so the button stays on the first screen */
+  .hero{min-height:0;padding:clamp(223px,calc(46.5vh - 63px),329px) 22px 150px}   /* shorter phones get a smaller tree, so the button stays on the first screen */
   .hero .above,.hero .below,.hero .fig{position:static;max-width:none}
   .hero .above h1{font-size:36px}
   .hero .above{margin-bottom:22px}
@@ -209,16 +210,73 @@ a.text{color:inherit;text-decoration:underline;text-decoration-color:var(--gold)
 .nojs{position:absolute;right:8%;top:16%;width:min(44vw,560px);height:auto;z-index:0}
 footer{padding-bottom:60px}
 @media (max-width:759px){.hero{padding-bottom:70px}.nojs{position:static;width:70%;margin:0 auto 20px;display:block}}
+
+/* ---- flow: the header that stays, the mark that follows the scroll, the lines between sections, the reading template ---- */
+/* Without scripts, and with reduced motion, every variable keeps its default: the whole mark, full lines, everything visible. */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;background:#FAFAF8;color:var(--navytext);
+  padding-top:22px;padding-bottom:22px;transition:padding .35s ease}
+.top.moved{padding-top:12px;padding-bottom:12px}
+.top .home{color:#101A3D}
+.mark{display:block;width:34px;height:34px;flex:none;overflow:visible}
+.mark .ghost{opacity:0}
+.mark .r0,.mark .r1,.mark .r2{stroke-dasharray:1 3}
+.mark .r0{stroke-dashoffset:calc(1.2 - 1.2*var(--q0,1))}
+.mark .r1{stroke-dashoffset:calc(1.2 - 1.2*var(--q1,1))}
+.mark .r2{stroke-dashoffset:calc(1.2 - 1.2*var(--q2,1))}
+.mark .gl{transform-box:fill-box;transform-origin:50% 50%;transform:scaleX(var(--g,1))}
+.flow .mark .ghost{opacity:.16}
+/* a dark band opens with the ground line, drawn across as the band comes into view */
+.marine{position:relative}
+div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold);transform:scaleX(var(--in,1));transform-origin:0 50%}
+/* sections rise into place as they enter */
+.flow .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.flow .rv.in{opacity:1;transform:none}
+@media (max-width:759px){.top,.top.moved{padding-top:14px;padding-bottom:14px}}
+@media (prefers-reduced-motion:reduce){.top{transition:none}.flow .rv{opacity:1;transform:none;transition:none}}
+
+/* ---- the reading template: one column of about 62 characters, and a quiet side column ---- */
+.read-head{padding:clamp(64px,12vh,140px) 0 clamp(36px,6vh,64px);max-width:46rem}
+.read-head .big{font-family:"Lora",Georgia,serif;font-size:clamp(20px,1.8vw,24px);line-height:1.5;max-width:34rem}
+.read-grid{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,40rem);gap:clamp(40px,7vw,110px);padding-bottom:clamp(80px,14vh,160px);border-top:1px solid var(--rule)}
+.read-side{padding-top:44px;font:400 13px/1.6 var(--sans);color:var(--soft)}
+.read-side .in{position:sticky;top:96px}
+.read-side .lab{margin:0 0 14px;font-size:12px}
+.read-side nav{display:grid;gap:2px;margin:0 0 30px}
+.read-side nav a{color:var(--soft);text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid var(--rule)}
+.read-side nav a:hover{color:var(--navytext)}
+.read-side nav a[aria-current]{color:var(--navytext);border-left-color:var(--gold)}
+.read-side p{margin:0 0 10px;max-width:none}
+.read-body{font:400 19px/1.65 "Lora",Georgia,serif;padding-top:8px}
+.read-body section{scroll-margin-top:90px}
+.read-body p,.read-body li{max-width:none}
+.read-body p{margin:0 0 1.15em}
+.read-body h2{font-size:clamp(26px,2.5vw,32px);line-height:1.2;margin:2.4em 0 .75em;max-width:none;letter-spacing:-.012em}
+.read-body section:first-child h2{margin-top:1.4em}
+.read-body h3{font:600 21px/1.3 "Lora",Georgia,serif;margin:1.9em 0 .5em}
+.read-body .lab{margin:0;display:none}
+.read-body ul.limits{margin:1.2em 0 1.4em;max-width:none}
+.read-body ul.limits li{padding:14px 0}
+.read-body .lim,.read-body .note{font:400 14px/1.6 var(--sans) !important;color:var(--soft);border-left:2px solid var(--gold);padding-left:14px;margin:1.3em 0 1.5em;max-width:none}
+.read-body b{font-weight:600}
+.read-body .ph{font-size:13px}
+.read-body .after{margin-top:2.6em}
+@media (max-width:919px){
+  .read-grid{grid-template-columns:1fr;gap:0}
+  .read-side{padding-top:28px}.read-side .in{position:static}
+  .read-side nav{grid-template-columns:1fr 1fr;gap:2px 16px;margin-bottom:18px}
+  .read-body{font-size:18px}
+}
+@media (max-width:759px) and (max-height:660px){.hero{padding-top:220px}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="hero" id="top">
+<header class="top">
+  <a class="home" href="#top"><svg class="mark" viewBox="0 0 100 100" width="34" height="34" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6.6" stroke-linecap="round" stroke-linejoin="round"><path d="M50 36 C48 26 36 26 26 13M37 24 C30 24 24 27 17 24M50 36 C51 26 49 18 52 7M50 36 C52 28 64 28 74 15M63 26 C70 24 78 27 85 22M50 38 V50"/><g class="ghost"><path d="M50 50 V62M50 64 C48 74 34 72 22 83M36 73 C30 80 28 85 30 92M50 64 C49 74 52 83 49 93M50 64 C52 74 66 72 78 81M64 73 C72 79 80 77 89 81"/></g><path class="r0" pathLength="1" d="M50 50 V64"/><path class="r1" pathLength="1" d="M50 64 C48 74 34 72 22 83"/><path class="r1" pathLength="1" d="M50 64 C49 74 52 83 49 93"/><path class="r1" pathLength="1" d="M50 64 C52 74 66 72 78 81"/><path class="r2" pathLength="1" d="M36 73 C30 80 28 85 30 92"/><path class="r2" pathLength="1" d="M64 73 C72 79 80 77 89 81"/></g><path class="gl" d="M5 50 H95" fill="none" stroke="#DDB04A" stroke-width="6.6" stroke-linecap="round"/></svg><span>True Data Sovereignty</span></a>
+  <nav aria-label="Site"><a href="how-it-works.html">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a class="keep" href="#contact">Contact</a></nav>
+</header>
+<div class="hero" id="top">
   <canvas id="tree" role="img" aria-label="A tree drawn in ink. Branches gather above a gold line, roots spread below it, all in one dark ink. Small balls travel down the branches, meet the line, and leave along the roots in gold. Some stay at the line."></canvas>
-  <div class="top">
-    <a class="home" href="#top"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%221000%22%20height%3D%221000%22%20role%3D%22img%22%20aria-label%3D%22True%20Data%20Sovereignty%3A%20threads%20gather%20above%2C%20pass%20one%20ground%20line%2C%20and%20spread%20below%22%3E%3Ctitle%3ETrue%20Data%20Sovereignty%3A%20threads%20gather%20above%2C%20pass%20one%20ground%20line%2C%20and%20spread%20below%3C/title%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%226.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M50%2036%20C48%2026%2036%2026%2026%2013M37%2024%20C30%2024%2024%2027%2017%2024M50%2036%20C51%2026%2049%2018%2052%207M50%2036%20C52%2028%2064%2028%2074%2015M63%2026%20C70%2024%2078%2027%2085%2022M50%2064%20C48%2074%2034%2072%2022%2083M36%2073%20C30%2080%2028%2085%2030%2092M50%2064%20C49%2074%2052%2083%2049%2093M50%2064%20C52%2074%2066%2072%2078%2081M64%2073%20C72%2079%2080%2077%2089%2081M50%2038%20V62%22/%3E%3C/g%3E%3Cpath%20d%3D%22M5%2050%20H95%22%20fill%3D%22none%22%20stroke%3D%22%23DDB04A%22%20stroke-width%3D%226.6%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E%0A" alt="" width="34" height="34"><span>True Data Sovereignty</span></a>
-    <nav aria-label="Site"><a href="how-it-works.html">How it works</a><a href="platform.html">The Layer</a><a href="extension.html">Extension</a><a href="mcp.html">MCP</a><a href="pilot.html">Pilot</a><a href="trust.html">Trust</a><a class="keep" href="#contact">Contact</a></nav>
-  </div>
   <noscript><img class="nojs" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%221000%22%20height%3D%221000%22%20role%3D%22img%22%20aria-label%3D%22True%20Data%20Sovereignty%3A%20threads%20gather%20above%2C%20pass%20one%20ground%20line%2C%20and%20spread%20below%22%3E%3Ctitle%3ETrue%20Data%20Sovereignty%3A%20threads%20gather%20above%2C%20pass%20one%20ground%20line%2C%20and%20spread%20below%3C/title%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M47.6%2060L47.14%2060.46M47.14%2060.46Q46.68%2060.92%2046.09%2061.44M46.09%2061.44Q45.5%2061.97%2044.91%2062.37M44.91%2062.37Q44.33%2062.77%2043.7%2063.14M43.7%2063.14Q43.08%2063.51%2042.39%2063.92M42.39%2063.92Q41.7%2064.32%2041.01%2064.69M41.01%2064.69Q40.31%2065.06%2039.75%2065.47M62.72%2067.86Q63.13%2068.39%2063.57%2069.02M63.57%2069.02Q64.02%2069.66%2064.39%2070.31M64.39%2070.31Q64.75%2070.97%2065.25%2071.51%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.8%22/%3E%3Cpath%20d%3D%22M52.4%2060L52.93%2060.53M52.93%2060.53Q53.46%2061.07%2054.04%2061.42M54.04%2061.42Q54.62%2061.77%2055.31%2062.2M55.31%2062.2Q56%2062.64%2056.77%2063.01M56.77%2063.01Q57.54%2063.38%2058.03%2063.88M58.03%2063.88Q58.52%2064.37%2059.1%2064.88M59.1%2064.88Q59.68%2065.39%2060.36%2065.81%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%223.2%22/%3E%3Cpath%20d%3D%22M50%2060L49.96%2060.72M49.96%2060.72Q49.92%2061.44%2049.98%2062.15M49.98%2062.15Q50.05%2062.86%2050.03%2063.62M50.03%2063.62Q50.02%2064.38%2050.14%2065.17M50.14%2065.17Q50.26%2065.96%2050.08%2066.65M50.08%2066.65Q49.9%2067.34%2049.73%2068.15M49.73%2068.15Q49.56%2068.96%2049.34%2069.79M60.36%2065.81Q61.04%2066.23%2061.68%2066.78M49.34%2069.79Q49.12%2070.63%2049.14%2071.44M61.68%2066.78Q62.32%2067.33%2062.72%2067.86M49.14%2071.44Q49.16%2072.25%2049.1%2072.94M49.1%2072.94Q49.05%2073.63%2048.94%2074.32%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M39.75%2065.47Q39.19%2065.89%2038.69%2066.41M38.69%2066.41Q38.18%2066.92%2037.63%2067.28M37.63%2067.28Q37.08%2067.65%2036.56%2068.05M36.56%2068.05Q36.05%2068.46%2035.44%2068.91M48.94%2074.32Q48.83%2075%2048.75%2075.74M35.44%2068.91Q34.84%2069.36%2034.26%2069.76M48.75%2075.74Q48.67%2076.48%2048.54%2077.29M65.25%2071.51Q65.74%2072.05%2066.05%2072.65M48.54%2077.29Q48.41%2078.1%2048.24%2078.8M66.05%2072.65Q66.35%2073.26%2066.64%2073.87M48.24%2078.8Q48.08%2079.49%2047.92%2080.27M66.64%2073.87Q66.92%2074.48%2067.25%2075.22M47.92%2080.27Q47.77%2081.05%2047.85%2081.75M47.85%2081.75Q47.93%2082.44%2047.94%2083.1%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.6%22/%3E%3Cpath%20d%3D%22M62.72%2067.86Q63.13%2068.39%2063.74%2068.18M63.74%2068.18Q64.36%2067.98%2064.97%2067.77M48.94%2074.32Q48.83%2075%2048.1%2075.06M64.97%2067.77Q65.59%2067.57%2066.26%2067.26M34.26%2069.76Q33.68%2070.16%2032.98%2070.66M48.1%2075.06Q47.36%2075.12%2046.7%2075.21M66.26%2067.26Q66.92%2066.94%2067.67%2066.83M32.98%2070.66Q32.29%2071.15%2031.64%2071.7M67.67%2066.83Q68.42%2066.71%2069.25%2066.76M31.64%2071.7Q31%2072.26%2030.39%2072.61M30.39%2072.61Q29.78%2072.97%2029.19%2073.51M67.25%2075.22Q67.59%2075.97%2067.89%2076.66M29.19%2073.51Q28.6%2074.05%2028.05%2074.49M67.25%2075.22Q67.59%2075.97%2068.27%2076.11M67.89%2076.66Q68.19%2077.36%2068.46%2078.09M28.05%2074.49Q27.5%2074.93%2027%2075.38M68.27%2076.11Q68.94%2076.24%2069.8%2076.3M68.46%2078.09Q68.74%2078.83%2068.82%2079.53M69.8%2076.3Q70.65%2076.36%2071.31%2076.42M48.07%2085.7Q48.16%2086.37%2048.26%2087.11M48.26%2087.11Q48.37%2087.85%2048.29%2088.6M48.29%2088.6Q48.22%2089.35%2047.88%2090.1M47.88%2090.1Q47.53%2090.86%2047.18%2091.42M47.18%2091.42Q46.83%2091.98%2046.29%2092.43%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.2%22/%3E%3Cpath%20d%3D%22M34.26%2069.76Q33.68%2070.16%2032.97%2069.98M46.7%2075.21Q46.03%2075.3%2045.37%2075.47M45.37%2075.47Q44.7%2075.63%2044.15%2075.96M32.97%2069.98Q32.27%2069.79%2031.56%2069.45M69.25%2066.76Q70.07%2066.8%2070.77%2066.86M44.15%2075.96Q43.6%2076.29%2042.96%2076.76M31.56%2069.45Q30.86%2069.11%2030.1%2068.81M70.77%2066.86Q71.46%2066.92%2072.31%2067.01M30.1%2068.81Q29.34%2068.51%2028.65%2068.21M42.96%2076.76Q42.32%2077.23%2041.76%2077.82M72.31%2067.01Q73.15%2067.1%2073.81%2067.45M41.76%2077.82Q41.2%2078.41%2040.55%2078.95M28.65%2068.21Q27.96%2067.92%2027.15%2067.88M73.81%2067.45Q74.47%2067.81%2075.28%2068.11M27%2075.38Q26.5%2075.82%2025.97%2076.25M68.82%2079.53Q68.89%2080.22%2068.96%2081.02M40.55%2078.95Q39.89%2079.49%2039.39%2079.96M75.28%2068.11Q76.08%2068.41%2076.86%2068.71M71.31%2076.42Q71.97%2076.48%2072.71%2076.68M25.97%2076.25Q25.43%2076.67%2024.81%2076.99M68.96%2081.02Q69.03%2081.82%2068.87%2082.63M76.86%2068.71Q77.63%2069%2078.36%2069.22M72.71%2076.68Q73.46%2076.89%2074.26%2076.99M68.87%2082.63Q68.71%2083.45%2068.55%2084.1M74.26%2076.99Q75.05%2077.08%2075.74%2077.25M75.74%2077.25Q76.43%2077.42%2077.11%2077.6%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M66.05%2072.65Q66.35%2073.26%2065.88%2073.84L65.4%2074.42M68.27%2080.62Q67.64%2081.01%2066.95%2081.04M72.71%2076.68Q73.46%2076.89%2073.91%2076.19L74.36%2075.49M66.95%2081.04Q66.26%2081.08%2065.4%2081L64.54%2080.91M27.53%2079.81Q27.73%2080.52%2027.96%2081.13M27.96%2081.13Q28.19%2081.74%2028.95%2082.12L29.72%2082.5M22%2077.74Q21.32%2077.78%2020.89%2077.07L20.46%2076.36M77.11%2077.6Q77.78%2077.77%2077.53%2077.02L77.27%2076.26M70.24%2086.44Q70.99%2086.82%2071.66%2086.9M33.5%2087.42Q33.02%2087.97%2032.35%2088.38M65.91%2089.12Q65.23%2089.38%2064.58%2089.65M77.11%2077.6Q77.78%2077.77%2078.04%2078.57M34.49%2086.21Q33.99%2086.86%2034.29%2087.63L34.59%2088.4M16.37%2069.21Q15.55%2069.28%2014.7%2069.33M78.46%2078.09Q79.13%2078.41%2079.88%2078.81L80.62%2079.21M46.29%2092.43Q45.75%2092.88%2045.36%2093.39L44.96%2093.89M71.66%2086.9Q72.34%2086.98%2073.11%2087.08L73.89%2087.17M32.35%2088.38Q31.69%2088.79%2030.98%2089.21L30.28%2089.64M64.58%2089.65Q63.93%2089.92%2063.26%2090.23L62.6%2090.55M78.04%2078.57Q78.3%2079.37%2078.31%2080.2L78.31%2081.04M14.7%2069.33Q13.85%2069.38%2013.06%2069.7L12.28%2070.01M78.46%2078.09Q79.13%2078.41%2079.67%2077.87L80.21%2077.32M46.29%2092.43Q45.75%2092.88%2044.99%2092.68L44.22%2092.48M81.33%2079.01Q81.98%2079.09%2082.81%2079.16M16.39%2078.71Q15.76%2078.53%2015.01%2078.16M56.89%2089.18Q57.68%2089.16%2058.19%2089.65M87.19%2068.55Q87.83%2068.17%2087.82%2068.86M82.81%2079.16Q83.63%2079.24%2084.25%2079.45L84.87%2079.66M44.91%2095.88Q45.57%2096.4%2046.26%2096.89M15.01%2078.16Q14.26%2077.79%2013.79%2077.26L13.32%2076.73M58.19%2089.65Q58.71%2090.15%2059.1%2090.67L59.49%2091.19M87.19%2068.55Q87.83%2068.17%2087.6%2067.49L87.38%2066.82M46.26%2096.89Q46.95%2097.38%2047.58%2097.52L48.22%2097.67M39.49%2094.1Q38.78%2094.04%2038.02%2094.02M87.82%2068.86Q87.8%2069.56%2088.05%2070.31L88.3%2071.07M39.49%2094.1Q38.78%2094.04%2038.5%2093.36L38.23%2092.68M38.02%2094.02Q37.27%2094%2037.02%2094.61L36.77%2095.22%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.4%22/%3E%3Cpath%20d%3D%22M47.94%2083.1Q47.94%2083.76%2047.96%2084.4M47.96%2084.4Q47.98%2085.04%2048.07%2085.7%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.4%22/%3E%3Cpath%20d%3D%22M27.15%2067.88Q26.34%2067.84%2025.53%2067.77M48.07%2085.7Q48.16%2086.37%2048.74%2086.66M39.39%2079.96Q38.89%2080.43%2038.3%2080.99M25.53%2067.77Q24.72%2067.71%2023.99%2067.78M48.74%2086.66Q49.32%2086.95%2049.98%2087.26M38.3%2080.99Q37.72%2081.55%2037.3%2082.23M23.99%2067.78Q23.27%2067.86%2022.55%2067.99M24.81%2076.99Q24.18%2077.32%2023.43%2077.5M78.36%2069.22Q79.08%2069.43%2079.83%2069.37M37.3%2082.23Q36.89%2082.92%2036.33%2083.56M68.55%2084.1Q68.38%2084.75%2068.12%2085.43M22.55%2067.99Q21.82%2068.13%2021.01%2068.24M49.98%2087.26Q50.64%2087.57%2051.26%2087.77M23.43%2077.5Q22.68%2077.69%2022%2077.74M79.83%2069.37Q80.58%2069.31%2081.29%2069.31M36.33%2083.56Q35.78%2084.19%2035.38%2084.87M51.26%2087.77Q51.89%2087.97%2052.5%2088.24M22%2077.74Q21.32%2077.78%2020.66%2077.74M81.29%2069.31Q82%2069.31%2082.8%2069.24M46.29%2092.43Q45.75%2092.88%2045.09%2093.36M77.11%2077.6Q77.78%2077.77%2078.46%2078.09M82.8%2069.24Q83.61%2069.18%2084.25%2069.18M45.09%2093.36Q44.44%2093.83%2043.81%2094.01M43.81%2094.01Q43.19%2094.19%2042.35%2094.3%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.8%22/%3E%3Cpath%20d%3D%22M27%2075.38Q26.5%2075.82%2026.68%2076.64M68.82%2079.53Q68.89%2080.22%2068.27%2080.62M26.68%2076.64Q26.85%2077.47%2027.09%2078.28M27.09%2078.28Q27.33%2079.1%2027.53%2079.81M68.12%2085.43Q67.86%2086.12%2067.61%2086.93M21.01%2068.24Q20.21%2068.34%2019.45%2068.49M68.55%2084.1Q68.38%2084.75%2068.94%2085.41M35.38%2084.87Q34.99%2085.56%2034.49%2086.21M67.61%2086.93Q67.36%2087.74%2066.97%2088.3M19.45%2068.49Q18.7%2068.63%2017.95%2068.88M52.5%2088.24Q53.11%2088.51%2053.9%2088.63M20.66%2077.74Q19.99%2077.7%2019.18%2077.93M68.94%2085.41Q69.49%2086.06%2070.24%2086.44M34.49%2086.21Q33.99%2086.86%2033.5%2087.42M66.97%2088.3Q66.59%2088.86%2065.91%2089.12M17.95%2068.88Q17.2%2069.13%2016.37%2069.21M78.46%2078.09Q79.13%2078.41%2079.91%2078.67M46.29%2092.43Q45.75%2092.88%2045.16%2093.47M19.18%2077.93Q18.37%2078.17%2017.7%2078.53M53.9%2088.63Q54.7%2088.75%2055.4%2088.98M84.25%2069.18Q84.89%2069.18%2085.72%2069.05M79.91%2078.67Q80.68%2078.93%2081.33%2079.01M17.7%2078.53Q17.02%2078.89%2016.39%2078.71M45.16%2093.47Q44.56%2094.05%2044.41%2094.7M55.4%2088.98Q56.11%2089.2%2056.89%2089.18M85.72%2069.05Q86.56%2068.93%2087.19%2068.55M44.41%2094.7Q44.25%2095.36%2044.91%2095.88M42.35%2094.3Q41.5%2094.4%2040.86%2094.28M40.86%2094.28Q40.21%2094.15%2039.49%2094.1%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.6%22/%3E%3Cpath%20d%3D%22M52.4%2039L52.59%2038.28%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M47.6%2039L47.01%2038.47M50%2039L50.14%2038.31M47.01%2038.47Q46.41%2037.95%2045.75%2037.79M50.14%2038.31Q50.28%2037.61%2050.23%2036.8M45.75%2037.79Q45.09%2037.63%2044.48%2037.36M50.23%2036.8Q50.18%2035.99%2050.26%2035.29M50.26%2035.29Q50.35%2034.59%2050.22%2033.79M44.48%2037.36Q43.86%2037.1%2043.04%2036.89M50.22%2033.79Q50.09%2032.99%2050.04%2032.34M43.04%2036.89Q42.23%2036.69%2041.63%2036.36M41.63%2036.36Q41.04%2036.04%2040.37%2035.83M60.1%2027.3Q60.53%2026.81%2061.2%2026.4M61.2%2026.4Q61.87%2026%2062.51%2025.58M62.51%2025.58Q63.14%2025.16%2063.87%2024.72M63.87%2024.72Q64.6%2024.29%2065.18%2023.92%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.6%22/%3E%3Cpath%20d%3D%22M52.59%2038.28Q52.77%2037.56%2053.06%2036.96M53.06%2036.96Q53.34%2036.36%2053.65%2035.65M53.65%2035.65Q53.96%2034.93%2054.44%2034.3M54.44%2034.3Q54.92%2033.66%2055.4%2032.95M55.4%2032.95Q55.88%2032.24%2056.27%2031.63M56.27%2031.63Q56.66%2031.02%2057.13%2030.51M57.13%2030.51Q57.59%2030.01%2058.12%2029.43M58.12%2029.43Q58.64%2028.85%2059.15%2028.32M59.15%2028.32Q59.66%2027.79%2060.1%2027.3%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.8%22/%3E%3Cpath%20d%3D%22M50.04%2032.34Q49.99%2031.68%2049.99%2030.99M49.99%2030.99Q49.99%2030.31%2049.9%2029.63M40.37%2035.83Q39.69%2035.63%2039.1%2035.19M39.1%2035.19Q38.52%2034.76%2037.92%2034.46M49.9%2029.63Q49.8%2028.95%2049.62%2028.2M37.92%2034.46Q37.32%2034.17%2036.69%2033.74M49.62%2028.2Q49.44%2027.45%2049.3%2026.69M36.69%2033.74Q36.06%2033.32%2035.38%2032.85M49.3%2026.69Q49.16%2025.94%2049.08%2025.12M49.08%2025.12Q48.99%2024.3%2048.86%2023.58M35.38%2032.85Q34.7%2032.39%2034.14%2031.89M48.86%2023.58Q48.73%2022.85%2048.53%2022.06M34.14%2031.89Q33.59%2031.38%2033%2031.05M48.53%2022.06Q48.33%2021.27%2048.31%2020.62M33%2031.05Q32.41%2030.71%2031.79%2030.46M65.18%2023.92Q65.76%2023.55%2066.39%2023.41%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.4%22/%3E%3Cpath%20d%3D%22M49.3%2026.69Q49.16%2025.94%2049.83%2025.43L50.5%2024.93M31.79%2030.46Q31.17%2030.21%2030.62%2030.75M30.62%2030.75Q30.08%2031.3%2029.68%2031.88L29.29%2032.46M58.13%2018.23Q58.5%2017.55%2059.03%2017.08M59.03%2017.08Q59.56%2016.6%2060.26%2016.18L60.95%2015.75M71.74%2022.97Q71.99%2022.3%2072.24%2021.62M64.89%2016.05Q65.03%2015.26%2065.09%2014.43M51.93%2011.45Q52.23%2010.79%2052.23%2010.15M72.24%2021.62Q72.49%2020.94%2073.01%2020.25L73.53%2019.56M22.16%2028.27Q21.5%2028.5%2020.67%2028.73M65.09%2014.43Q65.15%2013.59%2065.23%2012.93L65.31%2012.27M52.23%2010.15Q52.23%209.51%2052.02%208.8L51.81%208.09M20.67%2028.73Q19.85%2028.97%2019.23%2029.39L18.62%2029.81M42.87%209.14Q42.06%209.09%2041.93%208.26L41.81%207.43M76.16%2026.01Q76.62%2026.5%2077.44%2026.37M77.44%2026.37Q78.26%2026.23%2078.87%2025.65L79.47%2025.07M22.66%2015.62Q22.22%2014.88%2022.63%2014.21M23.57%2017.06Q23.1%2016.36%2022.4%2016.32M38.51%209.45Q37.87%209.68%2037.2%2010M22.63%2014.21Q23.05%2013.54%2023.78%2013.17L24.52%2012.79M22.4%2016.32Q21.69%2016.28%2020.93%2016.46L20.17%2016.64M78.27%2029.5Q78.03%2030.14%2077.43%2030.58M37.2%2010Q36.53%2010.32%2035.87%2010.48L35.22%2010.63M81.63%2030.35Q82.46%2030.49%2083.21%2030.56M77.43%2030.58Q76.82%2031.02%2076.15%2031.33L75.47%2031.64M83.21%2030.56Q83.95%2030.62%2084.57%2031.09L85.18%2031.57%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.4%22/%3E%3Cpath%20d%3D%22M60.1%2027.3Q60.53%2026.81%2060.3%2026.2M60.3%2026.2Q60.07%2025.59%2059.61%2024.99M59.61%2024.99Q59.14%2024.39%2058.73%2023.79M58.73%2023.79Q58.31%2023.19%2057.93%2022.48M65.18%2023.92Q65.76%2023.55%2065.79%2022.88M65.79%2022.88Q65.82%2022.2%2065.66%2021.54M48.07%2017.68Q48.02%2016.83%2048.59%2016.25M48.59%2016.25Q49.15%2015.67%2049.57%2015.12M65.66%2021.54Q65.51%2020.88%2065.29%2020.23M27.53%2026.82Q27.15%2026.13%2026.36%2026.3M46.12%2012.21Q45.73%2011.53%2045.31%2010.93M25.58%2022.51Q25.41%2021.75%2025.35%2021.06M45.31%2010.93Q44.89%2010.32%2044.29%209.76M44.29%209.76Q43.69%209.19%2042.87%209.14M25.35%2021.06Q25.28%2020.36%2025%2019.69M25%2019.69Q24.71%2019.03%2024.38%2018.4M77.17%2027.13Q77.73%2027.77%2078.11%2028.31M24.38%2018.4Q24.05%2017.76%2023.57%2017.06%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.8%22/%3E%3Cpath%20d%3D%22M31.79%2030.46Q31.17%2030.21%2030.54%2029.84M48.31%2020.62Q48.29%2019.97%2048.21%2019.26M30.54%2029.84Q29.92%2029.48%2029.4%2029.08M48.21%2019.26Q48.13%2018.54%2048.07%2017.68M66.39%2023.41Q67.02%2023.28%2067.74%2023.34M29.4%2029.08Q28.88%2028.68%2028.39%2028.1M67.74%2023.34Q68.46%2023.41%2069.3%2023.48M28.39%2028.1Q27.9%2027.51%2027.53%2026.82M69.3%2023.48Q70.15%2023.54%2070.82%2023.59M70.82%2023.59Q71.49%2023.63%2072.23%2023.85%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222.2%22/%3E%3Cpath%20d%3D%22M57.93%2022.48Q57.54%2021.77%2057.59%2021.12M57.59%2021.12Q57.63%2020.46%2057.7%2019.69M57.7%2019.69Q57.77%2018.91%2058.13%2018.23M65.29%2020.23Q65.08%2019.59%2064.89%2018.86M49.57%2015.12Q49.99%2014.57%2050.35%2013.89M26.36%2026.3Q25.58%2026.46%2024.84%2026.85M64.89%2018.86Q64.7%2018.14%2064.72%2017.49M50.35%2013.89Q50.72%2013.2%2051.17%2012.65M70.82%2023.59Q71.49%2023.63%2071.74%2022.97M24.84%2026.85Q24.09%2027.23%2023.45%2027.64M64.72%2017.49Q64.74%2016.84%2064.89%2016.05M51.17%2012.65Q51.63%2012.1%2051.93%2011.45M23.45%2027.64Q22.82%2028.04%2022.16%2028.27M42.87%209.14Q42.06%209.09%2041.22%208.97M41.22%208.97Q40.38%208.85%2039.76%209.03M78.11%2028.31Q78.5%2028.85%2079.03%2029.31M23.57%2017.06Q23.1%2016.36%2022.66%2015.62M39.76%209.03Q39.14%209.22%2038.51%209.45M79.03%2029.31Q79.55%2029.77%2080.18%2029.99M78.11%2028.31Q78.5%2028.85%2078.27%2029.5M80.18%2029.99Q80.81%2030.21%2081.63%2030.35%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%221.6%22/%3E%3Cpath%20d%3D%22M48.07%2017.68Q48.02%2016.83%2047.78%2016.24M47.78%2016.24Q47.54%2015.64%2047.2%2014.91M27.53%2026.82Q27.15%2026.13%2026.75%2025.49M47.2%2014.91Q46.86%2014.17%2046.69%2013.53M26.75%2025.49Q26.36%2024.86%2026.05%2024.06M46.69%2013.53Q46.52%2012.9%2046.12%2012.21M72.23%2023.85Q72.96%2024.06%2073.72%2024.34M26.05%2024.06Q25.74%2023.26%2025.58%2022.51M73.72%2024.34Q74.49%2024.61%2075.09%2025.07M75.09%2025.07Q75.7%2025.52%2076.16%2026.01M76.16%2026.01Q76.62%2026.5%2077.17%2027.13%22%20stroke%3D%22%23101A3D%22%20stroke-width%3D%222%22/%3E%3C/g%3E%3Cpath%20d%3D%22M45.07%2037.5Q46.94%2043%2046.6%2049.5Q46.94%2056%2045.07%2061.5L54.93%2061.5Q53.06%2056%2053.4%2049.5Q53.06%2043%2054.93%2037.5Z%22%20fill%3D%22%23101A3D%22/%3E%3Cpath%20d%3D%22M4%2049.5%20H96%22%20fill%3D%22none%22%20stroke%3D%22%23DDB04A%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E%0A" alt=""></noscript>
   <div class="above">
     <p class="kicker">The Layer</p>
@@ -229,7 +287,7 @@ footer{padding-bottom:60px}
     <a class="cta" href="#contact">Become a design partner</a>
     <p class="fig"><b>Fig. 1</b> &nbsp;Every request meets the line. Some pass on unchanged, some pass changed, some stay. Move across the branches.</p>
   </div>
-</header>
+</div>
 
 <main id="main">
 
@@ -553,10 +611,10 @@ function MycelTree(cv, opts) {
   }
   function build() {
     S = Mycel.fit(cv, 2); w = S.w; h = S.h; lastW = w; portrait = w < 760;
-    lineY = portrait ? Math.max(140, (parseFloat(getComputedStyle(cv.parentElement).paddingTop) || 392) - 176) : Math.round(h * (opts.line || 0.56));
+    lineY = portrait ? Math.max(86, (parseFloat(getComputedStyle(cv.parentElement).paddingTop) || 329) - 176) : Math.round(h * (opts.line || 0.56));
     x = portrait ? w * 0.5 : w * 0.72;
     R = portrait ? Math.min(w * 0.42, 170) : Math.min(w * 0.25, 390);
-    U = Math.min(R / 45, (h - lineY - 78) / 49, (lineY - (portrait ? 64 : 84)) / 46); R = 45 * U; RYb = 37 * U; RYt = 34 * U;
+    U = Math.min(R / 45, (h - lineY - 78) / 49, (lineY - (portrait ? 20 : 28)) / 46); R = 45 * U; RYb = 37 * U; RYt = 34 * U;
     topO = { x: x, y: lineY - 10.5 * U }; botO = { x: x, y: lineY + 10.5 * U };
     var up = fan(topO, R * 0.86, RYt, -1, 44, 52), down = fan(botO, R, RYb, 1, 70, 34);
     nets = [
@@ -899,6 +957,59 @@ function SceneLive(root, data) {
     lazy(document.getElementById('ringcv'), function () { SceneRings(document.getElementById('ringcv'), document.getElementById('rec'), document.getElementById('ringbtns'), TDS_DATA.cases); });
   }
   if (document.readyState === 'complete') setTimeout(boot, 0); else window.addEventListener('load', function () { setTimeout(boot, 0); });
+})();
+</script>
+<script>
+/* flow: what follows the reader's scroll. The mark in the header, the gold line that opens each dark band,
+   sections rising into place, and the "On this page" list on reading pages.
+   With reduced motion, or with ?still, it does nothing: the page is whole without it. */
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var top = document.querySelector('.top');
+  // "On this page": mark the section being read. This is not motion, so it runs for everyone.
+  var links = [].slice.call(document.querySelectorAll('.read-side nav a'));
+  var secs = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function here() {
+    var cur = 0;
+    for (var i = 0; i < secs.length; i++) if (secs[i] && secs[i].getBoundingClientRect().top < innerHeight * 0.35) cur = i;
+    links.forEach(function (a, i) { if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+  }
+  if (links.length) { addEventListener('scroll', here, { passive: true }); here(); }
+  if (reduce || /[?&]still/.test(location.search)) return;
+
+  var root = document.documentElement, mark = document.querySelector('.top .mark');
+  var bands = [].slice.call(document.querySelectorAll('div.marine'));
+  root.classList.add('flow');
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(v) { return v * v * (3 - 2 * v); }
+  var rise = [].slice.call(document.querySelectorAll('main section, main .route')).filter(function (s) {
+    // sections rise into place as they enter; reading pages stay still under the eye, and what is already on screen is simply there
+    return !s.closest('.read-body') && !s.querySelector('section') && s.getBoundingClientRect().top > innerHeight * 0.9;
+  });
+  rise.forEach(function (s) { s.classList.add('rv'); });
+  function frame() {
+    var y = window.scrollY || 0, max = root.scrollHeight - innerHeight;
+    var p = max > 40 ? clamp(y / max) : 1;          // a page too short to scroll shows the whole mark
+    if (top) top.classList.toggle('moved', y > 30);
+    if (mark) {
+      var q = clamp((p - 0.04) / 0.9);              // the roots finish a little before the very end
+      mark.style.setProperty('--g', (0.5 + 0.5 * ease(clamp(max > 40 ? y / 260 : 1))).toFixed(3));   // the gold line settles first
+      mark.style.setProperty('--q0', clamp(q / 0.12).toFixed(3));
+      mark.style.setProperty('--q1', ease(clamp((q - 0.08) / 0.62)).toFixed(3));
+      mark.style.setProperty('--q2', ease(clamp((q - 0.5) / 0.5)).toFixed(3));
+    }
+    for (var i = 0; i < bands.length; i++) {
+      var t = bands[i].getBoundingClientRect().top;
+      bands[i].style.setProperty('--in', ease(clamp((innerHeight - t) / (innerHeight * 0.6))).toFixed(3));
+    }
+    for (var k = rise.length - 1; k >= 0; k--) {
+      if (rise[k].getBoundingClientRect().top < innerHeight * 0.9) { rise[k].classList.add('in'); rise.splice(k, 1); }
+    }
+  }
+  // Scroll events already arrive once per frame, so the work is done right here: a few numbers and a handful of style writes.
+  addEventListener('scroll', frame, { passive: true });
+  addEventListener('resize', frame);
+  frame();
 })();
 </script>
 </body>

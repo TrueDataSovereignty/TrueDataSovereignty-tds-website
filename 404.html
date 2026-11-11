@@ -64,6 +64,9 @@ p{margin:0 0 18px;max-width:38rem}
 /* the three routes: a figure and its text, with the gold line running through all three figures */
 .route{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,6vw,96px);align-items:center;padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--rule)}
 .route canvas{display:block;width:100%;height:300px}
+/* the route name sits centred over its figure, with the caption centred under it: name, picture, caption on one axis, like a plate in a book */
+.figside .lab{margin:0 0 16px;color:var(--navytext);font-weight:600}
+.figside.mid .lab,.figside.mid .fig{text-align:center}
 .fig{font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft);margin:8px 0 0}
 .fig b{font:600 11px/1 var(--sans);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--navytext)}
 .pairs{margin:22px 0 18px;border-top:1px solid var(--rule);max-width:34rem}

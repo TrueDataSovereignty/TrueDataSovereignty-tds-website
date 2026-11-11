@@ -64,6 +64,9 @@ p{margin:0 0 18px;max-width:38rem}
 /* the three routes: a figure and its text, with the gold line running through all three figures */
 .route{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,6vw,96px);align-items:center;padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--rule)}
 .route canvas{display:block;width:100%;height:300px}
+/* the route name sits centred over its figure, with the caption centred under it: name, picture, caption on one axis, like a plate in a book */
+.figside .lab{margin:0 0 16px;color:var(--navytext);font-weight:600}
+.figside.mid .lab,.figside.mid .fig{text-align:center}
 .fig{font:italic 400 14px/1.5 "Lora",Georgia,serif;color:var(--soft);margin:8px 0 0}
 .fig b{font:600 11px/1 var(--sans);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--navytext)}
 .pairs{margin:22px 0 18px;border-top:1px solid var(--rule);max-width:34rem}
@@ -177,9 +180,8 @@ div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;b
   </section>
 
   <section class="route" id="mask" aria-labelledby="h-mask">
-    <div><canvas data-tier="1" role="img" aria-label="A thread reaches the gold line. A ball passes through it and continues below in gold."></canvas><p class="fig"><b>Fig. 1</b> &nbsp;The request passes the line. Its names do not.</p></div>
+    <div class="figside mid"><p class="lab">Route one · Mask</p><canvas data-tier="1" role="img" aria-label="A thread reaches the gold line. A ball passes through it and continues below in gold."></canvas><p class="fig"><b>Fig. 1</b> &nbsp;The request passes the line. Its names do not.</p></div>
     <div>
-      <p class="lab">Route one · Mask</p>
       <h2 id="h-mask">Names leave as placeholders.</h2>
       <p>The names and numbers it finds are replaced before the request goes to a frontier model. When the answer comes back, the real details are put back, on your side.</p>
       <div class="pairs" aria-label="What was replaced in our example">
@@ -193,9 +195,8 @@ div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;b
   </section>
 
   <section class="route" id="generalise" aria-labelledby="h-gen">
-    <div><canvas data-tier="2" role="img" aria-label="A thread reaches the gold line. Below the line it passes through fog, and the ball turns soft and blurred."></canvas><p class="fig"><b>Fig. 2</b> &nbsp;Below the line, the detail softens, like light through fog.</p></div>
+    <div class="figside mid"><p class="lab">Route two · Generalise</p><canvas data-tier="2" role="img" aria-label="A thread reaches the gold line. Below the line it passes through fog, and the ball turns soft and blurred."></canvas><p class="fig"><b>Fig. 2</b> &nbsp;Below the line, the detail softens, like light through fog.</p></div>
     <div>
-      <p class="lab">Route two · Generalise</p>
       <h2 id="h-gen">Telling details leave blurred.</h2>
       <p>Some details point to one person or one company even without a name: a small town, an exact date, a head count. These are widened before the request leaves, and names are masked as on route one.</p>
       <div class="pairs" aria-label="What was widened in our example">
@@ -208,9 +209,8 @@ div.marine:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;b
   </section>
 
   <section class="route" id="local" aria-labelledby="h-local">
-    <div><canvas data-tier="3" role="img" aria-label="A thread reaches the gold line, curls back on itself and seals in a small ring. Nothing continues below the line."></canvas><p class="fig"><b>Fig. 3</b> &nbsp;The thread curls back and seals. Nothing crosses.</p></div>
+    <div class="figside mid"><p class="lab">Route three · Keep local</p><canvas data-tier="3" role="img" aria-label="A thread reaches the gold line, curls back on itself and seals in a small ring. Nothing continues below the line."></canvas><p class="fig"><b>Fig. 3</b> &nbsp;The thread curls back and seals. Nothing crosses.</p></div>
     <div>
-      <p class="lab">Route three · Keep local</p>
       <h2 id="h-local">Some work goes no further.</h2>
       <p>The most sensitive work goes to a local model on your own machine or your own server. Nothing is sent to a model provider.</p>
       <p>In our example, a note about a confidential deal was too close to the company's confidential list. The Layer kept it.</p>
